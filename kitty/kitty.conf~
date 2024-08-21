@@ -1,0 +1,27 @@
+# General Settings
+# ----------------
+cursor_shape              beam
+cursor_beam_thickness     1.5    # Thickness of the beam cursor
+cursor_blink_interval     1      # Interval for cursor blinking (in seconds)
+enable_audio_bell         0      # Disable audio bell
+hide_window_decorations   yes    # Hide window decorations
+window_padding_width      5      # Padding around the window
+
+# Theme Configuration
+# -------------------
+# BEGIN_KITTY_THEME
+# One Dark Theme
+include current-theme.conf
+# END_KITTY_THEME
+
+# Fonts Configuration
+# -------------------
+# BEGIN_KITTY_FONTS
+font_family         family="JetBrains Mono"
+font_size           12
+bold_font           auto
+italic_font         auto
+bold_italic_font    auto
+adjust_line_height  125%
+# END_KITTY_FONTS
+
