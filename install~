@@ -13,7 +13,7 @@ ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 mkdir -p $HOME/.local/bin
 
 rm -rf $HOME/.local/bin/tmux-switcher
-ln -s $DOTFILES/scripts/tmux-switcher $HOME/.local/bin/tmux-switcher
+ln -s $DOTFILES/scripts/t $HOME/.local/bin/tmux-switcher
 
 
 rm -rf $HOME/.config/nvim

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# If an argument is provided, use it as the selected directory.
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    # Search for directories within the home folder up to a depth of 3, excluding dotfiles.
+    items=$(find ~/ -maxdepth 3 -mindepth 1 -type d ! -path '*/.*')
+
+    # Add /tmp as an additional option in the selection list.
+    items+=`echo -e "\n/tmp"`
+
+    # Use fzf (fuzzy finder) to allow interactive selection from the list of directories.
+    selected=$(echo "$items" | fzf)
+fi
+
+# Extract the directory name from the path and replace dots with underscores.
+dirname=$(basename "$selected" | sed 's/\./_/g')
+
+# Try to switch to an existing tmux session with the exact name derived from the directory.
+tmux switch-client -t =$dirname
+if [[ $? -eq 0 ]]; then
+    # If the session exists and switching is successful, exit the script.
+    exit 0
+fi
+
+# If the session doesn't exist, create a new one in detached mode with the selected directory as the working directory.
+# After creating the session, switch to it. If creating fails, fall back to creating or attaching to the session.
+tmux new-session -c "$selected" -d -s "$dirname" && tmux switch-client -t "$dirname" || tmux new -c "$selected" -A -s "$dirname"
+
