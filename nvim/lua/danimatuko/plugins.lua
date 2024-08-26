@@ -235,15 +235,33 @@ use({
   end,
 })
 
--- Language Server Protocol.
 use({
   'neovim/nvim-lspconfig',
   requires = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
+    'b0o/schemastore.nvim',
   },
   config = function()
-    require('danimatuko/plugins/lspconfig')
+    require('danimatuko.plugins.lspconfig')
+  end,
+  event = { "BufReadPre", "BufNewFile" },  -- Lazy load LSP when a buffer is read or created
+})
+
+-- Completion
+use({
+  'hrsh7th/nvim-cmp',
+  requires = {
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+    'onsails/lspkind-nvim',
+  },
+  config = function()
+    require('danimatuko/plugins/cmp')
   end,
 })
 
