@@ -175,13 +175,13 @@ return {
 				intelephense = {
 					settings = {
 						intelephense = {
-							stubs = {
-								"wordpress",
-								"woocommerce", -- Optional: WooCommerce support
-								"acf", -- Optional: Advanced Custom Fields support
-								"wordpress-globals",
-								"wp-cli",
-							},
+							-- stubs = {
+							-- 	"wordpress",
+							-- 	"woocommerce", -- Optional: WooCommerce support
+							-- 	"acf", -- Optional: Advanced Custom Fields support
+							-- 	"wordpress-globals",
+							-- 	"wp-cli",
+							-- },
 						},
 					},
 				},
