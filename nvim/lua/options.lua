@@ -22,7 +22,6 @@ vim.opt.showmode = false
 vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
-
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -47,11 +46,18 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+-- Configure tabs and indentation: use 4 spaces per tab, replace tabs with spaces, and enable smart indentation
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.smartindent = true
+
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
