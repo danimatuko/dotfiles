@@ -69,3 +69,6 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Refactor: Contextual action (this shows a menu of refactoring options available)
+vim.api.nvim_set_keymap("n", "<leader>rc", ":PhpactorContextMenu<CR>", { noremap = true, silent = true })
