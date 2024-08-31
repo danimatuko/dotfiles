@@ -52,16 +52,71 @@ return {
 
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
+
+			-- Grab telescope actions for customizations
+			local actions = require("telescope.actions")
+
+			-- Function to retrieve color values from a highlight group
+			local function get_color(group, attr)
+				local hl = vim.api.nvim_get_hl(0, { name = group })
+				if hl and hl[attr] then
+					return string.format("#%06x", hl[attr])
+				end
+			end
+
+			-- Get colors from the Search highlight group
+			local search_fg = get_color("Search", "foreground") -- Foreground color from Search
+			local search_bg = get_color("Search", "background") -- Background color from Search
+
+			-- Apply highlight settings to Telescope components
+
+			-- Set the normal text and background color for the Telescope prompt
+			vim.api.nvim_set_hl(0, "TelescopePromptNormal", {
+				fg = search_fg, -- Use foreground color from Search
+				bg = search_bg, -- Use background color from Search
+			})
+
+			-- Set the border color for the Telescope prompt
+			vim.api.nvim_set_hl(0, "TelescopePromptBorder", {
+				fg = search_fg, -- Use foreground color from Search
+				bg = search_bg, -- Use background color from Search
+			})
+
+			-- Set the normal text and background color for Telescope results
+			vim.api.nvim_set_hl(0, "TelescopeNormal", {
+				fg = get_color("CursorLine", "foreground"), -- Foreground color from CursorLine
+				bg = get_color("CursorLine", "background"), -- Background color from CursorLine
+			})
+
+			-- Set the border color for Telescope results and other components
+			vim.api.nvim_set_hl(0, "TelescopeBorder", {
+				fg = get_color("CursorLineBg", "foreground"), -- Foreground color from CursorLineBg
+				bg = get_color("CursorLineBg", "background"), -- Background color from CursorLineBg
+			})
+
 			require("telescope").setup({
 				-- You can put your default mappings / updates / etc. in here
 				--  All the info you're looking for is in `:help telescope.setup()`
-				--
-				-- defaults = {
-				--   mappings = {
-				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-				--   },
-				-- },
+				defaults = {
+					path_display = { truncate = 1 },
+					prompt_prefix = "   ",
+					selection_caret = "  ",
+					layout_config = {
+						prompt_position = "top",
+					},
+					sorting_strategy = "ascending",
+					mappings = {
+						i = {
+							["<esc>"] = actions.close,
+							["<C-Down>"] = actions.cycle_history_next,
+							["<C-Up>"] = actions.cycle_history_prev,
+						},
+					},
+					file_ignore_patterns = { ".git/" },
+				},
+
 				-- pickers = {}
+
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
