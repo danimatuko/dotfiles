@@ -22,14 +22,14 @@ return {
 		vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
 
 		-- Custom 'K' keymap for peeking and fallback
-		vim.keymap.set("n", "K", function()
-			if not require("ufo").peekFoldedLinesUnderCursor() then
-				if vim.lsp.buf.server_ready() then
-					vim.lsp.buf.hover()
-				else
-					print("Indentation level: " .. vim.fn.indent(vim.fn.line(".")))
-				end
-			end
-		end, { desc = "Peek fold or show LSP hover or indentation" })
+		-- vim.keymap.set("n", "K", function()
+		-- 	if not require("ufo").peekFoldedLinesUnderCursor() then
+		-- 		if vim.lsp.buf.server_ready() then
+		-- 			vim.lsp.buf.hover()
+		-- 		else
+		-- 			print("Indentation level: " .. vim.fn.indent(vim.fn.line(".")))
+		-- 		end
+		-- 	end
+		-- end, { desc = "Peek fold or show LSP hover or indentation" })
 	end,
 }

@@ -173,10 +173,55 @@ return {
 				intelephense = {
 					settings = {
 						intelephense = {
-							-- Customize settings for intelephense if needed
-							format = {
-								-- Options for PHP formatting
-								enable = true,
+							stubs = {
+								"apache",
+								"bcmath",
+								"bz2",
+								"calendar",
+								"Core",
+								"curl",
+								"date",
+								"dom",
+								"filter",
+								"ftp",
+								"gd",
+								"gettext",
+								"hash",
+								"iconv",
+								"imap",
+								"intl",
+								"json",
+								"ldap",
+								"libxml",
+								"mbstring",
+								"mcrypt",
+								"mysql",
+								"mysqli",
+								"password",
+								"pcntl",
+								"pcre",
+								"PDO",
+								"pdo_mysql",
+								"Phar",
+								"posix",
+								"readline",
+								"regex",
+								"session",
+								"SimpleXML",
+								"sockets",
+								"sodium",
+								"standard",
+								"tokenizer",
+								"xml",
+								"xdebug",
+								"xmlreader",
+								"xmlwriter",
+								"yaml",
+								"zip",
+								"zlib",
+							},
+							files = {
+								maxSize = 5000000,
 							},
 						},
 					},
@@ -202,6 +247,7 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"php-cs-fixer", -- PHP formatter
+				"intelephense", -- PHP language server
 				"stylua", -- Used to format Lua code
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
