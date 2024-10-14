@@ -71,3 +71,5 @@ vim.opt.scrolloff = 8
 
 -- Refactor: Contextual action (this shows a menu of refactoring options available)
 vim.api.nvim_set_keymap("n", "<leader>rc", ":PhpactorContextMenu<CR>", { noremap = true, silent = true })
+-- use forward slash to comment php single line
+vim.api.nvim_command("autocmd FileType php setlocal commentstring=//%s")
