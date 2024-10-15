@@ -1,4 +1,4 @@
--- LSP Pluginslsp
+-- LSP Plugins
 return {
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -198,7 +198,7 @@ return {
 						},
 					},
 				},
-
+				jsonls = {},
 				-- Add intelephense for PHP LSP support
 				intelephense = {
 					root_dir = function(fname)
@@ -306,6 +306,7 @@ return {
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"intelephense", -- Add PHP LSP to the list of tools to ensure installed
+				"jsonls",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
