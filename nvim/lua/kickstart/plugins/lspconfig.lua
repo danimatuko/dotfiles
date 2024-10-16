@@ -198,6 +198,7 @@ return {
 						},
 					},
 				},
+				cssls = {},
 				jsonls = {},
 				-- Add intelephense for PHP LSP support
 				intelephense = {
@@ -307,6 +308,7 @@ return {
 				"stylua", -- Used to format Lua code
 				"intelephense", -- Add PHP LSP to the list of tools to ensure installed
 				"jsonls",
+				"cssls",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
