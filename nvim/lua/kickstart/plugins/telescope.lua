@@ -74,6 +74,10 @@ return {
 			for hl, col in pairs(TelescopeColor) do
 				vim.api.nvim_set_hl(0, hl, col)
 			end
+
+			-- Grab Telescope actions
+			local actions = require("telescope.actions")
+
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
 			require("telescope").setup({
@@ -82,7 +86,13 @@ return {
 				--
 				defaults = {
 					mappings = {
-						i = { ["<c-enter>"] = "to_fuzzy_refine" },
+						-- i = { ["<c-enter>"] = "to_fuzzy_refine" },
+						i = {
+							["<esc>"] = actions.close, -- Close Telescope on a single ESC press in insert mode
+						},
+						n = {
+							["<esc>"] = actions.close, -- Close Telescope on a single ESC press in normal mode
+						},
 					},
 					prompt_prefix = " ", -- Search icon for prompt
 					layout_config = {
