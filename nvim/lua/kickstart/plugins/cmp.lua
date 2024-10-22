@@ -1,92 +1,86 @@
 return {
 	{ -- Autocompletion plugin setup
-		"hrsh7th/nvim-cmp", -- Main autocompletion plugin
-		event = "InsertEnter", -- Load the plugin when entering Insert mode
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter", -- Load nvim-cmp when entering insert mode
 		dependencies = {
-			{
-				"L3MON4D3/LuaSnip", -- Snippet engine for LuaSnip
-				{
-					-- Load custom snippets from the specified Lua file path
-					require("luasnip.loaders.from_lua").load({
-						paths = { os.getenv("HOME") .. "/.config/nvim/lua/custom/snippets" },
-					}),
-				},
+			{ -- Snippet Engine and its dependencies
+				"L3MON4D3/LuaSnip",
 				build = (function()
-					-- Build step for enabling regex support in snippets
-					-- Not supported in many Windows environments
+					-- Build step for regex support in snippets.
+					-- Disabled on Windows or if 'make' is not available.
 					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 						return
 					end
-					return "make install_jsregexp" -- Run build command
+					return "make install_jsregexp"
 				end)(),
 				dependencies = {
-					{
-						"rafamadriz/friendly-snippets", -- Repository with premade snippets
+					{ -- Pre-made snippets collection
+						"rafamadriz/friendly-snippets",
 						config = function()
-							-- Load snippets from the friendly-snippets repository
+							-- Load VSCode-style snippets from `friendly-snippets`
 							require("luasnip.loaders.from_vscode").lazy_load()
 						end,
 					},
 				},
 			},
-			"saadparwaiz1/cmp_luasnip", -- Source for snippet completions
-
-			-- Other completion sources for different contexts
-			"hrsh7th/cmp-nvim-lsp", -- LSP completions
-			"hrsh7th/cmp-path", -- Path completions
-			"hrsh7th/cmp-nvim-lsp-signature-help", -- LSP signature help
-			"hrsh7th/cmp-buffer", -- Buffer completions
-			"onsails/lspkind-nvim", -- Icons for LSP completions
+			"saadparwaiz1/cmp_luasnip", -- Source for LuaSnip completion
+			"hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
+			"hrsh7th/cmp-path", -- Path completion source
 		},
 		config = function()
-			local cmp = require("cmp") -- Load the nvim-cmp module
-			local luasnip = require("luasnip") -- Load the LuaSnip module
-			luasnip.config.setup({}) -- Configure LuaSnip (default settings)
+			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+			luasnip.config.setup({}) -- Setup LuaSnip configuration
+
+			-- Load custom snippets from the specified directory
+			require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/lua/custom/snippets" } })
 
 			cmp.setup({
 				snippet = {
 					-- Function to expand snippets
 					expand = function(args)
-						luasnip.lsp_expand(args.body) -- Use LuaSnip to expand the snippet
+						luasnip.lsp_expand(args.body)
 					end,
 				},
 				completion = { completeopt = "menu,menuone,noinsert" }, -- Completion options
-
-				mapping = {
-					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection with Enter
-					["<Tab>"] = cmp.mapping(function(fallback)
-						-- Expand snippet or select next item
-						if luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump() -- Expand or jump in snippet
-						elseif cmp.visible() then
-							cmp.select_next_item() -- Select the next completion item
-						else
-							fallback() -- Default Tab behavior (insert a tab)
-						end
-					end, { "i", "s" }), -- Applies to insert and select modes
-
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						-- Jump backward in snippets or select previous item
-						if luasnip.jumpable(-1) then
-							luasnip.jump(-1) -- Jump to previous snippet node
-						else
-							cmp.select_prev_item() -- Select the previous completion item
-						end
-					end, { "i", "s" }), -- Applies to insert and select modes
-
+				mapping = cmp.mapping.preset.insert({
+					["<C-n>"] = cmp.mapping.select_next_item(), -- Next completion item
+					["<C-p>"] = cmp.mapping.select_prev_item(), -- Previous completion item
 					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation up
 					["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation down
-					["<C-Space>"] = cmp.mapping.complete({}), -- Trigger completion manually
-				},
+					["<C-y>"] = cmp.mapping.confirm({ select = true }), -- Accept completion
+					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm on Enter
+					["<C-Space>"] = cmp.mapping.complete({}), -- Manually trigger completion
+
+					-- Tab to select next item or expand/jump in snippets
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					-- Shift-Tab to select previous item or jump backwards in snippets
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+				}),
+				-- Completion sources
 				sources = {
-					{ name = "luasnip" }, -- Snippet completions
 					{ name = "nvim_lsp" }, -- LSP completions
-					{ name = "buffer" }, -- Buffer completions
-					{ name = "path" }, -- Path completions
-					{ name = "nvim_lsp_signature_help" }, -- LSP signature help completions
+					{ name = "luasnip" }, -- Snippet completions
+					{ name = "path" }, -- File path completions
 				},
 			})
 		end,
 	},
 }
--- vim: ts=2 sts=2 sw=2 et -- Formatting settings for Vim
