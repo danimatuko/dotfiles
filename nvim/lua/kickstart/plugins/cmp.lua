@@ -79,6 +79,8 @@ return {
 					{ name = "nvim_lsp" }, -- LSP completions
 					{ name = "luasnip" }, -- Snippet completions
 					{ name = "path" }, -- File path completions
+					{ name = "buffer" },
+					{ name = "spell" },
 				},
 			})
 		end,

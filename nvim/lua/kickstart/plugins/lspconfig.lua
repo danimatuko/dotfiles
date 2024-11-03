@@ -198,7 +198,10 @@ return {
 						},
 					},
 				},
+				ts_ls = {},
+				emmet_ls = {},
 				cssls = {},
+				tailwindcss = {},
 				jsonls = {},
 				-- Add intelephense for PHP LSP support
 				intelephense = {
@@ -309,6 +312,8 @@ return {
 				"intelephense", -- Add PHP LSP to the list of tools to ensure installed
 				"jsonls",
 				"cssls",
+				"ts_ls",
+				"emmet_ls",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
