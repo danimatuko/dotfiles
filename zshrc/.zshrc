@@ -29,24 +29,23 @@ source $ZSH/oh-my-zsh.sh
 # --------------------------------------
 # Plugin Management with Zinit
 # --------------------------------------
-# zinit light zdharma-continuum/fast-syntax-highlighting # Uncomment for syntax highlighting
+# zinit light zdharma-continuum/fast-syntax-highlighting  # Uncomment for syntax highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
-zinit light lsd-rs/lsd                 # might need to install manually
-zinit light romkatv/powerlevel10k 
+zinit light lsd-rs/lsd                         # might need to install manually
+zinit light romkatv/powerlevel10k
 
 # --------------------------------------
 # Aliases
 # --------------------------------------
-alias vim='nvim'
-
-# Aliases for lsd
-alias ls='lsd'                         # Use lsd for basic ls
-alias ll='lsd -l'                      # Long list format
-alias la='lsd -a'                      # Include hidden files
-alias lla='lsd -la'                    # Long list with hidden files
-alias lt='lsd --tree'                  # Display directory tree
-alias lsd='lsd --group-dirs=first'     # Show directories first
+alias vim='nvim'                               # Use neovim instead of vim
+alias ls='lsd'                                 # Use lsd for basic ls
+alias ll='lsd -l'                              # Long list format
+alias la='lsd -a'                              # Include hidden files
+alias lla='lsd -la'                            # Long list with hidden files
+alias lt='lsd --tree'                          # Display directory tree
+alias lsd='lsd --group-dirs=first'             # Show directories first
+alias cat="bat --style=numbers --color=always" # Use bat instead of cat with syntax highlighting
 
 # --------------------------------------
 # Environment Setup

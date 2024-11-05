@@ -9,4 +9,5 @@ brew "neovim"     # A modern, enhanced fork of Vim for efficient text editing
 brew "stow"       # Symlink manager for managing dotfiles and directories across projects
 brew "tmux"       # Terminal multiplexer for managing multiple terminal sessions in one window
 brew "zoxide"     # Fast, smarter `cd` command for quickly navigating the file system
-
+brew "bat"        # Enhanced `cat` command with syntax highlighting, line numbers, and more
+brew "zsh"        # Zsh shell for better autocompletion, syntax highlighting, and customization
