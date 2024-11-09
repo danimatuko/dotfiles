@@ -31,8 +31,12 @@ return {
         lua = { "luacheck" },
         typescript = { "eslint" },
         javascript = { "eslint" },
-        -- Add other linters for other filetypes as necessary
       }
     end,
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = require "configs.noice",
   },
 }
