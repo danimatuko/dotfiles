@@ -39,4 +39,5 @@ return {
     event = "VeryLazy",
     opts = require "configs.noice",
   },
+  { "jesseduffield/lazygit" },
 }

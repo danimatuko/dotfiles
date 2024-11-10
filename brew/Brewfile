@@ -11,3 +11,4 @@ brew "tmux"       # Terminal multiplexer for managing multiple terminal sessions
 brew "zoxide"     # Fast, smarter `cd` command for quickly navigating the file system
 brew "bat"        # Enhanced `cat` command with syntax highlighting, line numbers, and more
 brew "zsh"        # Zsh shell for better autocompletion, syntax highlighting, and customization
+brew "lazygit"    # simple terminal UI for git commands 
