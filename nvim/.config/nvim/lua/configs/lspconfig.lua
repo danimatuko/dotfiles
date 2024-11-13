@@ -5,7 +5,6 @@ local servers = {
   cssls = {},
   bashls = {},
   emmet_ls = {},
-  tailwindcss = {},
   lua_ls = {},
   ts_ls = {},
   jsonls = {},
