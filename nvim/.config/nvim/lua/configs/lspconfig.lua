@@ -15,6 +15,9 @@ local servers = {
     end,
     settings = {
       intelephense = {
+        format = {
+          enable = false, -- use boolean
+        },
         -- stylua: ignore
         stubs = {
           "apache", "bcmath", "bz2", "calendar", "com_dotnet", "Core", "ctype", "curl", "date", "dba",

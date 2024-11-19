@@ -3,7 +3,7 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
-    php = { "php-cs-fixer" },
+    php = { "phpcbf" }, -- Use phpcbf for PHP files
     js = { "prettier" },
   },
 
@@ -13,11 +13,10 @@ local options = {
     lsp_fallback = true,
   },
   formatters = {
-    ["php-cs-fixer"] = {
-      command = "php-cs-fixer",
+    ["phpcbf"] = {
+      command = "/home/danimatuko/.config/composer/vendor/bin/phpcbf",
       args = {
-        "fix",
-        "--rules=@PSR12", -- Formatting preset. Other presets are available, see the php-cs-fixer docs.
+        "--standard=WordPress", -- Use WordPress coding standards
         "$FILENAME",
       },
       stdin = false,
