@@ -33,11 +33,21 @@ return {
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
+				css = { "prettier" },
+				html = { "prettier" },
+				php = { "phpcbf" }, -- Use phpcbf for PHP files
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				javascript = { "prettierd", "prettier", stop_after_first = true },
+			},
+			formatters = {
+				["phpcbf"] = {
+					command = "/home/danimatuko/.config/composer/vendor/bin/phpcbf",
+					args = {
+						"--standard=WordPress", -- Use WordPress coding standards
+						"$FILENAME",
+					},
+					stdin = false,
+				},
 			},
 		},
 	},
