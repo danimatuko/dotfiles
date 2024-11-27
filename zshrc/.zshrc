@@ -10,6 +10,9 @@ fi
 # PATH Configuration
 # --------------------------------------
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 # --------------------------------------
 # Zinit Initialization
@@ -55,6 +58,18 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Docker configuration
 export DOCKER_HOST=unix:///var/run/docker.sock
+
+
+# Launch Neovim with interactive config selection
+# - Finds `init.lua` or `init.vim` in config directories.
+# - Uses fzf to select a config folder.
+# - Sets NVIM_APPNAME to isolate the selected config.
+function nvims() {
+    find -L "${XDG_CONFIG_HOME:-$HOME/.config}" -mindepth 2 -maxdepth 2 -name init.lua -o -name init.vim | \
+        awk -F/ '{print $(NF-1)}' | \
+        fzf --prompt 'Neovim config > ' --layout=reverse --border --exit-0 | \
+        xargs -d$'\n' -n1 bash -c 'NVIM_APPNAME="$1" nvim' --
+}
 
 # --------------------------------------
 # Powerlevel10k Configuration

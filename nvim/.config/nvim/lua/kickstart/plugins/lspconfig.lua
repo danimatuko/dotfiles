@@ -155,6 +155,16 @@ return {
 				end,
 			})
 
+			-- Change diagnostic symbols in the sign column (gutter)
+			-- if vim.g.have_nerd_font then
+			--   local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
+			--   local diagnostic_signs = {}
+			--   for type, icon in pairs(signs) do
+			--     diagnostic_signs[vim.diagnostic.severity[type]] = icon
+			--   end
+			--   vim.diagnostic.config { signs = { text = diagnostic_signs } }
+			-- end
+
 			-- LSP servers and clients are able to communicate to each other what features they support.
 			--  By default, Neovim doesn't support everything that is in the LSP specification.
 			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -172,125 +182,34 @@ return {
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				-- clangd = {},
-				-- gopls = {},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				--
-
-				lua_ls = {
-					-- cmd = {...},
-					-- filetypes = { ...},
-					-- capabilities = {},
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = "Replace",
-							},
-							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { 'missing-fields' } },
-						},
-					},
-				},
-				ts_ls = {},
-				emmet_ls = {},
+				html = {},
 				cssls = {},
-				tailwindcss = {},
+				bashls = {},
+				emmet_ls = {},
+				lua_ls = {},
+				ts_ls = {},
 				jsonls = {},
-				-- Add intelephense for PHP LSP support
 				intelephense = {
-					root_dir = function(fname)
-						return vim.fn.getcwd() -- Set the root to the current working directory
+					root_dir = function()
+						-- Always use the current directory as the root for PHP files
+						return vim.fn.getcwd()
 					end,
 					settings = {
 						intelephense = {
-							associations = { "*.php", "*.phtml" }, -- Associate PHP and PHTML files
-							diagnostics = {
-								enable = true, -- Enable diagnostics (linting)
-							},
 							format = {
-								enable = true, -- Enable code formatting
+								enable = false, -- use boolean
 							},
-							stubs = {
-								"apache",
-								"bcmath",
-								"bz2",
-								"calendar",
-								"com_dotnet",
-								"Core",
-								"ctype",
-								"curl",
-								"date",
-								"dba",
-								"dom",
-								"enchant",
-								"exif",
-								"FFI",
-								"fileinfo",
-								"filter",
-								"fpm",
-								"ftp",
-								"gd",
-								"gettext",
-								"gmp",
-								"hash",
-								"iconv",
-								"imap",
-								"intl",
-								"json",
-								"ldap",
-								"libxml",
-								"mbstring",
-								"meta",
-								"mysqli",
-								"oci8",
-								"odbc",
-								"openssl",
-								"pcntl",
-								"pcre",
-								"PDO",
-								"pdo_ibm",
-								"pdo_mysql",
-								"pdo_pgsql",
-								"pdo_sqlite",
-								"pgsql",
-								"Phar",
-								"posix",
-								"pspell",
-								"readline",
-								"Reflection",
-								"session",
-								"shmop",
-								"SimpleXML",
-								"snmp",
-								"soap",
-								"sockets",
-								"sodium",
-								"SPL",
-								"sqlite3",
-								"standard",
-								"superglobals",
-								"sysvmsg",
-								"sysvsem",
-								"sysvshm",
-								"tidy",
-								"tokenizer",
-								"xml",
-								"xmlreader",
-								"xmlrpc",
-								"xmlwriter",
-								"xsl",
-								"Zend OPcache",
-								"zip",
-								"zlib",
-								"wordpress",
-							},
+        -- stylua: ignore
+        stubs = {
+          "apache", "bcmath", "bz2", "calendar", "com_dotnet", "Core", "ctype", "curl", "date", "dba",
+          "dom", "enchant", "exif", "FFI", "fileinfo", "filter", "fpm", "ftp", "gd", "gettext", "gmp",
+          "hash", "iconv", "imap", "intl", "json", "ldap", "libxml", "mbstring", "meta", "mysqli", "oci8",
+          "odbc", "openssl", "pcntl", "pcre", "PDO", "pdo_ibm", "pdo_mysql", "pdo_pgsql", "pdo_sqlite",
+          "pgsql", "Phar", "posix", "pspell", "readline", "Reflection", "session", "shmop", "SimpleXML",
+          "snmp", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard", "superglobals", "sysvmsg",
+          "sysvsem", "sysvshm", "tidy", "tokenizer", "xml", "xmlreader", "xmlrpc", "xmlwriter", "xsl",
+          "Zend OPcache", "zip", "zlib", "wordpress",
+        },
 						},
 					},
 				},
@@ -309,11 +228,8 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
-				"intelephense", -- Add PHP LSP to the list of tools to ensure installed
-				"jsonls",
-				"cssls",
+				"intelephense",
 				"ts_ls",
-				"emmet_ls",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
