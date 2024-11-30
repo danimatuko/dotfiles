@@ -15,7 +15,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 # --------------------------------------
-# Zinit Initialization
+# Zinit Initialization (Plugin Manager)
 # --------------------------------------
 if [[ ! -f "$HOME/.zinit/bin/zinit.zsh" ]]; then
     mkdir -p "$HOME/.zinit" && \
@@ -24,24 +24,17 @@ fi
 source "$HOME/.zinit/bin/zinit.zsh"
 
 # --------------------------------------
-# Oh My Zsh Configuration
-# --------------------------------------
-export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
-
-# --------------------------------------
 # Plugin Management with Zinit
 # --------------------------------------
-# zinit light zdharma-continuum/fast-syntax-highlighting  # Uncomment for syntax highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
-zinit light lsd-rs/lsd                         # might need to install manually
+zinit light lsd-rs/lsd                         # Might need to install manually
 zinit light romkatv/powerlevel10k
 
 # --------------------------------------
-# Aliases
+# Aliases and Mappings
 # --------------------------------------
-alias vim='nvim'                               # Use neovim instead of vim
+alias vim='nvim'                               # Use Neovim instead of Vim
 alias ls='lsd'                                 # Use lsd for basic ls
 alias ll='lsd -l'                              # Long list format
 alias la='lsd -a'                              # Include hidden files
@@ -49,6 +42,7 @@ alias lla='lsd -la'                            # Long list with hidden files
 alias lt='lsd --tree'                          # Display directory tree
 alias lsd='lsd --group-dirs=first'             # Show directories first
 alias cat="bat --style=numbers --color=always" # Use bat instead of cat with syntax highlighting
+alias cd="z"                                   # Map `cd` to `z` for directory navigation
 
 # --------------------------------------
 # Environment Setup
@@ -56,14 +50,17 @@ alias cat="bat --style=numbers --color=always" # Use bat instead of cat with syn
 # Enable Brew environment (Linuxbrew)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# Zoxide initialization (for directory navigation)
+eval "$(zoxide init zsh)"
+
 # Docker configuration
 export DOCKER_HOST=unix:///var/run/docker.sock
 
-
+# --------------------------------------
 # Launch Neovim with interactive config selection
-# - Finds `init.lua` or `init.vim` in config directories.
-# - Uses fzf to select a config folder.
-# - Sets NVIM_APPNAME to isolate the selected config.
+# --------------------------------------
+# This function allows you to select any Neovim configuration, including distros like AstroVim.
+# It will search your configuration directories for init.vim or init.lua files and launch the selected Neovim config.
 function nvims() {
     find -L "${XDG_CONFIG_HOME:-$HOME/.config}" -mindepth 2 -maxdepth 2 -name init.lua -o -name init.vim | \
         awk -F/ '{print $(NF-1)}' | \
@@ -75,4 +72,3 @@ function nvims() {
 # Powerlevel10k Configuration
 # --------------------------------------
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
