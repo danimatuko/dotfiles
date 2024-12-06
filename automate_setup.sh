@@ -1,9 +1,9 @@
 #!/bin/zsh
 set -e  # Exit on any command failure
 
-
 # List of programs to install
 PROGRAMS=(
+  "vim"     # VIM text editor
   "neovim"  # Enhanced text editor
   "kitty"   # Terminal emulator
   "curl"    # Command-line tool for data transfer
@@ -12,7 +12,6 @@ PROGRAMS=(
   "bat"     # Enhanced cat with syntax highlighting
   "zoxide"  # For `z` directory navigation
 )
-
 
 # Dotfiles directory
 DOTFILES_DIR="$HOME/dotfiles"
@@ -62,7 +61,6 @@ install_programs() {
 
     echo "✅ Program installation complete!"
 }
-
 
 # Function to stow dotfiles
 stow_dotfiles() {
