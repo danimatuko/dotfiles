@@ -47,9 +47,6 @@ alias cd="z"                                   # Map `cd` to `z` for directory n
 # --------------------------------------
 # Environment Setup
 # --------------------------------------
-# Enable Brew environment (Linuxbrew)
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # Zoxide initialization (for directory navigation)
 eval "$(zoxide init zsh)"
 
@@ -59,8 +56,6 @@ export DOCKER_HOST=unix:///var/run/docker.sock
 # --------------------------------------
 # Launch Neovim with interactive config selection
 # --------------------------------------
-# This function allows you to select any Neovim configuration, including distros like AstroVim.
-# It will search your configuration directories for init.vim or init.lua files and launch the selected Neovim config.
 function nvims() {
     find -L "${XDG_CONFIG_HOME:-$HOME/.config}" -mindepth 2 -maxdepth 2 -name init.lua -o -name init.vim | \
         awk -F/ '{print $(NF-1)}' | \
