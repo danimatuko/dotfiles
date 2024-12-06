@@ -6,10 +6,13 @@ DOTFILES_DIR="$HOME/dotfiles"
 
 # Function to install programs
 install_programs() {
-    echo "🚀 Starting program installation..."
+    echo "\n==================== 🚀 Installing Programs 🚀 ===================="
 
     # Define packages to install
-    PROGRAMS=("vim" "neovim" "curl" "git" "tmux" "stow")
+    PROGRAMS=(
+        "vim" "neovim" "curl" "git" "tmux" "stow"
+        "zoxide" "bat" "lsd" "lazygit"
+    )
 
     # Detect package manager
     if command -v apt &>/dev/null; then
@@ -27,21 +30,23 @@ install_programs() {
     for program in "${PROGRAMS[@]}"; do
         if ! command -v "$program" &>/dev/null; then
             echo "📦 Installing $program..."
-            sudo $PM install -y "$program"
+            if ! sudo $PM install -y "$program"; then
+                echo "❌ Failed to install $program."
+            else
+                echo "✅ $program installed."
+            fi
         else
-            echo "✅ $program is already installed."
+            echo "✅ $program already installed."
         fi
     done
-
-    echo "✅ Program installation complete!"
 }
 
 # Function to stow dotfiles
 stow_dotfiles() {
-    echo "🔧 Stowing dotfiles..."
+    echo "\n==================== 🔧 Stowing Dotfiles 🔧 ===================="
+
     if [ ! -d "$DOTFILES_DIR" ]; then
-        echo "❌ Error: $DOTFILES_DIR does not exist!"
-        echo "👉 Please ensure your dotfiles are available at $DOTFILES_DIR."
+        echo "❌ Dotfiles directory not found!"
         exit 1
     fi
 
@@ -52,33 +57,37 @@ stow_dotfiles() {
             stow -v -R "$dir" || { echo "❌ Error stowing $dir"; exit 1; }
         fi
     done
-    echo "✅ Dotfiles stowing complete!"
+    echo "✅ Dotfiles stowed."
 }
 
 # Main setup function
 main() {
-    echo "🚀 Starting the setup process..."
-    
+    echo "\n==================== ⚙️ Starting Setup ⚙️ ===================="
+
     if ! command -v sudo &>/dev/null; then
-        echo "❌ 'sudo' is not installed or configured. Please set up 'sudo' before running this script."
+        echo "❌ 'sudo' not configured. Set up sudo before running this script."
         exit 1
     fi
 
     if ! ping -c 1 -q google.com &>/dev/null; then
-        echo "❌ No internet connection. Please connect to the internet and try again."
+        echo "❌ No internet connection."
         exit 1
     fi
 
-    read "confirm?⚠️ This will make changes to your system. Continue? (y/n): "
+    read "confirm?⚠️ Proceed with setup? (y/n): "
     if [[ "$confirm" != [yY] ]]; then
-        echo "❌ Setup aborted by user."
+        echo "❌ Setup aborted."
         exit 1
     fi
 
     install_programs
     stow_dotfiles
-    echo "🎉 Setup complete!"
 }
 
 # Run the main function
 main
+
+# Final message
+echo "\n==================== 🎉 Setup Complete 🎉 ===================="
+echo "Installation and stowing completed successfully."
+echo "To apply changes, run: source ~/.zshrc"
