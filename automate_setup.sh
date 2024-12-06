@@ -8,9 +8,6 @@ PROGRAMS=(
   "kitty"   # Terminal emulator
   "curl"    # Command-line tool for data transfer
   "tmux"    # Terminal multiplexer
-  "lsd"     # Enhanced ls
-  "bat"     # Enhanced cat with syntax highlighting
-  "zoxide"  # For `z` directory navigation
 )
 
 # Dotfiles directory
@@ -80,21 +77,6 @@ stow_dotfiles() {
     echo "✅ Dotfiles stowing complete!"
 }
 
-# Function to set up Zsh environment
-setup_env() {
-    echo "⚙️ Setting up Zsh environment variables..."
-    local zshrc="$HOME/.zshrc"
-
-    # Add environment variables only if not already present
-    grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' "$zshrc" || echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$zshrc"
-    grep -qxF 'export EDITOR="nvim"' "$zshrc" || echo 'export EDITOR="nvim"' >> "$zshrc"
-
-    echo "🌐 Applying environment variables..."
-    source "$zshrc"
-
-    echo "✅ Zsh environment setup complete!"
-}
-
 # Main setup function
 main() {
     echo "🚀 Starting the setup process..."
@@ -106,7 +88,6 @@ main() {
 
     install_programs
     stow_dotfiles
-    setup_env
     echo "🎉 Setup complete!"
 }
 
