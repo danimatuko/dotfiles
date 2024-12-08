@@ -1,10 +1,3 @@
--- NOTE: Plugins can specify dependencies.
---
--- The dependencies are proper plugin specifications as well - anything
--- you do for a plugin at the top level, you can do for a dependency.
---
--- Use the `dependencies` key to specify the dependencies of a particular plugin
-
 return {
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
@@ -31,31 +24,6 @@ return {
 			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
-			-- Configure Telescope highlight groups using the Catppuccin colorscheme.
-			-- This customization enhances the Telescope UI with consistent colors that match the Catppuccin palette.
-			-- Each highlight group corresponds to various elements in Telescope, such as matching text,
-			-- selection, prompt, results, and borders, providing a visually cohesive experience.
-			local colors = require("catppuccin.palettes").get_palette()
-			local TelescopeColor = {
-				TelescopeMatching = { fg = colors.flamingo },
-				TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
-
-				TelescopePromptPrefix = { bg = colors.surface0 },
-				TelescopePromptNormal = { bg = colors.surface0 },
-				TelescopeResultsNormal = { bg = colors.mantle },
-				TelescopePreviewNormal = { bg = colors.mantle },
-				TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
-				TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
-				TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
-				TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
-				TelescopeResultsTitle = { fg = colors.mantle },
-				TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
-			}
-
-			for hl, col in pairs(TelescopeColor) do
-				vim.api.nvim_set_hl(0, hl, col)
-			end
-
 			-- Grab Telescope actions
 			local actions = require("telescope.actions")
 
