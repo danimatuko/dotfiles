@@ -55,12 +55,15 @@ alias nvchad='NVIM_APPNAME=nvim-chad nvim'     # Launch Neovim with NvChad confi
 # Docker configuration
 export DOCKER_HOST=unix:///var/run/docker.sock
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
 # --------------------------------------
 # Initialization of External Tools/Plugins
 # --------------------------------------
 # Place initialization commands here to ensure all configurations
 # are set up first, preventing conflicts. Example: eval "$(zoxide init zsh)"
-eval "$(zoxide init zsh)"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(zoxide init zsh)"

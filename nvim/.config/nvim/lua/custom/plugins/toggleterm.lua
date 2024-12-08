@@ -45,11 +45,11 @@ return {
 			{ noremap = true, silent = true }
 		) -- Wider vertical split
 
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>f",
-			"<cmd>ToggleTerm direction=float<CR>",
-			{ noremap = true, silent = true }
-		)
+		-- vim.api.nvim_set_keymap(
+		-- 	"n",
+		-- 	"<leader>f",
+		-- 	"<cmd>ToggleTerm direction=float<CR>",
+		-- 	{ noremap = true, silent = true }
+		-- )
 	end,
 }

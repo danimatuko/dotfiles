@@ -46,7 +46,7 @@ return {
 						},
 					},
 					prompt_prefix = " ", -- Search icon for prompt
-					-- Ignore specific files or directories
+					selection_caret = " ",
 					file_ignore_patterns = {
 						"%.git/", -- Ignore the .git directory
 						"node_modules/", -- Ignore node_modules directory
