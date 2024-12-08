@@ -20,36 +20,35 @@ return {
 
 		-- Create a custom terminal for lazygit
 		local Terminal = require("toggleterm.terminal").Terminal
-		local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+		local lazygit = Terminal:new({
+			cmd = "lazygit",
+			hidden = true,
+			start_in_insert = true, -- Start in insert mode for lazygit
+			direction = "float",
+		})
 
 		-- Function to toggle the lazygit terminal
 		function _lazygit_toggle()
 			lazygit:toggle()
 		end
 
-		-- Key mapping for lazygit toggle using leader key
-		vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
-
-		-- Key mappings for terminal splits using leader key
-		vim.api.nvim_set_keymap(
+		-- Use Alt key instead of leader key for key mappings
+		vim.keymap.set("n", "<A-g>", _lazygit_toggle, { noremap = true, silent = true })
+		vim.keymap.set("n", "<A-h>", "<cmd>ToggleTerm direction=horizontal<CR>", { noremap = true, silent = true })
+		vim.keymap.set(
 			"n",
-			"<leader>h",
-			"<cmd>ToggleTerm direction=horizontal<CR>",
+			"<A-v>",
+			"<cmd>ToggleTerm direction=vertical size=70<CR>",
 			{ noremap = true, silent = true }
 		)
 
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>v",
-			"<cmd>ToggleTerm direction=vertical size=70<CR>",
-			{ noremap = true, silent = true }
-		) -- Wider vertical split
+		-- Close terminal with Alt + q in terminal mode
+		vim.keymap.set("t", "<A-q>", "<C-\\><C-n>:q<CR>", { noremap = true, silent = true })
 
-		-- vim.api.nvim_set_keymap(
-		-- 	"n",
-		-- 	"<leader>f",
-		-- 	"<cmd>ToggleTerm direction=float<CR>",
-		-- 	{ noremap = true, silent = true }
-		-- )
+		-- Ensure terminal starts in insert mode and closes with Esc in any mode
+		vim.keymap.set("t", "<Esc>", "<C-\\><C-n>:q<CR>", { noremap = true, silent = true })
+
+		-- Toggle terminal with Alt + t (toggle between opening and closing the terminal)
+		vim.keymap.set("n", "<A-t>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 	end,
 }
