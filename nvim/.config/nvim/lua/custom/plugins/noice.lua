@@ -10,6 +10,12 @@ return {
 			},
 		},
 		routes = {
+			-- Disable notifications entirely
+			{
+				filter = { event = "notify" }, -- Filter out notifications
+				opts = { skip = true }, -- Skip them
+			},
+			-- Existing routes
 			{
 				filter = {
 					event = "msg_show",
@@ -99,16 +105,13 @@ return {
 		},
 	},
 	config = function(_, opts)
-		-- HACK: noice shows messages from before it was enabled,
-		-- but this is not ideal when Lazy is installing plugins,
-		-- so clear the messages in this case.
 		if vim.o.filetype == "lazy" then
 			vim.cmd([[messages clear]])
 		end
-		require("noice").setup(opts)
+		require("noice").setup(opts) -- Ensure setup is loaded
 	end,
 	dependencies = {
 		"MunifTanjim/nui.nvim",
-		"rcarriga/nvim-notify", -- OPTIONAL: For notification view fallback
+		-- "rcarriga/nvim-notify", -- Remove this if you don't want nvim-notify
 	},
 }
