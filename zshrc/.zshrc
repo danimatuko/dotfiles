@@ -8,6 +8,11 @@ fi
 # --------------------------------------
 # PATH Configuration
 # --------------------------------------
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH="$HOME/.tmuxifier/bin:$PATH"
+export EDITOR="nvim"
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -49,6 +54,16 @@ alias vim='nvim'                               # Use neovim instead of vim
 alias astrovim='NVIM_APPNAME=nvim-astro nvim'  # Launch Neovim with AstroNvim configuration
 alias nvchad='NVIM_APPNAME=nvim-chad nvim'     # Launch Neovim with NvChad configuration
 
+# History Settings
+HISTFILE=~/.zsh_history      # Set the history file location
+HISTSIZE=1000                # Set the number of commands in memory
+SAVEHIST=1000                # Set the number of commands to save to the history file
+setopt append_history        # Append to history instead of overwriting
+setopt inc_append_history    # Write history after each command
+setopt hist_ignore_dups      # Ignore duplicate commands
+setopt share_history         # Share history between all sessions
+
+
 # --------------------------------------
 # Environment Setup
 # --------------------------------------
@@ -67,3 +82,4 @@ export DOCKER_HOST=unix:///var/run/docker.sock
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)"
+eval "$(tmuxifier init -)"
