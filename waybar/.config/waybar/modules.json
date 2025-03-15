@@ -71,7 +71,7 @@
         "on-click": "alacritty -e htop"
     },
     "hyprland/language": {
-        "format": "/ K {short}"
+        "format": " {short}"
     },
     "group/hardware": {
         "orientation": "inherit",
@@ -115,28 +115,6 @@
             " ",
             " "
         ]
-    },
-    "pulseaudio": {
-        "format": "{icon}  {volume}%",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [
-                "",
-                " ",
-                " "
-            ]
-        },
-        "on-click": "pavucontrol"
     },
     "bluetooth": {
         "format-disabled": "",

@@ -58,10 +58,12 @@ window#waybar > box {
 #battery,
 #pulseaudio,
 #custom-lock,
-#custom-power {
-  padding: 0.3rem 1rem;
+#custom-power,
+#hyprland-language,
+#network {
+  margin: 0.3rem 1rem;
   /*margin: 5px 0;*/
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 #clock {
@@ -83,7 +85,7 @@ window#waybar > box {
 }
 
 #backlight {
-  color: @color3;
+  color: @color13;
 }
 
 #backlight,
@@ -93,8 +95,6 @@ window#waybar > box {
 
 #pulseaudio {
   color: @color8;
-  border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
 }
 
 #custom-music {
@@ -132,4 +132,19 @@ window#waybar > box {
   /*margin-right: 7px;*/
   color: @color15;
   font-size: 1.5rem;
+}
+
+window#waybar {
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+  padding: 5px;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+#window {
+  font-weight: bold;
+  color: @color3;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.5); /* Adjust transparency */
+  margin: 4px 8px;
+  border-radius: 8px;
 }

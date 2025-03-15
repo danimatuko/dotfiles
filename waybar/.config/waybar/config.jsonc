@@ -2,18 +2,20 @@
     "layer": "top",
     "position": "top",
     "include": [
-        "~/.config/ml4w/settings/waybar-quicklinks.json"
+        "~/.config/ml4w/settings/waybar-quicklinks.json",
+        "~/.config/waybar/modules.json"
     ],
     "modules-left": [
-        "group/quicklinks"
+        "group/quicklinks",
+        "hyprland/window"
     ],
     "modules-center": [
         "hyprland/workspaces"
     ],
     "modules-right": [
-        "language",
-        "network",
         "pulseaudio",
+        "hyprland/language",
+        "network",
         "backlight",
         "battery",
         "bluetooth",
@@ -95,7 +97,7 @@
         "format-icons": {
             "default": [
                 "",
-                "",
+                " ",
                 " "
             ]
         },
