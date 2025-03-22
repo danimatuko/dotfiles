@@ -47,10 +47,20 @@
         "max-length": 50
     },
     "clock": {
+        "format": " {:%H:%M}",
         "timezone": "Israel",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": " {:%d/%m/%Y}",
-        "format": " {:%H:%M}"
+        "rotate": 0,
+        "tooltip-format": "<span>{calendar}</span>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#ff6699'><b>{}</b></span>",
+                "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+                "today": "<span color='#ffcc66'><b>{}</b></span>"
+            }
+        }
     },
     "backlight": {
         "device": "intel_backlight",
@@ -114,7 +124,7 @@
         "format": "󰤆"
     },
     "network": {
-        "format-wifi": "{icon}",
+        // Main display formats with clear icons
         "format-icons": [
             "󰤯",
             "󰤟",
@@ -122,13 +132,25 @@
             "󰤥",
             "󰤨"
         ],
-        "format-ethernet": "󰀂",
-        "format-alt": "󱛇",
-        "format-disconnected": "󰖪",
-        "tooltip-format-wifi": "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-        "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-        "tooltip-format-disconnected": "Disconnected",
-        "interval": 5,
-        "nospacing": 1
+        "format-ethernet": "󰈀 ",
+        "format-disconnected": "󰖪 ",
+        // Tooltip information with improved organization and spacing
+        "tooltip-format-wifi": "󰖩 {essid}\n󰇚 {signalStrength}%\n󰩟 {ipaddr}\n󰶼 {frequency} GHz\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "󰈀 Wired Connection\n󰩟 {ipaddr}\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
+        "tooltip-format-disconnected": "󰖪 No Connection\n\nClick to manage networks",
+        // Interaction settings
+        "on-click": "/home/$USER/.config/waybar/scripts/wifi-menu.sh",
+        "on-click-right": "nm-connection-editor",
+        "on-click-middle": "nmcli networking off && sleep 1 && nmcli networking on",
+        // Update and display settings
+        "interval": 3,
+        "nospacing": 1,
+        "signal-strength-exponential": true,
+        "tooltip-format": "{ifname}",
+        "min-length": 2
+    },
+    "hyprland/window": {
+        "format": "{class}",
+        "separate-outputs": true
     }
 }
