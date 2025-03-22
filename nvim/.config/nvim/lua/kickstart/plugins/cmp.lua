@@ -26,6 +26,7 @@ return {
 			"saadparwaiz1/cmp_luasnip", -- Source for LuaSnip completion
 			"hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
 			"hrsh7th/cmp-path", -- Path completion source
+			"hrsh7th/cmp-buffer",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -81,6 +82,7 @@ return {
 					{ name = "path" }, -- File path completions
 					{ name = "buffer" },
 					{ name = "spell" },
+					{ name = "nvim_lsp_signature_help" },
 				},
 			})
 		end,
