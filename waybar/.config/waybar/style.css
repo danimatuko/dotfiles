@@ -5,58 +5,50 @@
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
   font-size: 0.9rem;
-  min-height: 0;
 }
 
 /* Waybar Base */
 #waybar {
   background: rgba(43, 48, 59, 0.8);
-  color: @text;
-  margin: 5px 5px;
+  color: @color15;
 }
 
 window#waybar {
   background: rgba(0, 0, 0, 0.8);
-  padding: 5px;
-  font-family: "JetBrainsMono Nerd Font", monospace;
 }
 
 window#waybar > box {
-  padding-left: 1rem;
+  padding: 0.26rem 1rem;
 }
 
 /* Window Title */
 #window {
   font-weight: bold;
-  color: @color3;
+  background-color: @color2;
   padding: 3px 8px;
-  background: rgba(0, 0, 0, 0.5);
-  margin: 4px 8px;
   border-radius: 8px;
+  margin-left: 10px;
 }
 
 /* Workspaces Module */
-#workspaces {
+#worksaces {
   border-radius: 1rem;
   margin: 5px;
 }
 
 #workspaces button {
-  color: @color13;
-  border-radius: 1rem;
-  padding: 1px 0.8px;
+  color: @color8;
+  padding: 0.2px;
   transition: all 0.2s ease-in-out;
+  border-radius: 50%;
 }
 
 #workspaces button.active {
-  color: @color9;
-  border-radius: 1rem;
+  color: @color5;
 }
 
 #workspaces button:hover {
-  color: @color6;
-  background-color: @color15;
-  border-radius: 1rem;
+  color: @color4;
 }
 
 /* Common Module Styling */
@@ -66,22 +58,23 @@ window#waybar > box {
 #clock,
 #battery,
 #pulseaudio,
-#custom-lock,
 #custom-power,
 #hyprland-language,
-#network {
-  margin: 0.3rem 1rem;
+#bluetooth,
+#network,
+#custom-notification {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
-
 /* System Modules */
 #clock {
-  color: @color4;
-  border-radius: 0px 1rem 1rem 0px;
-  margin-right: 1rem;
+  font-weight: bolder;
+  background-color: @color2;
+  padding: 0rem 0.5rem;
+  border-radius: 10px;
 }
 
 #battery {
-  color: @color2;
   border-radius: 0;
 }
 
@@ -91,6 +84,21 @@ window#waybar > box {
 
 #battery.warning:not(.charging) {
   color: @color1;
+}
+
+@keyframes blink {
+  to {
+    color: red;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #ffffff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #backlight {
@@ -114,14 +122,12 @@ window#waybar > box {
 }
 
 #custom-power {
-  margin-right: 1rem;
-  border-radius: 0px 1rem 1rem 0px;
-  color: @color6;
+  margin-left: 1rem;
+  color: @color4;
 }
 
 /* Tray Module */
 #tray {
-  margin-right: 1rem;
   border-radius: 1rem;
 }
 
@@ -139,4 +145,7 @@ window#waybar > box {
   padding: 0px;
   margin-right: 7px;
   color: @color15;
+}
+window#waybar.empty #window {
+  background-color: transparent;
 }

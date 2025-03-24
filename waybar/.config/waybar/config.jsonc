@@ -2,8 +2,8 @@
     "layer": "top",
     "position": "top",
     "include": [
-        "~/.config/ml4w/settings/waybar-quicklinks.json",
-        "~/.config/waybar/modules.json"
+        "~/.config/waybar/modules.json",
+        "~/.config/waybar/custom/waybar-quicklinks.json"
     ],
     "modules-left": [
         "group/quicklinks",
@@ -13,144 +13,15 @@
         "hyprland/workspaces"
     ],
     "modules-right": [
+        "tray",
         "pulseaudio",
-        "hyprland/language",
         "network",
         "backlight",
         "battery",
         "bluetooth",
+        "hyprland/language",
         "clock",
-        "tray",
-        "custom/lock",
+        "custom/notification",
         "custom/power"
-    ],
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "active-only": false,
-        "format": " {icon} ",
-        "format-icons": {
-            "default": ""
-        }
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-    "custom/music": {
-        "format": "  {}",
-        "escape": true,
-        "interval": 5,
-        "tooltip": false,
-        "exec": "playerctl metadata --format='{{ title }}'",
-        "on-click": "playerctl play-pause",
-        "max-length": 50
-    },
-    "clock": {
-        "format": " {:%H:%M}",
-        "timezone": "Israel",
-        "format-alt": " {:%d/%m/%Y}",
-        "rotate": 0,
-        "tooltip-format": "<span>{calendar}</span>",
-        "calendar": {
-            "mode": "month",
-            "format": {
-                "months": "<span color='#ff6699'><b>{}</b></span>",
-                "days": "<span color='#cdd6f4'><b>{}</b></span>",
-                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
-                "today": "<span color='#ffcc66'><b>{}</b></span>"
-            }
-        }
-    },
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon}",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon}",
-        "format-charging": "",
-        "format-plugged": "",
-        "format-alt": "{icon}",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "",
-        "format-icons": {
-            "default": [
-                "",
-                " ",
-                " "
-            ]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/lock": {
-        "tooltip": false,
-        "on-click": "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown",
-        "format": ""
-    },
-    "custom/power": {
-        "tooltip": false,
-        "on-click": "wlogout -b 4",
-        "format": "󰤆"
-    },
-    "network": {
-        // Main display formats with clear icons
-        "format-icons": [
-            "󰤯",
-            "󰤟",
-            "󰤢",
-            "󰤥",
-            "󰤨"
-        ],
-        "format-ethernet": "󰈀 ",
-        "format-disconnected": "󰖪 ",
-        // Tooltip information with improved organization and spacing
-        "tooltip-format-wifi": "󰖩 {essid}\n󰇚 {signalStrength}%\n󰩟 {ipaddr}\n󰶼 {frequency} GHz\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
-        "tooltip-format-ethernet": "󰈀 Wired Connection\n󰩟 {ipaddr}\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
-        "tooltip-format-disconnected": "󰖪 No Connection\n\nClick to manage networks",
-        // Interaction settings
-        "on-click": "/home/$USER/.config/waybar/scripts/wifi-menu.sh",
-        "on-click-right": "nm-connection-editor",
-        "on-click-middle": "nmcli networking off && sleep 1 && nmcli networking on",
-        // Update and display settings
-        "interval": 3,
-        "nospacing": 1,
-        "signal-strength-exponential": true,
-        "tooltip-format": "{ifname}",
-        "min-length": 2
-    },
-    "hyprland/window": {
-        "format": "{class}",
-        "separate-outputs": true
-    }
+    ]
 }

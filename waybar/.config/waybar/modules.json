@@ -1,56 +1,138 @@
 {
-    "hyprland/workspaces_conflict": {
-        "on-click": "activate",
-        "active-only": false,
+    "hyprland/workspaces": {
+        "disable-scroll": true,
         "all-outputs": true,
-        "format": "{}",
+        "active-only": false,
+        "format": " {icon} ",
         "format-icons": {
-            "urgent": "",
-            "active": "",
-            "default": ""
+            "default": ""
         },
         "persistent-workspaces": {
-            "*": 5
-        }
-    },
-    "hyprland/window": {
-        "rewrite": {
-            "(.*) - Brave": "$1",
-            "(.*) - Chromium": "$1",
-            "(.*) - Brave Search": "$1",
-            "(.*) - Outlook": "$1",
-            "(.*) Microsoft Teams": "$1"
-        },
-        "separate-outputs": true
-    },
-    "custom/appmenu": {
-        "format": "Apps",
-        "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings",
-        "on-click": "rofi -show drun -replace",
-        "on-click-right": "~/.config/ml4w/scripts/keybindings.sh",
-        "tooltip": false
-    },
-    "custom/exit": {
-        "format": "",
-        "tooltip-format": "Powermenu",
-        "on-click": "wlogout -b 4",
-        "tooltip": false
-    },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "*": 2
         }
     },
     "tray": {
         "spacing": 10
     },
     "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%H:%M}",
+        "timezone": "Israel",
+        "format-alt": " {:%d/%m/%Y}",
+        "rotate": 0,
+        "tooltip-format": "<span>{calendar}</span>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#ff6699'><b>{}</b></span>",
+                "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+                "today": "<span color='#ffcc66'><b>{}</b></span>"
+            }
+        }
+    },
+    "backlight": {
+        "format": "{icon}",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-alt": "{icon}",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": "",
+        "format-icons": {
+            "default": [
+                "",
+                " ",
+                " "
+            ]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/power": {
+        "tooltip": false,
+        "on-click": "wlogout -b 4",
+        "format": "󰤆"
+    },
+    "network": {
+        "format": "{icon}",
+        "format-wifi": "",
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "format-ethernet": "󰈀 ",
+        "format-disconnected": "󰖪 ",
+        "tooltip-format-wifi": "󰖩 {essid}\n󰇚 {signalStrength}%\n󰩟 {ipaddr}\n󰶼 {frequency} GHz\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "󰈀 Wired Connection\n󰩟 {ipaddr}\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
+        "tooltip-format-disconnected": "󰖪 No Connection\n\nClick to manage networks",
+        "on-click": "/home/$USER/.config/waybar/scripts/wifi-menu.sh",
+        "on-click-right": "nm-connection-editor",
+        "on-click-middle": "nmcli networking off && sleep 1 && nmcli networking on",
+        "interval": 3,
+        "nospacing": 1,
+        "signal-strength-exponential": true,
+        "tooltip-format": "{ifname}",
+        "min-length": 2
+    },
+    "hyprland/window": {
+        "format": "{initialClass}",
+        "format-empty": "",
+        "on-empty": "false"
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "format-icons": {
+            "enabled": "󰂯",
+            "connected": "󰂱",
+            "disabled": "󰂲",
+            "off": "󰂲"
+        },
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "tooltip-format": "{controller_alias}\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias} ({device_battery_percentage}%)",
+        "interval": 10,
+        "on-click": "~/dotfiles/scripts/rofi-bluetooth.sh",
+        "on-click-right": "blueman-manager",
+        "on-click-middle": "bluetoothctl power toggle",
+        "format-no-controller": "󱛉"
     },
     "custom/system": {
         "format": "",
@@ -71,7 +153,7 @@
         "on-click": "alacritty -e htop"
     },
     "hyprland/language": {
-        "format": " {short}"
+        "format": "{short}"
     },
     "group/hardware": {
         "orientation": "inherit",
@@ -88,41 +170,6 @@
             "hyprland/language"
         ]
     },
-    "network": {
-        "format": "{ifname}",
-        "format-wifi": "  ",
-        "format-ethernet": "  {ipaddr}",
-        "format-disconnected": "Not connected",
-        "tooltip-format": " {ifname} via {gwaddri}",
-        "tooltip-format-wifi": "   {essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
-        "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon}   {capacity}%",
-        "format-charging": "  {capacity}%",
-        "format-plugged": "  {capacity}%",
-        "format-alt": "{icon}  {time}",
-        "format-icons": [
-            " ",
-            " ",
-            " ",
-            " ",
-            " "
-        ]
-    },
-    "bluetooth": {
-        "format-disabled": "",
-        "format-off": "",
-        "interval": 30,
-        "on-click": "blueman-manager",
-        "format-no-controller": ""
-    },
     "user": {
         "format": "{user}",
         "interval": 60,
@@ -136,5 +183,25 @@
             "deactivated": ""
         },
         "on-click-right": "hyprlock"
+    },
+    "custom/notification": {
+        "tooltip-format": "Left: Notifications\nRight: Do not disturb",
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     }
 }

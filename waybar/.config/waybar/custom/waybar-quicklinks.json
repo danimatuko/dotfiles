@@ -1,0 +1,21 @@
+{
+    "custom/outlook": {
+        "format": "  ",
+        "on-click": "brave --app='https://outlook.live.com'",
+        "tooltip-format": "Open Outlook"
+    },
+    "custom/chatgpt": {
+        "format": "󰚩 ",
+        "on-click": "brave --app='https://chat.openai.com'",
+        "tooltip-format": "Open ChatGPT"
+    },
+    "custom/spacer": {},
+    "group/quicklinks": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/outlook",
+            "custom/chatgpt",
+            "custom/spacer"
+        ]
+    }
+}
