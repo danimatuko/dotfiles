@@ -8,7 +8,11 @@
             "default": ""
         },
         "persistent-workspaces": {
-            "*": 2
+            "1": {},
+            "2": {},
+            "3": {},
+            "4": {},
+            "5": {}
         }
     },
     "tray": {
@@ -46,7 +50,7 @@
     },
     "battery": {
         "states": {
-            "warning": 30,
+            "warning": 25,
             "critical": 15
         },
         "format": "{icon}",

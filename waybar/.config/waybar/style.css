@@ -44,7 +44,7 @@ window#waybar > box {
 }
 
 #workspaces button.active {
-  color: @color5;
+  color: @color1;
 }
 
 #workspaces button:hover {
