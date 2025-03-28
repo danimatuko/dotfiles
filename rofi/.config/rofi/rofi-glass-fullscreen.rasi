@@ -1,0 +1,61 @@
+    configuration {
+    show-icons: true;
+    display-drun: "  Applications:";  // Search icon for a cleaner look
+    matching: "fuzzy";
+    icon-theme: "Papirus";
+}
+
+* {
+    /* Default background is transparent */
+    background-color: transparent;
+    /* Default text color */
+    text-color: white;
+    /* Spacing between elements */
+    spacing: 18;
+    /* Default font */
+    font: "JetBrainsMono Nerd Font 16";
+}
+
+window {
+    fullscreen: true;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    /* Add dummy widgets on top and bottom for vertical centering */
+    children: [dummy1, hdum, dummy2];
+}
+
+
+hdum {
+    orientation: horizontal;
+    
+    /* Add dummy widgets on left and right for horizontal centering */
+    children: [dummy3, mainbox, dummy4];
+}
+
+inputbar {
+    spacing: 8px;
+    padding: 8px;
+}
+
+listview {
+    padding: 4px 0;
+    lines: 8;
+    columns: 1;
+}
+
+#element selected {
+    text-color: #9575cd;
+}
+
+element-icon {
+    size: 1.3em;
+}
+
+element-text {
+    text-color: inherit;
+}
+
+entry {
+    placeholder: "Type here";
+    text-color:gray;
+}
