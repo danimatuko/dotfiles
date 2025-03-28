@@ -9,6 +9,7 @@ sleep 0.5
 SCRIPTS_DIR="$HOME/dotfiles/scripts"
 WAL_CACHE_DIR="$HOME/.cache/wal"
 WAYBAR_CONFIG_DIR="$HOME/.config/waybar"
+ROFI_THEME_DIR="$HOME/.config/rofi"  # Adjust if needed
 
 # Set the color scheme based on the current wallpaper
 source "$SCRIPTS_DIR/set-wallpaper-colors.sh"
@@ -18,3 +19,8 @@ source "$SCRIPTS_DIR/update-waybar-colors.sh"
 
 # Reload Waybar to apply the new color scheme
 source "$SCRIPTS_DIR/reload-waybar.sh"
+
+# Reload and reset SwayNotificationCenter configuration
+source "$SCRIPTS_DIR/reload-swaync.sh"
+# Reload rofi to apply the new color scheme
+source "$SCRIPTS_DIR/update-rofi-colors.sh"
