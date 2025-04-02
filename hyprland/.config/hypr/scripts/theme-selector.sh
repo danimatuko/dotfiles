@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Define theme directory
 # THEME_DIR="$HOME/.config/hypr/themes"
 THEME_DIR="$HOME/Pictures/wallpapers"
@@ -34,15 +33,8 @@ wal -i "$THEME_DIR/$SELECTED_THEME"
 # Use Swww to set the wallpaper (Swww is a wallpaper setter)
 swww img "$THEME_DIR/$SELECTED_THEME"
 
-# Reload Waybar to apply new theme
-pkill -USR2 waybar
+# Source the reload script to run in current shell
+source "$HOME/.config/hypr/scripts/reload-apps.sh"
 
-# Reload Rofi to apply new theme
-pkill -USR2 rofi
-
-# Reload Hyprland to apply new theme
-pkill -USR2 hyprland
-
-# Notify the user
+# Notify the user about the theme
 notify-send "Theme Switcher" "Applied theme: $SELECTED_THEME"
-
