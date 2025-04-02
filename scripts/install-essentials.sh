@@ -9,7 +9,7 @@ ESSENTIAL_PKGS=(
     "hyprland" "waybar" "rofi" "swww" "kitty" "nautilus" "network-manager-applet"
     "blueman" "pavucontrol" "wl-clipboard" "polkit-kde-agent" "nwg-look" "hyprlock"
     "grim" "slurp" "mpv" "firefox" "neofetch" "vim" "neovim" "curl" "git" "tmux"
-    "stow" "wlogout" "swaync" "brightnessctl" "xdotool" "playerctl" "zsh" "lsd" "lazygit" "bat"
+    "stow" "wlogout" "swaync" "brightnessctl" "xdotool" "playerctl" "zsh" "lsd" "lazygit" "bat" "bluez" "bluez-utils"
 )
 
 # Array of AUR Packages
