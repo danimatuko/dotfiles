@@ -1,0 +1,27 @@
+{
+    "layer": "top",
+    "position": "top",
+    "include": [
+        "~/.config/waybar/modules.json",
+        "~/.config/waybar/custom/waybar-quicklinks.json"
+    ],
+    "modules-left": [
+        "group/quicklinks",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "network",
+        "backlight",
+        "battery",
+        "bluetooth",
+        "hyprland/language",
+        "clock",
+        "custom/notification",
+        "custom/power"
+    ]
+}

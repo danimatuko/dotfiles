@@ -80,6 +80,6 @@ export DOCKER_HOST=unix:///var/run/docker.sock
 # Place initialization commands here to ensure all configurations
 # are set up first, preventing conflicts. Example: eval "$(zoxide init zsh)"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)"
-eval "$(tmuxifier init -)"
+# eval "$(tmuxifier init -)"

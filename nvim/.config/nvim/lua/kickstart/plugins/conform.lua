@@ -40,6 +40,7 @@ return {
 				css = { "prettier" },
 				html = { "prettier" },
 				php = { "phpcbf" }, -- Use phpcbf for PHP files
+				sh = { "beautysh" },
 			},
 			formatters = {
 				["phpcbf"] = {
