@@ -25,11 +25,14 @@
 @define-color mantle #181825;
 @define-color crust #11111b;
 
+@import '../../../.cache/wal/colors-waybar.css';
+
 * {
   color: @text;
   all: unset;
-  font-size: 1rem;
-  font-family: "JetBrains Mono Nerd Font 10";
+  font-size: 0.8rem;
+  /* font-family: "JetBrains Mono Nerd Font 10"; */
+  font-family: Roboto, sans-serif;
   transition: 200ms;
 }
 
@@ -41,16 +44,16 @@
 
 .floating-notifications.background .notification-row .notification-background {
   /* background: alpha(#000000, 0.05); */
-  background-color: black;
-  border-radius: 20px;
-  border: 2px solid @lavender;
+  background-color: @background;
+  border-radius: 10px;
+  border: 1px solid @foreground;
   margin: 0;
-  padding: 8px 8px 0 8px;
+  /* padding: 5px 5px 0 5px; */
 }
 
 .floating-notifications.background .notification-row .notification-background .notification {
   padding: 0.4rem;
-  border-radius: 0.8rem;
+  border-radius: 10px;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification.critical {
@@ -58,7 +61,7 @@
 }
 
 .floating-notifications.background .notification-row .notification-background .notification .notification-content {
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification>*:last-child>* {
@@ -66,9 +69,9 @@
 }
 
 .floating-notifications.background .notification-row .notification-background .notification>*:last-child>* .notification-action {
-  border-radius: 0.5rem;
+  border-radius: 10px;
   /* background-color: alpha(@crust, 0.95); */
-  background-color: black;
+  background-color: @background;
   margin: 0.4rem;
   border: 1px solid transparent;
 }
@@ -84,12 +87,13 @@
 }
 
 .image {
-  margin: 10px 20px 10px 0px;
+  margin: 4px 10px 4px 0px;
 }
 
 .summary {
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1rem;
+  margin-bottom: 2px;
 }
 
 .body {

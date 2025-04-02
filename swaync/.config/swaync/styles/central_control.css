@@ -228,8 +228,8 @@ slider {}
 .control-center {
   /* background: @base; */
   background: rgba(0, 0, 0, 0.6);
-  border-radius: 20px;
-  border: 2px solid @lavender;
+  border-radius: 10px;
+  border: 1px solid @color6;
   margin: 0;
   padding: 8px 8px 0 8px;
 }
@@ -238,10 +238,11 @@ slider {}
 .control-center .notification-row .notification-background,
 .control-center .notification-row .notification-background .notification.critical {
   /* background-color: @surface; */
-  background-color: @color1;
+  background-color: @background;
   border-radius: 20px;
   margin: 4px 0;
   padding: 8px 8px 8px 16px;
+  border: 1px solid @cursor;
 }
 
 .control-center .notification-row .notification-background .notification.critical {

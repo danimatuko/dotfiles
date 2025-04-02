@@ -48,6 +48,7 @@ alias lt='lsd --tree'                          # Display directory tree
 alias lsd='lsd --group-dirs=first'             # Show directories first
 alias cat="bat --style=numbers --color=always" # Use bat instead of cat with syntax highlighting
 alias cd="z"                                   # `cd` replacement with `zoxide`
+alias rm='rm -i'
 
 # Neovim Config Aliases
 alias vim='nvim'                               # Use neovim instead of vim
