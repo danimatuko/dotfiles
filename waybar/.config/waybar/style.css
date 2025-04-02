@@ -3,7 +3,7 @@
 
 /* Global Styles */
 * {
-  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
   font-size: 0.9rem;
 }
 
@@ -17,7 +17,7 @@ window#waybar {
   background: rgba(0, 0, 0, 0.8);
 }
 
-window#waybar > box {
+window#waybar>box {
   padding: 0.26rem 1rem;
 }
 
@@ -66,6 +66,7 @@ window#waybar > box {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+
 /* System Modules */
 #clock {
   font-weight: bolder;
@@ -146,6 +147,7 @@ window#waybar > box {
   margin-right: 7px;
   color: @color15;
 }
+
 window#waybar.empty #window {
   background-color: transparent;
 }

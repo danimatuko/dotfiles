@@ -18,6 +18,7 @@ declare -a AUR_FONTS=(
   "nerd-fonts-fira-code"
   "nerd-fonts-caskaydiacove"
   "nerd-fonts"
+  "ttf-font-awesome"
 )
 
 echo "========================================="
