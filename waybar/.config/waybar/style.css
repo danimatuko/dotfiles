@@ -1,75 +1,114 @@
-/* Imports */
+/* -----------------------------------------------------
+ * Imports
+ * ----------------------------------------------------- */
 @import url("colors-waybar.css");
 
-/* Global Styles */
+/* -----------------------------------------------------
+ * Minimal Semantic Theme Variables (Pywal-backed)
+ * ----------------------------------------------------- */
+
+/* Base */
+@define-color background @color0;
+@define-color foreground @color15;
+
+/* Accents & States */
+@define-color color-accent @color6;
+@define-color color-hover @color7;
+@define-color color-active @color2;
+
+/* Alerts */
+@define-color color-alert @color1;
+@define-color color-warning @color3;
+@define-color color-success @color2;
+
+/* Neutrals */
+@define-color color-muted @color8;
+
+/* -----------------------------------------------------
+ * Global Styles
+ * ----------------------------------------------------- */
 * {
-  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
+  font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.9rem;
 }
 
-/* Waybar Base */
+
+/* -----------------------------------------------------
+ * Waybar Base Styles
+ * ----------------------------------------------------- */
 #waybar {
-  background: rgba(43, 48, 59, 0.8);
-  color: @color15;
+  color: @foreground;
 }
 
 window#waybar {
-  background: rgba(0, 0, 0, 0.8);
+  background-color: @background;
+  /* opacity: 0.9; */
 }
 
 window#waybar>box {
   padding: 0.26rem 1rem;
 }
 
-/* Window Title */
-#window {
-  background-color: @color1;
-  padding: 1px 8px;
-  border-radius: 5px;
-  margin-left: 10px;
+window#waybar.empty #window {
+  background-color: transparent;
 }
 
-/* Workspaces Module */
-#worksaces {
-  border-radius: 1rem;
-  margin: 5px;
+
+/* -----------------------------------------------------
+ * Window Title
+ * ----------------------------------------------------- */
+#window {
+  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
+  background-color: @color-muted;
+  color: @foreground;
+  margin: 5px 2px;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+
+
+/* -----------------------------------------------------
+ * Workspaces Module
+ * ----------------------------------------------------- */
+#workspaces {
+  margin: 5px 1px 6px 1px;
+  padding: 0px 1px;
+  border-radius: 15px;
+  border: 0px;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 16px;
+  color: @foreground;
 }
 
 #workspaces button {
-  color: @color8;
-  padding: 0.2px;
-  transition: all 0.2s ease-in-out;
-  border-radius: 50%;
+  padding: 0px 5px;
+  margin: 4px 3px;
+  border-radius: 15px;
+  border: 0px;
+  color: @color-muted;
+  transition: all 0.3s ease-in-out;
 }
 
 #workspaces button.active {
-  color: @color1;
+  color: @foreground;
+  background: @color-active;
+  min-width: 40px;
 }
 
 #workspaces button:hover {
-  color: @color4;
+  color: @color0;
+  background: @color-hover;
 }
 
-/* Common Module Styling */
-#custom-music,
-#tray,
-#backlight,
-#clock,
-#battery,
-#pulseaudio,
-#custom-power,
-#hyprland-language,
-#bluetooth,
-#network,
-#custom-notification {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
 
-/* System Modules */
+/* -----------------------------------------------------
+ * System Modules
+ * ----------------------------------------------------- */
 #clock {
   font-weight: bolder;
-  padding: 0rem 0.5rem;
+  /* padding: 0rem 0.5rem; */
+  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
 }
 
 #battery {
@@ -77,21 +116,15 @@ window#waybar>box {
 }
 
 #battery.charging {
-  color: @color2;
+  color: @color-success;
 }
 
 #battery.warning:not(.charging) {
-  color: @color1;
-}
-
-@keyframes blink {
-  to {
-    color: red;
-  }
+  color: @color-warning;
 }
 
 #battery.critical:not(.charging) {
-  color: #ffffff;
+  color: @color-alert;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
@@ -100,36 +133,39 @@ window#waybar>box {
 }
 
 #backlight {
-  color: @color13;
+  color: @color-hover;
   border-radius: 0;
 }
 
-#pulseaudio {
-  color: @color8;
-}
 
-/* Custom Modules */
+/* -----------------------------------------------------
+ * Custom Modules
+ * ----------------------------------------------------- */
 #custom-music {
-  color: @color9;
-  border-radius: 1rem;
+  color: @color-accent;
 }
 
 #custom-lock {
-  border-radius: 1rem 0px 0px 1rem;
-  color: @color5;
+  border-radius: 15px 0px 0px 15px;
+  color: @color-muted;
 }
 
 #custom-power {
-  margin-left: 1rem;
-  color: @color4;
+  color: @foreground;
 }
 
-/* Tray Module */
+
+/* -----------------------------------------------------
+ * Tray Module
+ * ----------------------------------------------------- */
 #tray {
-  border-radius: 1rem;
+  border-radius: 15px;
 }
 
-/* Quick Links */
+
+/* -----------------------------------------------------
+ * Quick Links
+ * ----------------------------------------------------- */
 #custom-quicklink1,
 #custom-quicklink2,
 #custom-quicklink3,
@@ -142,9 +178,49 @@ window#waybar>box {
 #custom-quicklink10 {
   padding: 0px;
   margin-right: 7px;
-  color: @color15;
+  color: @foreground;
 }
 
-window#waybar.empty #window {
-  background-color: transparent;
+
+/* -----------------------------------------------------
+ * Module Margin Styling (shared layout)
+ * ----------------------------------------------------- */
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#custom-power,
+#hyprland-language,
+#bluetooth,
+#network,
+#custom-notification {
+  margin-left: 0.35rem;
+  margin-right: 0.35rem;
+}
+
+
+/* -----------------------------------------------------
+ * Tooltip Styles
+ * ----------------------------------------------------- */
+tooltip {
+  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
+  background: @background;
+  color: @foreground;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid @color-muted;
+}
+
+/* -----------------------------------------------------
+ * Animations
+ * ----------------------------------------------------- */
+@keyframes blink {
+  to {
+    color: @color-alert;
+  }
 }

@@ -3,9 +3,11 @@
         "disable-scroll": true,
         "all-outputs": true,
         "active-only": false,
-        "format": " {icon} ",
+        "format": "{}",
         "format-icons": {
-            "default": ""
+            "default": "",
+            "urgent": "",
+            "active": ""
         },
         "persistent-workspaces": {
             "1": {},
@@ -13,7 +15,13 @@
             "3": {},
             "4": {},
             "5": {}
-        }
+        },
+        "on-click": "activate"
+    },
+    "hyprland/window": {
+        "format": "{initialClass}",
+        "format-empty": "",
+        "on-empty": "false"
     },
     "tray": {
         "spacing": 10
@@ -25,13 +33,7 @@
         "rotate": 0,
         "tooltip-format": "<span>{calendar}</span>",
         "calendar": {
-            "mode": "month",
-            "format": {
-                "months": "<span color='#ff6699'><b>{}</b></span>",
-                "days": "<span color='#cdd6f4'><b>{}</b></span>",
-                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
-                "today": "<span color='#ffcc66'><b>{}</b></span>"
-            }
+            "mode": "month"
         }
     },
     "backlight": {
@@ -49,7 +51,7 @@
         ]
     },
     "pulseaudio": {
-        "format": "{icon}",
+        "format": " {icon}",
         "format-muted": "",
         "format-icons": {
             "default": [
@@ -67,13 +69,13 @@
     },
     "network": {
         "format": "{icon}",
-        "format-wifi": "",
+        "format-wifi": " ",
         "format-icons": [
-            "󰤯",
-            "󰤟",
-            "󰤢",
-            "󰤥",
-            "󰤨"
+            "󰤯 ",
+            "󰤟 ",
+            "󰤢 ",
+            "󰤥 ",
+            "󰤨 "
         ],
         "format-ethernet": "󰈀 ",
         "format-disconnected": "󰖪 ",
@@ -88,11 +90,6 @@
         "signal-strength-exponential": true,
         "tooltip-format": "{ifname}",
         "min-length": 2
-    },
-    "hyprland/window": {
-        "format": "{initialClass}",
-        "format-empty": "",
-        "on-empty": "false"
     },
     "bluetooth": {
         "format": "{icon}",
@@ -166,7 +163,7 @@
     },
     "custom/notification": {
         "tooltip-format": "Left: Notifications\nRight: Do not disturb",
-        "format": "{icon}",
+        "format": "{icon} ",
         "format-icons": {
             "notification": "<span foreground='red'><sup></sup></span>",
             "none": "",
@@ -191,16 +188,16 @@
             "critical": 15
         },
         "format": "{icon}",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-full": " {icon}{capacity}%",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-full": "{icon}",
         "tooltip-format": "Capacity: {capacity}%\nTime Remaining: {time}\nPower Draw: {power}W",
         "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
         ]
     }
 }

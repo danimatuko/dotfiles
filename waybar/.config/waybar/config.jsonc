@@ -2,11 +2,12 @@
     "layer": "top",
     "position": "top",
     "include": [
-        "~/.config/waybar/modules.json",
-        "~/.config/waybar/custom/waybar-quicklinks.json"
+        "~/.config/waybar/modules.json"
+        // "~/.config/waybar/custom/waybar-quicklinks.json"
     ],
     "modules-left": [
         "group/quicklinks",
+        "hyprland/logo",
         "hyprland/window"
     ],
     "modules-center": [
@@ -14,11 +15,11 @@
     ],
     "modules-right": [
         "tray",
+        "hyprland/language",
         "pulseaudio",
         "network",
         "battery",
         "bluetooth",
-        "hyprland/language",
         "clock",
         "custom/notification",
         "custom/power"

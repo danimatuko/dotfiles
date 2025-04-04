@@ -10,12 +10,13 @@
         "tooltip-format": "Open ChatGPT"
     },
     "custom/spacer": {},
+    "custom/quicklinkempty": {},
     "group/quicklinks": {
         "orientation": "horizontal",
         "modules": [
             "custom/outlook",
-            "custom/chatgpt",
-            "custom/spacer"
+            "custom/quicklinkempty",
+            "custom/spacer",
         ]
     }
 }
