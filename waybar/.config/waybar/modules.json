@@ -190,10 +190,11 @@
             "warning": 25,
             "critical": 15
         },
-        "format": "{icon}{capacity: >3}%",
+        "format": "{icon}",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-full": " {icon}{capacity}%",
+        "tooltip-format": "Capacity: {capacity}%\nTime Remaining: {time}\nPower Draw: {power}W",
         "format-icons": [
             "",
             "",

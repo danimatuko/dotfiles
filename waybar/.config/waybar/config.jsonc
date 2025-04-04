@@ -16,7 +16,6 @@
         "tray",
         "pulseaudio",
         "network",
-        "backlight",
         "battery",
         "bluetooth",
         "hyprland/language",
