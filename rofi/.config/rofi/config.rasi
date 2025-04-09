@@ -11,7 +11,8 @@ configuration {
 @import "./theme-pywal.rasi"
 
 * {
-    font: "FiraCode Nerd Font Medium 10";
+    font: "FiraCode Nerd Font Medium 12";
+    font: "JetBrainsMono Nerd Font bold 12";
 
     bg0: @normal-background;
     bg1: @alternate-normal-background;
@@ -20,7 +21,7 @@ configuration {
     accent-color: @active-foreground;
     urgent-color: @urgent-foreground;
 
-    background-color: transparent;
+    // background-color: transparent;
     text-color: @alternate-normal-foreground;
 
     margin: 0;
@@ -31,12 +32,14 @@ configuration {
 window {
     location: center;
     width: 500;
+    border-radius:10px;
 }
 
 inputbar {
     spacing: 8px;
     padding: 8px;
-
+    background-color:@alternate-normal-background;
+    border-radius:10px;
 }
 
 prompt, entry, element-icon, element-text {
@@ -44,7 +47,9 @@ prompt, entry, element-icon, element-text {
 }
 
 prompt {
-    text-color: @accent-color;
+    text-color: @selected-normal-foreground;
+    // background-color:@alternate-normal-background;
+    border-radius:5px;
 }
 
 textbox {
@@ -77,12 +82,14 @@ element alternate active {
 }
 
 element selected {
-    text-color: @bg0;
+    text-color: @normal-foreground;
+    border-radius:10px;
 }
 
 element selected normal,
 element selected active {
     background-color: @selected-active-background;
+    background-color:@selected-normal-background;
 }
 
 element selected urgent {
@@ -99,5 +106,5 @@ element-text {
 
 
 entry {
-    placeholder: "Type here";
+    placeholder: "type here";
 }
