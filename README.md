@@ -5,7 +5,7 @@ A collection of personal configuration files (dotfiles) for a consistent develop
 ## 📋 Overview
 
 This repository contains my personal dotfiles and setup script for quickly configuring a new development environment.  
-Configurations include:
+It includes configurations for:
 
 - **Zsh** - Shell configuration with custom aliases and functions
 - **Tmux** - Terminal multiplexer settings for improved workflow
