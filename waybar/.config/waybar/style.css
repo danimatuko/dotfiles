@@ -216,6 +216,13 @@ tooltip {
   border: 1px solid @color-muted;
 }
 
+#custom-arch {
+  color: #1793D1;
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+
+
 /* -----------------------------------------------------
  * Animations
  * ----------------------------------------------------- */

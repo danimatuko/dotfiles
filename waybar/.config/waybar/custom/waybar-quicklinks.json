@@ -1,6 +1,10 @@
 {
+    "custom/arch": {
+        "format": " ",
+        "tooltip-format": "Arch Linux"
+    },
     "custom/outlook": {
-        "format": "  ",
+        "format": " ",
         "on-click": "brave --app='https://outlook.live.com'",
         "tooltip-format": "Open Outlook"
     },
@@ -14,9 +18,10 @@
     "group/quicklinks": {
         "orientation": "horizontal",
         "modules": [
+            "custom/arch",
             "custom/outlook",
             "custom/quicklinkempty",
-            "custom/spacer",
+            "custom/spacer"
         ]
     }
 }

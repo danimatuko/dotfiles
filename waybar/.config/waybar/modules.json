@@ -199,5 +199,10 @@
             " ",
             " "
         ]
+    },
+    "custom/arch": {
+        "format": "",
+        "tooltip-format": "Run Fastfetch",
+        "on-click": "kitty --hold -e fastfetch"
     }
 }

@@ -6,6 +6,7 @@
         // "~/.config/waybar/custom/waybar-quicklinks.json"
     ],
     "modules-left": [
+        "custom/arch",
         "group/quicklinks",
         "hyprland/logo",
         "hyprland/window"
