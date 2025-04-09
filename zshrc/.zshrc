@@ -36,6 +36,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light lsd-rs/lsd                                  # might need to install manually
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit light zsh-users/zsh-history-substring-search
 
 # --------------------------------------
 # Aliases
@@ -57,13 +58,20 @@ alias nvchad='NVIM_APPNAME=nvim-chad nvim'     # Launch Neovim with NvChad confi
 
 # History Settings
 HISTFILE=~/.zsh_history      # Set the history file location
-HISTSIZE=1000                # Set the number of commands in memory
-SAVEHIST=1000                # Set the number of commands to save to the history file
+HISTSIZE=5000                # Set the number of commands in memory
+SAVEHIST=5000                # Set the number of commands to save to the history file
 setopt append_history        # Append to history instead of overwriting
 setopt inc_append_history    # Write history after each command
 setopt hist_ignore_dups      # Ignore duplicate commands
 setopt share_history         # Share history between all sessions
+setopt hist_reduce_blanks     # Remove superfluous blanks from commands
+setopt hist_verify            # Don't execute the history command immediately (edit it first)
+setopt extended_history       # Save timestamps of when commands were run
 
+# binds
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey "^R" history-incremental-search-backward
 
 # --------------------------------------
 # Environment Setup
