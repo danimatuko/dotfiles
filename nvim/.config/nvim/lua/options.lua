@@ -65,7 +65,9 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 10
+-- Set scroll amount for <C-d> and <C-u> to be slower
+vim.o.scroll = 15
 
 -- vim: ts=2 sts=2 sw=2 et
 
