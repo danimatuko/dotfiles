@@ -1,55 +1,75 @@
-# Dotfiles Setup Script
+# Dotfiles
 
-This repository contains a script to automate the setup of essential programs and dotfiles on a new system. 
-The script is designed to work across multiple Linux distributions, including **Ubuntu**, **Pop!_OS**, **Fedora**, and other Debian/Red Hat-based systems.
+A collection of personal configuration files (dotfiles) for a consistent development environment across different machines.
 
-## Features
+## 📋 Overview
 
-- Automatically installs essential programs:
-  - `vim`
-  - `neovim`
-  - `curl`
-  - `git`
-  - `tmux`
-  - `stow`
-- Detects the appropriate package manager (`apt`, `pacman`, or `dnf`) and installs programs accordingly.
-- Stows dotfiles from the `dotfiles` directory to the appropriate locations on your system.
-- Checks for required dependencies, including:
-  - Internet connection
-  - `sudo` availability
-- Provides a confirmation prompt before making changes.
+This repository contains my personal dotfiles and setup script for quickly configuring a new development environment.  
+Configurations include:
 
-## Requirements
+- **Zsh** - Shell configuration with custom aliases and functions
+- **Tmux** - Terminal multiplexer settings for improved workflow
+- **Git** - Personal git preferences and configuration
+- **Hyprland** - Wayland compositor configuration
+- **Kitty** - Modern terminal emulator setup
+- **Neovim** - Text editor configuration and plugins
+- **Rofi** - Application launcher settings
+- **SwayNC** - Notification center configuration
+- **Waybar** - Status bar customization
 
-- A Linux-based operating system with one of the following package managers:
-  - `apt` (for Debian-based systems like Ubuntu or Pop!_OS)
-  - `dnf` (for Fedora-based systems)
-  - `pacman` (for Arch-based systems)
-- `sudo` configured on the system.
-- An active internet connection.
+## 🚀 Installation
 
-## Usage
-
-Clone the project:
+Clone this repository to your home directory:
 
 ```bash
-git clone https://github.com/danimatuko/dotfiles.git
+git clone https://github.com/danimatuko/dotfiles.git ~/dotfiles
 ```
 
-Go to the dotfiles directory:
+Run the setup script:
 
 ```bash
 cd ~/dotfiles
+chmod +x setup.sh
+./setup.sh
 ```
 
-Ensure the script has execute permissions:
+## ⚙️ What the Setup Script Does
 
-```bash
-chmod +x automate_setup.sh
-```
+The setup script:
+1. Creates backups of your existing configuration files
+2. Creates symbolic links from this repository to your home directory
+3. Preserves your original configurations in a timestamped backup folder
 
-Run the script:
+## 🛠️ Troubleshooting
 
-```bash
-./automate_setup.sh
-```
+If a specific configuration isn't being applied:
+
+1. Check if the symlink was created correctly:
+   ```bash
+   ls -la ~/.config/<config_directory>
+   ```
+
+2. If the symlink wasn't created properly, try manually removing the directory and creating the symlink:
+   ```bash
+   mv ~/.config/<config_directory> ~/<config_directory>_backup
+   ln -sf ~/dotfiles/.config/<config_directory> ~/.config/<config_directory>
+   ```
+
+3. Restart the application to apply the new configuration.
+
+## 🔄 Updating
+
+To update configurations:
+
+1. Make changes directly in the `~/dotfiles` directory
+2. Commit and push changes to keep them synchronized across machines:
+   ```bash
+   cd ~/dotfiles
+   git add .
+   git commit -m "Update configurations"
+   git push
+   ```
+
+## 📝 License
+
+This project is open-sourced under the MIT License.
