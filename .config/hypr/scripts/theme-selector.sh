@@ -1,5 +1,5 @@
 #!/bin/bash
-# theme-selector.sh
+# wallpaper-selector.sh
 # Selects wallpapers with Rofi and applies them using wal + swww
 # Usage:
 #   No args: Launch Rofi selector
@@ -22,7 +22,7 @@ if [ "$1" = "--apply" ]; then
     
 elif [ "$1" = "--generate" ]; then
     # Generate mode: Create desktop entries for all wallpapers
-    bash ~/scripts/generate-wallpaper-entries.sh
+    bash ~/.config/rofi/scripts/generate-wallpaper-entries.sh
     
 else
     # Default mode: Show wallpaper selection menu
