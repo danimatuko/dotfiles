@@ -6,10 +6,9 @@
         // "~/.config/waybar/custom/waybar-quicklinks.json"
     ],
     "modules-left": [
-        "custom/arch",
-        "group/quicklinks",
-        "hyprland/logo",
-        "hyprland/window"
+        // "custom/arch",
+        "clock",
+        "group/quicklinks"
     ],
     "modules-center": [
         "hyprland/workspaces"
@@ -21,7 +20,6 @@
         "network",
         "battery",
         "bluetooth",
-        "clock",
         "custom/notification",
         "custom/power"
     ]

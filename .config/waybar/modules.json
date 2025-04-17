@@ -27,14 +27,10 @@
         "spacing": 10
     },
     "clock": {
-        "format": "{:%H:%M}",
+        "format": "󰥔 {:%a, %b %d %H:%M}",
         "timezone": "Israel",
-        "format-alt": " {:%d/%m/%Y}",
-        "rotate": 0,
-        "tooltip-format": "<span>{calendar}</span>",
-        "calendar": {
-            "mode": "month"
-        }
+        "format-alt": "{:%d.%m.%Y  󰥔 %H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>"
     },
     "backlight": {
         "format": "{icon}",

@@ -13,7 +13,7 @@
 
 /* Accents & States */
 @define-color color-accent @color6;
-@define-color color-hover @color7;
+@define-color color-hover @cursor;
 @define-color color-active @color2;
 
 /* Alerts */
@@ -75,9 +75,6 @@ window#waybar.empty #window {
   padding: 0px 1px;
   border-radius: 15px;
   border: 0px;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 16px;
   color: @foreground;
 }
 
@@ -86,9 +83,10 @@ window#waybar.empty #window {
   margin: 4px 3px;
   border-radius: 15px;
   border: 0px;
-  color: @color-muted;
+  color: @foreground;
   transition: all 0.3s ease-in-out;
 }
+
 
 #workspaces button.active {
   color: @foreground;
@@ -109,6 +107,7 @@ window#waybar.empty #window {
   font-weight: bolder;
   /* padding: 0rem 0.5rem; */
   font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
+  font-size: 0.8rem;
 }
 
 #battery {
