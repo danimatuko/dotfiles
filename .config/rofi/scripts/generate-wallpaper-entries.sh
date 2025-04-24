@@ -8,7 +8,7 @@
 
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 DESKTOP_DIR="$HOME/.local/share/applications/wallpapers"
-THEME_SCRIPT="$HOME/scripts/wallpaper-selector.sh"
+THEME_SCRIPT="$HOME/.config/hypr/scripts/theme-selector.sh"
 
 # Ensure the desktop directory exists
 mkdir -p "$DESKTOP_DIR"
@@ -32,4 +32,4 @@ for img in "$WALLPAPER_DIR"/*.{jpg,jpeg,png}; do
     echo "Terminal=false" >> "$ENTRY_PATH"
 done
 
-echo "Generated $(find "$DESKTOP_DIR" -name "*.desktop" | wc -l) wallpaper entries"
+echo "Generated $(find "$DESKTOP_DIR" -name "*.desktop" | wc -l) wallpaper entries"ge

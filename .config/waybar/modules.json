@@ -4,19 +4,14 @@
         "all-outputs": true,
         "active-only": false,
         "format": "{}",
-        "format-icons": {
-            "default": "",
-            "urgent": "",
-            "active": ""
-        },
+        "on-click": "activate",
         "persistent-workspaces": {
             "1": {},
             "2": {},
             "3": {},
             "4": {},
             "5": {}
-        },
-        "on-click": "activate"
+        }
     },
     "hyprland/window": {
         "format": "{initialClass}",
@@ -200,5 +195,14 @@
         "format": "",
         "tooltip-format": "Run Fastfetch",
         "on-click": "kitty --hold -e fastfetch"
-    }
+    },
+
+"custom/darkmode": {
+  "format": "{}",
+  "exec": "~/.config/waybar/scripts/darkmode-button.sh",
+  "interval": 1,
+  "on-click": "~/.config/hypr/scripts/toggle-darkmode.sh"
+}
+
+
 }

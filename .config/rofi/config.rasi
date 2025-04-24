@@ -1,7 +1,6 @@
 configuration {
     show-icons:                 true;
     display-drun:               "󰀻  Apps"; 
-    matching:                   "fuzzy";
     icon-theme:                 "Papirus";
     sidebar-mode:               false;
 }
@@ -11,7 +10,7 @@ configuration {
 
 * {
     /* Base fonts with fallbacks */
-    font:                       "JetBrainsMono Nerd Font 12";
+    font:                       "JetBrainsMono Nerd Font Bold 11";
     
     /* Material design values */
     corner-radius:              12px;

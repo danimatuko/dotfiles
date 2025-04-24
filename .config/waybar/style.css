@@ -46,7 +46,7 @@ window#waybar {
 }
 
 window#waybar>box {
-  padding: 0.26rem 1rem;
+  padding: 0 1rem;
 }
 
 window#waybar.empty #window {
@@ -71,7 +71,7 @@ window#waybar.empty #window {
  * Workspaces Module
  * ----------------------------------------------------- */
 #workspaces {
-  margin: 5px 1px 6px 1px;
+  margin: 3px 1px;
   padding: 0px 1px;
   border-radius: 15px;
   border: 0px;

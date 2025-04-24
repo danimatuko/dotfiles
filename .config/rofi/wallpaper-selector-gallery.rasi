@@ -6,8 +6,6 @@ configuration {
     lines:                       10;           /* Maximum number of lines to display */
     columns:                     5;            /* Maximum number of columns to display */
     separator-style:             "bold";       /* Add a bold separator between items (optional) */
-    match:                       "all";        /* Match all items by default for search */
-    case-sensitive:              false;        /* Make search case-insensitive */
 }
 
 @import "default.rasi"  /* Import the default Rofi styles */
@@ -18,7 +16,7 @@ window {
     margin:                      0px;            /* Remove any margin around the window */
     padding:                     0px;            /* Remove padding from the window */
     background-color:            rgba(0, 0, 0, 0.8);  /* Semi-transparent background for the window */
-    border-radius:               15px;           /* Rounded corners for the window */
+    border-radius:               15px;           /* Apply rounded corners to the window */
 }
 
 /* Main Box - Container for the list view */
@@ -78,8 +76,8 @@ element-label {
     font-weight:                 bold;           /* Make the text bold for better visibility */
 }
 
-/* Search Feature: Enable search functionality in dmenu mode */
-dmenu {
+/* Search Feature: Enable a search box at the top of the menu */
+search {
     font:                        "JetBrains Mono Nerd Font 12";  /* Set font for search box */
     background-color:            rgba(0, 0, 0, 0.6);  /* Semi-transparent background for the search box */
     border-radius:               5px;           /* Rounded corners for search box */
