@@ -30,7 +30,7 @@ readonly THUMBNAIL_DIR="$CACHE_DIR/thumbnails"         # Thumbnail images
 
 # Script and theme paths
 readonly RELOAD_SCRIPT="$HOME/.config/hypr/scripts/reload-apps.sh"
-readonly ROFI_THEME="$CONFIG_DIR/wallpaper-selector-gallery.rasi"
+readonly ROFI_THEME="$CONFIG_DIR/wallpaper-selector.rasi"
 
 # swww transition parameters
 readonly SWWW_PARAMS="--transition-fps 60 \
