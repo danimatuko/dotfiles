@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Configurable break line
 BREAK_LINE="────────────"
 
@@ -11,23 +10,19 @@ cat << EOF
             ║  ├─┤├─┤││││ ┬├┤   ╚═╗├┤  │  │ │││││ ┬└─┐            
 ${BREAK_LINE}╚═╝┴ ┴┴ ┴┘└┘└─┘└─┘  ╚═╝└─┘ ┴  ┴ ┴┘└┘└─┘└─┘${BREAK_LINE}
 EOF
-    # Add --height option to make ESC work properly
-    CHOICE=$(gum choose --height 10 --cursor.foreground 212 "Light/Dark Mode" "Wallpaper" "Blue Light Filter" "Exit")
+
+    CHOICE=$(gum choose --height 10 --cursor.foreground 212 \
+        "Toggle Light/Dark Mode" \
+        "Wallpaper" \
+        "Blue Light Filter" \
+        "Exit")
     
-    # Check if choice is empty (which happens when ESC is pressed)
-    if [ -z "$CHOICE" ]; then
-        echo "ESC pressed, exiting..."
-        exit 0
-    fi
-    
+    # Exit on ESC
+    [ -z "$CHOICE" ] && exit 0
+
     case $CHOICE in
-        "Light/Dark Mode")
-            MODE=$(gum choose "Light" "Dark")
-            if [ "$MODE" = "Light" ]; then
-                gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-            else 
-                gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-            fi
+        "Toggle Light/Dark Mode")
+            ~/.config/hypr/scripts/toggle-darkmode.sh
             ;;
         "Wallpaper")
             ~/.config/hypr/scripts/theme-selector.sh

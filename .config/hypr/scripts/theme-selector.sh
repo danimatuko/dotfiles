@@ -33,25 +33,35 @@ readonly RELOAD_SCRIPT="$HOME/.config/hypr/scripts/reload-apps.sh"
 readonly ROFI_THEME="$CONFIG_DIR/wallpaper-selector.rasi"
 
 # swww transition parameters
-readonly SWWW_PARAMS="--transition-fps 60 \
+readonly SWWW_PARAMS="
+--transition-fps 60 \
 --transition-type random \
 --transition-duration 1 \
 --transition-bezier .43,1.19,1,.4"
 
 # === Logging Helpers ===
 
-# Show an error with notify-send and exit
+
 log_error() {
-    notify-send -u critical "Theme Switcher" "$1"
+    notify-send -u critical -a "Hyprland Theme Switcher" -i dialog-error "❌ Theme Switch Failed" "$1"
     echo "[ERROR] $1" >&2
     exit 1
 }
 
-# Show an informational message
 log_info() {
-    notify-send -a "Theme Switcher" "$1" "$2"
-    echo "[INFO] $1: $2"
+    local theme_name="$1"
+
+    notify-send \
+        -u normal \
+        -a "🎨 Hyprland Theme Switcher" \
+        -i preferences-desktop-wallpaper \
+        "Applying Theme" \
+        "$theme_name"
+
+    echo "[INFO] Applying theme: $theme_name"
 }
+
+
 
 # === Checks ===
 
@@ -92,7 +102,7 @@ apply_theme() {
 
     [[ -f "$RELOAD_SCRIPT" ]] && source "$RELOAD_SCRIPT"  # Reload apps if script exists
 
-    log_info "Theme Applied" "$(basename "$wallpaper")"
+log_info "$(basename "$wallpaper")"
 }
 
 # === Menu Construction ===

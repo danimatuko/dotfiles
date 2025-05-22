@@ -1,6 +1,7 @@
 {
     "layer": "top",
     "position": "top",
+    "all-outputs": true,
     "include": [
         "~/.config/waybar/modules.json"
         // "~/.config/waybar/custom/waybar-quicklinks.json"
