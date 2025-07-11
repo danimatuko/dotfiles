@@ -38,7 +38,8 @@ yay -S --noconfirm --needed \
   pavucontrol \
   pipewire \
   wireplumber \
-  network-manager-applet
+  network-manager-applet\
+  swww
 
 echo "✅ Terminal packages installed successfully!"
 
