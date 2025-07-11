@@ -7,10 +7,10 @@ BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y-%m-%d_%H-%M-%S)"
 echo "🛟 Backing up existing dotfiles to $BACKUP_DIR..."
 mkdir -p "$BACKUP_DIR"
 
-cp -r ~/.config "$BACKUP_DIR/config" 2>/dev/null || echo "📁 No ~/.config to backup"
-cp -f ~/.bashrc "$BACKUP_DIR/" 2>/dev/null || true
-cp -f ~/.gitconfig "$BACKUP_DIR/" 2>/dev/null || true
-cp -f ~/.tmux.conf "$BACKUP_DIR/" 2>/dev/null || true
+mv ~/.config "$BACKUP_DIR/config" 2>/dev/null || echo "📁 No ~/.config to backup"
+mv ~/.bashrc "$BACKUP_DIR/" 2>/dev/null || true
+mv ~/.gitconfig "$BACKUP_DIR/" 2>/dev/null || true
+mv ~/.tmux.conf "$BACKUP_DIR/" 2>/dev/null || true
 
 trap 'echo -e "\n❌ Dotfiles installation failed."
 if command -v gum &>/dev/null; then
