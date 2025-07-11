@@ -1,16 +1,9 @@
 #!/bin/bash
-
-# ========================================
-# 🧩 install/terminal.sh
-# AUR + CLI tools install script (Hyprland setup)
-# ========================================
-
 set -e
 
 echo "📦 Installing CLI & Hyprland tools via yay..."
 
 yay -S --noconfirm --needed \
-  # CLI productivity tools
   git \
   eza \
   fd \
@@ -23,7 +16,6 @@ yay -S --noconfirm --needed \
   vim \
   nvim \
   lazygit \
-  # Utilities
   btop \
   fastfetch \
   plocate \
@@ -33,14 +25,16 @@ yay -S --noconfirm --needed \
   unzip \
   inetutils \
   bash-completion \
-  # Hyprland environment & apps
+  wget \
+  curl \
+  man \
+  alacritty \
+  impala \
   waybar \
   swaync \
   rofi \
   kitty \
-  # Terminals
   ghostty \
-  # Sound and network
   pavucontrol \
   pipewire \
   wireplumber \

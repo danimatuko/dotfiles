@@ -1,17 +1,28 @@
 /* -----------------------------------------------------
- * One Dark Minimal Theme (Self-contained)
+ * Imports
+ * ----------------------------------------------------- */
+@import url("colors-waybar.css");
+
+/* -----------------------------------------------------
+ * Minimal Semantic Theme Variables (Pywal-backed)
  * ----------------------------------------------------- */
 
-/* Color Palette */
-@define-color base      #282c34;  /* Background */
-@define-color text      #abb2bf;  /* Foreground */
-@define-color accent    #61afef;  /* Accent (blue) */
-@define-color muted     #5c6370;  /* Dimmed gray */
-@define-color success   #98c379;  /* Green - success */
-@define-color warning   #e5c07b;  /* Yellow - warning */
-@define-color error     #e06c75;  /* Red - error */
-@define-color hover     #528bff;  /* Hover - blue */
+/* Base */
+@define-color background @color0;
+@define-color foreground @color15;
 
+/* Accents & States */
+@define-color color-accent @color6;
+@define-color color-hover @cursor;
+@define-color color-active @color8;
+
+/* Alerts */
+@define-color color-alert @color1;
+@define-color color-warning @color3;
+@define-color color-success @color2;
+
+/* Neutrals */
+@define-color color-muted @color8;
 
 /* -----------------------------------------------------
  * Global Styles
@@ -26,16 +37,16 @@
  * Waybar Base Styles
  * ----------------------------------------------------- */
 #waybar {
-  color: @text;
-  border-bottom: 2px solid @error;
+  color: @foreground;
+  border-bottom: 2px solid @color1;
 }
 
 window#waybar {
-  background-color: @base;
+  background-color: @background;
   opacity: 0.95;
 }
 
-window#waybar > box {
+window#waybar>box {
   padding: 0 1rem;
 }
 
@@ -49,8 +60,8 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #window {
   font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
-  background-color: @muted;
-  color: @text;
+  background-color: @color-muted;
+  color: @foreground;
   margin: 5px 2px;
   padding: 0 10px;
   border-radius: 3px;
@@ -63,27 +74,30 @@ window#waybar.empty #window {
 #workspaces {
   margin: 3px 1px;
   padding: 0px 1px;
+  /* border-radius: 15px; */
   border: 0px;
-  color: @text;
+  color: @foreground;
 }
 
 #workspaces button {
   padding: 0px 5px;
   margin: 4px 3px;
+  /* border-radius: 15px; */
   border: 0px;
-  color: @text;
+  color: @foreground;
   transition: all 0.3s ease-in-out;
 }
 
+
 #workspaces button.active {
-  color: @text;
-  background: @success;
+  color: @foreground;
+  background: @color-success;
   min-width: 40px;
 }
 
 #workspaces button:hover {
-  color: @base;
-  background: @hover;
+  color: @color0;
+  background: @color-hover;
 }
 
 
@@ -92,6 +106,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #clock {
   font-weight: bolder;
+  /* padding: 0rem 0.5rem; */
   font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
   font-size: 0.8rem;
 }
@@ -101,15 +116,15 @@ window#waybar.empty #window {
 }
 
 #battery.charging {
-  color: @success;
+  color: @color-success;
 }
 
 #battery.warning:not(.charging) {
-  color: @warning;
+  color: @color-warning;
 }
 
 #battery.critical:not(.charging) {
-  color: @error;
+  color: @color-alert;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
@@ -118,7 +133,7 @@ window#waybar.empty #window {
 }
 
 #backlight {
-  color: @hover;
+  color: @color-hover;
   border-radius: 0;
 }
 
@@ -127,16 +142,16 @@ window#waybar.empty #window {
  * Custom Modules
  * ----------------------------------------------------- */
 #custom-music {
-  color: @accent;
+  color: @color-accent;
 }
 
 #custom-lock {
   border-radius: 15px 0px 0px 15px;
-  color: @muted;
+  color: @color-muted;
 }
 
 #custom-power {
-  color: @text;
+  color: @foreground;
 }
 
 
@@ -144,8 +159,8 @@ window#waybar.empty #window {
  * Tray Module
  * ----------------------------------------------------- */
 #tray {
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right:5px;
+  padding-left:5px;
 }
 
 
@@ -164,12 +179,12 @@ window#waybar.empty #window {
 #custom-quicklink10 {
   padding: 0px;
   margin-right: 7px;
-  color: @text;
+  color: @foreground;
 }
 
 
 /* -----------------------------------------------------
- * Module Margin Styling
+ * Module Margin Styling (shared layout)
  * ----------------------------------------------------- */
 #custom-music,
 #tray,
@@ -192,23 +207,21 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 tooltip {
   font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
-  background: @base;
-  color: @text;
+  background: @background;
+  color: @foreground;
   border-radius: 8px;
   padding: 6px 10px;
   font-size: 0.85rem;
   font-weight: 500;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  border: 1px solid @muted;
+  border: 1px solid @color-muted;
 }
-
 
 /* -----------------------------------------------------
  * Animations
  * ----------------------------------------------------- */
 @keyframes blink {
   to {
-    color: @error;
+    color: @color-alert;
   }
 }
-
