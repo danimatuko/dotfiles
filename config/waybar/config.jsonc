@@ -2,17 +2,18 @@
     "layer": "top",
     "position": "top",
     "all-outputs": true,
+    "height": 24,
     "include": [
         "~/.config/waybar/modules.json"
         // "~/.config/waybar/custom/waybar-quicklinks.json"
     ],
     "modules-left": [
         // "custom/arch",
-        "clock",
+        "hyprland/workspaces",
         "group/quicklinks"
     ],
     "modules-center": [
-        "hyprland/workspaces"
+        "clock"
     ],
     "modules-right": [
         "tray",
