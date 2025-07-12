@@ -1,214 +1,50 @@
-/* -----------------------------------------------------
- * One Dark Minimal Theme (Self-contained)
- * ----------------------------------------------------- */
+@define-color foreground #eff0f1;
+@define-color foreground-inactive #7f8c8d;
+@define-color background #232629;
+@define-color background-alt #31363b;
 
-/* Color Palette */
-@define-color base      #282c34;  /* Background */
-@define-color text      #abb2bf;  /* Foreground */
-@define-color accent    #61afef;  /* Accent (blue) */
-@define-color muted     #5c6370;  /* Dimmed gray */
-@define-color success   #98c379;  /* Green - success */
-@define-color warning   #e5c07b;  /* Yellow - warning */
-@define-color error     #e06c75;  /* Red - error */
-@define-color hover     #528bff;  /* Hover - blue */
-
-
-/* -----------------------------------------------------
- * Global Styles
- * ----------------------------------------------------- */
 * {
-  font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-  font-size: 0.9rem;
+    font-family: JetBrainsMono Nerd Font Propo;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
 }
 
-
-/* -----------------------------------------------------
- * Waybar Base Styles
- * ----------------------------------------------------- */
 #waybar {
-  color: @text;
-  border-bottom: 2px solid @error;
-}
-
-window#waybar {
-  background-color: @base;
-  opacity: 0.95;
-}
-
-window#waybar > box {
-  padding: 0 1rem;
-}
-
-window#waybar.empty #window {
-  background-color: transparent;
-}
-
-
-/* -----------------------------------------------------
- * Window Title
- * ----------------------------------------------------- */
-#window {
-  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
-  background-color: @muted;
-  color: @text;
-  margin: 5px 2px;
-  padding: 0 10px;
-  border-radius: 3px;
-}
-
-
-/* -----------------------------------------------------
- * Workspaces Module
- * ----------------------------------------------------- */
-#workspaces {
-  margin: 3px 1px;
-  padding: 0px 1px;
-  border: 0px;
-  color: @text;
+    color: @foreground;
+    background-color: @background;
+    padding: 0 10px;
 }
 
 #workspaces button {
-  padding: 0px 5px;
-  margin: 4px 3px;
-  border: 0px;
-  color: @text;
-  transition: all 0.3s ease-in-out;
+    padding: 0 1em;
+    color: @foreground;
+}
+
+#workspaces button.empty {
+    color: @foreground;
 }
 
 #workspaces button.active {
-  color: @text;
-  background: @success;
-  min-width: 40px;
+    background-color: @background-alt;
+    border-radius: 3px;
 }
 
-#workspaces button:hover {
-  color: @base;
-  background: @hover;
-}
-
-
-/* -----------------------------------------------------
- * System Modules
- * ----------------------------------------------------- */
-#clock {
-  font-weight: bolder;
-  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
-  font-size: 0.8rem;
-}
-
-#battery {
-  border-radius: 0;
-}
-
-#battery.charging {
-  color: @success;
-}
-
-#battery.warning:not(.charging) {
-  color: @warning;
-}
-
-#battery.critical:not(.charging) {
-  color: @error;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#backlight {
-  color: @hover;
-  border-radius: 0;
-}
-
-
-/* -----------------------------------------------------
- * Custom Modules
- * ----------------------------------------------------- */
-#custom-music {
-  color: @accent;
-}
-
-#custom-lock {
-  border-radius: 15px 0px 0px 15px;
-  color: @muted;
-}
-
-#custom-power {
-  color: @text;
-}
-
-
-/* -----------------------------------------------------
- * Tray Module
- * ----------------------------------------------------- */
-#tray {
-  padding-right: 5px;
-  padding-left: 5px;
-}
-
-
-/* -----------------------------------------------------
- * Quick Links
- * ----------------------------------------------------- */
-#custom-quicklink1,
-#custom-quicklink2,
-#custom-quicklink3,
-#custom-quicklink4,
-#custom-quicklink5,
-#custom-quicklink6,
-#custom-quicklink7,
-#custom-quicklink8,
-#custom-quicklink9,
-#custom-quicklink10 {
-  padding: 0px;
-  margin-right: 7px;
-  color: @text;
-}
-
-
-/* -----------------------------------------------------
- * Module Margin Styling
- * ----------------------------------------------------- */
-#custom-music,
 #tray,
-#backlight,
-#clock,
-#battery,
-#pulseaudio,
-#custom-power,
-#hyprland-language,
 #bluetooth,
+#pulseaudio,
+#battery,
 #network,
-#custom-notification {
-  margin-left: 0.35rem;
-  margin-right: 0.35rem;
+#language,
+#custom-notification,
+#custom-power {
+    padding: 0 4px;
 }
 
-
-/* -----------------------------------------------------
- * Tooltip Styles
- * ----------------------------------------------------- */
-tooltip {
-  font-family: "JetBrainsMono Nerd Font", monospace, FontAwesome;
-  background: @base;
-  color: @text;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  border: 1px solid @muted;
+#wireplumber,
+#bat,
+#net,
+#usage,
+#memory {
 }
-
-
-/* -----------------------------------------------------
- * Animations
- * ----------------------------------------------------- */
-@keyframes blink {
-  to {
-    color: @error;
-  }
-}
-
