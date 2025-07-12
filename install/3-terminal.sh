@@ -16,30 +16,33 @@ yay -S --noconfirm --needed \
   vim \
   nvim \
   lazygit \
-  btop \
-  fastfetch \
-  plocate \
-  wl-clipboard \
+  wget \
+  curl \
+  man \
   less \
   whois \
   unzip \
   inetutils \
   bash-completion \
-  wget \
-  curl \
-  man \
+  plocate \
+  fastfetch \
+  wl-clipboard \
+  kitty \
   alacritty \
-  impala \
+  ghostty \
   waybar \
   swaync \
   rofi \
-  kitty \
-  ghostty \
+  wlogout \
   pavucontrol \
   pipewire \
   wireplumber \
-  network-manager-applet\
-  swww
+  network-manager-applet \
+  networkmanager \
+  nm-connection-editor \
+  blueman \
+  bluez \
+  bluez-utils \
+  wlogout
 
 echo "✅ Terminal packages installed successfully!"
-
