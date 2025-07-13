@@ -43,6 +43,7 @@ yay -S --noconfirm --needed \
   blueman \
   bluez \
   bluez-utils \
-  wlogout
+  wlogout \
+  swayosd
 
 echo "✅ Terminal packages installed successfully!"

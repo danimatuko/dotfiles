@@ -56,7 +56,7 @@
     "custom/power": {
         "tooltip": false,
         "on-click": "wlogout -b 4",
-        "format": "󰤆"
+        "format": "",
     },
     "network": {
         "format": "{icon}",
@@ -73,7 +73,7 @@
         "tooltip-format-wifi": "󰖩 {essid}\n󰇚 {signalStrength}%\n󰩟 {ipaddr}\n󰶼 {frequency} GHz\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
         "tooltip-format-ethernet": "󰈀 Wired Connection\n󰩟 {ipaddr}\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
         "tooltip-format-disconnected": "󰖪 No Connection\n\nClick to manage networks",
-        "on-click": "/home/$USER/.config/waybar/scripts/wifi-menu.sh",
+        "on-click": "ghostty  -e nmtui",
         "on-click-right": "nm-connection-editor",
         "on-click-middle": "nmcli networking off && sleep 1 && nmcli networking on",
         "interval": 3,
