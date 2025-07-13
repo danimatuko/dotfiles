@@ -1,75 +1,88 @@
-# Dotfiles
+# 🛠️ Dotfiles
 
-A collection of personal configuration files (dotfiles) for a consistent development environment across different machines.
+A collection of my personal configuration files to quickly bootstrap a modern development environment on Arch Linux (Hyprland-based).
 
-## 📋 Overview
+---
 
-This repository contains my personal dotfiles and setup script for quickly configuring a new development environment.  
-It includes configurations for:
+## 📦 Included Configurations
 
-- **Zsh** - Shell configuration with custom aliases and functions
-- **Tmux** - Terminal multiplexer settings for improved workflow
-- **Git** - Personal git preferences and configuration
-- **Hyprland** - Wayland compositor configuration
-- **Kitty** - Modern terminal emulator setup
-- **Neovim** - Text editor configuration and plugins
-- **Rofi** - Application launcher settings
-- **SwayNC** - Notification center configuration
-- **Waybar** - Status bar customization
+This repository includes settings and scripts for:
 
-## 🚀 Installation
+* **Bash** — Modular `bashrc` with `starship`, `zoxide`, `fzf`, etc.
+* **Tmux** — Minimal terminal multiplexer setup
+* **Git** — Git identity and general preferences
+* **Hyprland** — Wayland window manager configuration
+* **Kitty / Ghostty** — Terminal emulators with matching themes
+* **Neovim (AstroNvim)** — Fully-featured NVim configuration with lazy-loading plugins
+* **Waybar** — Custom status bar setup
+* **Rofi** — Themed app launcher with icon and font support
+* **SwayNC** — Notification center
+* **Bluetooth / Audio / Network** — Helpers and GUI tools (`blueman`, `pavucontrol`, etc.)
+* **Custom Scripts** — Located in `scripts/`, symlinked automatically
 
-Clone this repository to your home directory:
+---
+
+## 🚀 Quick Installation
+
+Clone the repo using a shallow clone (faster download):
 
 ```bash
-git clone https://github.com/danimatuko/dotfiles.git ~/dotfiles
+git clone --depth=1 https://github.com/danimatuko/dotfiles.git ~/dotfiles
 ```
 
-Run the setup script:
+Run the modular install script:
 
 ```bash
 cd ~/dotfiles
-chmod +x setup.sh
-./setup.sh
+./install.sh
 ```
 
-## ⚙️ What the Setup Script Does
+> 🛟 The script automatically installs `yay`, backs up existing configs, and prompts before linking.
 
-The setup script:
-1. Creates backups of your existing configuration files
-2. Creates symbolic links from this repository to your home directory
-3. Preserves your original configurations in a timestamped backup folder
+---
 
-## 🛠️ Troubleshooting
+## 🔗 How Linking Works
 
-If a specific configuration isn't being applied:
+The script will:
 
-1. Check if the symlink was created correctly:
-   ```bash
-   ls -la ~/.config/<config_directory>
-   ```
+1. Create a timestamped backup (e.g. `~/dotfiles_backup_2025-07-11_15-32-00`)
+2. Prompt to confirm linking your `.bashrc`, `.tmux.conf`, `.gitconfig`, and config folders
+3. Use symlinks (`ln -sf`) so updates can be version-controlled and shared easily
 
-2. If the symlink wasn't created properly, try manually removing the directory and creating the symlink:
-   ```bash
-   mv ~/.config/<config_directory> ~/<config_directory>_backup
-   ln -sf ~/dotfiles/.config/<config_directory> ~/.config/<config_directory>
-   ```
+---
 
-3. Restart the application to apply the new configuration.
+## 🐛 Troubleshooting Tips
 
-## 🔄 Updating
+* **Check if configs are linked**:
 
-To update configurations:
+  ```bash
+  ls -la ~/.config/
+  ```
 
-1. Make changes directly in the `~/dotfiles` directory
-2. Commit and push changes to keep them synchronized across machines:
-   ```bash
-   cd ~/dotfiles
-   git add .
-   git commit -m "Update configurations"
-   git push
-   ```
+* **Check backups**:
+  Look inside the `~/dotfiles_backup_<timestamp>` directory.
+
+* **Re-run just the link script**:
+
+  ```bash
+  bash ~/dotfiles/link-dotfiles.sh
+  ```
+
+---
+
+## ⚙️ Requirements
+
+* Based on **Arch Linux**
+* The installer handles installing `yay` (AUR helper) if missing
+* Designed for a **Wayland + Hyprland** setup
+* Includes optional scripts for font, icon, and clipboard support
+
+---
 
 ## 📝 License
 
-This project is open-sourced under the MIT License.
+This dotfiles repository is distributed under the MIT License. Use freely and adapt as needed.
+
+---
+
+Let me know if you want a Hebrew version or would like it saved directly to a file like `README.md`.
