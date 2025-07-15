@@ -1,6 +1,6 @@
 @define-color foreground #eff0f1;
 @define-color foreground-inactive #7f8c8d;
-@define-color background #232629;
+@define-color background #1D1D22;
 @define-color background-alt #31363b;
 
 * {
@@ -27,16 +27,17 @@ window > box {
 
 #workspaces button {
     padding: 0 1em;
-    color: @foreground;
+    color: @foreground-inactive;
 }
 
 #workspaces button.empty {
-    color: @foreground;
+    color: @foreground-inactive;
 }
 
 #workspaces button.active {
     background-color: @background-alt;
     border-radius: 3px;
+    color: @foreground;
 }
 
 #tray,
