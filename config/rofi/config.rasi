@@ -1,31 +1,17 @@
-@theme "~/.config/rofi/themes/dracula.rasi"
 
-configuration {
-  font: "JetBrainsMono Nerd Font Medium 12";
-  drun {
-    // display-name: "";
-    display-name: "󰀻  Apps";
-  }
-  run {
-    display-name: "";
-}
-  window {
-    display-name: "";
-  }
-  timeout {
-    delay: 10;
-    action: "kb-cancel";
-  }
-
+configuration{
+    modi: "run,window,combi";
+    icon-theme: "Oranchelo";
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: false;
+    display-combi: " 🖥️  All ";
+    display-run: " 🏃  Run ";
+    display-window: " 🪟  Window";
+    sidebar-mode: true;
+    // font: "Cascadia Code Mono 14";
 }
 
-window {
-  width: 35%;
-  transparency: "real";
-}
-
-element-icon {
-    size:                       28px;
-    vertical-align:             0.5;
-    horizontal-align:           0.0;
-}
+@theme "~/.config/rofi/themes/tokyonight.rasi"
