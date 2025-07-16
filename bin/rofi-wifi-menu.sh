@@ -13,7 +13,7 @@ fi
 NETWORKS=$(nmcli -f SSID,SECURITY,BARS device wifi list | sed '/^--/d' | sed 1d)
 
 # Show networks in rofi
-CHENTRY=$(echo -e "$TOGGLE\n$NETWORKS" | uniq -u | rofi -dmenu -selected-row 1)
+CHENTRY=$(echo -e "$TOGGLE\n$NETWORKS" | uniq -u | rofi -dmenu -p "Networks:" -selected-row 1)
 [ -z "$CHENTRY" ] && exit
 
 if [[ "$CHENTRY" = "Enable WiFi 直" ]]; then

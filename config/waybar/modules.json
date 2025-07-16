@@ -55,8 +55,14 @@
     },
     "custom/power": {
         "tooltip": false,
-        "on-click": "wlogout -b 4",
+        "on-click": "swaync-client",
         "format": "",
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     },
     "network": {
         "format": "{icon}",
@@ -86,10 +92,10 @@
     "bluetooth": {
         "format": "{icon}",
         "format-icons": {
-            "enabled": "󰂯",
-            "connected": "󰂱",
-            "disabled": "󰂲",
-            "off": "󰂲"
+            "enabled": "󰂯 ",
+            "connected": "󰂱 ",
+            "disabled": "󰂲 ",
+            "off": "󰂲 "
         },
         "format-disabled": "󰂲",
         "format-off": "󰂲",
@@ -157,14 +163,14 @@
         "tooltip-format": "Left: Notifications\nRight: Do not disturb",
         "format": "{icon} ",
         "format-icons": {
-            "notification": "<span foreground='red'><sup></sup></span>",
-            "none": "",
+            "notification": " <span foreground='red'><sup></sup></span>",
+            "none": " ",
             "dnd-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-none": "",
+            "dnd-none": " ",
             "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-            "inhibited-none": "",
+            "inhibited-none": " ",
             "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-inhibited-none": ""
+            "dnd-inhibited-none": " "
         },
         "return-type": "json",
         "exec-if": "which swaync-client",
@@ -198,12 +204,21 @@
         "on-click": "kitty --hold -e fastfetch"
     },
 
-"custom/darkmode": {
-  "format": "{}",
-  "exec": "~/.config/waybar/scripts/darkmode-button.sh",
-  "interval": 1,
-  "on-click": "~/.config/hypr/scripts/toggle-darkmode.sh"
+    "custom/sys_controls": {
+        "format": "󰂯    ⏻",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/sys_controls.sh",
+        "interval": 10,
+        "on-click": "swaync-client -t" 
+    },
+    "group/sys_controls": {
+        "orientation": "horizontal",
+        "modules": [
+            "network",
+            "bluetooth",
+            "custom/notification",
+            "custom/power"
+        ]
+    }
 }
-
-
 }
