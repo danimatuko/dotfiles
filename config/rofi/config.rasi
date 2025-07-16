@@ -1,5 +1,4 @@
-
-configuration{
+configuration {
     modi: "run,window,combi";
     icon-theme: "Oranchelo";
     show-icons: true;
@@ -7,11 +6,28 @@ configuration{
     location: 0;
     disable-history: false;
     hide-scrollbar: false;
-    display-combi: " 🖥️  All ";
-    display-run: " 🏃  Run ";
-    display-window: " 🪟  Window";
+    display-combi: "🖥️  All";
+    display-run: "🏃  Run";
+    display-window: "🪟  Window";
     sidebar-mode: true;
-    // font: "Cascadia Code Mono 14";
+    font: "Cascadia Code 14";
+
+    drun {
+        display-name: "Applications:";
+    }
+
+    run {
+        display-name: "";
+    }
+
+    window {
+        display-name: "";
+    }
+
+    timeout {
+        delay: 5;
+        action: "kb-cancel";
+    }
 }
 
 @theme "~/.config/rofi/themes/tokyonight.rasi"

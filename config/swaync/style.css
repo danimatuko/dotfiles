@@ -1,6 +1,6 @@
 * {
   font-size: 14px;
-  font-family: "Noto Sans";
+  font-family: "Cascadia Code 14";
   transition: 100ms;
   box-shadow: unset;
 }
@@ -189,10 +189,10 @@
 }
 
 .widget-title button label {
-  font-family: 'Gabarito', sans-serif;
-  font-size: 1.0409rem;
+  font-family: "Cascadia code";
+  font-size: 1rem;
   color: #e4e1e6;
-  margin-right: 0.841rem;
+  margin-right: 0.8rem;
 }
 
 .widget-title button:hover {
@@ -232,7 +232,7 @@
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button label {
-  font-family: "Materials Symbol Rounded";
+  font-family: "JetbrainsMono Nerd font";
   font-size: 1.3027rem;
   color: #e4e1e6;
 }
@@ -253,7 +253,7 @@
 
 /* Volume widget */
 
-.widget-volume {
+.widget-volume, .widget-backlight {
   background-color: rgba(28, 28, 34, 0.35);
   padding: 8px;
   margin: 8px;
@@ -261,14 +261,14 @@
   -gtk-outline-radius: 1.159rem;
 }
 
-.widget-volume trough {
+.widget-volume trough , .widget-backlight trough{
   /* OnePlus McClaren edition Orange accent */
   border:unset;
   background-color: rgba(128, 128, 128, 0.4);
 }
 
 
-.widget-volume trough slider {
+.widget-volume trough slider ,.widget-backlight trough slider{
   /* OnePlus McClaren edition Orange accent */
   color:unset;
   background-color: #ff9f34;

@@ -19,10 +19,11 @@
         "tray",
         "hyprland/language",
         "pulseaudio",
-        "network",
+        // "network",
         "battery",
         "bluetooth",
-        "custom/notification",
-        "custom/power"
+        "custom/notification"
+        // "custom/power"
+        // "group/sys_controls"
     ]
 }

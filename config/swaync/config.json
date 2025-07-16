@@ -38,31 +38,37 @@
           "command": "notify-send 'hey'",
           "label": "󰤄",
           "type": "toggle",
-          "update_command": "notify-send 'Hi'"
+          "update_command": "notify-send 'Hi'",
+          "command":"~/dotfiles/bin/toggle-darkmode.sh"
         },
         {
-          "active": false,
-          "command": "swaync-client -d",
-          "label": "",
-          "type": "toggle"
+          "label": " ",
+          "type": "toggle",
+          "active": true,
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
+          "update-command": "sh -c '[[ $(nmcli r wifi) == \"enabled\" ]] && echo true || echo false'"
         },
         {
-          "active":false,
-          "command":"obs",
-          "label":"󰄀",
-          "type": "button"
+          "label": "󰂯",
+          "type": "toggle",
+          "active": true,
+          "command": "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then nmcli radio bluetooth on; else nmcli radio bluetooth off; fi'",
+          "update-command": "sh -c 'nmcli radio bluetooth | grep -q enabled && echo true || echo false'"
         },
-        {
-          "active":false,
-          "command":"obs",
-          "label":"󰕧",
-          "type": "button"
+
+          {
+          "label": " ",
+          "type": "toggle",
+          "active": true,
+          "command": "amixer set Capture toggle",
+          "update-command": ""
         },
         {
           "active": false,
           "command": "swaync-client -t",
           "label": "",
-          "type": "toggle"
+          "type": "button",
+          "command": "wlogout -b 4"
         }
       ]
     },
@@ -76,10 +82,14 @@
       "clear-all-button": true      
     },
     "volume": {
-      "label": "",
-        "show-per-app": true,
-        "show-per-app-icon": true,
-        "show-per-app-label":true
+      "label": "󰕾 ",
+      "show-per-app": true,
+      "show-per-app-icon": true,
+      "show-per-app-label": true
+    },
+    "backlight": {
+      "label": "󰃠 ",
+      "subsystem": "backlight"
     }
 },
 
@@ -88,6 +98,7 @@
     "notifications",
     "buttons-grid",
     "mpris",
-    "volume"
+    "volume",
+    "backlight"
   ]
 }
