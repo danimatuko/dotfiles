@@ -211,14 +211,5 @@
         "interval": 10,
         "on-click": "swaync-client -t" 
     },
-    "group/sys_controls": {
-        "orientation": "horizontal",
-        "modules": [
-            "network",
-            "bluetooth",
-            "custom/notification",
-            "custom/power"
-        ]
-    }
 }
-}
+
