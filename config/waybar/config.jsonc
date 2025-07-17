@@ -19,7 +19,7 @@
         "tray",
         "hyprland/language",
         "pulseaudio",
-        // "network",
+        "network",
         "battery",
         "bluetooth",
         "custom/notification"

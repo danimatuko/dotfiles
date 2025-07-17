@@ -59,8 +59,8 @@ window > box {
 #memory {
 }
 
-#group-sys_controls {
-  background-color: @foreground;
+#group-sys-controls {
+  background-color: white;
   border-radius: 6px;
   padding: 0 10px;
   margin: 0 6px;
