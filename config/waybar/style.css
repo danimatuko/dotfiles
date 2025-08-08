@@ -66,16 +66,18 @@ tooltip {
     /* background-image: url("/home/anik/Documents/bar1.png");*/
     color: #A1BDCE;
     transition: all 0.3s ease;
-    padding-left: 4px;
-    padding-right: 4px;
+    /* padding-left: 4px; */
+    /* padding-right: 4px; */
+    border:none; 
     /*  transition: all 0.4s cubic-bezier(.55,0.68,.48,1.682); */
 }
 
 #workspaces button:hover {
     background: none;
     color: #72D792;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.5s cubic-bezier(.55, -0.68, .48, 1.682);
+    /* animation: ws_hover 20s ease-in-out 1; */
+    /* transition: all 0.5s cubic-bezier(.55, -0.68, .48, 1.682); */
+    border:none; 
 }
 
 #taskbar button {
@@ -166,9 +168,9 @@ tooltip {
     background: #161320;
     opacity: 1;
     margin: 4px 0px 4px 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-
+    padding-right:5px;
+    padding-left:5px;
+    font-size:18px;
 }
 
 #battery {
@@ -200,12 +202,13 @@ tooltip {
     font-family: "JetBrains Mono Nerd Font";
     background: rgba(23, 23, 23, 0.0);
     opacity: 1;
-    margin: 3px 0px 0px 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin: 3px 5px 0px 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     border: none;
 
 }
+
 
 #pulseaudio {
     font-weight: normal;
@@ -213,9 +216,9 @@ tooltip {
     color: #6F8FDB;
     background: rgba(22, 19, 32, 0.0);
     opacity: 1;
-    margin: 0px 0px 0px 0px;
-    padding-left: 3px;
-    padding-right: 3px;
+    margin: 0px 5px 0px 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #cpu {
@@ -264,8 +267,8 @@ tooltip {
     color: #A1BDCE;
     font-weight: normal;
     font-size: 19px;
-    padding-right: 10px;
-    padding-left: 4px
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 #custom-notifications,
@@ -303,7 +306,7 @@ tooltip {
 
 #mpris {
     font-size: 15px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 #custom-rr_end {
@@ -314,8 +317,6 @@ tooltip {
     margin: 0px 0px 0px 0px;
     padding-left: 4px;
     padding-right: 4px;
-    ;
-
 }
 
 #backlight-slider slider,
@@ -325,6 +326,7 @@ tooltip {
     box-shadow: none;
     margin-right: 7px;
 }
+
 
 #backlight-slider trough,
 #pulseaudio-slider trough {

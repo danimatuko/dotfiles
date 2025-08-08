@@ -28,7 +28,8 @@
     "modules-right": [
         "custom/padd",
         "custom/l_end",
-        "group/expand",
+        "tray",
+        "bluetooth",
         "network",
         "group/expand-3",
         "clock",
@@ -326,7 +327,8 @@
         "format-linked": "󰈀 {ifname} (No IP)",
         "format-disconnected": " ",
         "tooltip-format-disconnected": "Disconnected",
-        "on-click": "/usr/local/bin/ags -t ControlPanel",
+        "on-click":"ghostty --class=Impala -e impala",
+        "on-click-right": "~/dotfiles/bin/rofi-wifi-menu.sh",
         "interval": 2,
     },
     "pulseaudio": {
@@ -447,5 +449,25 @@
         "rotate": 0,
         "device": "pulseaudio",
         "scroll-step": 1,
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "format-icons": {
+            "enabled": "󰂯",
+            "connected": "󰂱 ",
+            "disabled": "󰂲 ",
+            "off": "󰂲 "
+        },
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "tooltip-format": "{controller_alias}\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias} ({device_battery_percentage}%)",
+        "interval": 10,
+        "on-click": "~/dotfiles/scripts/rofi-bluetooth.sh",
+        "on-click-right": "blueberry",
+        "on-click-middle": "bluetoothctl power toggle",
+        "format-no-controller": "󱛉"
     },
 }

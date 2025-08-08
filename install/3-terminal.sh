@@ -44,6 +44,7 @@ yay -S --noconfirm --needed \
   bluez \
   bluez-utils \
   wlogout \
-  swayosd
+  swayosd \
+  impala
 
 echo "✅ Terminal packages installed successfully!"

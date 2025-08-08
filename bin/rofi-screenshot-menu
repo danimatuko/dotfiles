@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Options for the menu (with icons, optional)
+options="📸 Region\n🪟 Window\n🖥️ Screen"
+
+# Show menu using rofi and capture choice
+choice=$(printf "$options" | rofi -dmenu -i -p "Screenshot" -l 3)
+
+# Run screenshot script with argument based on choice
+case "$choice" in
+  *Region*) ~/dotfiles/bin/screenshot ;;
+  *Window*) ~/dotfiles/bin/screenshot window ;;
+  *Display*) ~/dotfiles/bin/screenshot output ;;
+  *) exit 0 ;;  # Cancel or invalid choice
+esac
+
