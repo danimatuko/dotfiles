@@ -22,13 +22,19 @@ fi' ERR
 
 echo "🔧 Starting modular install scripts..."
 
-for script in ~/dotfiles/install/*.sh; do
-  echo -e "\n▶️ Running $script"
-  source "$script"
-done
+source ~/dotfiles/setup/preinstall.sh
+# source ~/dotfiles/setup/install-packages.sh
+source ~/dotfiles/setup/fonts.sh
+source ~/dotfiles/setup/icons.sh
+source ~/dotfiles/setup/starship.sh
+source ~/dotfiles/setup/astrovim.sh
+source ~/dotfiles/setup/terminal.sh
+source ~/dotfiles/setup/deploy-scripts.sh   
+# Add more scripts here as needed
+
 
 echo -e "\n📝 Dotfile setup ready..."
-gum confirm "Link dotfiles and config files now?" && bash ~/dotfiles/link-dotfiles.sh || echo "⏩ Skipped dotfile linking."
+gum confirm "Link dotfiles and config files now?" && source ~/dotfiles/link-dotfiles.sh || echo "⏩ Skipped dotfile linking."
 
 sudo updatedb
 
