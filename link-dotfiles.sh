@@ -25,6 +25,7 @@ backup_and_link() {
 
 # Dotfiles
 backup_and_link "$CONFIG_DIR/.bashrc" "$HOME/.bashrc"
+backup_and_link "$CONFIG_DIR/.zshrc" "$HOME/.zshrc"
 backup_and_link "$CONFIG_DIR/.gitconfig" "$HOME/.gitconfig"
 backup_and_link "$CONFIG_DIR/.tmux.conf" "$HOME/.tmux.conf"
 

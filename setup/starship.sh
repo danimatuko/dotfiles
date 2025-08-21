@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Install starship prompt
 if ! command -v starship &>/dev/null; then
   echo "🌟 Installing starship prompt..."

@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # --------------------------------------
 # PATH Configuration
 # --------------------------------------
@@ -28,7 +35,6 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-history-substring-search
-zinit light lsd-rs/lsd
 zinit ice wait lucid as"completion"
 zinit light zdharma-continuum/zinit
 
@@ -44,12 +50,20 @@ alias cd='z'
 alias dotfiles='cd ~/dotfiles/ && vim'
 alias hypr='cd ~/.config/hypr/ && vim'
 
-# File Listing with lsd
-alias ls='lsd --group-dirs=first'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
+alias c='clear'
+alias rm='rm -i'
+alias vim='nvim'
+alias dots='cd ~/dotfiles && nvim'
+alias hypr='cd ~/.config/hypr && nvim'
+alias ls='eza --group-directories-first --icons'
+alias ll='eza -l'
+alias la='eza -a'
+alias lla='eza -la'
+alias lt='eza --tree'
+alias astrovim='NVIM_APPNAME=nvim-astro nvim'
+alias cat='bat --style=numbers --color=always'
+alias lg='lazygit'
+alias gs='git status'
 
 # Neovim Variants
 alias vim='nvim'
@@ -97,4 +111,8 @@ bindkey '^[[B' history-beginning-search-forward
 # --------------------------------------
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
+# eval "$(zellij setup --generate-auto-start zsh)"
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

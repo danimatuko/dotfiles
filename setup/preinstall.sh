@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Manually install yay from AUR if not already available
 if ! command -v yay &>/dev/null; then
   # Install build tools

@@ -465,8 +465,8 @@
         "tooltip-format-enumerate-connected": "{device_alias}",
         "tooltip-format-enumerate-connected-battery": "{device_alias} ({device_battery_percentage}%)",
         "interval": 10,
-        "on-click": "~/dotfiles/scripts/rofi-bluetooth.sh",
-        "on-click-right": "blueberry",
+        "on-click": "blueberry",
+        "on-click-right": "~/dotfiles/scripts/rofi-bluetooth.sh",
         "on-click-middle": "bluetoothctl power toggle",
         "format-no-controller": "󱛉"
     },
