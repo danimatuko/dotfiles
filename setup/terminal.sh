@@ -45,7 +45,7 @@ yay -S --noconfirm --needed \
   bluez-utils \
   wlogout \
   swayosd \
-  impala \ 
+  impala \
   swww \
   unzip \
   libnotify \
