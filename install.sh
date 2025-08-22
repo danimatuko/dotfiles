@@ -23,14 +23,15 @@ fi' ERR
 echo "🔧 Starting modular install scripts..."
 
 source ~/dotfiles/setup/preinstall.sh
-# source ~/dotfiles/setup/install-packages.sh
+source ~/dotfiles/setup/login-manager.sh
+source ~/dotfiles/setup/network.sh
+source ~/dotfiles/setup/bluetooth.sh
 source ~/dotfiles/setup/fonts.sh
 source ~/dotfiles/setup/icons.sh
 source ~/dotfiles/setup/starship.sh
 source ~/dotfiles/setup/astrovim.sh
 source ~/dotfiles/setup/terminal.sh
 source ~/dotfiles/setup/deploy-scripts.sh   
-# Add more scripts here as needed
 
 
 echo -e "\n📝 Dotfile setup ready..."

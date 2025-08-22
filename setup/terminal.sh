@@ -49,7 +49,9 @@ yay -S --noconfirm --needed \
   swww \
   unzip \
   libnotify \
-  nautilus
+  nautilus \
+  brightnessctl \
+  hyprlock-git
 
 
 echo "✅ Terminal packages installed successfully!"
