@@ -31,6 +31,7 @@ source ~/dotfiles/setup/icons.sh
 source ~/dotfiles/setup/starship.sh
 source ~/dotfiles/setup/astrovim.sh
 source ~/dotfiles/setup/terminal.sh
+source ~/dotfiles/setup/desktop.sh
 source ~/dotfiles/setup/deploy-scripts.sh   
 
 

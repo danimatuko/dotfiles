@@ -1,34 +1,42 @@
 #!/usr/bin/env bash
-# Theme switcher script with enhanced notifications
-# Define your themes
+# Theme switcher script with theme existence check
+
 LIGHT_THEME="Adwaita"
 DARK_THEME="Adwaita-dark"
-ICON_THEME="Adwaita"  # Same for both
+ICON_THEME="Adwaita"
 
-# Get current theme
 CURRENT_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme | tr -d "'")
 
-# Use icons in notifications for better visual cues
 LIGHT_ICON="weather-clear"
 DARK_ICON="weather-clear-night"
-
-# Set notification timeout (in milliseconds)
 NOTIFICATION_TIMEOUT=3000
 
+# Function to check if theme exists
+theme_exists() {
+    local theme="$1"
+    [[ -d "/usr/share/themes/$theme" || -d "$HOME/.themes/$theme" ]]
+}
+
 if [[ "$CURRENT_THEME" == "$DARK_THEME" ]]; then
-    # Switch to light mode
-    gsettings set org.gnome.desktop.interface gtk-theme "$LIGHT_THEME"
-    gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
-    gsettings set org.gnome.desktop.interface color-scheme "default"
-    
-    # Enhanced notification with icon and timeout
-    notify-send --icon="$LIGHT_ICON" --expire-time="$NOTIFICATION_TIMEOUT" "Theme Changed" "Switched to Light Mode (${LIGHT_THEME})"
+    if theme_exists "$LIGHT_THEME"; then
+        gsettings set org.gnome.desktop.interface gtk-theme "$LIGHT_THEME"
+        gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
+        gsettings set org.gnome.desktop.interface color-scheme "default"
+        notify-send --icon="$LIGHT_ICON" --expire-time="$NOTIFICATION_TIMEOUT" \
+            "Theme Changed" "Switched to Light Mode (${LIGHT_THEME})"
+    else
+        notify-send --icon=dialog-warning "Theme Switch Failed" \
+            "Light theme (${LIGHT_THEME}) is not installed!"
+    fi
 else
-    # Switch to dark mode
-    gsettings set org.gnome.desktop.interface gtk-theme "$DARK_THEME"
-    gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-    
-    # Enhanced notification with icon and timeout
-    notify-send --icon="$DARK_ICON" --expire-time="$NOTIFICATION_TIMEOUT" "Theme Changed" "Switched to Dark Mode (${DARK_THEME})"
+    if theme_exists "$DARK_THEME"; then
+        gsettings set org.gnome.desktop.interface gtk-theme "$DARK_THEME"
+        gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
+        gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+        notify-send --icon="$DARK_ICON" --expire-time="$NOTIFICATION_TIMEOUT" \
+            "Theme Changed" "Switched to Dark Mode (${DARK_THEME})"
+    else
+        notify-send --icon=dialog-warning "Theme Switch Failed" \
+            "Dark theme (${DARK_THEME}) is not installed!"
+    fi
 fi

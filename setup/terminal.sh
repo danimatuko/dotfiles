@@ -47,11 +47,21 @@ yay -S --noconfirm --needed \
   swayosd \
   impala \
   swww \
-  unzip \
+  zip \
   libnotify \
   nautilus \
   brightnessctl \
-  hyprlock-git
+  hyprlock-git \
+  btop \
+  spf \
+  adwaita-icon-theme \
+  gnome-themes-extra \
+  hyprsunset \
+  wiremix \
+  tar \
+  hyprshot \
+  satty
+
 
 
 echo "✅ Terminal packages installed successfully!"
