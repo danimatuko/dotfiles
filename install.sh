@@ -36,7 +36,7 @@ source ~/dotfiles/setup/deploy-scripts.sh
 
 
 echo -e "\n📝 Dotfile setup ready..."
-gum confirm "Link dotfiles and config files now?" && source ~/dotfiles/link-dotfiles.sh || echo "⏩ Skipped dotfile linking."
+gum confirm "Link dotfiles and config files now?" && source ~/dotfiles/setup/link-dotfiles.sh || echo "⏩ Skipped dotfiles linking."
 
 sudo updatedb
 

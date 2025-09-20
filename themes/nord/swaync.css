@@ -1,0 +1,51 @@
+:root {
+  --bg-primary: #2e3440;
+  --bg-secondary: #3b4252;
+  --bg-button: #4c566a;
+  --bg-button-hover: #5e81ac;
+  --text-primary: #d8dee9;
+  --text-disabled: #4c566a;
+  --border-color: #434c5e;
+  --priority-low: #88c0d0;
+  --priority-normal: #81a1c1;
+  --priority-critical: #bf616a;
+  --transition-standard: 0.15s ease-in-out;
+}
+.widget-volume,
+.widget-backlight {
+  background-color: transparent;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 0px solid transparent;
+}
+.widget-volume {
+  border-radius: 20px 20px 0px 0px;
+  padding-bottom: 5px;
+}
+.widget-backlight {
+  padding-left: 5px;
+  margin-top: -8px;
+  border-radius: 0px 0px 20px 20px;
+}
+
+.widget-volume trough,
+.widget-backlight trough {
+  border-radius: 20px;
+  background: #0F1214; /* Dark slider track */
+  border: 1px solid #0F1214;
+}
+.widget-volume trough highlight,
+.widget-backlight trough highlight {
+  padding-top: 1px;
+  background: #966166; /* Vibrant slider fill */
+  border: 1px solid #966166;
+  border-radius: 20px;
+}
+.widget-volume trough slider,
+.widget-backlight trough slider {
+  padding: 1px;
+  background: #966166; /* Vibrant slider handle */
+  border: 1px solid #966166;
+   box-shadow: none;
+}

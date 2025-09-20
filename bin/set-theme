@@ -1,0 +1,64 @@
+#!/bin/bash
+set -euo pipefail
+THEME=$1
+THEMES_DIR="$HOME/dotfiles/themes"
+CURRENT="$HOME/current-theme"
+
+# Check if the theme exists
+if [ ! -d "$THEMES_DIR/$THEME" ]; then
+    notify-send "Set Theme" "Theme '$THEME' not found in $THEMES_DIR" -u critical
+    exit 1
+fi
+
+# Update current theme symlink
+ln -sfn "$THEMES_DIR/$THEME" "$CURRENT"
+
+# Reload Waybar
+if pgrep waybar &>/dev/null; then
+    killall waybar && waybar &
+fi
+
+# Reload Hyprland
+if command -v hyprctl &>/dev/null; then
+    hyprctl reload
+fi
+
+# Apply GTK theme if exists
+if [ -f "$CURRENT/gtk-theme.txt" ] && command -v gsettings &>/dev/null; then
+    gsettings set org.gnome.desktop.interface gtk-theme "$(cat "$CURRENT/gtk-theme.txt")"
+fi
+
+# Apply Ghostty theme if exists
+if [ -f "$CURRENT/ghostty.conf" ]; then
+    ln -sf "$CURRENT/ghostty.conf" "$HOME/.config/ghostty/config"
+fi
+
+# Update swaync theme symlink + reload
+if [ -f "$CURRENT/swaync.css" ]; then
+    mkdir -p "$HOME/.config/swaync"
+    ln -sfn "$CURRENT/swaync.css" "$HOME/.config/swaync/theme.css"
+    sleep 1
+    if command -v swaync-client &>/dev/null; then
+        swaync-client -rs
+    fi
+fi
+
+# Apply background via swww
+BG_DIR="$CURRENT/backgrounds"
+if [ -d "$BG_DIR" ]; then
+    # Pick the first image
+    BG_IMAGE=$(find "$BG_DIR" -type f | sort | head -n1)
+
+    # Set wallpaper with transition
+    swww img "$BG_IMAGE" \
+        --transition-type fade \
+        --transition-duration 1 \
+        --transition-fps 30
+
+    # Hyprlock background symlink
+    mkdir -p "$HOME/.cache"
+    ln -sfn "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
+fi
+
+sleep 1
+notify-send "Set Theme" "Switched theme to: $THEME" -u normal
