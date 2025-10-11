@@ -1,64 +1,119 @@
 #!/bin/bash
 set -euo pipefail
+
+# Get theme name from command line
 THEME=$1
 THEMES_DIR="$HOME/dotfiles/themes"
-CURRENT="$HOME/current-theme"
+CURRENT_THEME="$HOME/current-theme"
 
-# Check if the theme exists
+echo "Switching to theme: $THEME"
+
+# ============================================================================
+# VALIDATION
+# ============================================================================
+
 if [ ! -d "$THEMES_DIR/$THEME" ]; then
-    notify-send "Set Theme" "Theme '$THEME' not found in $THEMES_DIR" -u critical
+    notify-send "Set Theme" "Theme '$THEME' not found" -u critical
     exit 1
 fi
 
-# Update current theme symlink
-ln -sfn "$THEMES_DIR/$THEME" "$CURRENT"
+# ============================================================================
+# UPDATE THEME SYMLINK
+# ============================================================================
 
-# Reload Waybar
-if pgrep waybar &>/dev/null; then
-    killall waybar && waybar &
+echo "Setting up theme symlink..."
+ln -sfn "$THEMES_DIR/$THEME" "$CURRENT_THEME"
+sleep 0.1  # Let symlink settle
+
+# ============================================================================
+# CONFIGURE APPLICATIONS
+# ============================================================================
+
+# SwayOSD colors
+if [ -f "$CURRENT_THEME/swayosd.css" ]; then
+    echo "Configuring SwayOSD..."
+    mkdir -p "$HOME/.config/swayosd"
+    ln -sfn "$CURRENT_THEME/swayosd.css" "$HOME/.config/swayosd/colors.css"
 fi
 
-# Reload Hyprland
-if command -v hyprctl &>/dev/null; then
-    hyprctl reload
+# GTK theme
+if [ -f "$CURRENT_THEME/gtk-theme.txt" ] && command -v gsettings &>/dev/null; then
+    echo "Applying GTK theme..."
+    gsettings set org.gnome.desktop.interface gtk-theme "$(cat "$CURRENT_THEME/gtk-theme.txt")"
 fi
 
-# Apply GTK theme if exists
-if [ -f "$CURRENT/gtk-theme.txt" ] && command -v gsettings &>/dev/null; then
-    gsettings set org.gnome.desktop.interface gtk-theme "$(cat "$CURRENT/gtk-theme.txt")"
+# Ghostty terminal
+if [ -f "$CURRENT_THEME/ghostty.conf" ]; then
+    echo "Configuring Ghostty..."
+    mkdir -p "$HOME/.config/ghostty/themes"
+    ln -sf "$CURRENT_THEME/ghostty.conf" "$HOME/.config/ghostty/themes/current"
 fi
 
-# Apply Ghostty theme if exists
-if [ -f "$CURRENT/ghostty.conf" ]; then
-    ln -sf "$CURRENT/ghostty.conf" "$HOME/.config/ghostty/config"
-fi
-
-# Update swaync theme symlink + reload
-if [ -f "$CURRENT/swaync.css" ]; then
+# SwayNC notifications
+if [ -f "$CURRENT_THEME/swaync.css" ]; then
+    echo "Configuring notifications..."
     mkdir -p "$HOME/.config/swaync"
-    ln -sfn "$CURRENT/swaync.css" "$HOME/.config/swaync/theme.css"
-    sleep 1
-    if command -v swaync-client &>/dev/null; then
-        swaync-client -rs
-    fi
+    ln -sfn "$CURRENT_THEME/swaync.css" "$HOME/.config/swaync/theme.css"
 fi
 
-# Apply background via swww
-BG_DIR="$CURRENT/backgrounds"
-if [ -d "$BG_DIR" ]; then
-    # Pick the first image
-    BG_IMAGE=$(find "$BG_DIR" -type f | sort | head -n1)
+# ============================================================================
+# SET WALLPAPER
+# ============================================================================
 
-    # Set wallpaper with transition
+BG_DIR="$CURRENT_THEME/backgrounds"
+if [ -d "$BG_DIR" ]; then
+    echo "Setting wallpaper..."
+    BG_IMAGE=$(find "$BG_DIR" -type f | sort | head -n1)
+    
+    # Apply wallpaper with smooth transition
     swww img "$BG_IMAGE" \
         --transition-type fade \
         --transition-duration 1 \
         --transition-fps 30
-
-    # Hyprlock background symlink
+    
+    # Save for lock screen
     mkdir -p "$HOME/.cache"
-    ln -sfn "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
+    rm -f "$HOME/.cache/current-wallpaper"  # Remove old symlink/file first
+    cp "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
 fi
 
+# ============================================================================
+# RELOAD APPLICATIONS
+# ============================================================================
+
+echo "Reloading applications..."
+
+# Waybar status bar
+if pgrep waybar &>/dev/null; then
+    killall waybar && waybar &
+fi
+
+# Hyprland window manager  
+if command -v hyprctl &>/dev/null; then
+    hyprctl reload
+fi
+
+# Ghostty terminal (reload config)
+if pgrep ghostty &>/dev/null; then
+    killall -SIGUSR2 ghostty
+fi
+
+# SwayNC notifications
+if command -v swaync-client &>/dev/null; then
+    sleep 1
+    swaync-client -rs
+fi
+
+# SwayOSD volume/brightness display
+if pgrep swayosd-server &>/dev/null; then
+    killall swayosd-server
+    swayosd-server &
+fi
+
+# ============================================================================
+# FINISH
+# ============================================================================
+
 sleep 1
-notify-send "Set Theme" "Switched theme to: $THEME" -u normal
+echo "Theme switched successfully!"
+notify-send "Set Theme" "Switched to: $THEME" -u normal
