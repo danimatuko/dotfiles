@@ -1,0 +1,136 @@
+@import "../../current-theme/waybar.css";
+
+* {
+    font-family: "JetBrains Mono Nerd Font";
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#custom-notification {
+    font-family: "JetBrains Mono Nerd Font";
+    font-size: 17px;
+    color: @foreground;
+    margin: 2px 0 0 0;
+    padding: 0 5px;
+}
+
+window#waybar {
+    background: @background;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+tooltip {
+    background: @background;
+    color: @foreground;
+    font-size: 13px;
+    border-radius: 7px;
+    border: 2px solid rgba(16, 26, 36, 1);
+}
+
+#workspaces,
+#workspaces button {
+    background: transparent;
+    color: @foreground;
+    border-radius: 9px;
+    transition: 0.2s ease;
+    padding: 1px 4px;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#workspaces { color: #888789; }
+#workspaces button.active { color: #A1BDCE; border: none; transition: all 0.3s ease; }
+#workspaces button:hover { color: #72D792; border: none; }
+
+#taskbar button {
+    box-shadow: none;
+    text-shadow: none;
+    font-size: 4px;
+    border-radius: 9px;
+    margin: 0 0 3px 0;
+    padding: 0 3px;
+    color: @foreground;
+}
+
+#taskbar button.active {
+    background: rgba(50,50,80,0.5);
+    color: @foreground;
+    margin: 0 3px;
+    padding: 0 12px;
+    transition: all 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+    min-height: 9px;
+}
+
+#taskbar button:hover {
+    background: rgba(80,80,120,0.5);
+    color: @foreground;
+    transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#tray menu * {
+    min-height: 16px;
+    font-weight: bold;
+    font-size: 13px;
+    color: @foreground;
+}
+
+#tray menu separator { min-height: 10px; }
+
+#custom-spacer,
+#custom-smallspacer { opacity: 0; }
+
+#custom-mouse {
+    font-size: 14px;
+    margin-bottom: 6px;
+    background: @background;
+}
+
+#custom-power {
+    font-size: 15px;
+    color: @foreground;
+    background: @background;
+    margin: 6px 0;
+    padding: 0 4px;
+}
+
+#backlight {
+    color: @foreground;
+    background: transparent;
+    font-weight: normal;
+    font-size: 19px;
+    margin-top: 1px;
+    padding: 0 2px 0 0;
+}
+#bluetooth{
+    color: @foreground;
+    font-size:18px; 
+}
+
+/* Other sections that remain the same */
+#custom-cliphist { color: #E6E7E7;  margin: 4px 0; padding: 0 5px; font-size: 18px; }
+#battery { font-weight: normal; font-size: 16px; color: #a6d189; background: transparent; padding: 0 5px; }
+#idle_inhibitor { color: #24966e; background: @background; margin: 4px 0; padding: 0 4px; }
+#clock { color: @foreground; font-size: 15px; font-weight: 900; font-family: "JetBrains Mono Nerd Font"; background: transparent; margin: 3px 5px 0; padding: 0 5px; border: none; }
+#pulseaudio { font-weight: normal; font-size: 18px; color: #6F8FDB; background: transparent; margin: 0 5px; padding: 0 5px; }
+#cpu { font-weight: normal; font-size: 22px; color: #915CAF; }
+#custom-led { background: #427287; color: #FFF; margin: 7px 6px; padding-left: 6px; border-radius: 7px; }
+#custom-gpuinfo, #custom-keybindhint, #language, #memory { font-weight: normal; font-size: 22px; color: #E4C9AF; }
+#mpris { font-size: 15px; font-weight: bold; color: #FFF; animation: blink 3s linear infinite alternate; }
+@keyframes blink { to { color: #4a4a4a; } }
+#network { color: @foreground; font-weight: normal; font-size: 19px; padding: 0 3px; }
+#custom-notifications, #custom-spotify, #taskbar, #custom-theme, #custom-menu { color: #E8EDF0; background: transparent; padding: 0 10px; opacity: 0.1; }
+#tray, #custom-updates, #custom-wallchange, #custom-wbar, #window { color: @foreground; font-family: "Martian Mono"; }
+#custom-l_end, #custom-r_end, #custom-sl_end, #custom-sr_end, #custom-rl_end, #cava, #upower#headset, #upower { color: #a6d189; }
+#custom-rr_end { font-weight: normal; color: #E8EDF0; background: transparent; padding: 0 4px; }
+#backlight-slider slider, #pulseaudio-slider slider { background: transparent; margin-right: 7px; box-shadow: none; }
+#backlight-slider trough, #pulseaudio-slider trough { margin: -3px 0 -4px; min-width: 90px; min-height: 10px; border-radius: 8px; background: #343434; }
+#backlight-slider highlight, #pulseaudio-slider highlight { border-radius: 8px; background-color: #2096C0; }
+#battery.charging, #battery.plugged { color: #E8EDF0; }
+#battery.critical:not(.charging) { color: red; }
+#taskbar { padding: 1px; }
+#custom-r_end { border-radius: 0 7px 7px 0; margin-right: 1px; padding-right: 3px; }
+#custom-l_end { border-radius: 7px 0 0 7px; margin-left: 1px; padding-left: 3px; }
+#custom-sr_end, #custom-sl_end, #custom-rr_end, #custom-rl_end { margin: 0 1px; padding: 0 3px; }
+#custom-expand { min-width: 25px; color: @foreground; font-size: 16px; }
+#group-minimized { border-left: 0.5px solid; }

@@ -52,6 +52,7 @@
   },
   "widgets": [
     "title",
+    "buttons-grid",
     "inhibitors",
     "dnd",
     "notifications",
@@ -96,6 +97,25 @@
           "active": true,
           "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
           "update-command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
+        },
+        {
+          "label": "󰂯",
+          "type": "toggle",
+          "active": true,
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio bluetooth on || nmcli radio bluetooth off'",
+          "update-command": "sh -c '[[ $(nmcli radio bluetooth) == \"enabled\" ]] && echo true || echo false'"
+        },
+        {
+          "label": "󰖔",
+          "type": "toggle",
+          "active": false,
+          "command":"~/.local/bin/toggle-darkmode"
+        },
+        {
+          "label": "󰃞",
+          "type": "toggle", 
+          "active": false,
+          "command": "~/.local/bin/toggle-nightlight"
         }
       ]
     }
