@@ -11,7 +11,6 @@ return {
       ensure_installed = {
         -- install language servers
         "lua-language-server",
-        "css-lsp",
 
         -- install formatters
         "stylua",

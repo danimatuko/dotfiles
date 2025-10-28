@@ -77,6 +77,16 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+
+        -- Open Dashboard Automatically When No More Buffers
+        ["<Leader>c"] = {
+          function()
+            local bufs = vim.fn.getbufinfo { buflisted = true }
+            require("astrocore.buffer").close(0)
+            if not bufs[2] then require("snacks").dashboard() end
+          end,
+          desc = "Close buffer",
+        },
       },
     },
   },
