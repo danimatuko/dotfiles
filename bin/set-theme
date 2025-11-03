@@ -116,4 +116,5 @@ fi
 
 sleep 1
 echo "Theme switched successfully!"
-notify-send "Set Theme" "Switched to: $THEME" -u normal
+# notify-send -a "Theme" -i preferences-desktop-theme "🎨 Theme Changed" "Switched to: ${THEME:-unknown}" -u normal
+~/.local/bin/notify "Theme Changed" "Switched to: ${THEME:-unknown}" normal preferences-desktop-theme default
