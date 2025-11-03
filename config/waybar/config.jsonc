@@ -34,15 +34,15 @@
     //   "9": "9",
     //   "active": "󱓻"
     // },
-    // "format-icons": {
-    //   "default": "",
-    //   "active": ""
-    // }, 
     "format-icons": {
-            "default": "",
-            "active": "󰮯",
-            "urgent": "󰊠"
-        },
+      "default": "",
+      "active": ""
+    }, 
+    // "format-icons": {
+    //         "default": "",
+    //         "active": "󰮯",
+    //         "urgent": "󰊠"
+    //     },
     "persistent-workspaces": {
       "1": [],
       "2": [],

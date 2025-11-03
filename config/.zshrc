@@ -47,12 +47,12 @@ alias rm='rm -i'
 
 # Directory Navigation
 alias cd='z'
-alias dotfiles='cd ~/dotfiles/ && vim'
-alias hypr='cd ~/.config/hypr/ && vim'
+alias dotfiles='cd ~/dotfiles/ && nvim'
+alias hypr='cd ~/.config/hypr/ && nvim'
 
 alias c='clear'
 alias rm='rm -i'
-alias vim='nvim'
+alias nv='nvim'
 alias dots='cd ~/dotfiles && nvim'
 alias hypr='cd ~/.config/hypr && nvim'
 alias ls='eza --group-directories-first --icons'
@@ -66,7 +66,6 @@ alias lg='lazygit'
 alias gs='git status'
 
 # Neovim Variants
-alias vim='nvim'
 alias astrovim='NVIM_APPNAME=nvim-astro nvim'
 alias nvchad='NVIM_APPNAME=nvim-chad nvim'
 
@@ -117,3 +116,19 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+
+
+
+    # To explicitly point JetBrains IDEs to jre-jetbrains you can use environment variable(-s):
+    #
+    #   export IDEA_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export PHPSTORM_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export WEBIDE_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export PYCHARM_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export RUBYMINE_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export CL_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export DATAGRIP_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export GOLAND_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export STUDIO_JDK=/usr/lib/jvm/jre-jetbrains
+    #   export RUSTROVER_JDK=/usr/lib/jvm/jre-jetbrains
