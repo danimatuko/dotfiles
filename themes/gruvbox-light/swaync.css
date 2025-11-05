@@ -1,14 +1,9 @@
 :root {
-  --bg-primary: #282828;
-  --bg-secondary: #262626;
-  --bg-button: #4E4E4E;
-  --bg-button-hover: #5E5E5E;
-  --text-primary: #EBDBB2;
-  --text-disabled: #5C554A;
-  --border-color: #504945;
-  --priority-low: #EBDBB2;
-  --priority-normal: #83A598;
-  --priority-critical: #FB4934;
-  --transition-standard: 0.15s ease-in-out;
+  --background: #282828;       /* dark gray */
+  --background-alt: #3c3836;   /* slightly lighter background for panels */
+  --text: #ebdbb2;             /* light text */
+  --text-alt: #d5c4a1;         /* secondary text */
+  --selected: rgba(213, 196, 161, 0.4);  /* text-alt at 40% opacity */
+  --hover: rgba(213, 196, 161, 0.16);    /* selected at 40% opacity */
+  --urgent: #fb4934;           /* red for critical */
 }
-

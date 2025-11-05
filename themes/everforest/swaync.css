@@ -1,14 +1,9 @@
 :root {
-  --bg-primary: #2b3339;
-  --bg-secondary: #3c4044;
-  --bg-button: #4a524c;
-  --bg-button-hover: #5c645e;
-  --text-primary: #d3c6aa;
-  --text-disabled: #a7ad9d;
-  --border-color: #6b705c;
-  --priority-low: #a7c080;
-  --priority-normal: #e6c384;
-  --priority-critical: #d27e99;
-  --transition-standard: 0.15s ease-in-out;
+  --background: #2d353b;
+  --background-alt: #343f44;
+  --text: #d3c6aa;
+  --text-alt: #a7c080;
+  --selected: rgba(167, 192, 128, 0.4);
+  --hover: rgba(167, 192, 128, 0.16);
+  --urgent: #e67e80;
 }
-
