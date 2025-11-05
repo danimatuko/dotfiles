@@ -86,3 +86,4 @@ This dotfiles repository is distributed under the MIT License. Use freely and ad
 ---
 
 Let me know if you want a Hebrew version or would like it saved directly to a file like `README.md`.
+# check cred
