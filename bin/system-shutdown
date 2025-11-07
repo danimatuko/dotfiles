@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+notify "Shutting Down" "See you later!" "low" "system-shutdown" "logout"
+sleep 0.5
+systemctl poweroff

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ $SWAYNC_TOGGLE_STATE == "true" ]]; then
+    # Enable night light (warm temperature)
+    hyprctl hyprsunset temperature 4500
+    notify-send "󰃞 Night Light" "Enabled - Eyes protected" -t 2000 -u low
+else
+    # Disable night light (normal temperature)
+    hyprctl hyprsunset identity
+    notify-send "󰃞 Night Light" "Disabled - Normal colors restored" -t 2000 -u low
+fi

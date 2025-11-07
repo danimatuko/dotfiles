@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# power-control — Unified power/session control for Hyprland + wlogout
+# Usage: power-control <lock|logout|reboot|shutdown>
+
+# Source centralized sounds
+source ~/dotfiles/scripts/sounds.sh
+
+ACTION="${1:-none}"
+notify_cmd="$HOME/.local/bin/notify"
+
+TITLE="Power Control"  # Unified notification title
+
+case "$ACTION" in
+    lock)
+        $notify_cmd "$TITLE" "Screen locked" low system-lock-screen "$SOUND_UPDATE"
+        sleep 1
+        hyprctl dispatch exec hyprlock
+        ;;
+
+    logout)
+        $notify_cmd "$TITLE" "Logging out of Hyprland..." normal system-log-out "$SOUND_LOGOUT"
+        sleep 1
+        hyprctl dispatch exit
+        ;;
+
+    reboot)
+        $notify_cmd "$TITLE" "Rebooting system..." critical system-reboot "$SOUND_LOGOUT"
+        sleep 1
+        systemctl reboot
+        ;;
+
+    shutdown)
+        $notify_cmd "$TITLE" "Shutting down system..." critical system-shutdown "$SOUND_LOGOUT"
+        sleep 1
+        systemctl poweroff
+        ;;
+
+    *)
+        $notify_cmd "$TITLE" "Unknown action: $ACTION" critical dialog-error "$SOUND_ERROR"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Unified Notification Script for Hyprland
+# Usage: notify "Title" "Message" [urgency] [icon] [sound]
+
+# Load sound theme
+source ~/dotfiles/scripts/sounds.sh
+
+TITLE="${1:-Notification}"
+MESSAGE="${2:-}"
+URGENCY="${3:-normal}"  # low, normal, critical
+ICON="${4:-dialog-information}"
+SOUND_TYPE="${5:-default}"
+
+# Select sound file
+case "$SOUND_TYPE" in
+    update) SOUND="$SOUND_UPDATE" ;;
+    system) SOUND="$SOUND_SYSTEM" ;;
+    logout) SOUND="$SOUND_LOGOUT" ;;
+    success) SOUND="$SOUND_SUCCESS" ;;
+    error) SOUND="$SOUND_ERROR" ;;
+    warning) SOUND="$SOUND_WARNING" ;;
+    none) SOUND="" ;;
+    default) SOUND="$SOUND_DEFAULT" ;;
+    *) SOUND="$SOUND_TYPE" ;;  # custom path
+esac
+
+# Send notification
+notify-send -u "$URGENCY" -i "$ICON" "$TITLE" "$MESSAGE"
+
+# Play sound if file exists
+if [ -n "$SOUND" ] && [ -f "$SOUND" ]; then
+    paplay "$SOUND" 2>/dev/null &
+fi

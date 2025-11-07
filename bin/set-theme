@@ -1,5 +1,9 @@
 #!/bin/bash
+
 set -euo pipefail
+
+# Centralized sound definitions for scripts
+source ~/dotfiles/scripts/sounds.sh
 
 # Get theme name from command line
 THEME=$1
@@ -100,7 +104,7 @@ fi
 
 # SwayNC notifications
 if command -v swaync-client &>/dev/null; then
-    sleep 1
+    sleep 0.5
     swaync-client -rs
 fi
 
@@ -114,7 +118,6 @@ fi
 # FINISH
 # ============================================================================
 
-sleep 1
+sleep 0.5
 echo "Theme switched successfully!"
-# notify-send -a "Theme" -i preferences-desktop-theme "🎨 Theme Changed" "Switched to: ${THEME:-unknown}" -u normal
-~/.local/bin/notify "Theme Changed" "Switched to: ${THEME:-unknown}" normal preferences-desktop-theme default
+~/.local/bin/notify "Theme Changed" "Switched to: ${THEME:-unknown}" normal preferences-desktop-theme "$SOUND_UPDATE"

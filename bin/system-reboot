@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+notify "Restarting" "System reboot" "low" "system-reboot" "system"
+sleep 0.5
+systemctl reboot

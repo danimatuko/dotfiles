@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Rofi Power Menu - Icons Only
+# Theme: ~/.config/rofi/powermenu/type-4/style-2.rasi
+
+# Define only icons (requires Nerd Font)
+options="\n\n󰤄\n\n󰍃"
+
+# Show the menu with your theme
+chosen=$(echo -e "$options" | rofi -theme ~/.config/rofi/powermenu/type-4/style-5.rasi)
+
+# Match the chosen icon to an action
+case "$chosen" in
+    "") systemctl poweroff ;;
+    "") systemctl reboot ;;
+    "󰤄") systemctl suspend ;;
+    "") hyprlock ;;
+    "󰍃") hyprctl dispatch exit ;;
+    *) exit 0 ;;
+esac
