@@ -3,7 +3,6 @@
   "layer": "top",
   "position": "top",
   "spacing": 0,
-  "height": 26,
   "margin-left": 0,
   "margin-right": 0,
   "margin-top": 0,
@@ -11,33 +10,33 @@
   "modules-center": ["clock"],
   "modules-right": [
     "group/tray-expander",
+    "cpu",
+    "battery",
     "bluetooth",
     "network",
     "pulseaudio",
-    "cpu",
-    "battery",
     "custom/notification"
   ],
   "hyprland/workspaces": {
     "on-click": "activate",
     "format": "{icon}",
-    // "format-icons": {
-    //   "default": "",
-    //   "1": "1",
-    //   "2": "2",
-    //   "3": "3",
-    //   "4": "4",
-    //   "5": "5",
-    //   "6": "6",
-    //   "7": "7",
-    //   "8": "8",
-    //   "9": "9",
-    //   "active": "󱓻"
-    // },
     "format-icons": {
-      "default": "",
-      "active": ""
-    }, 
+      "default": "",
+      // "1": "1",
+      // "2": "2",
+      // "3": "3",
+      // "4": "4",
+      // "5": "5",
+      // "6": "6",
+      // "7": "7",
+      // "8": "8",
+      // "9": "9",
+      // "active": "󱓻"
+    },
+    // "format-icons": {
+    //   "default": "",
+    //   "active": ""
+    // }, 
     // "format-icons": {
     //         "default": "",
     //         "active": "󰮯",
@@ -130,7 +129,9 @@
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 600,
-      "children-class": "tray-group-item"
+      "children-class": "tray-group-item",
+      "transition-left-to-right": false,
+
     },
     "modules": ["custom/expand-icon", "tray"]
   },
@@ -163,4 +164,37 @@
         "escape": true
     },
 }
-
+"group/group-power": {
+    "orientation": "inherit",
+    "drawer": {
+        "transition-duration": 500,
+        "children-class": "not-power",
+        "transition-left-to-right": false,
+    },
+    "modules": [
+        "custom/power", // First element is the "group leader" and won't ever be hidden
+        "custom/quit",
+        "custom/lock",
+        "custom/reboot",
+    ]
+},
+"custom/quit": {
+    "format": "󰗼",
+    "tooltip": false,
+    "on-click": "hyprctl dispatch exit"
+},
+"custom/lock": {
+    "format": "󰍁",
+    "tooltip": false,
+    "on-click": "swaylock"
+},
+"custom/reboot": {
+    "format": "󰜉",
+    "tooltip": false,
+    "on-click": "reboot"
+},
+"custom/power": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "shutdown now"
+}
