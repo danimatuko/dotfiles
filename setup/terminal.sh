@@ -60,7 +60,8 @@ yay -S --noconfirm --needed \
   wiremix \
   tar \
   hyprshot \
-  satty
+  satty \
+  hypridle
 
 
 
