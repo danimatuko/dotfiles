@@ -1,3 +1,4 @@
+
 # 🛠️ Dotfiles
 
 A collection of my personal configuration files to quickly bootstrap a modern development environment on Arch Linux (Hyprland-based).
@@ -27,12 +28,14 @@ This repository includes settings and scripts for:
 Clone the repo using a shallow clone (faster download):
 
 ```bash
-git clone --depth=1 https://github.com/danimatuko/dotfiles.git ~/dotfiles
-```
+git clone --depth=1 [https://github.com/danimatuko/dotfiles.git](https://github.com/danimatuko/dotfiles.git) ~/dotfiles
+````
 
 Run the modular install script:
 
-```bash
+Bash
+
+```
 cd ~/dotfiles
 ./install.sh
 ```
@@ -46,44 +49,54 @@ cd ~/dotfiles
 The script will:
 
 1. Create a timestamped backup (e.g. `~/dotfiles_backup_2025-07-11_15-32-00`)
+    
 2. Prompt to confirm linking your `.bashrc`, `.tmux.conf`, `.gitconfig`, and config folders
+    
 3. Use symlinks (`ln -sf`) so updates can be version-controlled and shared easily
+    
 
 ---
 
 ## 🐛 Troubleshooting Tips
 
-* **Check if configs are linked**:
+- **Check if configs are linked**:
+    
 
-  ```bash
-  ls -la ~/.config/
-  ```
+  `bash   ls -la ~/.config/`  
 
-* **Check backups**:
-  Look inside the `~/dotfiles_backup_<timestamp>` directory.
+- Check backups:
+    
+      Look inside the ~/dotfiles_backup_<timestamp> directory.
+    
+- **Re-run just the link script**:
+    
 
-* **Re-run just the link script**:
-
-  ```bash
-  bash ~/dotfiles/link-dotfiles.sh
-  ```
+  `bash   bash ~/dotfiles/link-dotfiles.sh`  
 
 ---
 
 ## ⚙️ Requirements
 
-* Based on **Arch Linux**
-* The installer handles installing `yay` (AUR helper) if missing
-* Designed for a **Wayland + Hyprland** setup
-* Includes optional scripts for font, icon, and clipboard support
+- Based on **Arch Linux**
+    
+- The installer handles installing `yay` (AUR helper) if missing
+    
+- Designed for a **Wayland + Hyprland** setup
+    
+- Includes optional scripts for font, icon, and clipboard support
+    
+
+---
+
+## 📌 TODO
+
+- [ ] Add workspaces overview
+    
+- [ ] Display settings menu (extend, duplicate...)
+    
 
 ---
 
 ## 📝 License
 
 This dotfiles repository is distributed under the MIT License. Use freely and adapt as needed.
-
----
-
-Let me know if you want a Hebrew version or would like it saved directly to a file like `README.md`.
-# check cred
