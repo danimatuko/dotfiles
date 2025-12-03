@@ -55,7 +55,9 @@ window#waybar {
 #pulseaudio,
 #custom-omarchy,
 #custom-update,
-#custom-notification {
+#custom-notification,
+#custom-controlcenter
+{
   min-width: 12px;
   margin: 0 7.5px;
 }
@@ -79,3 +81,18 @@ tooltip {
 .hidden {
   opacity: 0;
 }
+
+
+
+
+#control {
+    padding: 4px 10px;
+    border-radius: 9999px;
+    margin:3px 0; 
+    margin-left:6px;
+    background: rgba(255, 255, 255, 0.18);
+}
+#control:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.15s ease;}
+

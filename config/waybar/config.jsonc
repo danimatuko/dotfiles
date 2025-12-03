@@ -6,42 +6,25 @@
   "margin-left": 0,
   "margin-right": 0,
   "margin-top": 0,
+
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [
-    "group/tray-expander",
-    "cpu",
     "battery",
     "bluetooth",
     "network",
     "pulseaudio",
-    "custom/notification"
+    "group/control"
+
   ],
+
   "hyprland/workspaces": {
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "default": "",
-      // "1": "1",
-      // "2": "2",
-      // "3": "3",
-      // "4": "4",
-      // "5": "5",
-      // "6": "6",
-      // "7": "7",
-      // "8": "8",
-      // "9": "9",
-      // "active": "󱓻"
+      "default": ""
     },
-    // "format-icons": {
-    //   "default": "",
-    //   "active": ""
-    // }, 
-    // "format-icons": {
-    //         "default": "",
-    //         "active": "󰮯",
-    //         "urgent": "󰊠"
-    //     },
+    "__comment_1": "Alternative icon sets kept for reference",
     "persistent-workspaces": {
       "1": [],
       "2": [],
@@ -50,11 +33,13 @@
       "5": []
     }
   },
+
   "custom/omarchy": {
-    "format": "<span font='omarchy'>\ue900</span>",
+    "format": "<span font='omarchy'>\\ue900</span>",
     "on-click": "omarchy-menu",
     "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
   },
+
   "custom/update": {
     "format": "",
     "exec": "omarchy-update-available",
@@ -68,12 +53,14 @@
     "format": "󰍛",
     "on-click": "ghostty -e btop"
   },
+
   "clock": {
     "format": "{:L%A %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
     "on-click-right": "omarchy-cmd-tzupdate"
   },
+
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",
@@ -85,9 +72,9 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "spacing": 1,
-    "on-click": "uwsm app -- ghostty --class=TUI.float -e impala",
-
+    "on-click": "uwsm app -- ghostty --class=TUI.float -e impala"
   },
+
   "battery": {
     "format": "{capacity}% {icon}",
     "format-discharging": "{icon}",
@@ -107,6 +94,7 @@
       "critical": 10
     }
   },
+
   "bluetooth": {
     "format": "",
     "format-disabled": "󰂲",
@@ -114,6 +102,7 @@
     "tooltip-format": "Devices connected: {num_connections}",
     "on-click": "blueberry"
   },
+
   "pulseaudio": {
     "format": "{icon}",
     "on-click": "uwsm app -- ghostty --class=TUI.float -e wiremix",
@@ -125,76 +114,97 @@
       "default": ["", "", ""]
     }
   },
+
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 600,
       "children-class": "tray-group-item",
-      "transition-left-to-right": false,
-
+      "transition-left-to-right": false
     },
     "modules": ["custom/expand-icon", "tray"]
   },
+
   "custom/expand-icon": {
     "format": " ",
     "tooltip": false
   },
+
   "tray": {
     "icon-size": 12,
     "spacing": 12
   },
+
   "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-            "notification": "󰅸",
-            "none": "󰂜",
-            "dnd-notification": "󰅸",
-            "dnd-none": "󱏨",
-            "inhibited-notification": "󰅸",
-            "inhibited-none": "󰂜",
-            "dnd-inhibited-notification": "󰅸",
-            "dnd-inhibited-none": "󱏨"
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click-right": "swaync-client -d -sw",
-        "on-click": "swaync-client -t -sw",
-        "escape": true
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰅸",
+      "none": "󰂜",
+      "dnd-notification": "󰅸",
+      "dnd-none": "󱏨",
+      "inhibited-notification": "󰅸",
+      "inhibited-none": "󰂜",
+      "dnd-inhibited-notification": "󰅸",
+      "dnd-inhibited-none": "󱏨"
     },
-}
-"group/group-power": {
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click-right": "swaync-client -d -sw",
+    "on-click": "swaync-client -t -sw",
+    "escape": true
+  },
+
+  "group/group-power": {
     "orientation": "inherit",
     "drawer": {
-        "transition-duration": 500,
-        "children-class": "not-power",
-        "transition-left-to-right": false,
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
     },
     "modules": [
-        "custom/power", // First element is the "group leader" and won't ever be hidden
-        "custom/quit",
-        "custom/lock",
-        "custom/reboot",
+      "custom/power",
+      "custom/quit",
+      "custom/lock",
+      "custom/reboot"
     ]
-},
-"custom/quit": {
+  },
+
+  "custom/quit": {
     "format": "󰗼",
     "tooltip": false,
     "on-click": "hyprctl dispatch exit"
-},
-"custom/lock": {
+  },
+
+  "custom/lock": {
     "format": "󰍁",
     "tooltip": false,
     "on-click": "swaylock"
-},
-"custom/reboot": {
+  },
+
+  "custom/reboot": {
     "format": "󰜉",
     "tooltip": false,
     "on-click": "reboot"
-},
-"custom/power": {
+  },
+
+  "custom/power": {
     "format": "",
     "tooltip": false,
     "on-click": "shutdown now"
+  },
+
+  "custom/controlcenter": {
+    "format": "",
+    "tooltip": "Control Center",
+    "on-click": "swaync-client -t -sw",
+  },
+
+  "group/control": {
+    "modules":  ["custom/notification","custom/controlcenter"],
+    "orientation": "inherit",
+    "spacing": 8,
+
+  }
 }
