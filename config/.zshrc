@@ -91,12 +91,13 @@ bindkey "^R" history-incremental-search-backward
 bindkey -M isearch '^P' history-incremental-search-backward
 bindkey -M isearch '^N' history-incremental-search-forward
 
-# History navigation
-bindkey "^P" history-beginning-search-backward
-bindkey "^N" history-beginning-search-forward
+# History navigation (cursor at end)
+bindkey "^P" up-line-or-history
+bindkey "^N" down-line-or-history
+bindkey '^[[A' up-line-or-history
+bindkey '^[[B' down-line-or-history
 
-bindkey '^[[A' history-beginning-search-backward
-bindkey '^[[B' history-beginning-search-forward
+
 
 # --------------------------------------
 # Initialization of External Tools/Plugins
