@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 notify "Logging Out" "Goodbye!" "low" "system-log-out" "logout"
-sleep 3
+sleep 1
 hyprctl dispatch exit
