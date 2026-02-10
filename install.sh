@@ -23,6 +23,7 @@ fi' ERR
 echo "🔧 Starting modular install scripts..."
 
 source ~/dotfiles/setup/preinstall.sh
+source ~/dotfiles/setup/init-local.sh
 source ~/dotfiles/setup/login-manager.sh
 source ~/dotfiles/setup/network.sh
 source ~/dotfiles/setup/bluetooth.sh

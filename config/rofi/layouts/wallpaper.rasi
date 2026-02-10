@@ -1,0 +1,227 @@
+/* =========================================================
+   Catppuccin Mocha Rofi Theme
+   Wallpaper / Grid Launcher Style
+   ========================================================= */
+
+configuration {
+    modi:                  "drun,run,filebrowser";
+    font:                  "Fira Code SemiBold 12";
+    show-icons:            true;
+
+    display-drun:          "";
+    display-run:           "";
+    display-filebrowser:   "";
+
+    drun-display-format:   "{name}";
+    hover-select:          true;
+
+    me-select-entry:       "MouseSecondary";
+    me-accept-entry:       "MousePrimary";
+
+    dpi:                   1;
+}
+
+
+/* =========================================================
+   Catppuccin Mocha Palette
+   ========================================================= */
+
+* {
+    /* Base */
+    background:     #1e1e2e;
+    surface:        #313244;
+    overlay:        #45475a;
+
+    foreground:     #cdd6f4;
+    muted:          #a6adc8;
+
+    /* Accent */
+    accent:         #89b4fa;   /* Blue */
+    accent2:        #f5c2e7;   /* Pink */
+
+    /* Selection */
+    selected-bg:    #89b4fa;
+    selected-fg:    #1e1e2e;
+
+    /* Borders */
+    border-color:   #585b70;
+
+    /* Layout */
+    radius:         18px;
+    border-size:    2px;
+}
+
+
+/* =========================================================
+   Window
+   ========================================================= */
+
+window {
+    width:             1000px;
+    height:            800px;
+
+    location:          center;
+    anchor:            center;
+
+    border:            @border-size;
+    border-color:      @border-color;
+    border-radius:     @radius;
+
+    // background-color:  @background;
+    background-color: rgba(20, 20, 20, 0.6);
+}
+
+
+/* =========================================================
+   Main Layout
+   ========================================================= */
+
+mainbox {
+    orientation:       vertical;
+    padding:           8px;
+    spacing:           8px;
+
+    background-color:  transparent;
+    children:          [ "inputbar", "listbox" ];
+}
+
+
+/* =========================================================
+   Input Bar
+   ========================================================= */
+
+inputbar {
+    spacing:           12px;
+    padding:           18px;
+
+    border-radius:     @radius;
+
+    background-color:  @surface;
+    background-color: rgba(20, 20, 20, 0.6);
+    text-color:        @foreground;
+
+    children:          [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    str:               " ";
+    expand:            false;
+
+    text-color:        @accent;
+    background-color:  transparent;
+}
+
+entry {
+    placeholder:       " Search Themes";
+    placeholder-color: @muted;
+
+    background-color:  transparent;
+    text-color:        @foreground;
+}
+
+
+/* =========================================================
+   Listview Grid
+   ========================================================= */
+
+listbox {
+    background-color:  transparent;
+    children:          [ "listview" ];
+}
+
+listview {
+    columns:           3;
+    spacing:           4px;
+
+    layout:            vertical;
+    cycle:             true;
+    scrollbar:         false;
+
+    background-color:  transparent;
+}
+
+
+/* =========================================================
+   Elements
+   ========================================================= */
+
+element {
+    // padding:           8px;
+    border-radius:     @radius;
+
+    cursor:            pointer;
+    orientation:       vertical;
+
+    background-color:  transparent;
+}
+
+
+/* Normal */
+element normal.normal {
+    text-color:        @foreground;
+}
+
+
+/* Selected */
+element selected.normal {
+    background-color:  @selected-bg;
+    text-color:        @selected-fg;
+}
+
+
+/* Alternate rows */
+element alternate.normal {
+    text-color:        @foreground;
+}
+
+
+/* =========================================================
+   Icons + Labels
+   ========================================================= */
+
+element-icon {
+    size:              180px;
+    // margin:            -50px 0px;
+
+    background-color:  transparent;
+    text-color:        inherit;
+}
+
+element-text {
+    // padding:           12px;
+    border-radius:     @radius;
+
+    background-color:  transparent;
+    text-color:        inherit;
+
+    vertical-align:    0.5;
+    horizontal-align:  0.5;
+}
+
+
+/* =========================================================
+   Messages
+   ========================================================= */
+
+message {
+    margin:            20px 0px 0px 0px;
+    border-radius:     @radius;
+
+    background-color:  transparent;
+}
+
+textbox {
+    padding:           15px;
+    border-radius:     @radius;
+
+    background-color:  @surface;
+    text-color:        @foreground;
+}
+
+error-message {
+    padding:           15px;
+    border-radius:     @radius;
+
+    background-color:  @accent2;
+    text-color:        @background;
+}

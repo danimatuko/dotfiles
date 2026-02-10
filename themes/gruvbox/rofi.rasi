@@ -1,0 +1,10 @@
+* {
+    background:                  #282828;
+    foreground:                  #ebdbb2;
+
+    selected-active-background:  #d79921;
+    alternate-active-background: #3c3836;
+
+    border-size:                 2px;
+}
+
