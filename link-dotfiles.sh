@@ -40,6 +40,7 @@ backup_and_link "$CONFIG_DIR/waybar" "$HOME/.config/waybar"
 backup_and_link "$CONFIG_DIR/swayosd" "$HOME/.config/swayosd"
 backup_and_link "$CONFIG_DIR/walker" "$HOME/.config/walker"
 backup_and_link "$CONFIG_DIR/zsh" "$HOME/.config/zsh"
+backup_and_link "$CONFIG_DIR/wlogout" "$HOME/.config/wlogout"
 
 echo ""
 echo "✅ All specified files and configs linked!"

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -euo pipefail
+
+THEMES_DIR="$HOME/dotfiles/themes"
+THEMES_PREVIEWS="$HOME/dotfiles/themes/previews"
+SCRIPT="$HOME/.local/bin/set-theme"
+
+menu=""
+
+for preview in "$THEMES_PREVIEWS"/*.{png,jpg,jpeg}; do
+    [ -f "$preview" ] || continue
+
+    # Theme name without extension
+    theme=$(basename "$preview")
+    theme="${theme%.*}"
+
+    # Add rofi entry: text + icon
+    menu+="$theme\0icon\x1f$preview\n"
+done
+
+chosen=$(echo -en "$menu" | rofi -dmenu -i -show-icons \
+    -p "Switch Theme:" \
+    -theme ~/.config/rofi/layouts/theme-selector.rasi)
+
+if [ -n "$chosen" ]; then
+    "$SCRIPT" "$chosen"
+fi

@@ -11,7 +11,6 @@ yay -S --noconfirm --needed \
   ripgrep \
   bat \
   zoxide \
-  tldr \
   tmux \
   vim \
   nvim \
@@ -51,7 +50,7 @@ yay -S --noconfirm --needed \
   libnotify \
   nautilus \
   brightnessctl \
-  hyprlock-git \
+  hyprlock \
   btop \
   spf \
   adwaita-icon-theme \

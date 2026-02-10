@@ -33,6 +33,20 @@ sleep 0.1  # Let symlink settle
 # CONFIGURE APPLICATIONS
 # ============================================================================
 
+# Rofi colors
+if [ -f "$CURRENT_THEME/rofi.rasi" ]; then
+    echo "Configuring Rofi..."
+
+    mkdir -p "$HOME/.config/rofi"
+
+    # Link colorscheme into active colors file
+    ln -sfn "$CURRENT_THEME/rofi.rasi" \
+        "$HOME/.config/rofi/colors.rasi"
+
+    # Refresh rofi (close any open instance)
+    pkill rofi || true
+fi
+
 # SwayOSD colors
 if [ -f "$CURRENT_THEME/swayosd.css" ]; then
     echo "Configuring SwayOSD..."
