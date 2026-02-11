@@ -37,6 +37,8 @@ backup_and_link "$CONFIG_DIR/nvim" "$HOME/.config/nvim"
 backup_and_link "$CONFIG_DIR/rofi" "$HOME/.config/rofi"
 backup_and_link "$CONFIG_DIR/swaync" "$HOME/.config/swaync"
 backup_and_link "$CONFIG_DIR/waybar" "$HOME/.config/waybar"
+backup_and_link "$CONFIG_DIR/wlogout" "$HOME/.config/wlogout"
+backup_and_link "$CONFIG_DIR/swayosd" "$HOME/.config/swayosd"
 
 echo ""
 echo "✅ All specified files and configs linked!"

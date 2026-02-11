@@ -26,7 +26,7 @@ return {
     -- Default picker layout for everything else
     opts.picker = opts.picker or {}
     opts.picker.layout = opts.picker.layout or {}
-    opts.picker.layout.preset = "sidebar"
+    opts.picker.layout.preset = "vscode"
 
     return opts
   end,

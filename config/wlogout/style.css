@@ -2,10 +2,10 @@
 @import 'styles/colors.css';
 
 window {
-    font-family: "Adwaita Sans", "GeistMono Nerd Font Propo";
-    font-size: 1.2em;
+    font-family: "SF Pro Text", "GeistMono Nerd Font Propo";
+    font-size: 1rem;
     color:  @foreground; /* text */
-    background-color: alpha(@surface, 0.85);
+    background-color: alpha(@background, 0.85);
 } 
 
 button {
@@ -13,11 +13,14 @@ button {
     background-position: center;
     background-size: 20%;
     background-color: transparent;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(0.15,0,0.1,1);
+    /* background-color: alpha(@accent, 0.85); */
+    animation: gradient_f 20s ease-in-out infinite;
+    transition: all 0.3s ease-in-out;
     box-shadow: 0 0 10px 2px transparent;
     border-radius: 36px;
-    margin: 10px;
+    margin: 5px;
+    /* color: @accent; */
+    border:none;
 }
 
 button:focus {
@@ -30,6 +33,6 @@ button:hover {
     background-size: 50%;
     outline-style: none;
     box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
-    background-color: @primary;
+    background-color: @foreground;
     color: transparent;
 }
