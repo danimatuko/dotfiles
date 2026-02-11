@@ -1,7 +1,7 @@
 @import "./colors.css";
 
 window#osd {
-  border-radius: 10px;
+  border-radius: 9999px;
   border: 1px solid @border-color;
   background: alpha(@background-color, 0.9);
 }
@@ -27,8 +27,8 @@ window#osd image:disabled {
 }
 
 window#osd progressbar {
-  min-height: 10px;
-  border-radius: 999px;
+  min-height: 5px;
+  border-radius: 9999px;
   background: @background-color ;
   border: 1px solid @border-color ;
 }
