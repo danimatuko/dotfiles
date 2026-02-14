@@ -5,7 +5,7 @@ window {
     font-family: "SF Pro Text", "GeistMono Nerd Font Propo";
     font-size: 1rem;
     color:  @foreground; /* text */
-    background-color: alpha(@background, 0.85);
+    background-color: alpha(@background, 0.75);
 } 
 
 button {
