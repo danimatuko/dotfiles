@@ -13,6 +13,10 @@ configuration {
     show-icons:                 true;
     display-drun:               " ";
 	drun-display-format:        "{name}";
+    hover-select:          true;
+    me-select-entry:       "MouseSecondary";
+    me-accept-entry:       "MousePrimary";
+
 }
 
 /*****----- Global Properties -----*****/
@@ -140,7 +144,8 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            white / 5%;
+    // background-color:            white / 5%;
+    background-color:            @alternate-active-background;
     text-color:                  @foreground;
 }
 element-icon {

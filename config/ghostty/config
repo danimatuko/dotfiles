@@ -1,1 +1,4 @@
-/home/danimatuko/current-theme/ghostty.conf
+font-family = GeistMono Nerd Font Mono
+copy-on-select = true 
+confirm-close-surface = false
+theme = current

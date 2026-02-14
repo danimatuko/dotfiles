@@ -74,6 +74,17 @@ if [ -f "$CURRENT_THEME/swaync.css" ]; then
     ln -sfn "$CURRENT_THEME/swaync.css" "$HOME/.config/swaync/theme.css"
 fi
 
+# AstroVim colorscheme
+echo "Configuring AstroVim..."
+
+ASTROVIM_THEME_FILE="$HOME/.cache/current-theme/astrovim.txt"
+
+mkdir -p "$HOME/.cache/current-theme"
+
+# Write the selected theme name into AstroVim theme cache
+echo "$THEME" > "$ASTROVIM_THEME_FILE"
+
+
 # ============================================================================
 # SET WALLPAPER
 # ============================================================================
@@ -127,6 +138,14 @@ if pgrep swayosd-server &>/dev/null; then
     killall swayosd-server
     swayosd-server &
 fi
+
+# AstroVim (reload colorscheme in running instances)
+if command -v nvim &>/dev/null; then
+    ASTRO_THEME=$(cat "$HOME/.cache/current-theme/astrovim.txt")
+    nvim --remote-expr "execute('colorscheme ' .. '$ASTRO_THEME')" \
+        2>/dev/null || true
+fi
+
 
 # ============================================================================
 # FINISH
