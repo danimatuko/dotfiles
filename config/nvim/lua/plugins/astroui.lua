@@ -2,17 +2,8 @@
 -- Configuration documentation can be found with `:h astroui`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
-local theme_file = vim.fn.expand "~/.cache/current-theme/astrovim.txt"
 
-local function get_theme()
-  local f = io.open(theme_file, "r")
-  if not f then return "astrodark" end
-
-  local theme = f:read "*l"
-  f:close()
-
-  return theme or "astrodark"
-end
+local theme = require "utils.theme"
 
 ---@type LazySpec
 return {
@@ -21,8 +12,9 @@ return {
   opts = {
     -- change colorscheme
     -- colorscheme = "astrodark",
-    -- colorscheme = "catppuccin",
-    colorscheme = get_theme(),
+
+    -- change colorscheme dynamically
+    colorscheme = theme.get_theme(),
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       init = { -- this table overrides highlights in all themes
