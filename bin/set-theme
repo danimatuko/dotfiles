@@ -8,7 +8,7 @@ source ~/dotfiles/scripts/sounds.sh
 # Get theme name from command line
 THEME=$1
 THEMES_DIR="$HOME/dotfiles/themes"
-CURRENT_THEME="$HOME/current-theme"
+CURRENT_THEME="$HOME/.cache/current-theme"
 
 echo "Switching to theme: $THEME"
 
