@@ -13,11 +13,11 @@ alias dots='cd ~/dotfiles && nvim'
 alias hypr='cd ~/.config/hypr && nvim'
 
 # eza
-# alias ls='eza --group-directories-first --icons'
-# alias ll='eza -l'
-# alias la='eza -a'
-# alias lla='eza -la'
-# alias lt='eza --tree'
+alias ls='eza --group-directories-first --icons'
+alias ll='eza -l'
+alias la='eza -a'
+alias lla='eza -la'
+alias lt='eza --tree'
 
 # Git
 alias lg='lazygit'
