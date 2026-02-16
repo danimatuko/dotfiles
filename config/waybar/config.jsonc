@@ -10,12 +10,12 @@
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [
+    "tray",
     "battery",
     "bluetooth",
     "network",
     "pulseaudio",
     "group/control"
-
   ],
 
   "hyprland/workspaces": {

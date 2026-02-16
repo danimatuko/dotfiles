@@ -1,17 +1,27 @@
 #!/bin/bash
 
+ROFI_THEME="$HOME/.config/rofi/themes/material.rasi"
+
+copy_clip() {
+    selection=$(cliphist list | rofi -dmenu -theme-str "entry { placeholder: \" Search Clipboard\";} ${pos} ${r_override}" -theme-str "${fnt_override}" -config "$ROFI_THEME")
+    [ -n "$selection" ] && echo "$selection" | cliphist decode | wl-copy
+}
+
+wipe_clip() {
+    choice=$(echo -e "Yes\nNo" | rofi -dmenu -theme-str "entry { placeholder: \" Clear Clipboard History?\";} ${pos} ${r_override}" -theme-str "${fnt_override}" -config "$ROFI_THEME")
+    [[ "$choice" == "Yes" ]] && cliphist wipe
+}
+
+list_count() {
+    echo $(cliphist list | wc -l)
+}
+
 case $1 in
-    c) cliphist list | rofi -dmenu -theme-str "entry { placeholder: \" Search Clipboard\";} ${pos} ${r_override}" -theme-str "${fnt_override}" -config ~/.config/rofi/themes/rofi-clipboard.rasi | cliphist decode | wl-copy
-        ;;
-    w)  if [ "$(echo -e "Yes\nNo" | rofi -dmenu -theme-str "entry { placeholder: \" Clear Clipboard History?\";} ${pos} ${r_override}" -theme-str "${fnt_override}" -config ~/.config/rofi/themes/rofi-clipboard.rasi)" == "Yes" ] ; then
-            cliphist wipe
-        fi
-        ;;
-    l)  cliphist list | wc -l
-        ;;
+    c) copy_clip ;;
+    w) wipe_clip ;;
+    l) list_count ;;
     *)  echo -e "cliphist.sh [action]"
         echo "c :  cliphist list and copy selected"
-        echo "d :  cliphist list and delete selected"
         echo "w :  cliphist wipe database"
         echo "l :  show the number of items in the clipboard"
         exit 1
