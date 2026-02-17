@@ -11,6 +11,7 @@ local theme_file = vim.fn.expand "~/.cache/current-theme/astrovim.txt"
 -- Global theme name → Neovim colorscheme name
 local theme_aliases = {
   ["tokyonight"] = "tokyodark",
+  ["gruvbox-light"] = "gruvbox",
 }
 
 function M.get_theme()
