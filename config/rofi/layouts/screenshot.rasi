@@ -1,0 +1,140 @@
+/**
+ * Screenshot Menu - Rofi Theme
+ * Horizontal layout with 3 options
+ * Dark industrial aesthetic with sharp neon accents
+ */
+
+* {
+    /* Base Palette */
+    bg-primary:     #0d0d0f;
+    bg-secondary:   #141418;
+    bg-hover:       #1e1e26;
+    accent:         #00e5ff;
+    accent-dim:     #005f6b;
+    text-primary:   #e8e8f0;
+    text-dim:       #6a6a80;
+    border-color:   #2a2a38;
+    separator:      #1e1e2a;
+
+    font:           "JetBrains Mono 11";
+    background-color: transparent;
+    text-color:     @text-primary;
+    spacing:        0;
+    padding:        0;
+    margin:         0;
+}
+
+/**
+ * Root window — centered, fixed width
+ */
+window {
+    location:            center;
+    anchor:              center;
+    width:               580px;
+    border-radius:       4px;
+    background-color:    @bg-primary;
+    border:              1px solid @border-color;
+    padding:             0;
+}
+
+/**
+ * Outer wrapper
+ */
+mainbox {
+    orientation:     vertical;
+    padding:         0;
+    children:        [ header, listview ];
+    spacing:         0;
+}
+
+/**
+ * Header bar
+ */
+header {
+    children:        [ inputbar ];
+}
+
+inputbar {
+    background-color: @bg-secondary;
+    border:           0px 0px 1px 0px;
+    border-color:     @border-color;
+    padding:          12px 18px;
+    spacing:          10px;
+    children:         [ prompt ];
+}
+
+prompt {
+    font:             "JetBrains Mono Bold 10";
+    text-color:       @accent;
+    vertical-align:   0.5;
+    background-color: transparent;
+}
+
+/* Hide unused elements */
+textbox-prompt-colon,
+entry,
+case-indicator,
+scrollbar {
+    enabled: false;
+}
+
+/**
+ * Horizontal list of options
+ */
+listview {
+    orientation:      horizontal;
+    layout:           horizontal;
+    columns:          3;
+    lines:            1;
+    fixed-columns:    true;
+    fixed-height:     false;
+    spacing:          0;
+    padding:          20px 16px;
+    background-color: @bg-primary;
+}
+
+/**
+ * Each option item
+ */
+element {
+    orientation:      vertical;
+    background-color: transparent;
+    border-radius:    4px;
+    padding:          16px 10px;
+    margin:           0px 6px;
+    cursor:           pointer;
+    spacing:          8px;
+}
+
+element normal.normal {
+    background-color: @bg-secondary;
+    border:           1px solid @border-color;
+    text-color:       @text-primary;
+}
+
+element selected.normal {
+    background-color: @bg-hover;
+    border:           1px solid @accent;
+    text-color:       @accent;
+}
+
+element alternate.normal {
+    background-color: @bg-secondary;
+    border:           1px solid @border-color;
+    text-color:       @text-primary;
+}
+
+element-icon {
+    size:             36px;
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    background-color: transparent;
+}
+
+element-text {
+    font:             "JetBrains Mono 10";
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    background-color: transparent;
+    text-color:       inherit;
+}
