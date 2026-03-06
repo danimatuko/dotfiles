@@ -10,7 +10,7 @@ choice=$(printf "$options" | rofi -dmenu -i -p "Screenshot" -l 3)
 case "$choice" in
   *Region*) ~/dotfiles/bin/screenshot ;;
   *Window*) ~/dotfiles/bin/screenshot window ;;
-  *Display*) ~/dotfiles/bin/screenshot output ;;
+  *Screen*) ~/dotfiles/bin/screenshot output ;;
   *) exit 0 ;;  # Cancel or invalid choice
 esac
 

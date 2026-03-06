@@ -21,7 +21,7 @@ done
 
 chosen=$(echo -en "$menu" | rofi -dmenu -i -show-icons \
     -p "Switch Theme:" \
-    -theme ~/.config/rofi/layouts/theme-selector.rasi)
+    -theme ~/.config/rofi/layouts/theme-selector-vertical.rasi)
 
 if [ -n "$chosen" ]; then
     "$SCRIPT" "$chosen"
