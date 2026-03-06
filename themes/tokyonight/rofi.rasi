@@ -6,5 +6,6 @@
     alternate-active-background: #24283b;
 
     border-size:                 2px;
+    radius:                      1px; 
 }
 
