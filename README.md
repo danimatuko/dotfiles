@@ -71,7 +71,7 @@ The script will:
 - **Re-run just the link script**:
     
 
-  `bash   bash ~/dotfiles/link-dotfiles.sh`  
+  `bash ~/dotfiles/setup/link-dotfiles.sh`  
 
 ---
 

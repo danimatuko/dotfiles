@@ -1,0 +1,89 @@
+import AstalBattery from "gi://AstalBattery"
+import AstalBluetooth from "gi://AstalBluetooth"
+import AstalNetwork from "gi://AstalNetwork"
+import AstalWp from "gi://AstalWp"
+import { createBinding } from "gnim"
+
+// Service singletons (shared across the widget)
+const network = AstalNetwork.get_default()
+const wifi = network.wifi
+const bluetooth = AstalBluetooth.get_default()
+const battery = AstalBattery.get_default()
+const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
+
+// Core reactive bindings from Astal services
+const wifiEnabled = wifi ? createBinding(wifi, "enabled") : null
+const bluetoothPowered = createBinding(bluetooth, "isPowered")
+const bluetoothAdapter = createBinding(bluetooth, "adapter")
+
+// Wi-Fi
+// Whether the toggle should be clickable
+export const wifiSensitive = Boolean(wifi)
+
+// Icon shown in the Wi-Fi row
+export const wifiIconName = wifi
+  ? createBinding(wifi, "iconName").as(
+      (name) => name || "network-wireless-offline-symbolic",
+    )
+  : "network-wireless-disabled-symbolic"
+
+// CSS state class for the Wi-Fi row
+export const wifiButtonClass = wifiEnabled
+  ? wifiEnabled.as((enabled) =>
+      enabled
+        ? "quick-settings__toggle-button quick-settings__toggle-button--active"
+        : "quick-settings__toggle-button",
+    )
+  : "quick-settings__toggle-button quick-settings__toggle-button--disabled"
+
+// Bluetooth
+// Button is clickable only when an adapter exists
+export const bluetoothSensitive = bluetoothAdapter.as((adapter) =>
+  Boolean(adapter),
+)
+
+// Icon shown in the Bluetooth row
+export const bluetoothIconName = bluetoothPowered.as((powered) =>
+  bluetooth.adapter && powered
+    ? "bluetooth-symbolic"
+    : "bluetooth-disabled-symbolic",
+)
+
+// CSS state class for the Bluetooth row
+export const bluetoothButtonClass = bluetoothPowered.as((powered) =>
+  powered
+    ? "quick-settings__toggle-button quick-settings__toggle-button--active"
+    : "quick-settings__toggle-button",
+)
+
+// Speaker
+// Icon shown in the bar trigger
+export const speakerIconName = speaker
+  ? createBinding(speaker, "volumeIcon").as(
+      (name) => name || "audio-volume-muted-symbolic",
+    )
+  : "audio-volume-muted-symbolic"
+
+// Battery
+// Used in the small status row at the bottom of the menu
+export const batteryIconName = createBinding(battery, "batteryIconName").as(
+  (name) => name || "battery-missing-symbolic",
+)
+
+// Converts fractional value (0..1) to percentage text
+export const batteryPercentage = createBinding(battery, "percentage").as(
+  (value) => `${Math.floor(value * 100)}%`,
+)
+
+// Actions
+// Toggle Wi-Fi power state
+export const toggleWifi = () => {
+  if (!wifi) return
+  wifi.enabled = !wifi.enabled
+}
+
+// Toggle Bluetooth adapter power state
+export const toggleBluetooth = () => {
+  if (!bluetooth.adapter) return
+  bluetooth.toggle()
+}

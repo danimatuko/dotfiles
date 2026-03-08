@@ -1,0 +1,89 @@
+@use "./theme.scss" as *;
+
+.quick-settings {
+  background: rgba($color-on-surface, 0.06);
+  @include control-reset;
+  border-radius: $radius-md;
+  margin: 0;
+  min-height: 0;
+
+  &:hover {
+    background: rgba($color-on-surface, 0.11);
+  }
+
+  &__toggle-menu {
+    @include control-reset;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__popover {
+    padding: 0;
+    @include control-reset;
+
+    > contents {
+      padding: 6px 0 0;
+      @include control-reset;
+    }
+  }
+
+  &__menu {
+    min-width: 260px;
+    padding: 12px;
+    background: $color-surface;
+    color: $color-on-surface;
+    border: 1px solid $color-outline;
+    border-radius: $radius-lg;
+  }
+
+  &__title {
+    margin-bottom: 2px;
+    color: $color-emphasis;
+  }
+
+  &__toggle-button {
+    background: rgba($color-on-surface, 0.06);
+    border: 1px solid rgba($color-on-surface, 0.09);
+    border-radius: 10px;
+    padding: 8px 10px;
+
+    &:hover {
+      background: rgba($color-on-surface, 0.12);
+    }
+
+    &--active {
+      background: rgba($color-brand, 0.22);
+      border-color: rgba($color-brand, 0.55);
+    }
+
+    &--disabled,
+    &:disabled {
+      opacity: 0.45;
+    }
+  }
+
+  &__toggle-row > button {
+    min-width: 0;
+  }
+
+  &__toggle-content image,
+  &__battery-row image {
+    @include icon-size($icon-size-md);
+  }
+
+  &__toggle-content {
+    min-width: 0;
+  }
+
+  &__toggle-label {
+    color: $color-on-surface;
+  }
+
+  &__battery-row {
+    margin-top: 6px;
+    padding: 6px 2px 2px;
+    border-top: 1px solid rgba($color-on-surface, 0.1);
+    color: $color-emphasis;
+  }
+}

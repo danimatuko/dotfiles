@@ -1,0 +1,56 @@
+@use "./theme.scss" as *;
+
+.workspaces {
+  background-color: $color-surface;
+  color: $color-on-surface;
+  border-radius: $radius-pill;
+
+  &__mic-access {
+    color: $color-warning;
+    border-left: 1px $color-outline solid;
+    margin-left: 6px;
+    padding-left: 6px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  &__item {
+    @include control-reset;
+    min-width: 14px;
+    border-radius: 0;
+    padding: 0 1px;
+
+    .workspaces__tile {
+      min-width: 8px;
+      min-height: 10px;
+      transition:
+        min-width 220ms $motion-emphasized,
+        background-color 180ms ease-out,
+        opacity 180ms ease-out;
+      margin: 10px 0;
+      background-color: $color-muted;
+      border-radius: $radius-pill;
+      opacity: 0.82;
+    }
+
+    &--filled .workspaces__tile {
+      min-width: 20px;
+      background-color: $color-emphasis;
+      opacity: 0.94;
+    }
+
+    &:hover .workspaces__tile {
+      background-color: $color-hover;
+    }
+
+    &--active .workspaces__tile {
+      background-color: $color-brand;
+      min-width: 40px;
+      opacity: 1;
+    }
+
+    &--urgent .workspaces__tile {
+      background-color: $color-danger;
+    }
+  }
+}

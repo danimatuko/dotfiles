@@ -1,0 +1,36 @@
+$color-surface: #1e1e2e;
+$color-outline: #313244;
+$color-on-surface: #cdd6f4;
+
+$color-muted: #585b70;
+$color-emphasis: #bac2de;
+$color-hover: #cdd6f4;
+
+$color-brand: #cba6f7;
+$color-danger: #f38ba8;
+$color-warning: #f9e2af;
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 14px;
+$radius-pill: 20px;
+
+$icon-size-sm: 14px;
+$icon-size-md: 16px;
+
+$motion-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+
+// Convenience aliases.
+$surface: $color-surface;
+$border: $color-outline;
+$text: $color-on-surface;
+
+@mixin icon-size($size) {
+  -gtk-icon-size: $size;
+}
+
+@mixin control-reset {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
