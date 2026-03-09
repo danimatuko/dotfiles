@@ -73,6 +73,7 @@ This will:
 ## 📎 Notes
 
 - All scripts are written to be simple, modular, and easy to extend.  
+- For notifications, prefer standard system sounds (for example `canberra-gtk-play` events like `message` and `bell`) over custom sound files when possible.
 - Place this folder inside your dotfiles repo (e.g. `~/dotfiles/scripts`).  
 - Recommended to run both `link-bin-scripts.sh` and `link-systemd-units.sh` after cloning your dotfiles on a new machine.  
 
@@ -81,4 +82,3 @@ This will:
 ## 🧠 License
 
 Feel free to copy, modify, and reuse these scripts. A credit would be nice, but not required.
-

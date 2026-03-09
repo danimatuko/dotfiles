@@ -10,8 +10,10 @@ sleep 0.65
 case "$(ags list 2>/dev/null)" in
 *ags*)
 	notify-send --icon=view-refresh --app-name=AGS "AGS" "Reload complete"
+	canberra-gtk-play -i message >/dev/null 2>&1 &
 	;;
 *)
 	notify-send --icon=dialog-error --app-name=AGS "AGS" "Reload failed"
+	canberra-gtk-play -i bell >/dev/null 2>&1 &
 	;;
 esac

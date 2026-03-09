@@ -117,6 +117,11 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - UI paths should fail safely; do not throw during render.
 - Include contextual error messages that explain what failed.
 
+### Notifications and sounds
+
+- For script notifications, keep sound behavior simple and prefer standard system sound events.
+- Prefer `canberra-gtk-play` event IDs (for example `message` for success and `bell` or `dialog-error` for failures) over custom sound files when possible.
+
 ### SCSS
 
 - Keep shared tokens in `config/ags/style/theme.scss`.
