@@ -1,2 +1,0 @@
-swaync-client -R  # reload the config
-swaync-client -rs # reload css
