@@ -2,7 +2,9 @@ import AstalBattery from "gi://AstalBattery"
 import AstalBluetooth from "gi://AstalBluetooth"
 import AstalNetwork from "gi://AstalNetwork"
 import AstalWp from "gi://AstalWp"
-import { createBinding } from "gnim"
+import GLib from "gi://GLib"
+import { execAsync } from "ags/process"
+import { createBinding, createState } from "gnim"
 
 // Service singletons (shared across the widget)
 const network = AstalNetwork.get_default()
@@ -10,6 +12,14 @@ const wifi = network.wifi
 const bluetooth = AstalBluetooth.get_default()
 const battery = AstalBattery.get_default()
 const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
+const nightLightScriptPath = `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`
+const [nightLightEnabled, setNightLightEnabled] = createState(false)
+
+execAsync([nightLightScriptPath, "status"])
+  .then((status) => {
+    setNightLightEnabled(status.trim() === "on")
+  })
+  .catch(() => {})
 
 // Core reactive bindings from Astal services
 const wifiEnabled = wifi ? createBinding(wifi, "enabled") : null
@@ -56,6 +66,22 @@ export const bluetoothButtonClass = bluetoothPowered.as((powered) =>
     : "quick-settings__toggle-button",
 )
 
+// Night light
+// Keeps local toggle state for the quick settings button
+export const nightLightSensitive = true
+
+// Icon shown in the night light row
+export const nightLightIconName = nightLightEnabled((enabled) =>
+  enabled ? "weather-clear-night-symbolic" : "weather-clear-symbolic",
+)
+
+// CSS state class for the night light row
+export const nightLightButtonClass = nightLightEnabled((enabled) =>
+  enabled
+    ? "quick-settings__toggle-button quick-settings__toggle-button--active"
+    : "quick-settings__toggle-button",
+)
+
 // Speaker
 // Icon shown in the bar trigger
 export const speakerIconName = speaker
@@ -86,4 +112,16 @@ export const toggleWifi = () => {
 export const toggleBluetooth = () => {
   if (!bluetooth.adapter) return
   bluetooth.toggle()
+}
+
+// Toggle night light via shared helper script
+export const toggleNightLight = () => {
+  const enabled = nightLightEnabled()
+  const nextEnabled = !enabled
+
+  setNightLightEnabled(nextEnabled)
+
+  execAsync([nightLightScriptPath, nextEnabled ? "on" : "off"]).catch(() => {
+    setNightLightEnabled(enabled)
+  })
 }

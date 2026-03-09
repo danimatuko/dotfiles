@@ -1,11 +1,7 @@
 #!/bin/bash
 
-if [[ $SWAYNC_TOGGLE_STATE == "true" ]]; then
-    # Enable night light (warm temperature)
-    hyprctl hyprsunset temperature 4500
-    notify-send "󰃞 Night Light" "Enabled - Eyes protected" -t 2000 -u low
-else
-    # Disable night light (normal temperature)
-    hyprctl hyprsunset identity
-    notify-send "󰃞 Night Light" "Disabled - Normal colors restored" -t 2000 -u low
-fi
+# Fail fast and keep wrapper behavior predictable.
+set -euo pipefail
+
+# Wrapper entrypoint in PATH; delegates to the real script in dotfiles.
+exec "$HOME/dotfiles/scripts/toggle-nightlight.sh" "$@"

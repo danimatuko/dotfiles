@@ -6,7 +6,11 @@ import {
   bluetoothButtonClass,
   bluetoothIconName,
   bluetoothSensitive,
+  nightLightButtonClass,
+  nightLightIconName,
+  nightLightSensitive,
   toggleBluetooth,
+  toggleNightLight,
   toggleWifi,
   wifiButtonClass,
   wifiIconName,
@@ -49,6 +53,21 @@ export default function QuickSettingsMenu() {
             sensitive={bluetoothSensitive}
             hexpand
             tooltipText={"Toggle Bluetooth"}
+          />
+        </box>
+        <box
+          class="quick-settings__toggle-row"
+          orientation={Gtk.Orientation.HORIZONTAL}
+          spacing={8}
+        >
+          <QuickSettingsToggleButton
+            label="Night Light"
+            iconName={nightLightIconName}
+            className={nightLightButtonClass}
+            onClicked={toggleNightLight}
+            sensitive={nightLightSensitive}
+            hexpand
+            tooltipText={"Toggle Night Light"}
           />
         </box>
 
