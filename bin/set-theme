@@ -2,9 +2,6 @@
 
 set -euo pipefail
 
-# Centralized sound definitions for scripts
-source ~/dotfiles/scripts/sounds.sh
-
 # Get theme name from command line
 THEME=$1
 THEMES_DIR="$HOME/dotfiles/themes"
@@ -17,7 +14,8 @@ echo "Switching to theme: $THEME"
 # ============================================================================
 
 if [ ! -d "$THEMES_DIR/$THEME" ]; then
-    notify-send "Set Theme" "Theme '$THEME' not found" -u critical
+    notify-send -u critical -i dialog-error "Set Theme" "Theme '$THEME' not found"
+    canberra-gtk-play -i bell >/dev/null 2>&1 &
     exit 1
 fi
 
@@ -153,4 +151,5 @@ fi
 
 sleep 0.5
 echo "Theme switched successfully!"
-~/.local/bin/notify "Theme Changed" "Switched to: ${THEME:-unknown}" normal preferences-desktop-theme "$SOUND_UPDATE"
+notify-send -u normal -i preferences-desktop-wallpaper "Theme Changed" "Switched to: ${THEME:-unknown}"
+canberra-gtk-play -i message >/dev/null 2>&1 &
