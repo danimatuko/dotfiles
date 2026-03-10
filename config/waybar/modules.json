@@ -205,7 +205,7 @@
 "custom/controlcenter": {
   "format": "",
   "tooltip": "Control Center",
-  "on-click": "~/.config/waybar/scripts/controlcenter.sh"
+  "on-click": "swaync-client -t"
 }
 
 

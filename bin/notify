@@ -4,7 +4,7 @@
 # Usage: notify "Title" "Message" [urgency] [icon] [sound]
 
 # Load sound theme
-source ~/dotfiles/scripts/sounds.sh
+source "$HOME/dotfiles/bin/sounds"
 
 TITLE="${1:-Notification}"
 MESSAGE="${2:-}"

@@ -16,6 +16,7 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - `config/`: user config payload (Hyprland, Waybar, AGS, Neovim, Rofi, etc.).
 - `scripts/`: support assets/docs (for example systemd units under `scripts/services` and `scripts/timers`).
 - `bin/`: executable command scripts intended to be linked into `~/.local/bin` and used from keybinds/apps.
+- `scripts/legacy/`: archived scripts kept for reference; not used by active setup.
 - `themes/`: theme definitions and assets shared across components.
 
 ## Stack and Runtime Facts

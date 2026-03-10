@@ -12,7 +12,7 @@
 }
 {
     "label" : "logout",
-    "action" : "~/dotfiles/scripts/logout-hyprland.sh",
+    "action" : "~/.local/bin/logout-hyprland",
     "text"  : "Exit",
     "keybind" : "e"
 }

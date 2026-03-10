@@ -4,7 +4,7 @@
 # Usage: power-control <lock|logout|reboot|shutdown>
 
 # Source centralized sounds
-source ~/dotfiles/scripts/sounds.sh
+source "$HOME/dotfiles/bin/sounds"
 
 ACTION="${1:-none}"
 notify_cmd="$HOME/.local/bin/notify"
