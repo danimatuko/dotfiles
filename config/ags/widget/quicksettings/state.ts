@@ -12,7 +12,7 @@ const wifi = network.wifi
 const bluetooth = AstalBluetooth.get_default()
 const battery = AstalBattery.get_default()
 const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
-const nightLightScriptPath = `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`
+const nightLightScriptPath = `${GLib.get_home_dir()}/dotfiles/scripts/toggle-nightlight.sh`
 const [nightLightEnabled, setNightLightEnabled] = createState(false)
 
 execAsync([nightLightScriptPath, "status"])
@@ -116,12 +116,6 @@ export const toggleBluetooth = () => {
 
 // Toggle night light via shared helper script
 export const toggleNightLight = () => {
-  const enabled = nightLightEnabled()
-  const nextEnabled = !enabled
-
-  setNightLightEnabled(nextEnabled)
-
-  execAsync([nightLightScriptPath, nextEnabled ? "on" : "off"]).catch(() => {
-    setNightLightEnabled(enabled)
-  })
+  setNightLightEnabled(!nightLightEnabled())
+  execAsync([nightLightScriptPath]).catch(() => {})
 }
