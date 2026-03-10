@@ -48,10 +48,6 @@
     border-radius: 10px;
     padding: 8px 10px;
 
-    &:hover {
-      background: rgba($color-on-surface, 0.12);
-    }
-
     &--active {
       background: rgba($color-brand, 0.22);
       border-color: rgba($color-brand, 0.55);

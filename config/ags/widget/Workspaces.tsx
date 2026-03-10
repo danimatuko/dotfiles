@@ -1,5 +1,8 @@
 import AstalHyprland from "gi://AstalHyprland"
 import { createBinding, For } from "ags"
+import { Gdk } from "ags/gtk4"
+
+const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
 export default function Workspaces() {
   const hyprland = AstalHyprland.get_default()
@@ -17,6 +20,7 @@ export default function Workspaces() {
         {(ws) => (
           <button
             class="workspaces__item"
+            cursor={pointerCursor}
             cssClasses={focused.as((focusedWorkspace) => {
               const classes = ["workspaces__item"]
               const clients = ws.get_clients?.() ?? ws.clients ?? []

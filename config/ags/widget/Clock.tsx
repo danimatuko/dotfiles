@@ -1,5 +1,7 @@
-import { Gtk } from "ags/gtk4"
+import { Gdk, Gtk } from "ags/gtk4"
 import { createPoll } from "ags/time"
+
+const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
 export default function Clock() {
   const time = createPoll("", 1000, () =>
@@ -12,7 +14,7 @@ export default function Clock() {
   )
 
   return (
-    <menubutton>
+    <menubutton cursor={pointerCursor}>
       <label label={time} />
       <popover>
         <Gtk.Calendar />

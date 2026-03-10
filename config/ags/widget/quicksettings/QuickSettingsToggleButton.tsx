@@ -1,3 +1,4 @@
+import { Gdk } from "ags/gtk4"
 import type { Accessor } from "gnim"
 
 type Props = {
@@ -22,6 +23,7 @@ export default function QuickSettingsToggleButton({
     <button
       {...rest}
       class={className}
+      cursor={Gdk.Cursor.new_from_name("pointer", null)}
       onClicked={onClicked}
       sensitive={sensitive}
     >

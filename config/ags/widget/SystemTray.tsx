@@ -1,8 +1,9 @@
 import AstalTray from "gi://AstalTray"
 import { createBinding, For } from "ags"
-import { Gtk } from "ags/gtk4"
+import { Gdk, Gtk } from "ags/gtk4"
 
 const tray = AstalTray.get_default()
+const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
 function createTrayPopover(item: AstalTray.TrayItem) {
   const menuModel = item.menuModel
@@ -32,6 +33,7 @@ export default function SystemTray() {
           return (
             <menubutton
               class="system-tray__item"
+              cursor={pointerCursor}
               tooltipText={createBinding(item, "tooltipText")}
               popover={popover}
             >
