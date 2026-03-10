@@ -12,4 +12,3 @@ fi
 # Apply the color scheme using pywal
 wal -i "$WALLPAPER_PATH"
 
-

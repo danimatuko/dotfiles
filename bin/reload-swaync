@@ -7,4 +7,3 @@ swaync-client -R
 
 # Reload swaync style
 swaync-client -rs
-

@@ -12,16 +12,17 @@ This folder contains utility scripts and systemd unit files designed to automate
 ## 📁 Folder Structure
 
 ```
-scripts/
+dotfiles/
 ├── bin/                       # Executable helper scripts (linked to ~/.local/bin)
-│   └── pacman-update-check.sh
-├── services/                  # systemd service units
-│   └── update-notifier.service
-├── timers/                    # systemd timer units
-│   └── update-notifier.timer
-├── link-bin-scripts.sh        # Links bin/* to ~/.local/bin/
-├── link-systemd-units.sh      # Links and enables systemd services + timers
-├── update-notifier.sh         # Notifies when system updates are available
+│   ├── toggle-darkmode
+│   ├── toggle-nightlight
+│   └── ...
+├── scripts/                   # systemd assets and docs
+│   ├── scripts.md
+│   ├── services/
+│   └── timers/
+├── bin/link-bin-scripts       # Links bin/* to ~/.local/bin/
+├── bin/link-systemd-units     # Links and enables systemd services + timers
 ...
 ```
 
@@ -32,7 +33,7 @@ scripts/
 ### 1. Link Executable Scripts
 
 ```bash
-./link-bin-scripts.sh
+~/dotfiles/bin/link-bin-scripts
 ```
 
 This links all executable files in `bin/` to `~/.local/bin`, making them available in your `$PATH`.
@@ -40,7 +41,7 @@ This links all executable files in `bin/` to `~/.local/bin`, making them availab
 ### 2. Link and Enable systemd Units
 
 ```bash
-./link-systemd-units.sh
+~/dotfiles/bin/link-systemd-units
 ```
 
 This will:
@@ -52,12 +53,11 @@ This will:
 
 ## 🧼 Additional Utilities
 
-- `reload-waybar.sh`, `reload-swaync.sh`: Reload system components  
-- `screenshot-*.sh`: Take various types of screenshots  
-- `set-wallpaper-colors.sh`, `update-waybar-colors.sh`: Sync Pywal colors with UI elements  
-- `pywal-theme.sh`: Triggered via Waypaper to update themes dynamically  
-- `waypaper-update-theme.sh`: Updates wallpaper and related themes  
-- `update-notifier.sh` A minimal notifier that uses `checkupdates` to count available system updates and sends a simple desktop notification.
+- `reload-waybar`, `reload-swaync`: Reload system components  
+- `set-wallpaper-colors`, `update-waybar-colors`: Sync Pywal colors with UI elements  
+- `pywal-theme`: Triggered via Waypaper to update themes dynamically  
+- `waypaper-update-theme`: Updates wallpaper and related themes  
+- `toggle-darkmode`, `toggle-nightlight`: Quick settings and manual toggles.
 
 ---
 
@@ -75,7 +75,7 @@ This will:
 - All scripts are written to be simple, modular, and easy to extend.  
 - For notifications, prefer standard system sounds (for example `canberra-gtk-play` events like `message` and `bell`) over custom sound files when possible.
 - Place this folder inside your dotfiles repo (e.g. `~/dotfiles/scripts`).  
-- Recommended to run both `link-bin-scripts.sh` and `link-systemd-units.sh` after cloning your dotfiles on a new machine.  
+- Recommended to run both `~/dotfiles/bin/link-bin-scripts` and `~/dotfiles/bin/link-systemd-units` after cloning your dotfiles on a new machine.  
 
 ---
 

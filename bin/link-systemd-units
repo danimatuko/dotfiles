@@ -41,4 +41,3 @@ systemctl --user daemon-reexec
 systemctl --user daemon-reload
 
 echo "🟢 All units linked, enabled, and started!"
-

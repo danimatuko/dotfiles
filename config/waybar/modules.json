@@ -80,7 +80,7 @@
         "tooltip-format-ethernet": "󰈀 Wired Connection\n󰩟 {ipaddr}\n\n󰇣 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}",
         "tooltip-format-disconnected": "󰖪 No Connection\n\nClick to manage networks",
         "on-click": "nm-connection-editor",
-        "on-click-right": "~/dotfiles/bin/rofi-wifi-menu.sh",
+        "on-click-right": "~/.local/bin/rofi-wifi-menu",
         "on-click-middle": "nmcli networking off && sleep 1 && nmcli networking on",
         "interval": 3,
         "nospacing": 1,
@@ -103,7 +103,7 @@
         "tooltip-format-enumerate-connected": "{device_alias}",
         "tooltip-format-enumerate-connected-battery": "{device_alias} ({device_battery_percentage}%)",
         "interval": 10,
-        "on-click": "~/dotfiles/scripts/rofi-bluetooth.sh",
+        "on-click": "~/.local/bin/rofi-bluetooth",
         "on-click-right": "blueman-manager",
         "on-click-middle": "bluetoothctl power toggle",
         "format-no-controller": "󱛉"
@@ -210,4 +210,3 @@
 
 
 }
-

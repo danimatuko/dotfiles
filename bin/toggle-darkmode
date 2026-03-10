@@ -1,42 +1,33 @@
-#!/usr/bin/env bash
-# Theme switcher script with theme existence check
+#!/bin/bash
 
-LIGHT_THEME="Adwaita"
-DARK_THEME="Adwaita-dark"
-ICON_THEME="Adwaita"
+set -euo pipefail
 
-CURRENT_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme | tr -d "'")
+light_theme="Adwaita"
+dark_theme="Adwaita-dark"
+icon_theme="Adwaita"
 
-LIGHT_ICON="weather-clear"
-DARK_ICON="weather-clear-night"
-NOTIFICATION_TIMEOUT=3000
+mode="${1:-toggle}"
 
-# Function to check if theme exists
-theme_exists() {
-    local theme="$1"
-    [[ -d "/usr/share/themes/$theme" || -d "$HOME/.themes/$theme" ]]
-}
+if [[ "$mode" == "status" ]]; then
+	current_scheme=$(gsettings get org.gnome.desktop.interface color-scheme | tr -d "'")
+	if [[ "$current_scheme" == "prefer-dark" ]]; then
+		echo "on"
+	else
+		echo "off"
+	fi
+	exit 0
+fi
 
-if [[ "$CURRENT_THEME" == "$DARK_THEME" ]]; then
-    if theme_exists "$LIGHT_THEME"; then
-        gsettings set org.gnome.desktop.interface gtk-theme "$LIGHT_THEME"
-        gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
-        gsettings set org.gnome.desktop.interface color-scheme "default"
-        notify-send --icon="$LIGHT_ICON" --expire-time="$NOTIFICATION_TIMEOUT" \
-            "Theme Changed" "Switched to Light Mode (${LIGHT_THEME})"
-    else
-        notify-send --icon=dialog-warning "Theme Switch Failed" \
-            "Light theme (${LIGHT_THEME}) is not installed!"
-    fi
+current_theme=$(gsettings get org.gnome.desktop.interface gtk-theme | tr -d "'")
+
+if [[ "$current_theme" == "$dark_theme" ]]; then
+	gsettings set org.gnome.desktop.interface gtk-theme "$light_theme"
+	gsettings set org.gnome.desktop.interface icon-theme "$icon_theme"
+	gsettings set org.gnome.desktop.interface color-scheme "default"
+	notify-send --icon="weather-clear" "Theme Changed" "Switched to Light Mode (${light_theme})"
 else
-    if theme_exists "$DARK_THEME"; then
-        gsettings set org.gnome.desktop.interface gtk-theme "$DARK_THEME"
-        gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
-        gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-        notify-send --icon="$DARK_ICON" --expire-time="$NOTIFICATION_TIMEOUT" \
-            "Theme Changed" "Switched to Dark Mode (${DARK_THEME})"
-    else
-        notify-send --icon=dialog-warning "Theme Switch Failed" \
-            "Dark theme (${DARK_THEME}) is not installed!"
-    fi
+	gsettings set org.gnome.desktop.interface gtk-theme "$dark_theme"
+	gsettings set org.gnome.desktop.interface icon-theme "$icon_theme"
+	gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+	notify-send --icon="weather-clear-night" "Theme Changed" "Switched to Dark Mode (${dark_theme})"
 fi

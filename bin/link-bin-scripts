@@ -10,9 +10,9 @@
 # use this to sync and activate your custom bin scripts on a new machine.
 # ------------------------------------------------------------------------------
 
-dotfiles_dir="$home/dotfiles"
-bin_dir="$dotfiles_dir/scripts/bin"
-local_bin_dir="$home/.local/bin"
+dotfiles_dir="$HOME/dotfiles"
+bin_dir="$dotfiles_dir/bin"
+local_bin_dir="$HOME/.local/bin"
 
 # create the local bin directory if it doesn't exist
 mkdir -p "$local_bin_dir"
@@ -34,4 +34,3 @@ for script in "$bin_dir"/*; do
 done
 
 echo "🟢 all scripts linked to $local_bin_dir!"
-

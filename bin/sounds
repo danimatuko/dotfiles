@@ -8,4 +8,3 @@ export SOUND_ERROR="$SOUND_DIR/error.wav"            # Error alert
 export SOUND_LOGOUT="$SOUND_DIR/poweroff.mp3"        # Logout/shutdown
 export SOUND_SYSTEM="$SOUND_DIR/system-startup.wav"  # Startup
 export SOUND_CAPTURE="$SOUND_DIR/screen-capture.oga" # Screenshot
-
