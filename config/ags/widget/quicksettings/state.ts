@@ -12,18 +12,18 @@ const wifi = network.wifi
 const bluetooth = AstalBluetooth.get_default()
 const battery = AstalBattery.get_default()
 const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
-const nightLightScriptPath = `${GLib.get_home_dir()}/dotfiles/scripts/toggle-nightlight.sh`
-const darkModeScriptPath = `${GLib.get_home_dir()}/dotfiles/scripts/toggle-darkmode.sh`
+const nightLightCommand = `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`
+const darkModeCommand = `${GLib.get_home_dir()}/.local/bin/toggle-darkmode`
 const [nightLightEnabled, setNightLightEnabled] = createState(false)
 const [darkModeEnabled, setDarkModeEnabled] = createState(false)
 
-execAsync([nightLightScriptPath, "status"])
+execAsync([nightLightCommand, "status"])
   .then((status) => {
     setNightLightEnabled(status.trim() === "on")
   })
   .catch(() => {})
 
-execAsync([darkModeScriptPath, "status"])
+execAsync([darkModeCommand, "status"])
   .then((status) => {
     setDarkModeEnabled(status.trim() === "on")
   })
@@ -141,13 +141,13 @@ export const toggleBluetooth = () => {
 // Toggle night light via shared helper script
 export const toggleNightLight = () => {
   setNightLightEnabled(!nightLightEnabled())
-  execAsync([nightLightScriptPath]).catch(() => {})
+  execAsync([nightLightCommand]).catch(() => {})
 }
 
 // Toggle system dark mode via shared helper script
 export const toggleDarkMode = () => {
   setDarkModeEnabled(!darkModeEnabled())
-  execAsync([darkModeScriptPath]).catch(() => {
+  execAsync([darkModeCommand]).catch(() => {
     setDarkModeEnabled(!darkModeEnabled())
   })
 }
