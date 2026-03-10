@@ -9,20 +9,20 @@ SCRIPT="$HOME/.local/bin/set-theme"
 menu=""
 
 for preview in "$THEMES_PREVIEWS"/*.{png,jpg,jpeg}; do
-    [ -f "$preview" ] || continue
+	[ -f "$preview" ] || continue
 
-    # Theme name without extension
-    theme=$(basename "$preview")
-    theme="${theme%.*}"
+	# Theme name without extension
+	theme=$(basename "$preview")
+	theme="${theme%.*}"
 
-    # Add rofi entry: text + icon
-    menu+="$theme\0icon\x1f$preview\n"
+	# Add rofi entry: text + icon
+	menu+="$theme\0icon\x1f$preview\n"
 done
 
 chosen=$(echo -en "$menu" | rofi -dmenu -i -show-icons \
-    -p "Switch Theme:" \
-    -theme ~/.config/rofi/layouts/theme-selector-vertical.rasi)
+	-p "Switch Theme:" \
+	-theme ~/.config/rofi/layouts/theme-selector-horizontal.rasi)
 
 if [ -n "$chosen" ]; then
-    "$SCRIPT" "$chosen"
+	"$SCRIPT" "$chosen"
 fi
