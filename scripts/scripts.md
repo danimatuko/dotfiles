@@ -54,9 +54,6 @@ This will:
 ## 🧼 Additional Utilities
 
 - `reload-waybar`, `reload-swaync`: Reload system components  
-- `set-wallpaper-colors`, `update-waybar-colors`: Sync Pywal colors with UI elements  
-- `pywal-theme`: Triggered via Waypaper to update themes dynamically  
-- `waypaper-update-theme`: Updates wallpaper and related themes  
 - `toggle-darkmode`, `toggle-nightlight`: Quick settings and manual toggles.
 
 ---

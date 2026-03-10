@@ -3,19 +3,18 @@
 ###############################################################################
 # Hyprland Elegant Theme Switcher
 # --------------------------------
-# A script to switch themes on Hyprland by selecting wallpapers using a
-# thumbnail-based Rofi menu. It applies the selected wallpaper using Pywal
-# for theming and swww for smooth transitions. It also reloads apps that
-# depend on the new theme.
+# A script to switch wallpapers on Hyprland by selecting images using a
+# thumbnail-based Rofi menu. It applies the selected wallpaper with swww
+# transitions and reloads apps that depend on the wallpaper/theme.
 #
 # Features:
 # - Auto-generates thumbnail previews for wallpapers
 # - Interactive Rofi menu with preview icons
-# - Applies colors with `wal` and transitions wallpaper with `swww`
+# - Sets wallpaper with smooth transitions via `swww`
 # - Optionally sources a reload script for apps (e.g. Waybar, GTK, etc.)
 #
 # Requirements:
-# - rofi, imagemagick (for `convert`), pywal (`wal`), swww
+# - rofi, imagemagick (for `convert`), swww
 #
 # Author: Dani Matuko
 ###############################################################################
@@ -67,7 +66,7 @@ log_info() {
 
 # Ensure required programs are available
 ensure_dependencies() {
-	local deps=(rofi convert wal swww)
+	local deps=(rofi convert swww)
 	for cmd in "${deps[@]}"; do
 		command -v "$cmd" &>/dev/null || log_error "$cmd is required but not installed"
 	done
@@ -95,7 +94,6 @@ generate_thumbnail() {
 apply_theme() {
 	local wallpaper="$1"
 
-	wal -i "$wallpaper" -q             # Set terminal theme with Pywal
 	swww img "$wallpaper" $SWWW_PARAMS # Set wallpaper with transition
 
 	sleep 0.5 # Brief delay to allow transition

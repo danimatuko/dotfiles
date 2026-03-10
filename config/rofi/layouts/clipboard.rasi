@@ -17,7 +17,7 @@ configuration {
     
 }
 
-/* ---- Load pywal colors (custom wal template) ---- */
+/* ---- Load shared rofi colors ---- */
 @import "~/.config/rofi/colors.rasi"
 @import "~/.config/rofi/rofi-vars.rasi"
 
