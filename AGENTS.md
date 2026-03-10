@@ -34,6 +34,10 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
   - `./install.sh`
 - Link dotfiles only:
   - `bash setup/link-configs.sh`
+- Uninstall preview (dry-run):
+  - `bash setup/uninstall.sh`
+- Uninstall apply:
+  - `bash setup/uninstall.sh --apply`
 
 ### AGS app (`config/ags`)
 

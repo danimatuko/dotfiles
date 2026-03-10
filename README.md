@@ -30,7 +30,7 @@ cd ~/dotfiles
 
 What `install.sh` does:
 
-- Backs up existing files to `~/dotfiles_backup_<timestamp>`
+- Asks before starting and asks whether to create a backup
 - Runs modular setup scripts from `setup/`
 - Links `bin/*` into `~/.local/bin`
 - Prompts before linking config files
@@ -43,6 +43,15 @@ bash ~/dotfiles/setup/link-bin.sh
 
 # Relink dotfiles/configs
 bash ~/dotfiles/setup/link-configs.sh
+
+# Preview uninstall actions (safe dry-run)
+bash ~/dotfiles/setup/uninstall.sh
+
+# Apply uninstall actions
+bash ~/dotfiles/setup/uninstall.sh --apply
+
+# Apply uninstall + restore from latest backup
+bash ~/dotfiles/setup/uninstall.sh --apply --restore-latest-backup
 ```
 
 ## Notes
