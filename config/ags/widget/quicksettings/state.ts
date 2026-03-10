@@ -13,11 +13,19 @@ const bluetooth = AstalBluetooth.get_default()
 const battery = AstalBattery.get_default()
 const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
 const nightLightScriptPath = `${GLib.get_home_dir()}/dotfiles/scripts/toggle-nightlight.sh`
+const darkModeScriptPath = `${GLib.get_home_dir()}/dotfiles/scripts/toggle-darkmode.sh`
 const [nightLightEnabled, setNightLightEnabled] = createState(false)
+const [darkModeEnabled, setDarkModeEnabled] = createState(false)
 
 execAsync([nightLightScriptPath, "status"])
   .then((status) => {
     setNightLightEnabled(status.trim() === "on")
+  })
+  .catch(() => {})
+
+execAsync([darkModeScriptPath, "status"])
+  .then((status) => {
+    setDarkModeEnabled(status.trim() === "on")
   })
   .catch(() => {})
 
@@ -72,11 +80,27 @@ export const nightLightSensitive = true
 
 // Icon shown in the night light row
 export const nightLightIconName = nightLightEnabled((enabled) =>
-  enabled ? "weather-clear-night-symbolic" : "weather-clear-symbolic",
+  enabled ? "night-light-symbolic" : "night-light-disabled-symbolic",
 )
 
 // CSS state class for the night light row
 export const nightLightButtonClass = nightLightEnabled((enabled) =>
+  enabled
+    ? "quick-settings__toggle-button quick-settings__toggle-button--active"
+    : "quick-settings__toggle-button",
+)
+
+// Dark mode
+// Keeps local toggle state for the quick settings button
+export const darkModeSensitive = true
+
+// Icon shown in the dark mode row
+export const darkModeIconName = darkModeEnabled((enabled) =>
+  enabled ? "weather-clear-night-symbolic" : "display-brightness-symbolic",
+)
+
+// CSS state class for the dark mode row
+export const darkModeButtonClass = darkModeEnabled((enabled) =>
   enabled
     ? "quick-settings__toggle-button quick-settings__toggle-button--active"
     : "quick-settings__toggle-button",
@@ -118,4 +142,12 @@ export const toggleBluetooth = () => {
 export const toggleNightLight = () => {
   setNightLightEnabled(!nightLightEnabled())
   execAsync([nightLightScriptPath]).catch(() => {})
+}
+
+// Toggle system dark mode via shared helper script
+export const toggleDarkMode = () => {
+  setDarkModeEnabled(!darkModeEnabled())
+  execAsync([darkModeScriptPath]).catch(() => {
+    setDarkModeEnabled(!darkModeEnabled())
+  })
 }

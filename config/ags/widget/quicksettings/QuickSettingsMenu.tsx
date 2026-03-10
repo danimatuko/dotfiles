@@ -6,9 +6,13 @@ import {
   bluetoothButtonClass,
   bluetoothIconName,
   bluetoothSensitive,
+  darkModeButtonClass,
+  darkModeIconName,
+  darkModeSensitive,
   nightLightButtonClass,
   nightLightIconName,
   nightLightSensitive,
+  toggleDarkMode,
   toggleBluetooth,
   toggleNightLight,
   toggleWifi,
@@ -68,6 +72,15 @@ export default function QuickSettingsMenu() {
             sensitive={nightLightSensitive}
             hexpand
             tooltipText={"Toggle Night Light"}
+          />
+          <QuickSettingsToggleButton
+            label="Dark Mode"
+            iconName={darkModeIconName}
+            className={darkModeButtonClass}
+            onClicked={toggleDarkMode}
+            sensitive={darkModeSensitive}
+            hexpand
+            tooltipText={"Toggle Dark Mode"}
           />
         </box>
 
