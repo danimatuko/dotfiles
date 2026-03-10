@@ -29,7 +29,8 @@ readonly CACHE_DIR="$HOME/.cache/theme-switcher"   # Cached data
 readonly THUMBNAIL_DIR="$CACHE_DIR/thumbnails"     # Thumbnail images
 
 # Script and theme paths
-readonly RELOAD_SCRIPT="$HOME/.config/hypr/scripts/reload-apps.sh"
+readonly RELOAD_WAYBAR_CMD="$HOME/.local/bin/reload-waybar"
+readonly RELOAD_SWAYNC_CMD="$HOME/.local/bin/reload-swaync"
 readonly ROFI_THEME="$CONFIG_DIR/wallpaper-selector.rasi"
 
 # swww transition parameters
@@ -99,7 +100,8 @@ apply_theme() {
 
 	sleep 0.5 # Brief delay to allow transition
 
-	[[ -f "$RELOAD_SCRIPT" ]] && source "$RELOAD_SCRIPT" # Reload apps if script exists
+	[[ -x "$RELOAD_WAYBAR_CMD" ]] && "$RELOAD_WAYBAR_CMD"
+	[[ -x "$RELOAD_SWAYNC_CMD" ]] && "$RELOAD_SWAYNC_CMD"
 
 	log_info "$(basename "$wallpaper")"
 }
