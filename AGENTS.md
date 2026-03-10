@@ -14,8 +14,8 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - `install.sh`: primary bootstrap entrypoint for a machine setup.
 - `setup/*.sh`: modular installers and symlink/linking scripts.
 - `config/`: user config payload (Hyprland, Waybar, AGS, Neovim, Rofi, etc.).
-- `scripts/`: utility scripts and helper automation.
-- `bin/`: executable launchers/helpers intended to be on `$PATH`.
+- `scripts/`: support assets/docs (for example systemd units under `scripts/services` and `scripts/timers`).
+- `bin/`: executable command scripts intended to be linked into `~/.local/bin` and used from keybinds/apps.
 - `themes/`: theme definitions and assets shared across components.
 
 ## Stack and Runtime Facts
@@ -56,11 +56,11 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 ### Shell script checks (repo root)
 
 - Syntax check one script:
-  - `bash -n path/to/script.sh`
-- Syntax check all setup/scripts/bin shell files (fast baseline):
-  - `for f in setup/*.sh scripts/*.sh bin/*; do [ -f "$f" ] && bash -n "$f"; done`
+  - `bash -n path/to/script`
+- Syntax check all setup and bin shell files (fast baseline):
+  - `for f in setup/*.sh bin/*; do [ -f "$f" ] && bash -n "$f"; done`
 - Optional lint (if installed):
-  - `shellcheck setup/*.sh scripts/*.sh`
+  - `shellcheck setup/*.sh bin/*`
 
 ### Test status and single-test guidance
 
@@ -102,7 +102,17 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - TS variables/functions: camelCase.
 - Boolean names: `is*`, `has*`, `can*`.
 - CSS/SCSS classes: kebab-case, prefer BEM-style blocks/elements/modifiers.
-- Shell script filenames: kebab-case with `.sh` suffix where applicable.
+- Command scripts in `bin/`: kebab-case, extensionless (no `.sh`).
+- Installer/setup scripts in `setup/`: kebab-case with `.sh` suffix.
+
+### Script placement and invocation
+
+- Put executable runtime commands in `bin/`.
+- Keep command entrypoints extensionless and executable (`chmod +x`).
+- Avoid duplicating the same command in both `scripts/` and `bin/`.
+- Prefer referencing commands via `~/.local/bin/<command>` from Hyprland/Waybar and other user config.
+- In AGS TypeScript files, use absolute command paths under `~/.local/bin` for reliability across session `PATH` differences.
+- Keep `setup/link-bin.sh` (or `bin/link-bin-scripts`) as the source of truth for linking `bin/*` into `~/.local/bin`.
 
 ### Formatting
 
