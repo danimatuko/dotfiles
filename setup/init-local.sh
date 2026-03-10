@@ -23,12 +23,4 @@ mkdir -p "$LOCAL_DIR/state"
 # sounds, wallpapers, icons, themes, etc.
 # -------------------------------------------------
 
-# Sounds
-SOUNDS_SRC="$ASSETS_DIR/sounds"
-SOUNDS_DEST="$LOCAL_SHARE/sounds"
-
-echo "🔊 Copying sounds..."
-mkdir -p "$SOUNDS_DEST"
-cp -r "$SOUNDS_SRC/"* "$SOUNDS_DEST/"
-
 echo "✅ Local assets ready."

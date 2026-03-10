@@ -14,9 +14,8 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - `install.sh`: primary bootstrap entrypoint for a machine setup.
 - `setup/*.sh`: modular installers and symlink/linking scripts.
 - `config/`: user config payload (Hyprland, Waybar, AGS, Neovim, Rofi, etc.).
-- `scripts/`: support assets/docs (for example systemd units under `scripts/services` and `scripts/timers`).
 - `bin/`: executable command scripts intended to be linked into `~/.local/bin` and used from keybinds/apps.
-- `scripts/legacy/`: archived scripts kept for reference; not used by active setup.
+- `.legacy/`: archived scripts/assets kept for reference; not used by active setup.
 - `themes/`: theme definitions and assets shared across components.
 
 ## Stack and Runtime Facts
@@ -110,7 +109,7 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 
 - Put executable runtime commands in `bin/`.
 - Keep command entrypoints extensionless and executable (`chmod +x`).
-- Avoid duplicating the same command in both `scripts/` and `bin/`.
+- Avoid duplicating the same command in both `.legacy/` and `bin/`.
 - Prefer referencing commands via `~/.local/bin/<command>` from Hyprland/Waybar and other user config.
 - In AGS TypeScript files, use absolute command paths under `~/.local/bin` for reliability across session `PATH` differences.
 - Keep `setup/link-bin.sh` (or `bin/link-bin-scripts`) as the source of truth for linking `bin/*` into `~/.local/bin`.
@@ -130,6 +129,7 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 
 ### Notifications and sounds
 
+- Prefer `notify-send` directly in scripts; do not add custom notification wrapper commands.
 - For script notifications, keep sound behavior simple and prefer standard system sound events.
 - Prefer `canberra-gtk-play` event IDs (for example `message` for success and `bell` or `dialog-error` for failures) over custom sound files when possible.
 

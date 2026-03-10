@@ -19,7 +19,7 @@ This repository includes settings and scripts for:
 * **Rofi** — Themed app launcher with icon and font support
 * **SwayNC** — Notification center
 * **Bluetooth / Audio / Network** — Helpers and GUI tools (`blueman`, `pavucontrol`, etc.)
-* **Custom Scripts** — Located in `scripts/`, symlinked automatically
+* **Custom Scripts** — Located in `bin/`, symlinked automatically
 
 ---
 

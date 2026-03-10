@@ -13,8 +13,8 @@
 
 DOTFILES_DIR="$HOME/dotfiles"
 SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
-SERVICES_DIR="$DOTFILES_DIR/scripts/services"
-TIMERS_DIR="$DOTFILES_DIR/scripts/timers"
+SERVICES_DIR="$DOTFILES_DIR/.legacy/scripts/services"
+TIMERS_DIR="$DOTFILES_DIR/.legacy/scripts/timers"
 
 mkdir -p "$SYSTEMD_USER_DIR"
 
