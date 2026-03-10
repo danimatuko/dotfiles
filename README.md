@@ -1,102 +1,56 @@
+# Dotfiles
 
-# 🛠️ Dotfiles
+Personal dotfiles for an Arch Linux + Hyprland desktop.
 
-A collection of my personal configuration files to quickly bootstrap a modern development environment on Arch Linux (Hyprland-based).
+## What's Included
 
----
+- Shell: Bash, Starship, fzf, zoxide
+- Editor: Neovim (AstroNvim)
+- WM + desktop: Hyprland, Waybar, Rofi, SwayNC, wlogout
+- Terminal: Ghostty and Kitty config
+- Utility config: Git, tmux, network/audio/bluetooth helpers
+- Runtime commands: `bin/` (linked to `~/.local/bin`)
 
-## 📦 Included Configurations
+## Repository Layout
 
-This repository includes settings and scripts for:
+- `install.sh` - main bootstrap script
+- `setup/` - modular install and linking scripts
+- `config/` - application configs (`hypr`, `waybar`, `ags`, etc.)
+- `bin/` - active executable commands (extensionless)
+- `themes/` - shared theme files/assets
+- `.legacy/` - archived scripts/assets kept for reference
 
-* **Bash** — Modular `bashrc` with `starship`, `zoxide`, `fzf`, etc.
-* **Tmux** — Minimal terminal multiplexer setup
-* **Git** — Git identity and general preferences
-* **Hyprland** — Wayland window manager configuration
-* **Kitty / Ghostty** — Terminal emulators with matching themes
-* **Neovim (AstroNvim)** — Fully-featured NVim configuration with lazy-loading plugins
-* **Waybar** — Custom status bar setup
-* **Rofi** — Themed app launcher with icon and font support
-* **SwayNC** — Notification center
-* **Bluetooth / Audio / Network** — Helpers and GUI tools (`blueman`, `pavucontrol`, etc.)
-* **Custom Scripts** — Located in `bin/`, symlinked automatically
-
----
-
-## 🚀 Quick Installation
-
-Clone the repo using a shallow clone (faster download):
+## Install
 
 ```bash
-git clone --depth=1 [https://github.com/danimatuko/dotfiles.git](https://github.com/danimatuko/dotfiles.git) ~/dotfiles
-````
-
-Run the modular install script:
-
-Bash
-
-```
+git clone --depth=1 https://github.com/danimatuko/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
 
-> 🛟 The script automatically installs `yay`, backs up existing configs, and prompts before linking.
+What `install.sh` does:
 
----
+- Backs up existing files to `~/dotfiles_backup_<timestamp>`
+- Runs modular setup scripts from `setup/`
+- Links `bin/*` into `~/.local/bin`
+- Prompts before linking config files
 
-## 🔗 How Linking Works
+## Useful Commands
 
-The script will:
+```bash
+# Relink active commands into ~/.local/bin
+bash ~/dotfiles/setup/link-bin.sh
 
-1. Create a timestamped backup (e.g. `~/dotfiles_backup_2025-07-11_15-32-00`)
-    
-2. Prompt to confirm linking your `.bashrc`, `.tmux.conf`, `.gitconfig`, and config folders
-    
-3. Use symlinks (`ln -sf`) so updates can be version-controlled and shared easily
-    
+# Relink dotfiles/configs
+bash ~/dotfiles/setup/link-configs.sh
+```
 
----
+## Notes
 
-## 🐛 Troubleshooting Tips
+- This setup targets Arch Linux and Wayland/Hyprland.
+- Active command entrypoints live in `bin/` and are intended to be called via `~/.local/bin/<command>`.
+- Archived/unused content lives under `.legacy/` and is not part of the active setup path.
 
-- **Check if configs are linked**:
-    
+## License
 
-  `bash   ls -la ~/.config/`  
-
-- Check backups:
-    
-      Look inside the ~/dotfiles_backup_<timestamp> directory.
-    
-- **Re-run just the link script**:
-    
-
-  `bash ~/dotfiles/setup/link-dotfiles.sh`  
-
----
-
-## ⚙️ Requirements
-
-- Based on **Arch Linux**
-    
-- The installer handles installing `yay` (AUR helper) if missing
-    
-- Designed for a **Wayland + Hyprland** setup
-    
-- Includes optional scripts for font, icon, and clipboard support
-    
-
----
-
-## 📌 TODO
-
-- [ ] Add workspaces overview
-    
-- [ ] Display settings menu (extend, duplicate...)
-    
-
----
-
-## 📝 License
-
-This dotfiles repository is distributed under the MIT License. Use freely and adapt as needed.
+MIT

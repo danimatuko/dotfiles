@@ -33,7 +33,7 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - Full bootstrap (destructive on user config paths):
   - `./install.sh`
 - Link dotfiles only:
-  - `bash setup/link-dotfiles.sh`
+  - `bash setup/link-configs.sh`
 
 ### AGS app (`config/ags`)
 

@@ -35,9 +35,8 @@ source ~/dotfiles/setup/terminal.sh
 source ~/dotfiles/setup/desktop.sh
 source ~/dotfiles/setup/link-bin.sh
 
-
-echo -e "\n📝 Dotfile setup ready..."
-gum confirm "Link dotfiles and config files now?" && source ~/dotfiles/setup/link-dotfiles.sh || echo "⏩ Skipped dotfiles linking."
+echo -e "\n📝 Setup complete."
+gum confirm "Sync now? Your current shell/config files will be moved to a backup folder, then linked to ~/dotfiles." && source ~/dotfiles/setup/link-configs.sh || echo "⏩ Skipped config sync (your current files stay the same)."
 
 sudo updatedb
 
