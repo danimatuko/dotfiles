@@ -14,6 +14,7 @@ const battery = AstalBattery.get_default()
 const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
 const nightLightCommand = `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`
 const darkModeCommand = `${GLib.get_home_dir()}/.local/bin/toggle-darkmode`
+let brightnessDevice: string | null = null
 const [nightLightEnabled, setNightLightEnabled] = createState(false)
 const [darkModeEnabled, setDarkModeEnabled] = createState(false)
 
@@ -150,4 +151,71 @@ export const toggleDarkMode = () => {
   execAsync([darkModeCommand]).catch(() => {
     setDarkModeEnabled(!darkModeEnabled())
   })
+}
+
+// Brightness
+const [brightnessPercent, setBrightnessPercent] = createState(0)
+
+const parseBrightnessPercent = (output: string) => {
+  const firstLine = output.trim().split("\n")[0] ?? ""
+  const fields = firstLine.split(",")
+  const percentField = fields[fields.length - 1] ?? "0%"
+  const percent = Number.parseInt(percentField.replace("%", ""), 10)
+  return Number.isFinite(percent) ? percent : 0
+}
+
+const detectBrightnessDevice = async () => {
+  if (brightnessDevice) return brightnessDevice
+
+  try {
+    const output = await execAsync(["brightnessctl", "-m"])
+    const firstLine = output.trim().split("\n")[0] ?? ""
+    const device = firstLine.split(",")[0]?.trim()
+    brightnessDevice = device || null
+  } catch {
+    brightnessDevice = null
+  }
+
+  return brightnessDevice
+}
+
+const refreshBrightness = () => {
+  detectBrightnessDevice()
+    .then((device) =>
+      execAsync(
+        device
+          ? ["brightnessctl", "-d", device, "-m"]
+          : ["brightnessctl", "-m"],
+      ),
+    )
+    .then((output) => {
+      setBrightnessPercent(parseBrightnessPercent(output))
+    })
+    .catch(() => {
+      setBrightnessPercent(0)
+    })
+}
+
+refreshBrightness()
+GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 2, () => {
+  refreshBrightness()
+  return GLib.SOURCE_CONTINUE
+})
+
+export const brightnessValue = brightnessPercent((percent) => percent / 100)
+
+export const brightnessIconName = "display-brightness-symbolic"
+
+export const setBrightness = (percent: number) => {
+  const clampedPercent = Math.max(0, Math.min(100, Math.round(percent * 100)))
+  setBrightnessPercent(clampedPercent)
+  detectBrightnessDevice()
+    .then((device) =>
+      execAsync(
+        device
+          ? ["brightnessctl", "-d", device, "set", `${clampedPercent}%`]
+          : ["brightnessctl", "set", `${clampedPercent}%`],
+      ),
+    )
+    .catch(() => {})
 }

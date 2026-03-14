@@ -64,8 +64,41 @@
   }
 
   &__toggle-content image,
-  &__battery-row image {
+  &__battery-row image,
+  &__brightness-row image {
     @include icon-size($icon-size-md);
+  }
+
+  &__brightness-row {
+    padding: 4px 2px;
+  }
+
+  &__brightness-icon {
+    color: $color-brand;
+  }
+
+  &__brightness-slider {
+    min-width: 140px;
+
+    trough {
+      min-height: 6px;
+      border-radius: 999px;
+      background: rgba($color-on-surface, 0.22);
+    }
+
+    highlight {
+      border-radius: 999px;
+      background: $color-brand;
+    }
+
+    slider {
+      min-width: 14px;
+      min-height: 14px;
+      border-radius: 999px;
+      background: $color-emphasis;
+      border: 1px solid rgba($color-surface, 0.85);
+      box-shadow: 0 1px 3px rgba(black, 0.3);
+    }
   }
 
   &__toggle-content {

@@ -6,12 +6,15 @@ import {
   bluetoothButtonClass,
   bluetoothIconName,
   bluetoothSensitive,
+  brightnessIconName,
+  brightnessValue,
   darkModeButtonClass,
   darkModeIconName,
   darkModeSensitive,
   nightLightButtonClass,
   nightLightIconName,
   nightLightSensitive,
+  setBrightness,
   toggleDarkMode,
   toggleBluetooth,
   toggleNightLight,
@@ -35,6 +38,17 @@ export default function QuickSettingsMenu() {
           label="Quick Settings"
           xalign={0}
         />
+
+        <box class="quick-settings__brightness-row" spacing={8}>
+          <image class="quick-settings__brightness-icon" iconName={brightnessIconName} />
+          <slider
+            class="quick-settings__brightness-slider"
+            hexpand
+            value={brightnessValue}
+            onValueChanged={(self) => setBrightness(self.value)}
+          />
+        </box>
+
         <box
           class="quick-settings__toggle-row"
           orientation={Gtk.Orientation.HORIZONTAL}
