@@ -65,19 +65,23 @@
 
   &__toggle-content image,
   &__battery-row image,
-  &__brightness-row image {
+  &__brightness-row image,
+  &__volume-row image {
     @include icon-size($icon-size-md);
   }
 
-  &__brightness-row {
+  &__brightness-row,
+  &__volume-row {
     padding: 4px 2px;
   }
 
-  &__brightness-icon {
+  &__brightness-icon,
+  &__volume-icon {
     color: $color-brand;
   }
 
-  &__brightness-slider {
+  &__brightness-slider,
+  &__volume-slider {
     min-width: 140px;
 
     trough {

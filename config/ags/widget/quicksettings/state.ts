@@ -115,6 +115,14 @@ export const speakerIconName = speaker
     )
   : "audio-volume-muted-symbolic"
 
+export const volumeSensitive = Boolean(speaker)
+
+export const volumeValue = speaker
+  ? createBinding(speaker, "volume").as((value) =>
+      Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0)),
+    )
+  : 0
+
 // Battery
 // Used in the small status row at the bottom of the menu
 export const batteryIconName = createBinding(battery, "batteryIconName").as(
@@ -151,6 +159,11 @@ export const toggleDarkMode = () => {
   execAsync([darkModeCommand]).catch(() => {
     setDarkModeEnabled(!darkModeEnabled())
   })
+}
+
+export const setVolume = (volume: number) => {
+  if (!speaker) return
+  speaker.volume = Math.max(0, Math.min(1, volume))
 }
 
 // Brightness

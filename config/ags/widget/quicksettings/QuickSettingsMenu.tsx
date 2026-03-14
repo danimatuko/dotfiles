@@ -14,11 +14,15 @@ import {
   nightLightButtonClass,
   nightLightIconName,
   nightLightSensitive,
+  setVolume,
   setBrightness,
+  speakerIconName,
   toggleDarkMode,
   toggleBluetooth,
   toggleNightLight,
   toggleWifi,
+  volumeSensitive,
+  volumeValue,
   wifiButtonClass,
   wifiIconName,
   wifiSensitive,
@@ -40,12 +44,29 @@ export default function QuickSettingsMenu() {
         />
 
         <box class="quick-settings__brightness-row" spacing={8}>
-          <image class="quick-settings__brightness-icon" iconName={brightnessIconName} />
+          <image
+            class="quick-settings__brightness-icon"
+            iconName={brightnessIconName}
+          />
           <slider
             class="quick-settings__brightness-slider"
             hexpand
             value={brightnessValue}
             onValueChanged={(self) => setBrightness(self.value)}
+          />
+        </box>
+
+        <box class="quick-settings__volume-row" spacing={8}>
+          <image
+            class="quick-settings__volume-icon"
+            iconName={speakerIconName}
+          />
+          <slider
+            class="quick-settings__volume-slider"
+            hexpand
+            sensitive={volumeSensitive}
+            value={volumeValue}
+            onValueChanged={(self) => setVolume(self.value)}
           />
         </box>
 
