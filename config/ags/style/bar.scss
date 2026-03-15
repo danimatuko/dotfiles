@@ -110,4 +110,45 @@ window.Bar {
       @include icon-size($icon-size-sm);
     }
   }
+
+  .clock-menu {
+    @include control-reset;
+  }
+
+  .clock-menu__content {
+    padding: 12px;
+  }
+
+  .clock-menu__notifications {
+    min-width: 340px;
+    max-width: 340px;
+  }
+
+  .clock-menu__notifications-header {
+    margin-bottom: 8px;
+  }
+
+  .clock-menu__notifications-title {
+    font-weight: 700;
+  }
+
+  .clock-menu__notifications-clear {
+    @include control-reset;
+    border-radius: $radius-sm;
+    padding: 1px 8px;
+    background: rgba($color-on-surface, 0.12);
+    color: $color-on-surface;
+
+    &:hover {
+      background: rgba($color-brand, 0.26);
+    }
+  }
+
+  .clock-menu__notifications-list {
+    min-height: 80px;
+  }
+
+  .clock-menu__notifications-empty {
+    opacity: 0.65;
+  }
 }
