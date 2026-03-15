@@ -115,8 +115,90 @@ window.Bar {
     @include control-reset;
   }
 
+  .clock-menu__popover {
+    @include control-reset;
+
+    > contents {
+      @include control-reset;
+      padding: 8px 0 0;
+    }
+  }
+
   .clock-menu__content {
     padding: 12px;
+    border-radius: $radius-lg;
+    background: rgba($color-surface, 0.96);
+    color: $color-on-surface;
+    box-shadow: 0 12px 28px rgba(black, 0.34);
+  }
+
+  .clock-menu__calendar {
+    min-width: 286px;
+  }
+
+  .clock-menu__calendar calendar {
+    padding: 12px;
+    border-radius: $radius-lg;
+    color: $color-on-surface;
+    background: linear-gradient(
+      180deg,
+      rgba($color-on-surface, 0.08),
+      rgba($color-on-surface, 0.04)
+    );
+    box-shadow: inset 0 1px 0 rgba($color-on-surface, 0.08);
+  }
+
+  .clock-menu__calendar calendar > header {
+    margin-bottom: 8px;
+    padding: 6px 4px;
+    border-radius: $radius-sm;
+    background: rgba($color-on-surface, 0.06);
+    border: none;
+    box-shadow: none;
+  }
+
+  .clock-menu__calendar calendar > header button {
+    @include control-reset;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 999px;
+    color: $color-on-surface;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: rgba($color-brand, 0.24);
+    }
+  }
+
+  .clock-menu__calendar calendar > grid {
+    padding: 4px;
+    border-radius: $radius-sm;
+  }
+
+  .clock-menu__calendar calendar > grid > label {
+    min-width: 28px;
+    min-height: 26px;
+    border-radius: 999px;
+    color: rgba($color-on-surface, 0.84);
+    font-weight: 600;
+  }
+
+  .clock-menu__calendar calendar > grid > label.day-name {
+    color: rgba($color-brand, 0.9);
+    font-weight: 700;
+  }
+
+  .clock-menu__calendar calendar > grid > label.today {
+    background: rgba($color-brand, 0.24);
+    color: $color-on-surface;
+    font-weight: 700;
+  }
+
+  .clock-menu__calendar calendar > grid > label:selected {
+    background: $color-brand;
+    color: $color-surface;
+    font-weight: 700;
   }
 
   .clock-menu__notifications {
