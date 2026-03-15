@@ -120,8 +120,8 @@ window.Bar {
   }
 
   .clock-menu__notifications {
-    min-width: 340px;
-    max-width: 340px;
+    min-width: 380px;
+    max-width: 380px;
   }
 
   .clock-menu__notifications-header {
@@ -146,6 +146,12 @@ window.Bar {
 
   .clock-menu__notifications-list {
     min-height: 80px;
+    padding-right: 6px;
+  }
+
+  .clock-menu__notifications-scroll {
+    min-height: 320px;
+    max-height: 320px;
   }
 
   .clock-menu__notifications-empty {

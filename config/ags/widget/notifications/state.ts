@@ -12,24 +12,48 @@ export type NotificationEntry = {
 }
 
 const notifd = AstalNotifd.get_default()
+const maxActiveToasts = 4
 
 const [activeNotificationState, setActiveNotificationState] =
   createState<NotificationEntry | null>(null)
+const [activeNotificationsState, setActiveNotificationsState] = createState<
+  NotificationEntry[]
+>([])
 const [notificationHistoryState, setNotificationHistoryState] = createState<
   NotificationEntry[]
 >([])
 
-let hideTimeoutId = 0
+const hideTimeoutIds = new Map<number, number>()
 
-const stopHideTimer = () => {
-  if (hideTimeoutId > 0) {
-    GLib.source_remove(hideTimeoutId)
-    hideTimeoutId = 0
-  }
+const clearHideTimer = (id: number) => {
+  const timeoutId = hideTimeoutIds.get(id)
+  if (!timeoutId) return
+
+  GLib.source_remove(timeoutId)
+  hideTimeoutIds.delete(id)
 }
 
-const hideActiveNotification = () => {
-  stopHideTimer()
+const setTopActiveNotification = (notifications: NotificationEntry[]) => {
+  setActiveNotificationState(notifications[0] ?? null)
+}
+
+const removeActiveNotification = (id: number) => {
+  clearHideTimer(id)
+
+  const nextActive = activeNotificationsState().filter(
+    (notification) => notification.id !== id,
+  )
+  setActiveNotificationsState(nextActive)
+  setTopActiveNotification(nextActive)
+}
+
+const clearAllActiveNotifications = () => {
+  for (const timeoutId of hideTimeoutIds.values()) {
+    GLib.source_remove(timeoutId)
+  }
+
+  hideTimeoutIds.clear()
+  setActiveNotificationsState([])
   setActiveNotificationState(null)
 }
 
@@ -60,16 +84,30 @@ const handleNotification = (id: number) => {
   if (!entry) return
 
   setActiveNotificationState(entry)
+  const previousActive = activeNotificationsState()
+  const nextActive = [
+    entry,
+    ...previousActive.filter((item) => item.id !== id),
+  ].slice(0, maxActiveToasts)
+
+  const dropped = previousActive.filter(
+    (item) => !nextActive.some((nextItem) => nextItem.id === item.id),
+  )
+  dropped.forEach((item) => clearHideTimer(item.id))
+
+  setActiveNotificationsState(nextActive)
+  setTopActiveNotification(nextActive)
   setNotificationHistoryState([
     entry,
     ...notificationHistoryState().filter((item) => item.id !== id),
   ])
 
-  stopHideTimer()
-  hideTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 5000, () => {
-    hideActiveNotification()
+  clearHideTimer(id)
+  const timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 5000, () => {
+    removeActiveNotification(id)
     return GLib.SOURCE_REMOVE
   })
+  hideTimeoutIds.set(id, timeoutId)
 }
 
 notifd?.connect("notified", (_: unknown, id: number) => {
@@ -77,16 +115,15 @@ notifd?.connect("notified", (_: unknown, id: number) => {
 })
 
 notifd?.connect("resolved", (_: unknown, id: number) => {
-  if (activeNotificationState()?.id === id) {
-    hideActiveNotification()
-  }
+  removeActiveNotification(id)
 })
 
 export const activeNotification = activeNotificationState
+export const activeNotifications = activeNotificationsState
 export const notificationHistory = notificationHistoryState
 
 export const clearNotificationHistory = () => {
-  hideActiveNotification()
+  clearAllActiveNotifications()
   setNotificationHistoryState([])
 }
 
@@ -94,10 +131,7 @@ export const dismissNotification = (id: number) => {
   setNotificationHistoryState(
     notificationHistoryState().filter((notification) => notification.id !== id),
   )
-
-  if (activeNotificationState()?.id === id) {
-    hideActiveNotification()
-  }
+  removeActiveNotification(id)
 
   try {
     notifd?.get_notification(id)?.dismiss?.()

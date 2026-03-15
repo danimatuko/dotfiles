@@ -1,7 +1,8 @@
 import app from "ags/gtk4/app"
+import { For } from "ags"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 import type { Accessor } from "gnim"
-import { activeNotification, dismissNotification } from "./notifications/state"
+import { activeNotifications, dismissNotification } from "./notifications/state"
 
 type NotificationCardProps = {
   appName: string | Accessor<string>
@@ -82,7 +83,7 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
     <window
       name="notifications"
       class="Notifications"
-      visible={activeNotification((notification) => Boolean(notification))}
+      visible={activeNotifications((notifications) => notifications.length > 0)}
       gdkmonitor={gdkmonitor}
       anchor={TOP | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
@@ -90,35 +91,25 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
     >
       <box
         class="notifications__container"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={10}
         valign={Gtk.Align.START}
         halign={Gtk.Align.CENTER}
         hexpand
       >
-        <NotificationCard
-          appName={activeNotification(
-            (notification) => notification?.appName || "Notification",
+        <For each={activeNotifications}>
+          {(notification) => (
+            <NotificationCard
+              appName={notification.appName}
+              summary={notification.summary}
+              body={notification.body}
+              iconName={notification.iconName}
+              timeLabel={notification.timeLabel}
+              bodyVisible={Boolean(notification.body.length)}
+              onClose={() => dismissNotification(notification.id)}
+            />
           )}
-          summary={activeNotification(
-            (notification) => notification?.summary || "",
-          )}
-          body={activeNotification((notification) => notification?.body || "")}
-          iconName={activeNotification(
-            (notification) =>
-              notification?.iconName || "dialog-information-symbolic",
-          )}
-          timeLabel={activeNotification(
-            (notification) => notification?.timeLabel || "",
-          )}
-          bodyVisible={activeNotification((notification) =>
-            Boolean(notification?.body?.length),
-          )}
-          onClose={() => {
-            const id = activeNotification()?.id
-            if (typeof id === "number") {
-              dismissNotification(id)
-            }
-          }}
-        />
+        </For>
       </box>
     </window>
   )

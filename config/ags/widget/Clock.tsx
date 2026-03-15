@@ -47,34 +47,40 @@ export default function Clock() {
                 <label label="Clear" />
               </button>
             </box>
-            <box
-              class="clock-menu__notifications-list"
-              orientation={Gtk.Orientation.VERTICAL}
-              spacing={8}
+            <scrolledwindow
+              class="clock-menu__notifications-scroll"
+              hscrollbarPolicy={Gtk.PolicyType.NEVER}
+              vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
             >
-              <label
-                class="clock-menu__notifications-empty"
-                label="No notifications yet"
-                xalign={0}
-                visible={notificationHistory((items) => items.length === 0)}
-              />
-              <For each={notificationHistory}>
-                {(notification) => (
-                  <NotificationCard
-                    className="clock-menu__notification-item"
-                    appName={notification.appName}
-                    summary={notification.summary}
-                    body={notification.body}
-                    iconName={notification.iconName}
-                    timeLabel={notification.timeLabel}
-                    bodyVisible={Boolean(notification.body.length)}
-                    compact
-                    showIcon={false}
-                    onClose={() => dismissNotification(notification.id)}
-                  />
-                )}
-              </For>
-            </box>
+              <box
+                class="clock-menu__notifications-list"
+                orientation={Gtk.Orientation.VERTICAL}
+                spacing={8}
+              >
+                <label
+                  class="clock-menu__notifications-empty"
+                  label="No notifications yet"
+                  xalign={0}
+                  visible={notificationHistory((items) => items.length === 0)}
+                />
+                <For each={notificationHistory}>
+                  {(notification) => (
+                    <NotificationCard
+                      className="clock-menu__notification-item"
+                      appName={notification.appName}
+                      summary={notification.summary}
+                      body={notification.body}
+                      iconName={notification.iconName}
+                      timeLabel={notification.timeLabel}
+                      bodyVisible={Boolean(notification.body.length)}
+                      compact
+                      showIcon={false}
+                      onClose={() => dismissNotification(notification.id)}
+                    />
+                  )}
+                </For>
+              </box>
+            </scrolledwindow>
           </box>
         </box>
       </popover>
