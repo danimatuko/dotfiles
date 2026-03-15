@@ -1,0 +1,44 @@
+@use "./theme.scss" as *;
+
+window.Osd {
+  background: transparent;
+
+  .osd__container {
+    padding-bottom: 40px;
+  }
+
+  .osd {
+    min-width: 260px;
+    padding: 16px 12px;
+    border-radius: 20px;
+    background: rgba($color-surface, 0.94);
+    border: 1px solid rgba($color-on-surface, 0.08);
+    color: $color-on-surface;
+    box-shadow: 0 8px 20px rgba(black, 0.34);
+  }
+
+  .osd__icon {
+    @include icon-size($icon-size-md);
+  }
+
+  .osd__level {
+    min-width: 180px;
+    min-height: 8px;
+    transform: scaleY(0.3);
+
+    trough {
+      min-height: 8px;
+      border-radius: 20px;
+      background: rgba($color-on-surface, 0.2);
+    }
+
+    block {
+      min-height: 8px;
+      border-radius: 10px;
+    }
+
+    block.filled {
+      background: $color-brand;
+    }
+  }
+}

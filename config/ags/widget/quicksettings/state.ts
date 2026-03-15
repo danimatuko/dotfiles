@@ -15,8 +15,38 @@ const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
 const nightLightCommand = `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`
 const darkModeCommand = `${GLib.get_home_dir()}/.local/bin/toggle-darkmode`
 let brightnessDevice: string | null = null
+let lastBrightnessPercent: number | null = null
 const [nightLightEnabled, setNightLightEnabled] = createState(false)
 const [darkModeEnabled, setDarkModeEnabled] = createState(false)
+const [osdVisibleState, setOsdVisibleState] = createState(false)
+const [osdIconNameState, setOsdIconNameState] = createState(
+  "audio-volume-muted-symbolic",
+)
+const [osdValueState, setOsdValueState] = createState(0)
+let osdTimeoutId = 0
+
+const showOsd = (iconName: string, value: number) => {
+  setOsdIconNameState(iconName)
+  setOsdValueState(Math.max(0, Math.min(1, value)))
+  setOsdVisibleState(true)
+
+  if (osdTimeoutId > 0) {
+    GLib.source_remove(osdTimeoutId)
+  }
+
+  osdTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1200, () => {
+    setOsdVisibleState(false)
+    osdTimeoutId = 0
+    return GLib.SOURCE_REMOVE
+  })
+}
+
+const volumeIconByValue = (value: number) => {
+  if (value <= 0.001) return "audio-volume-muted-symbolic"
+  if (value < 0.34) return "audio-volume-low-symbolic"
+  if (value < 0.67) return "audio-volume-medium-symbolic"
+  return "audio-volume-high-symbolic"
+}
 
 execAsync([nightLightCommand, "status"])
   .then((status) => {
@@ -115,6 +145,10 @@ export const speakerIconName = speaker
     )
   : "audio-volume-muted-symbolic"
 
+export const osdVisible = osdVisibleState
+export const osdIconName = osdIconNameState
+export const osdValue = osdValueState
+
 export const volumeSensitive = Boolean(speaker)
 
 export const volumeValue = speaker
@@ -163,7 +197,9 @@ export const toggleDarkMode = () => {
 
 export const setVolume = (volume: number) => {
   if (!speaker) return
-  speaker.volume = Math.max(0, Math.min(1, volume))
+  const clampedVolume = Math.max(0, Math.min(1, volume))
+  speaker.volume = clampedVolume
+  showOsd(volumeIconByValue(clampedVolume), clampedVolume)
 }
 
 // Brightness
@@ -172,9 +208,10 @@ const [brightnessPercent, setBrightnessPercent] = createState(0)
 const parseBrightnessPercent = (output: string) => {
   const firstLine = output.trim().split("\n")[0] ?? ""
   const fields = firstLine.split(",")
-  const percentField = fields[fields.length - 1] ?? "0%"
+  const percentField = fields.find((field) => field.includes("%")) ?? "0%"
   const percent = Number.parseInt(percentField.replace("%", ""), 10)
-  return Number.isFinite(percent) ? percent : 0
+  if (!Number.isFinite(percent)) return 0
+  return Math.max(0, Math.min(100, percent))
 }
 
 const detectBrightnessDevice = async () => {
@@ -202,7 +239,17 @@ const refreshBrightness = () => {
       ),
     )
     .then((output) => {
-      setBrightnessPercent(parseBrightnessPercent(output))
+      const nextPercent = parseBrightnessPercent(output)
+      const hadPreviousPercent = lastBrightnessPercent !== null
+      const brightnessChanged = lastBrightnessPercent !== nextPercent
+
+      setBrightnessPercent(nextPercent)
+
+      if (hadPreviousPercent && brightnessChanged) {
+        showOsd("display-brightness-symbolic", nextPercent / 100)
+      }
+
+      lastBrightnessPercent = nextPercent
     })
     .catch(() => {
       setBrightnessPercent(0)
@@ -210,7 +257,7 @@ const refreshBrightness = () => {
 }
 
 refreshBrightness()
-GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 2, () => {
+GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
   refreshBrightness()
   return GLib.SOURCE_CONTINUE
 })
@@ -220,8 +267,11 @@ export const brightnessValue = brightnessPercent((percent) => percent / 100)
 export const brightnessIconName = "display-brightness-symbolic"
 
 export const setBrightness = (percent: number) => {
-  const clampedPercent = Math.max(0, Math.min(100, Math.round(percent * 100)))
+  const clampedValue = Math.max(0, Math.min(1, percent))
+  const clampedPercent = Math.round(clampedValue * 100)
   setBrightnessPercent(clampedPercent)
+  lastBrightnessPercent = clampedPercent
+  showOsd("display-brightness-symbolic", clampedValue)
   detectBrightnessDevice()
     .then((device) =>
       execAsync(
