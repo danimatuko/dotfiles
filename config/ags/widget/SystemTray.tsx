@@ -15,7 +15,9 @@ export default function SystemTray() {
       <For each={items}>
         {(item) => {
           const menuModel = item.menuModel
-          const popover = menuModel ? Gtk.PopoverMenu.new_from_model(menuModel) : undefined
+          const popover = menuModel
+            ? Gtk.PopoverMenu.new_from_model(menuModel)
+            : undefined
           if (popover && item.actionGroup) {
             popover.insert_action_group("dbusmenu", item.actionGroup)
           }
