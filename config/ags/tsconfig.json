@@ -3,24 +3,18 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "ags/gtk4",
-    "lib": [
-      "ES2023"
-    ],
+    "lib": ["ES2023"],
     "module": "ES2022",
     "moduleResolution": "Bundler",
+    "skipLibCheck": true,
     "strict": true,
     "target": "ES2020"
   },
   "include": [
+    "@girs/index.d.ts",
     "app.ts",
     "env.d.ts",
     "widget/**/*.ts",
     "widget/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "astal",
-    "@girs"
   ]
 }
