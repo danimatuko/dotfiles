@@ -1,8 +1,13 @@
 import app from "ags/gtk4/app"
-import { Astal, Gdk } from "ags/gtk4"
+import { Astal, Gdk, Gtk } from "ags/gtk4"
 
 import { BAR_HEIGHT } from "../bar/constants"
-import { closeSidebar, isSidebarVisible } from "../../services/sidebar"
+import {
+  closeSidebar,
+  isSidebarOpen,
+  isSidebarVisible,
+  SIDEBAR_ANIMATION_MS,
+} from "../../services/sidebar"
 
 const sidebarWidth = 430
 
@@ -24,13 +29,21 @@ export default function SidebarBackdrop(gdkmonitor: Gdk.Monitor) {
     >
       <box class="sidebar-backdrop" hexpand vexpand>
         <box class="sidebar-backdrop__shim" widthRequest={sidebarWidth} />
-        <button
-          class="sidebar-backdrop__dismiss"
-          cursor={Gdk.Cursor.new_from_name("pointer", null)}
+        <Gtk.Revealer
+          revealChild={isSidebarOpen}
+          transitionType={Gtk.RevealerTransitionType.CROSSFADE}
+          transitionDuration={SIDEBAR_ANIMATION_MS}
           hexpand
           vexpand
-          onClicked={closeSidebar}
-        />
+        >
+          <button
+            class="sidebar-backdrop__dismiss"
+            cursor={Gdk.Cursor.new_from_name("pointer", null)}
+            hexpand
+            vexpand
+            onClicked={closeSidebar}
+          />
+        </Gtk.Revealer>
       </box>
     </window>
   )
