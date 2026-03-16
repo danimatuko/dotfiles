@@ -1,7 +1,7 @@
 @use "./theme.scss" as *;
 
 .workspaces {
-  background-color: rgba($color-surface, 1);
+  background-color: $bg-base;
   color: $color-on-surface;
   border-radius: $radius-pill;
 
@@ -28,23 +28,23 @@
         background-color 180ms ease-out,
         opacity 180ms ease-out;
       margin: 10px 0;
-      background-color: $color-muted;
+      background-color: $control-color;
       border-radius: $radius-pill;
-      opacity: 0.82;
+      opacity: 0.78;
     }
 
     &--filled .workspaces__tile {
       min-width: 20px;
-      background-color: $color-emphasis;
-      opacity: 0.94;
+      background-color: $control-color-bright;
+      opacity: 0.9;
     }
 
     &:hover .workspaces__tile {
-      background-color: $color-hover;
+      background-color: $accent-hover;
     }
 
     &--active .workspaces__tile {
-      background-color: $color-brand;
+      background-color: $accent-color;
       min-width: 40px;
       opacity: 1;
     }

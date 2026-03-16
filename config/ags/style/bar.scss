@@ -12,8 +12,8 @@ window.Bar {
   font-weight: bold;
 
   > centerbox {
-    background: rgba($color-surface, $alpha-widget-surface);
-    border-bottom: 1px solid rgba($color-outline, 1);
+    background: rgba($bg-base, $alpha-widget-surface);
+    border-bottom: 1px solid $bg-surface-strong;
     padding: 0 5px;
   }
 
@@ -30,6 +30,7 @@ window.Bar {
   .status-indicator {
     image {
       @include icon-size($icon-size-sm);
+      color: $control-color-bright;
     }
   }
 
@@ -40,11 +41,11 @@ window.Bar {
     padding: 0 6px;
     min-height: 22px;
     background: transparent;
-    color: $color-brand;
+    color: $control-color-bright;
 
     &:hover {
-      background: rgba($color-brand, 1);
-      color: $color-surface;
+      background: $accent-hover;
+      color: $accent-text;
     }
   }
 
@@ -86,6 +87,7 @@ window.Bar {
 
     image {
       @include icon-size($icon-size-sm);
+      color: $control-color-bright;
       transition: transform 620ms $motion-emphasized;
     }
   }
@@ -137,6 +139,7 @@ window.Bar {
     label {
       font-weight: 300;
       font-size: 0.88rem;
+      color: $control-text;
     }
 
     > button {
@@ -144,10 +147,11 @@ window.Bar {
       border-radius: 999px;
       padding: 0 10px;
       min-height: 22px;
-      background: rgba($color-outline, 1);
+      color: $control-text;
 
       &:hover {
-        background: rgba($color-brand, 0.9);
+        background: transparent;
+        color: $accent-text;
       }
     }
   }
@@ -165,7 +169,7 @@ window.Bar {
     padding: 12px;
     border-radius: $radius-lg;
     border: none;
-    background: rgba($color-surface, 1);
+    background: $bg-base;
     color: $color-on-surface;
     box-shadow: none;
   }
@@ -179,11 +183,7 @@ window.Bar {
     border-radius: $radius-lg;
     border: none;
     color: $color-on-surface;
-    background: linear-gradient(
-      180deg,
-      rgba($color-surface, 1),
-      rgba($color-outline, 1)
-    );
+    background: linear-gradient(180deg, $bg-base, $bg-surface-strong);
     box-shadow: none;
   }
 
@@ -191,7 +191,7 @@ window.Bar {
     margin-bottom: 8px;
     padding: 6px 4px;
     border-radius: $radius-sm;
-    background: rgba($color-outline, 1);
+    background: $color-outline;
     border: none;
     box-shadow: none;
   }
@@ -206,7 +206,7 @@ window.Bar {
     box-shadow: none;
 
     &:hover {
-      background: rgba($color-brand, 1);
+      background: $accent-hover;
     }
   }
 
@@ -227,14 +227,14 @@ window.Bar {
   }
 
   .clock-menu__calendar calendar > grid > label.today {
-    background: rgba($color-brand, 1);
-    color: $color-on-surface;
+    background: $accent-color;
+    color: $accent-text;
     font-weight: 700;
   }
 
   .clock-menu__calendar calendar > grid > label:selected {
-    background: $color-brand;
-    color: $color-surface;
+    background: $accent-hover;
+    color: $accent-text;
     font-weight: 700;
   }
 
@@ -255,11 +255,12 @@ window.Bar {
     @include control-reset;
     border-radius: $radius-sm;
     padding: 1px 8px;
-    background: rgba($color-outline, 1);
+    background: $color-outline;
     color: $color-on-surface;
 
     &:hover {
-      background: rgba($color-brand, 1);
+      background: $accent-hover;
+      color: $accent-text;
     }
   }
 
