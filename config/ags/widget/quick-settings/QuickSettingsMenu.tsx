@@ -36,7 +36,7 @@ export default function QuickSettingsMenu() {
     <box
       class="quick-settings__menu"
       orientation={Gtk.Orientation.VERTICAL}
-      spacing={12}
+      spacing={8}
     >
       <box
         class="quick-settings__toggles-group"
@@ -81,7 +81,7 @@ export default function QuickSettingsMenu() {
       <box
         class="quick-settings__sliders-group"
         orientation={Gtk.Orientation.VERTICAL}
-        spacing={8}
+        spacing={4}
       >
         <box
           class="quick-settings__slider-card"
@@ -112,7 +112,7 @@ export default function QuickSettingsMenu() {
       <box
         class="quick-settings__sliders-group"
         orientation={Gtk.Orientation.VERTICAL}
-        spacing={8}
+        spacing={4}
       >
         <box
           class="quick-settings__slider-card"
