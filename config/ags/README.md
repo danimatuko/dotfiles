@@ -33,3 +33,27 @@ Structure and features will evolve as the project grows.
 - `services/`: shared reactive state and shell integrations (`notifications`, `quick-settings`).
 - `style.scss`: global SCSS entrypoint.
 - `style/`: feature styles and shared theme tokens.
+
+## UI Maintenance Rules
+
+- Keep boundaries strict:
+  - `widget/` for UI rendering only.
+  - `services/` for state and system integrations.
+  - `lib/` for pure helpers (no side effects).
+- Keep files small and focused:
+  - one widget per file.
+  - one setting per service file.
+- Avoid cross-feature coupling:
+  - do not import internals from another feature.
+  - move shared UI to `widget/common/` and shared logic to `lib/`.
+- Keep styling predictable:
+  - keep class names stable unless intentionally redesigning.
+  - keep tokens in `style/theme.scss` and avoid hardcoded duplicates.
+
+## Safe UI Change Checklist
+
+- Change one feature folder at a time.
+- Prefer incremental edits over large rewrites.
+- Run `ags run app.ts` after each small change.
+- If moving files, keep temporary compatibility exports until imports are updated.
+- Commit in small focused chunks so rollbacks are easy.
