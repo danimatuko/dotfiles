@@ -14,6 +14,7 @@
     "@girs/index.d.ts",
     "app.ts",
     "env.d.ts",
+    "lib/**/*.ts",
     "services/**/*.ts",
     "widget/**/*.ts",
     "widget/**/*.tsx"
