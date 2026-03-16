@@ -32,7 +32,7 @@
   &__menu {
     min-width: 360px;
     padding: 24px;
-    background: $color-surface;
+    background: rgba($color-surface, $alpha-widget-surface);
     color: $color-on-surface;
     border-radius: $radius-lg;
   }

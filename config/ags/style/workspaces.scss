@@ -1,7 +1,7 @@
 @use "./theme.scss" as *;
 
 .workspaces {
-  background-color: $color-surface;
+  background-color: rgba($color-surface, $alpha-widget-surface);
   color: $color-on-surface;
   border-radius: $radius-pill;
 

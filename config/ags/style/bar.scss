@@ -12,7 +12,7 @@ window.Bar {
   font-weight: bold;
 
   > centerbox {
-    background: rgba($color-surface, 0.54);
+    background: rgba($color-surface, $alpha-widget-surface);
     // border: 1px solid $color-outline;
     padding: 0 5px;
   }
@@ -127,9 +127,10 @@ window.Bar {
   .clock-menu__content {
     padding: 12px;
     border-radius: $radius-lg;
+    border: none;
     background: rgba($color-surface, 0.96);
     color: $color-on-surface;
-    box-shadow: 0 12px 28px rgba(black, 0.34);
+    box-shadow: none;
   }
 
   .clock-menu__calendar {
@@ -139,13 +140,14 @@ window.Bar {
   .clock-menu__calendar calendar {
     padding: 12px;
     border-radius: $radius-lg;
+    border: none;
     color: $color-on-surface;
     background: linear-gradient(
       180deg,
       rgba($color-on-surface, 0.08),
       rgba($color-on-surface, 0.04)
     );
-    box-shadow: inset 0 1px 0 rgba($color-on-surface, 0.08);
+    box-shadow: none;
   }
 
   .clock-menu__calendar calendar > header {
@@ -180,12 +182,10 @@ window.Bar {
     min-width: 28px;
     min-height: 26px;
     border-radius: 999px;
-    color: rgba($color-on-surface, 0.84);
     font-weight: 600;
   }
 
   .clock-menu__calendar calendar > grid > label.day-name {
-    color: rgba($color-brand, 0.9);
     font-weight: 700;
   }
 

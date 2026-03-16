@@ -6,10 +6,10 @@
   max-width: 360px;
   border-radius: 18px;
   padding: 12px 14px;
-  background: rgba($color-surface, 0.95);
-  border: 1px solid rgba($color-on-surface, 0.1);
+  background: rgba($color-surface, $alpha-widget-surface);
+  // border: 1px solid rgba($color-on-surface, 0.1);
   color: $color-on-surface;
-  box-shadow: 0 12px 28px rgba(black, 0.34);
+  // box-shadow: 0 12px 28px rgba(black, 0.34);
 }
 
 .notification-card--compact {
@@ -18,7 +18,7 @@
   max-width: none;
   border-radius: $radius-sm;
   border: 1px solid rgba($color-on-surface, 0.12);
-  background: rgba($color-surface, 0.72);
+  background: rgba($color-surface, $alpha-widget-surface);
   box-shadow: none;
   padding: 8px 10px;
 }
