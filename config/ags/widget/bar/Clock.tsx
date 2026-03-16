@@ -1,7 +1,7 @@
 import { For } from "ags"
 import { Gdk, Gtk } from "ags/gtk4"
 import { createPoll } from "ags/time"
-import { NotificationCard } from "../Notifications"
+import NotificationCard from "../notifications/NotificationCard"
 import {
   clearNotificationHistory,
   dismissNotification,

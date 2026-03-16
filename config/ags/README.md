@@ -28,7 +28,7 @@ Structure and features will evolve as the project grows.
 - `app.ts`: main AGS entrypoint, window startup per monitor.
 - `widget/bar/`: bar window and bar-local widgets (clock, tray, workspaces, status indicators).
 - `widget/quick-settings/`: quick settings menu UI components.
-- `widget/Notifications.tsx`: notification window and card UI.
+- `widget/notifications/`: notification window and card UI widgets.
 - `widget/Osd.tsx`: on-screen display window.
 - `services/`: shared reactive state and shell integrations (`notifications`, `quick-settings`).
 - `style.scss`: global SCSS entrypoint.

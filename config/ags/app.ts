@@ -1,7 +1,7 @@
 import app from "ags/gtk4/app"
 import style from "./style.scss"
 import Bar from "./widget/bar/Bar"
-import Notifications from "./widget/Notifications"
+import Notifications from "./widget/notifications/Notifications"
 import Osd from "./widget/Osd"
 
 app.start({
