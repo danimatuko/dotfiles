@@ -1,9 +1,9 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk } from "ags/gtk4"
 
+import { BAR_HEIGHT } from "../bar/constants"
 import { closeSidebar, isSidebarVisible } from "../../services/sidebar"
 
-const barOffset = 40
 const sidebarWidth = 430
 
 export default function SidebarBackdrop(gdkmonitor: Gdk.Monitor) {
@@ -17,7 +17,7 @@ export default function SidebarBackdrop(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
       layer={Astal.Layer.TOP}
-      marginTop={barOffset}
+      marginTop={BAR_HEIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.NONE}
       application={app}

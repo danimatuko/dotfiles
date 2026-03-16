@@ -2,9 +2,8 @@ import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 
 import { closeSidebar, isSidebarVisible } from "../../services/sidebar"
+import { BAR_HEIGHT } from "../bar/constants"
 import QuickSettingsMenu from "./QuickSettingsMenu"
-
-const barOffset = 40
 
 export default function Sidebar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, BOTTOM } = Astal.WindowAnchor
@@ -17,7 +16,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       anchor={TOP | LEFT | BOTTOM}
       layer={Astal.Layer.TOP}
-      marginTop={barOffset}
+      marginTop={BAR_HEIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
       onNotifyVisible={(self) => {
@@ -32,11 +31,17 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
           return true
         }}
       />
-      <box class="sidebar" orientation={Gtk.Orientation.VERTICAL} spacing={0}>
+      <box
+        class="sidebar"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={0}
+        hexpand
+        vexpand
+        valign={Gtk.Align.FILL}
+      >
         <Gtk.ScrolledWindow
           cssClasses={["sidebar__scroll"]}
           vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
-          propagateNaturalHeight={true}
           hexpand
           vexpand
         >
