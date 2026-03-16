@@ -9,14 +9,16 @@ This file is based on the current root app (TypeScript/AGS), not the vendored `a
 - Runtime: AGS CLI (`ags`, GTK4 JSX runtime).
 - Type mode: strict (`tsconfig.json` has `"strict": true`).
 - Root package scripts: none.
-- Main files: `app.ts`, `widget/*.tsx`, `style.scss`, `style/*.scss`, `env.d.ts`.
+- Main files: `app.ts`, `widget/**/*.tsx`, `services/*.ts`, `style.scss`, `style/*.scss`, `env.d.ts`.
 
 ## Project Structure
 
 - `app.ts`: entrypoint (`app.start(...)`) and monitor setup.
-- `widget/Bar.tsx`: top-level bar window widget.
-- `widget/Workspaces.tsx`: workspace buttons and Hyprland signal updates.
-- `widget/Battery.tsx`: battery binding display.
+- `widget/bar/Bar.tsx`: top-level bar window widget.
+- `widget/bar/Workspaces.tsx`: workspace buttons and Hyprland signal updates.
+- `widget/bar/BatteryIndicator.tsx`: battery status icon in the bar.
+- `services/quick-settings.ts`: shared quick settings state and shell actions.
+- `services/notifications.ts`: shared notification state and history.
 - `style.scss`: global SCSS entry.
 - `style/theme.scss`: shared design tokens.
 - `style/workspaces.scss`: workspace styling.
@@ -124,7 +126,7 @@ npx vitest run path/to/file.test.ts -t "test name"
 - Order imports as: external packages first, local files second.
 - Separate import groups with one blank line.
 - Use double quotes for strings in TS/TSX.
-- Use explicit relative imports for local modules (`./widget/Bar`).
+- Use explicit relative imports for local modules (`./widget/bar/Bar`).
 
 ### Formatting
 

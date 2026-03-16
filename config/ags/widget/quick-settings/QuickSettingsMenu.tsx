@@ -26,7 +26,7 @@ import {
   wifiButtonClass,
   wifiIconName,
   wifiSensitive,
-} from "./state"
+} from "../../services/quick-settings"
 import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)

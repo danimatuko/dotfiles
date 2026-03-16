@@ -1,7 +1,7 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 
-import { osdIconName, osdValue, osdVisible } from "./quicksettings/state"
+import { osdIconName, osdValue, osdVisible } from "../services/quick-settings"
 
 export default function Osd(gdkmonitor: Gdk.Monitor) {
   const { BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor

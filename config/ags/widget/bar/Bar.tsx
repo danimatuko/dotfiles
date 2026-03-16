@@ -4,8 +4,8 @@ import { Astal, Gtk, Gdk } from "ags/gtk4"
 import Workspaces from "./Workspaces"
 import Clock from "./Clock"
 import SystemTray from "./SystemTray"
-import QuickSettingsMenu from "./quicksettings/QuickSettingsMenu"
-import QuickSettingsToggleMenu from "./quicksettings/QuickSettingsToggleMenu"
+import QuickSettingsMenu from "../quick-settings/QuickSettingsMenu"
+import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor

@@ -2,7 +2,10 @@ import app from "ags/gtk4/app"
 import { For } from "ags"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 import type { Accessor } from "gnim"
-import { activeNotifications, dismissNotification } from "./notifications/state"
+import {
+  activeNotifications,
+  dismissNotification,
+} from "../services/notifications"
 
 type NotificationCardProps = {
   appName: string | Accessor<string>

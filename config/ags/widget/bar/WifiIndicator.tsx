@@ -1,4 +1,4 @@
-import { wifiIconName } from "./quicksettings/state"
+import { wifiIconName } from "../../services/quick-settings"
 
 export default function WifiIndicator() {
   return (

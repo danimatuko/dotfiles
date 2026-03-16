@@ -1,4 +1,4 @@
-import { bluetoothIconName } from "./quicksettings/state"
+import { bluetoothIconName } from "../../services/quick-settings"
 
 export default function BluetoothIndicator() {
   return (

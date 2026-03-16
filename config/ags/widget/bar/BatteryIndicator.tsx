@@ -1,4 +1,4 @@
-import { batteryIconName } from "./quicksettings/state"
+import { batteryIconName } from "../../services/quick-settings"
 
 export default function BatteryIndicator() {
   return (

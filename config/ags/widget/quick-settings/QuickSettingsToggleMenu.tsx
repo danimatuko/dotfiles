@@ -1,7 +1,7 @@
-import BatteryIndicator from "../BatteryIndicator"
-import BluetoothIndicator from "../BluetoothIndicator"
-import SpeakerIndicator from "../SpeakerIndicator"
-import WifiIndicator from "../WifiIndicator"
+import BatteryIndicator from "../bar/BatteryIndicator"
+import BluetoothIndicator from "../bar/BluetoothIndicator"
+import SpeakerIndicator from "../bar/SpeakerIndicator"
+import WifiIndicator from "../bar/WifiIndicator"
 
 export default function QuickSettingsToggleMenu() {
   return (

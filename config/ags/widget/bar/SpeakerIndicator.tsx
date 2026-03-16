@@ -1,4 +1,4 @@
-import { speakerIconName } from "./quicksettings/state"
+import { speakerIconName } from "../../services/quick-settings"
 
 export default function SpeakerIndicator() {
   return (

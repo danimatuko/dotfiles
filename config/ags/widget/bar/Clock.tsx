@@ -1,12 +1,12 @@
 import { For } from "ags"
 import { Gdk, Gtk } from "ags/gtk4"
 import { createPoll } from "ags/time"
-import { NotificationCard } from "./Notifications"
+import { NotificationCard } from "../Notifications"
 import {
   clearNotificationHistory,
   dismissNotification,
   notificationHistory,
-} from "./notifications/state"
+} from "../../services/notifications"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
