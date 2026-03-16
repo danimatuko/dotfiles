@@ -2,7 +2,7 @@ import GLib from "gi://GLib"
 import { execAsync } from "ags/process"
 import { createState } from "gnim"
 
-import { parseBrightnessPercent } from "../../lib/brightness"
+import { getBrightnessPercentFromOutput } from "../../lib/brightness"
 import { clamp } from "../../lib/number"
 import { showOsd } from "./osd"
 
@@ -36,7 +36,7 @@ const refreshBrightness = () => {
       ),
     )
     .then((output) => {
-      const nextPercent = parseBrightnessPercent(output)
+      const nextPercent = getBrightnessPercentFromOutput(output)
       const hadPreviousPercent = lastBrightnessPercent !== null
       const brightnessChanged = lastBrightnessPercent !== nextPercent
 
@@ -59,9 +59,9 @@ GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
   return GLib.SOURCE_CONTINUE
 })
 
-export const brightnessValue = brightnessPercent((percent) => percent / 100)
+export const getBrightnessValue = brightnessPercent((percent) => percent / 100)
 
-export const brightnessIconName = "display-brightness-symbolic"
+export const getBrightnessIcon = "display-brightness-symbolic"
 
 export const setBrightness = (percent: number) => {
   const clampedValue = clamp(percent, 0, 1)

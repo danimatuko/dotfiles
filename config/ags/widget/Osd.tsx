@@ -1,7 +1,11 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 
-import { osdIconName, osdValue, osdVisible } from "../services/quick-settings"
+import {
+  getOsdIcon,
+  getOsdValue,
+  isOsdVisible,
+} from "../services/quick-settings"
 
 export default function Osd(gdkmonitor: Gdk.Monitor) {
   const { BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
@@ -10,7 +14,7 @@ export default function Osd(gdkmonitor: Gdk.Monitor) {
     <window
       name="osd"
       class="Osd"
-      visible={osdVisible}
+      visible={isOsdVisible}
       gdkmonitor={gdkmonitor}
       anchor={BOTTOM | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
@@ -18,10 +22,10 @@ export default function Osd(gdkmonitor: Gdk.Monitor) {
     >
       <box class="osd__container" halign={Gtk.Align.FILL} hexpand>
         <box class="osd" spacing={8} halign={Gtk.Align.CENTER}>
-          <image class="osd__icon" iconName={osdIconName} />
+          <image class="osd__icon" iconName={getOsdIcon} />
           <levelbar
             class="osd__level"
-            value={osdValue}
+            value={getOsdValue}
             minValue={0}
             maxValue={1}
             hexpand

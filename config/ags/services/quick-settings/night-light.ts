@@ -11,13 +11,13 @@ execAsync([nightLightCommand, "status"])
   })
   .catch(() => {})
 
-export const nightLightSensitive = true
+export const canToggleNightLight = true
 
-export const nightLightIconName = nightLightEnabled((enabled) =>
+export const getNightLightIcon = nightLightEnabled((enabled) =>
   enabled ? "night-light-symbolic" : "night-light-disabled-symbolic",
 )
 
-export const nightLightButtonClass = nightLightEnabled((enabled) =>
+export const getNightLightButtonClass = nightLightEnabled((enabled) =>
   enabled
     ? "quick-settings__toggle-button quick-settings__toggle-button--active"
     : "quick-settings__toggle-button",

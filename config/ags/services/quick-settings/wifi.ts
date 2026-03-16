@@ -5,15 +5,15 @@ const network = AstalNetwork.get_default()
 const wifi = network.wifi
 const wifiEnabled = wifi ? createBinding(wifi, "enabled") : null
 
-export const wifiSensitive = Boolean(wifi)
+export const canToggleWifi = Boolean(wifi)
 
-export const wifiIconName = wifi
+export const getWifiIcon = wifi
   ? createBinding(wifi, "iconName").as(
       (name) => name || "network-wireless-offline-symbolic",
     )
   : "network-wireless-disabled-symbolic"
 
-export const wifiButtonClass = wifiEnabled
+export const getWifiButtonClass = wifiEnabled
   ? wifiEnabled.as((enabled) =>
       enabled
         ? "quick-settings__toggle-button quick-settings__toggle-button--active"

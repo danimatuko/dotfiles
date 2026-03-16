@@ -1,9 +1,9 @@
-import { wifiIconName } from "../../services/quick-settings"
+import { getWifiIcon } from "../../services/quick-settings"
 
 export default function WifiIndicator() {
   return (
     <box class="status-indicator status-indicator--wifi">
-      <image iconName={wifiIconName} />
+      <image iconName={getWifiIcon} />
     </box>
   )
 }

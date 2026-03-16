@@ -1,6 +1,6 @@
 import { clamp } from "./number"
 
-export const parseBrightnessPercent = (output: string) => {
+export const getBrightnessPercentFromOutput = (output: string) => {
   const firstLine = output.trim().split("\n")[0] ?? ""
   const fields = firstLine.split(",")
   const percentField = fields.find((field) => field.includes("%")) ?? "0%"

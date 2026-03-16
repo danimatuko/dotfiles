@@ -1,9 +1,9 @@
-import { speakerIconName } from "../../services/quick-settings"
+import { getSpeakerIcon } from "../../services/quick-settings"
 
 export default function SpeakerIndicator() {
   return (
     <box class="status-indicator status-indicator--speaker">
-      <image iconName={speakerIconName} />
+      <image iconName={getSpeakerIcon} />
     </box>
   )
 }

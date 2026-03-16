@@ -1,9 +1,9 @@
-import { batteryIconName } from "../../services/quick-settings"
+import { getBatteryIcon } from "../../services/quick-settings"
 
 export default function BatteryIndicator() {
   return (
     <box class="status-indicator status-indicator--battery">
-      <image iconName={batteryIconName} />
+      <image iconName={getBatteryIcon} />
     </box>
   )
 }

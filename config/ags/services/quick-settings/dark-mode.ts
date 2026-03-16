@@ -11,13 +11,13 @@ execAsync([darkModeCommand, "status"])
   })
   .catch(() => {})
 
-export const darkModeSensitive = true
+export const canToggleDarkMode = true
 
-export const darkModeIconName = darkModeEnabled((enabled) =>
+export const getDarkModeIcon = darkModeEnabled((enabled) =>
   enabled ? "weather-clear-night-symbolic" : "display-brightness-symbolic",
 )
 
-export const darkModeButtonClass = darkModeEnabled((enabled) =>
+export const getDarkModeButtonClass = darkModeEnabled((enabled) =>
   enabled
     ? "quick-settings__toggle-button quick-settings__toggle-button--active"
     : "quick-settings__toggle-button",

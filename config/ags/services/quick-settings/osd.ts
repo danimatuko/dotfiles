@@ -11,9 +11,9 @@ const [osdValueState, setOsdValueState] = createState(0)
 
 let osdTimeoutId = 0
 
-export const osdVisible = osdVisibleState
-export const osdIconName = osdIconNameState
-export const osdValue = osdValueState
+export const isOsdVisible = osdVisibleState
+export const getOsdIcon = osdIconNameState
+export const getOsdValue = osdValueState
 
 export const showOsd = (iconName: string, value: number) => {
   setOsdIconNameState(iconName)
