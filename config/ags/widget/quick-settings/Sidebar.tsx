@@ -1,52 +1,46 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 
-import {
-  closeSettingsSidebar,
-  isSettingsSidebarVisible,
-} from "../../services/settings-sidebar"
+import { closeSidebar, isSidebarVisible } from "../../services/sidebar"
 import QuickSettingsMenu from "./QuickSettingsMenu"
 
-const barOffset = 30
+const barOffset = 40
 
-export default function SettingsSidebar(gdkmonitor: Gdk.Monitor) {
+export default function Sidebar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, BOTTOM } = Astal.WindowAnchor
 
   return (
     <window
-      name="settings-sidebar"
-      class="SettingsSidebar"
-      visible={isSettingsSidebarVisible}
+      name="sidebar"
+      class="Sidebar"
+      visible={isSidebarVisible}
       gdkmonitor={gdkmonitor}
       anchor={TOP | LEFT | BOTTOM}
+      layer={Astal.Layer.TOP}
       marginTop={barOffset}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
+      onNotifyVisible={(self) => {
+        if (self.visible) self.present()
+      }}
       application={app}
     >
       <Gtk.EventControllerKey
         onKeyPressed={(_, keyval) => {
           if (keyval !== Gdk.KEY_Escape) return false
-          closeSettingsSidebar()
+          closeSidebar()
           return true
         }}
       />
-      <box
-        class="settings-sidebar"
-        orientation={Gtk.Orientation.VERTICAL}
-        spacing={0}
-      >
+      <box class="sidebar" orientation={Gtk.Orientation.VERTICAL} spacing={0}>
         <Gtk.ScrolledWindow
-          cssClasses={["settings-sidebar__scroll"]}
+          cssClasses={["sidebar__scroll"]}
           vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
           propagateNaturalHeight={true}
           hexpand
           vexpand
         >
-          <box
-            class="settings-sidebar__content"
-            orientation={Gtk.Orientation.VERTICAL}
-          >
+          <box class="sidebar__content" orientation={Gtk.Orientation.VERTICAL}>
             <QuickSettingsMenu />
           </box>
         </Gtk.ScrolledWindow>

@@ -1,19 +1,18 @@
 @use "./theme.scss" as *;
 
-window.SettingsSidebarBackdrop {
+window.SidebarBackdrop {
   background: transparent;
 
-  .settings-sidebar-backdrop {
+  .sidebar-backdrop,
+  .sidebar-backdrop__shim {
     background: transparent;
   }
 
-  .settings-sidebar-backdrop__shim {
-    min-height: 1px;
-  }
-
-  .settings-sidebar-backdrop__dismiss {
+  .sidebar-backdrop__dismiss {
     @include control-reset;
     background: rgba(black, 0.22);
+    border: none;
+    box-shadow: none;
 
     &:hover {
       background: rgba(black, 0.26);
@@ -21,23 +20,22 @@ window.SettingsSidebarBackdrop {
   }
 }
 
-window.SettingsSidebar {
+window.Sidebar {
   background: transparent;
 
-  .settings-sidebar {
+  .sidebar {
     min-width: 430px;
-    min-height: 100%;
     padding: 14px;
     background: rgba($color-surface, 1);
     color: $color-on-surface;
     border-right: 2px solid rgba($color-outline, 1);
   }
 
-  .settings-sidebar__scroll {
+  .sidebar__scroll {
     min-height: 0;
   }
 
-  .settings-sidebar__content {
+  .sidebar__content {
     margin-right: 2px;
   }
 }

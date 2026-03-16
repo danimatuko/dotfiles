@@ -3,16 +3,16 @@ import style from "./style.scss"
 import Bar from "./widget/bar/Bar"
 import Notifications from "./widget/notifications/Notifications"
 import Osd from "./widget/Osd"
-import SettingsSidebarBackdrop from "./widget/quick-settings/SettingsSidebarBackdrop"
-import SettingsSidebar from "./widget/quick-settings/SettingsSidebar"
+import SidebarBackdrop from "./widget/quick-settings/SidebarBackdrop"
+import Sidebar from "./widget/quick-settings/Sidebar"
 
 app.start({
   css: style,
   main() {
     const monitors = app.get_monitors()
     monitors.map(Bar)
-    monitors.map(SettingsSidebarBackdrop)
-    monitors.map(SettingsSidebar)
+    monitors.map(SidebarBackdrop)
+    monitors.map(Sidebar)
     monitors.map(Notifications)
     monitors.map(Osd)
   },

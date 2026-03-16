@@ -1,6 +1,6 @@
 import { Gdk } from "ags/gtk4"
 
-import { toggleSettingsSidebar } from "../../services/settings-sidebar"
+import { toggleSidebar } from "../../services/sidebar"
 
 export default function OsIcon() {
   return (
@@ -8,7 +8,7 @@ export default function OsIcon() {
       class="os-icon"
       tooltipText="Toggle settings"
       cursor={Gdk.Cursor.new_from_name("pointer", null)}
-      onClicked={toggleSettingsSidebar}
+      onClicked={toggleSidebar}
     >
       <label class="os-icon__glyph" label="" />
     </button>
