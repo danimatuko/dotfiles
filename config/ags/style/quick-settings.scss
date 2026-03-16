@@ -22,6 +22,9 @@ window.SidebarBackdrop {
 
 window.Sidebar {
   background: transparent;
+  font-family:
+    "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
 
   .sidebar {
     min-width: 430px;

@@ -137,6 +137,9 @@ window.Bar {
     background: transparent;
 
     label {
+      font-family:
+        "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+        "JetBrains Mono", monospace;
       font-weight: 300;
       font-size: 0.88rem;
       color: $control-text;
