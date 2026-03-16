@@ -28,7 +28,7 @@ window.Sidebar {
 
   .sidebar {
     min-width: 430px;
-    padding: 14px;
+    padding: 20px 14px 14px;
     background: rgba($color-surface, 1);
     color: $color-on-surface;
     border-right: 2px solid rgba($color-outline, 1);
@@ -40,6 +40,7 @@ window.Sidebar {
 
   .sidebar__content {
     margin-right: 2px;
+    padding: 24px 0;
   }
 }
 
@@ -69,7 +70,7 @@ window.Sidebar {
   }
 
   &__slider-row {
-    min-height: 28px;
+    min-height: 34px;
   }
 
   &__slider-icon-box {
@@ -78,11 +79,11 @@ window.Sidebar {
 
   &__toggle-button {
     @include control-reset;
-    background: rgba($color-surface, 0.82);
+    background: rgba($color-on-surface, 0.56);
     border-radius: $radius-sm;
-    padding: 12px;
+    padding: 28px 14px 14px;
     color: $color-on-surface;
-    border: 2px solid rgba($color-outline, 0.92);
+    border: none;
     transition: background 160ms ease-out;
 
     &:hover {
@@ -91,9 +92,8 @@ window.Sidebar {
     }
 
     &--active {
-      background: rgba($color-brand, 0.95);
+      background: rgba($color-brand, 1);
       color: $color-surface;
-      border-color: rgba($color-brand, 1);
     }
 
     &--disabled,
@@ -103,16 +103,16 @@ window.Sidebar {
   }
 
   &__toggle-button--icon-only {
-    min-width: 24px;
-    min-height: 24px;
+    min-width: 28px;
+    min-height: 28px;
     padding: 4px;
   }
 
   &__toggle-content > image,
   &__battery-row > image,
   &__slider-icon-box > image {
-    @include icon-size($icon-size-md);
-    min-width: 18px;
+    @include icon-size(20px);
+    min-width: 22px;
   }
 
   &__brightness-icon,
@@ -131,7 +131,7 @@ window.Sidebar {
   }
 
   &__toggle-button--icon-only .quick-settings__toggle-content > image {
-    min-width: 16px;
+    min-width: 20px;
   }
 
   &__toggle-chevron {
@@ -143,10 +143,10 @@ window.Sidebar {
     min-width: 140px;
 
     trough {
-      min-height: 8px;
+      min-height: 10px;
       border-radius: 999px;
-      background: rgba($color-surface, 0.88);
-      border: 1px solid rgba($color-outline, 0.95);
+      background: $bg-surface-strong;
+      border: none;
     }
 
     highlight {
