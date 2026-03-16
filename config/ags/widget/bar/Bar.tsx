@@ -9,7 +9,6 @@ import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
-  const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
   return (
     <window
@@ -49,7 +48,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
               <image iconName="pan-start-symbolic" />
             </box>
           </box>
-          <box class="quick-status" cursor={pointerCursor}>
+          <box class="quick-status">
             <QuickSettingsToggleMenu />
           </box>
         </box>

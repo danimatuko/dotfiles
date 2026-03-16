@@ -36,10 +36,10 @@ window.Bar {
   .os-icon {
     @include control-reset;
     border-radius: $radius-sm;
-    margin: 2px 4px 2px 2px;
+    margin: 2px 8px 2px 2px;
     padding: 0 6px;
     min-height: 22px;
-    background: rgba($color-outline, 1);
+    background: transparent;
     color: $color-brand;
 
     &:hover {
@@ -79,21 +79,15 @@ window.Bar {
   }
 
   .system-tray__toggle {
-    background: rgba($color-outline, 1);
     @include control-reset;
     border-radius: $radius-sm;
     padding: 0 6px;
     min-height: 22px;
-    transition: background 240ms ease-out;
 
     image {
       @include icon-size($icon-size-sm);
       transition: transform 620ms $motion-emphasized;
     }
-  }
-
-  .system-tray:hover .system-tray__toggle {
-    background: rgba($color-brand, 0.85);
   }
 
   .system-tray:hover .system-tray__toggle image {
@@ -121,11 +115,7 @@ window.Bar {
 
   .quick-status {
     @include control-reset;
-    border-radius: $radius-sm;
-    margin: 2px;
-    padding: 0 6px;
-    min-height: 22px;
-    background: rgba($color-outline, 1);
+    margin: 2px 4px 2px 0;
   }
 
   .quick-settings__toggle-menu {
@@ -142,6 +132,24 @@ window.Bar {
 
   .clock-menu {
     @include control-reset;
+    background: transparent;
+
+    label {
+      font-weight: 300;
+      font-size: 0.88rem;
+    }
+
+    > button {
+      @include control-reset;
+      border-radius: 999px;
+      padding: 0 10px;
+      min-height: 22px;
+      background: rgba($color-outline, 1);
+
+      &:hover {
+        background: rgba($color-brand, 0.9);
+      }
+    }
   }
 
   .clock-menu__popover {

@@ -5,7 +5,7 @@ import WifiIndicator from "../bar/WifiIndicator"
 
 export default function QuickSettingsToggleMenu() {
   return (
-    <box class="quick-settings__toggle-menu" spacing={8}>
+    <box class="quick-settings__toggle-menu" spacing={10}>
       <SpeakerIndicator />
       <WifiIndicator />
       <BluetoothIndicator />
