@@ -44,8 +44,8 @@ window.Bar {
     color: $control-color-bright;
 
     &:hover {
-      background: $accent-hover;
-      color: $accent-text;
+      background: transparent;
+      color: $color-brand;
     }
   }
 
@@ -154,7 +154,11 @@ window.Bar {
 
       &:hover {
         background: transparent;
-        color: $accent-text;
+        color: $color-brand;
+      }
+
+      &:hover label {
+        color: $color-brand;
       }
     }
   }
