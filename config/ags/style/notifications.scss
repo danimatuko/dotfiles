@@ -17,7 +17,7 @@
   min-width: 0;
   max-width: none;
   border-radius: $radius-sm;
-  border: 1px solid rgba($color-on-surface, 0.12);
+  border: 1px solid rgba($color-on-surface, 1);
   background: rgba($color-surface, $alpha-widget-surface);
   box-shadow: none;
   padding: 8px 10px;
@@ -30,7 +30,7 @@
 .notification-card__separator {
   min-height: 1px;
   margin-bottom: 12px;
-  background: rgba($color-on-surface, 0.14);
+  background: rgba($color-on-surface, 1);
 }
 
 .notification-card__icon {
@@ -61,7 +61,7 @@
   }
 
   &:hover {
-    background: rgba($color-on-surface, 0.12);
+    background: rgba($color-on-surface, 1);
 
     image {
       opacity: 1;

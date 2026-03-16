@@ -61,8 +61,8 @@ window.Bar {
   .system-tray__toggle {
     background: linear-gradient(
       180deg,
-      rgba($color-on-surface, 0.12),
-      rgba($color-on-surface, 0.06)
+      rgba($color-outline, 1),
+      rgba($color-outline, 1)
     );
     @include control-reset;
     border-radius: $radius-sm;
@@ -71,7 +71,7 @@ window.Bar {
     transition:
       background 360ms ease-out,
       box-shadow 360ms ease-out;
-    box-shadow: 0 1px 2px rgba(black, 0.22);
+    box-shadow: 0 1px 2px rgba(black, 1);
 
     image {
       @include icon-size($icon-size-sm);
@@ -82,10 +82,10 @@ window.Bar {
   .system-tray:hover .system-tray__toggle {
     background: linear-gradient(
       180deg,
-      rgba($color-brand, 0.24),
-      rgba($color-brand, 0.12)
+      rgba(mix($color-brand, $color-surface, 80%), 1),
+      rgba(mix($color-brand, $color-surface, 80%), 1)
     );
-    box-shadow: 0 2px 6px rgba($color-brand, 0.2);
+    box-shadow: 0 2px 6px rgba($color-brand, 1);
   }
 
   .system-tray:hover .system-tray__toggle image {
@@ -128,7 +128,7 @@ window.Bar {
     padding: 12px;
     border-radius: $radius-lg;
     border: none;
-    background: rgba($color-surface, 0.96);
+    background: rgba($color-surface, 1);
     color: $color-on-surface;
     box-shadow: none;
   }
@@ -144,8 +144,8 @@ window.Bar {
     color: $color-on-surface;
     background: linear-gradient(
       180deg,
-      rgba($color-on-surface, 0.08),
-      rgba($color-on-surface, 0.04)
+      rgba($color-surface, 1),
+      rgba($color-outline, 1)
     );
     box-shadow: none;
   }
@@ -154,7 +154,7 @@ window.Bar {
     margin-bottom: 8px;
     padding: 6px 4px;
     border-radius: $radius-sm;
-    background: rgba($color-on-surface, 0.06);
+    background: rgba($color-outline, 1);
     border: none;
     box-shadow: none;
   }
@@ -169,7 +169,7 @@ window.Bar {
     box-shadow: none;
 
     &:hover {
-      background: rgba($color-brand, 0.24);
+      background: rgba($color-brand, 1);
     }
   }
 
@@ -190,7 +190,7 @@ window.Bar {
   }
 
   .clock-menu__calendar calendar > grid > label.today {
-    background: rgba($color-brand, 0.24);
+    background: rgba($color-brand, 1);
     color: $color-on-surface;
     font-weight: 700;
   }
@@ -218,11 +218,11 @@ window.Bar {
     @include control-reset;
     border-radius: $radius-sm;
     padding: 1px 8px;
-    background: rgba($color-on-surface, 0.12);
+    background: rgba($color-outline, 1);
     color: $color-on-surface;
 
     &:hover {
-      background: rgba($color-brand, 0.26);
+      background: rgba($color-brand, 1);
     }
   }
 

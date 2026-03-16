@@ -13,7 +13,7 @@ window.Osd {
     border-radius: $radius-pill;
     background: rgba($color-surface, $alpha-widget-surface);
     color: $color-on-surface;
-    box-shadow: 0 8px 20px rgba(black, 0.6);
+    box-shadow: 0 8px 20px rgba(black, 1);
   }
 
   .osd__icon {
