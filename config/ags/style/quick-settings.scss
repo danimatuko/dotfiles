@@ -1,56 +1,98 @@
 @use "./theme.scss" as *;
 
-.quick-settings {
-  @include control-reset;
-  background: rgba($color-surface, 1);
-  border-radius: $radius-lg;
-  margin: 0;
-  min-height: 0;
-  box-shadow: 0 1px 3px rgba(black, 1);
+window.SettingsSidebarBackdrop {
+  background: transparent;
 
-  &:hover {
-    background: rgba($color-outline, 1);
+  .settings-sidebar-backdrop {
+    background: transparent;
   }
 
-  &__toggle-menu {
-    @include control-reset;
-    border-radius: 0;
-    margin: 0;
-    padding: 0;
+  .settings-sidebar-backdrop__shim {
+    min-height: 1px;
   }
 
-  &__popover {
-    padding: 0;
+  .settings-sidebar-backdrop__dismiss {
     @include control-reset;
+    background: rgba(black, 0.22);
 
-    > contents {
-      padding: 6px 0 0;
-      @include control-reset;
+    &:hover {
+      background: rgba(black, 0.26);
     }
   }
+}
 
-  &__menu {
-    min-width: 360px;
-    padding: 24px;
-    background: rgba($color-surface, $alpha-widget-surface);
+window.SettingsSidebar {
+  background: transparent;
+
+  .settings-sidebar {
+    min-width: 430px;
+    min-height: 100%;
+    padding: 14px;
+    background: rgba($color-surface, 1);
     color: $color-on-surface;
-    border-radius: $radius-lg;
+    border-right: 2px solid rgba($color-outline, 1);
+  }
+
+  .settings-sidebar__scroll {
+    min-height: 0;
+  }
+
+  .settings-sidebar__content {
+    margin-right: 2px;
+  }
+}
+
+.quick-settings {
+  &__menu {
+    padding: 2px;
+    color: $color-on-surface;
   }
 
   &__sliders-group,
   &__toggles-group {
-    padding: 8px;
-    border-radius: $radius-md;
-    background: rgba($color-outline, 1);
+    padding: 2px;
+    border-radius: $radius-sm;
+    background: transparent;
+    border: none;
+  }
+
+  &__toggles-group {
+    margin-bottom: 4px;
+  }
+
+  &__slider-card {
+    padding: 8px 0;
+    border-radius: $radius-sm;
+    background: transparent;
+    border: none;
+  }
+
+  &__slider-row {
+    min-height: 28px;
+  }
+
+  &__slider-icon-box {
+    min-width: 18px;
   }
 
   &__toggle-button {
-    background: rgba($color-surface, 1);
-    border-radius: 10px;
-    padding: 8px 10px;
+    @include control-reset;
+    background: rgba($color-surface, 0.82);
+    border-radius: $radius-sm;
+    padding: 12px;
+    color: $color-on-surface;
+    border: 2px solid rgba($color-outline, 0.92);
+    transition: background 160ms ease-out;
+
+    &:hover {
+      background: rgba($color-brand, 0.8);
+      color: $color-surface;
+    }
 
     &--active {
-      background: rgba($color-brand, 1);
+      background: rgba($color-brand, 0.95);
+      color: $color-surface;
+      border-color: rgba($color-brand, 1);
     }
 
     &--disabled,
@@ -59,20 +101,17 @@
     }
   }
 
-  &__toggle-row > button {
-    min-width: 0;
+  &__toggle-button--icon-only {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 4px;
   }
 
-  &__toggle-content image,
-  &__battery-row image,
-  &__brightness-row image,
-  &__volume-row image {
+  &__toggle-content > image,
+  &__battery-row > image,
+  &__slider-icon-box > image {
     @include icon-size($icon-size-md);
-  }
-
-  &__brightness-row,
-  &__volume-row {
-    padding: 6px 4px;
+    min-width: 18px;
   }
 
   &__brightness-icon,
@@ -80,14 +119,33 @@
     color: $color-on-surface;
   }
 
+  &__toggle-content {
+    min-width: 0;
+  }
+
+  &__toggle-button--icon-only .quick-settings__toggle-content {
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+  }
+
+  &__toggle-button--icon-only .quick-settings__toggle-content > image {
+    min-width: 16px;
+  }
+
+  &__toggle-chevron {
+    opacity: 0.7;
+  }
+
   &__brightness-slider,
   &__volume-slider {
     min-width: 140px;
 
     trough {
-      min-height: 10px;
+      min-height: 8px;
       border-radius: 999px;
-      background: rgba($color-outline, 1);
+      background: rgba($color-surface, 0.88);
+      border: 1px solid rgba($color-outline, 0.95);
     }
 
     highlight {
@@ -105,14 +163,11 @@
     }
   }
 
-  &__toggle-content {
-    min-width: 0;
-  }
-
   &__battery-row {
-    margin-top: 6px;
-    padding: 6px 2px 2px;
-    border-top: 1px solid rgba($color-outline, 1);
+    padding: 12px;
+    border-radius: $radius-sm;
+    background: transparent;
     color: $color-emphasis;
+    border: none;
   }
 }

@@ -4,7 +4,7 @@ import { Astal, Gtk, Gdk } from "ags/gtk4"
 import Workspaces from "./Workspaces"
 import Clock from "./Clock"
 import SystemTray from "./SystemTray"
-import QuickSettingsMenu from "../quick-settings/QuickSettingsMenu"
+import OsIcon from "./OsIcon"
 import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
@@ -24,6 +24,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox cssName="centerbox">
         {/* LEFT */}
         <box class="bar__start" $type="start" halign={Gtk.Align.START}>
+          <OsIcon />
           <Workspaces />
         </box>
 
@@ -47,10 +48,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
               <image iconName="pan-start-symbolic" />
             </box>
           </box>
-          <menubutton class="quick-settings" cursor={pointerCursor}>
+          <box class="quick-status" cursor={pointerCursor}>
             <QuickSettingsToggleMenu />
-            <QuickSettingsMenu />
-          </menubutton>
+          </box>
         </box>
       </centerbox>
     </window>

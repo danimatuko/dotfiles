@@ -13,7 +13,7 @@ window.Bar {
 
   > centerbox {
     background: rgba($color-surface, $alpha-widget-surface);
-    // border: 1px solid $color-outline;
+    border-bottom: 1px solid rgba($color-outline, 1);
     padding: 0 5px;
   }
 
@@ -31,6 +31,26 @@ window.Bar {
     image {
       @include icon-size($icon-size-sm);
     }
+  }
+
+  .os-icon {
+    @include control-reset;
+    border-radius: $radius-sm;
+    margin: 2px 4px 2px 2px;
+    padding: 0 6px;
+    min-height: 22px;
+    background: rgba($color-outline, 1);
+    color: $color-brand;
+
+    &:hover {
+      background: rgba($color-brand, 1);
+      color: $color-surface;
+    }
+  }
+
+  .os-icon__glyph {
+    font-size: 1rem;
+    line-height: 1;
   }
 
   .system-tray {
@@ -59,19 +79,12 @@ window.Bar {
   }
 
   .system-tray__toggle {
-    background: linear-gradient(
-      180deg,
-      rgba($color-outline, 1),
-      rgba($color-outline, 1)
-    );
+    background: rgba($color-outline, 1);
     @include control-reset;
     border-radius: $radius-sm;
     padding: 0 6px;
     min-height: 22px;
-    transition:
-      background 360ms ease-out,
-      box-shadow 360ms ease-out;
-    box-shadow: 0 1px 2px rgba(black, 1);
+    transition: background 240ms ease-out;
 
     image {
       @include icon-size($icon-size-sm);
@@ -80,12 +93,7 @@ window.Bar {
   }
 
   .system-tray:hover .system-tray__toggle {
-    background: linear-gradient(
-      180deg,
-      rgba(mix($color-brand, $color-surface, 80%), 1),
-      rgba(mix($color-brand, $color-surface, 80%), 1)
-    );
-    box-shadow: 0 2px 6px rgba($color-brand, 1);
+    background: rgba($color-brand, 0.85);
   }
 
   .system-tray:hover .system-tray__toggle image {
@@ -109,6 +117,27 @@ window.Bar {
     image {
       @include icon-size($icon-size-sm);
     }
+  }
+
+  .quick-status {
+    @include control-reset;
+    border-radius: $radius-sm;
+    margin: 2px;
+    padding: 0 6px;
+    min-height: 22px;
+    background: rgba($color-outline, 1);
+  }
+
+  .quick-settings__toggle-menu {
+    @include control-reset;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .status-indicator {
+    min-height: 16px;
+    min-width: 16px;
   }
 
   .clock-menu {

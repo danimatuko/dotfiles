@@ -8,7 +8,8 @@ import {
 import NotificationCard from "./NotificationCard"
 
 export default function Notifications(gdkmonitor: Gdk.Monitor) {
-  const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
+  const { TOP } = Astal.WindowAnchor
+  const barOffset = 30
 
   return (
     <window
@@ -16,7 +17,8 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
       class="Notifications"
       visible={activeNotifications((notifications) => notifications.length > 0)}
       gdkmonitor={gdkmonitor}
-      anchor={TOP | LEFT | RIGHT}
+      anchor={TOP}
+      marginTop={barOffset}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={app}
     >
@@ -26,7 +28,6 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
         spacing={10}
         valign={Gtk.Align.START}
         halign={Gtk.Align.CENTER}
-        hexpand
       >
         <For each={activeNotifications}>
           {(notification) => (
