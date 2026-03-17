@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-themes=("catppuccin" "gruvbox" "everforest")
+themes=("catppuccin" "gruvbox" "gruvbox-light" "everforest" "nord" "tokyonight")
 default_theme="catppuccin"
 cache_dir="$HOME/.cache/ags-theme"
 cache_file="$cache_dir/current"

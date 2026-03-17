@@ -171,4 +171,59 @@ window.Sidebar {
     color: $color-emphasis;
     border: none;
   }
+
+  &__themes-section {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: $radius-sm;
+    background: transparent;
+  }
+
+  &__themes-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: $color-emphasis;
+    margin-bottom: 4px;
+    padding: 0 4px;
+  }
+
+  &__themes-grid {
+    padding: 2px;
+  }
+
+  &__theme-button {
+    @include control-reset;
+    padding: 6px 10px;
+    border-radius: $radius-sm;
+    background: $bg-surface;
+    border: none;
+    color: $color-on-surface;
+    transition: background 160ms ease-out;
+
+    &:hover {
+      background: $accent-hover;
+    }
+
+    &--active {
+      background: $color-brand;
+      color: $color-surface;
+
+      .quick-settings__theme-swatch {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  &__theme-colors {
+    min-width: 70px;
+  }
+
+  &__theme-swatch {
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__theme-name {
+    font-size: 13px;
+  }
 }

@@ -1,7 +1,14 @@
 import GLib from "gi://GLib"
 import { createState } from "gnim"
 
-export const themeNames = ["catppuccin", "gruvbox", "everforest"] as const
+export const themeNames = [
+  "catppuccin",
+  "gruvbox",
+  "gruvbox-light",
+  "everforest",
+  "nord",
+  "tokyonight",
+] as const
 
 export type ThemeName = (typeof themeNames)[number]
 
