@@ -4,7 +4,7 @@ set -euo pipefail
 
 THEMES_DIR="$HOME/dotfiles/themes"
 THEMES_PREVIEWS="$HOME/dotfiles/themes/previews"
-SCRIPT="$HOME/.local/bin/set-theme"
+SCRIPT="$HOME/.local/bin/system-theme"
 
 menu=""
 
