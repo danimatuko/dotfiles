@@ -28,7 +28,7 @@ export default function SidebarBackdrop(gdkmonitor: Gdk.Monitor) {
       application={app}
     >
       <box class="sidebar-backdrop" hexpand vexpand>
-        <box class="sidebar-backdrop__shim" widthRequest={sidebarWidth} />
+        <box class="sidebar-backdrop__spacer" widthRequest={sidebarWidth} />
         <Gtk.Revealer
           revealChild={isSidebarOpen}
           transitionType={Gtk.RevealerTransitionType.CROSSFADE}

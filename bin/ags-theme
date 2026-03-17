@@ -57,12 +57,12 @@ reload_ags() {
 }
 
 apply_external_theme() {
-	if [[ ! -x "$HOME/.local/bin/system-theme" ]]; then
-		echo "Warning: $HOME/.local/bin/system-theme not found, only AGS theme updated" >&2
+	if [[ ! -x "$HOME/.local/bin/system-theme-set" ]]; then
+		echo "Warning: $HOME/.local/bin/system-theme-set not found, only AGS theme updated" >&2
 		return
 	fi
 
-	"$HOME/.local/bin/system-theme" "$1"
+	"$HOME/.local/bin/system-theme-set" "$1"
 }
 
 set_theme() {
