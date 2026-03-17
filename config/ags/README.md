@@ -32,7 +32,9 @@ Structure and features will evolve as the project grows.
 - `widget/Osd.tsx`: on-screen display window.
 - `services/`: shared reactive state and shell integrations (`notifications`, `quick-settings`).
 - `style.scss`: global SCSS entrypoint.
-- `style/`: feature styles and shared theme tokens.
+- `style/features/`: feature-level styles (`bar`, `notifications`, `osd`, `quick-settings`, `workspaces`).
+- `style/theme/`: shared theme source (`_palettes.scss`, `_base.scss`, `_variables.scss`).
+- `style/theme.scss`: theme entrypoint that forwards theme partials and applies `.theme--*` classes.
 
 ## UI Maintenance Rules
 
@@ -48,7 +50,8 @@ Structure and features will evolve as the project grows.
   - move shared UI to `widget/common/` and shared logic to `lib/`.
 - Keep styling predictable:
   - keep class names stable unless intentionally redesigning.
-  - keep tokens in `style/theme.scss` and avoid hardcoded duplicates.
+  - keep theme source in `style/theme/` and consume via `style/theme.scss`.
+  - avoid hardcoded duplicates when a theme variable already exists.
 
 ## Safe UI Change Checklist
 
