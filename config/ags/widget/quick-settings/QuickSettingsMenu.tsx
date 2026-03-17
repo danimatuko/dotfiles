@@ -36,6 +36,9 @@ import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
+const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1)
+
 export default function QuickSettingsMenu() {
   return (
     <box
@@ -175,7 +178,7 @@ export default function QuickSettingsMenu() {
               <box spacing={8}>
                 <label
                   class="quick-settings__theme-name"
-                  label={themeName}
+                  label={capitalize(themeName)}
                   xalign={0}
                   hexpand
                 />
