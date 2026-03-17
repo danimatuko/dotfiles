@@ -87,21 +87,43 @@ echo "$THEME" > "$ASTROVIM_THEME_FILE"
 # SET WALLPAPER
 # ============================================================================
 
-BG_DIR="$CURRENT_THEME/backgrounds"
+WALLPAPER_ROOT="${WALLPAPER_DIR:-$HOME/Pictures/wallpapers}"
+BG_DIR="$WALLPAPER_ROOT/$THEME"
 if [ -d "$BG_DIR" ]; then
     echo "Setting wallpaper..."
-    BG_IMAGE=$(find "$BG_DIR" -type f | sort | head -n1)
-    
-    # Apply wallpaper with smooth transition
-    swww img "$BG_IMAGE" \
-        --transition-type fade \
-        --transition-duration 1 \
-        --transition-fps 30
-    
-    # Save for lock screen
-    mkdir -p "$HOME/.cache"
-    rm -f "$HOME/.cache/current-wallpaper"  # Remove old symlink/file first
-    cp "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
+
+    shopt -s nullglob nocaseglob
+    BG_CANDIDATES=(
+        "$BG_DIR"/*.jpg
+        "$BG_DIR"/*.jpeg
+        "$BG_DIR"/*.png
+        "$BG_DIR"/*.webp
+        "$BG_DIR"/*.gif
+        "$BG_DIR"/*.bmp
+        "$BG_DIR"/*.avif
+    )
+    shopt -u nocaseglob nullglob
+
+    if [ ${#BG_CANDIDATES[@]} -gt 0 ]; then
+        IFS=$'\n' BG_CANDIDATES=($(printf '%s\n' "${BG_CANDIDATES[@]}" | sort))
+        unset IFS
+        BG_IMAGE="${BG_CANDIDATES[0]}"
+
+        # Apply wallpaper with smooth transition
+        swww img "$BG_IMAGE" \
+            --transition-type fade \
+            --transition-duration 1 \
+            --transition-fps 30
+
+        # Save for lock screen
+        mkdir -p "$HOME/.cache"
+        rm -f "$HOME/.cache/current-wallpaper"  # Remove old symlink/file first
+        cp "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
+    else
+        notify-send -u normal -i dialog-warning "Set Theme" "No wallpaper image found in $BG_DIR"
+    fi
+else
+    notify-send -u normal -i dialog-warning "Set Theme" "Wallpaper directory not found: $BG_DIR"
 fi
 
 # ============================================================================

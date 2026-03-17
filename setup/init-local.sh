@@ -17,6 +17,13 @@ mkdir -p "$LOCAL_SHARE"
 mkdir -p "$LOCAL_DIR/bin"
 mkdir -p "$LOCAL_DIR/state"
 
+WALLPAPER_ROOT="$HOME/Pictures/wallpapers"
+mkdir -p "$WALLPAPER_ROOT"
+
+for theme in catppuccin gruvbox gruvbox-light nord tokyonight everforest; do
+  mkdir -p "$WALLPAPER_ROOT/$theme"
+done
+
 # -------------------------------------------------
 # Copy local assets into ~/.local/share
 # Put related user assets here:
