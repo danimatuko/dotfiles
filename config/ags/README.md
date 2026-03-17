@@ -1,62 +1,69 @@
 # ags-shell
 
-A personal project to build a full desktop shell with AGS.
+Personal AGS shell for a Hyprland desktop, built with TypeScript/TSX and SCSS.
 
-This repository is in an early stage and will grow over time.
-The current code is just the starting point.
+## What this project contains
 
-## Vision
+- A top bar with workspaces, tray, clock, and status indicators.
+- Quick settings sidebar with toggles and sliders.
+- Notifications window and cards.
+- OSD overlays (volume/brightness feedback).
+- Theme service + shared style system.
 
-Build a complete desktop shell experience with features commonly used in Linux setups, such as:
+## Project structure
 
-- Bar and status indicators
-- Quick settings
-- System tray
-- App launcher
-- Notifications
-- OSD / overlays
-- Power/session controls
-- More shell components over time
+```text
+config/ags/
+├── app.ts                # AGS entrypoint (window startup and app wiring)
+├── env.d.ts              # local TypeScript type declarations
+├── package.json          # AGS project dependencies and scripts
+├── tsconfig.json         # strict TypeScript configuration
+├── style.scss            # global SCSS entrypoint
+├── style/
+│   ├── features/         # feature styles (bar, notifications, osd, quick-settings, workspaces)
+│   ├── theme/            # theme source partials (_palettes, _base, _variables)
+│   └── theme.scss        # public theme entry (forwards theme partials + emits .theme--* classes)
+├── widget/
+│   ├── bar/              # top bar UI widgets
+│   ├── quick-settings/   # quick settings UI widgets
+│   ├── notifications/    # notifications UI widgets
+│   └── Osd.tsx           # OSD window component
+├── services/
+│   ├── quick-settings/   # quick-settings feature service modules
+│   └── *.ts              # shared services (notifications, sidebar, theme, etc.)
+├── lib/                  # reusable helper utilities
+├── build/                # bundled output artifact (generated)
+└── astal/                # vendored upstream tree (avoid edits unless intentional)
+```
 
-## Status
+## Dependency direction (important)
 
-Early development.
-Structure and features will evolve as the project grows.
+- `widget/*` can use `services/*` and style classes.
+- `services/*` can use `lib/*`.
+- `lib/*` should not depend on `widget/*` or AGS UI components.
+- `style/features/*` should consume theme variables/mixins from `style/theme.scss`.
 
-## Current Structure
+## Development commands
 
-- `app.ts`: main AGS entrypoint, window startup per monitor.
-- `widget/bar/`: bar window and bar-local widgets (clock, tray, workspaces, status indicators).
-- `widget/quick-settings/`: quick settings menu UI components.
-- `widget/notifications/`: notification window and card UI widgets.
-- `widget/Osd.tsx`: on-screen display window.
-- `services/`: shared reactive state and shell integrations (`notifications`, `quick-settings`).
-- `style.scss`: global SCSS entrypoint.
-- `style/features/`: feature-level styles (`bar`, `notifications`, `osd`, `quick-settings`, `workspaces`).
-- `style/theme/`: shared theme source (`_palettes.scss`, `_base.scss`, `_variables.scss`).
-- `style/theme.scss`: theme entrypoint that forwards theme partials and applies `.theme--*` classes.
+```bash
+# install deps
+npm install
 
-## UI Maintenance Rules
+# run shell in dev
+ags run app.ts
 
-- Keep boundaries strict:
-  - `widget/` for UI rendering only.
-  - `services/` for state and system integrations.
-  - `lib/` for pure helpers (no side effects).
-- Keep files small and focused:
-  - one widget per file.
-  - one setting per service file.
-- Avoid cross-feature coupling:
-  - do not import internals from another feature.
-  - move shared UI to `widget/common/` and shared logic to `lib/`.
-- Keep styling predictable:
-  - keep class names stable unless intentionally redesigning.
-  - keep theme source in `style/theme/` and consume via `style/theme.scss`.
-  - avoid hardcoded duplicates when a theme variable already exists.
+# typecheck
+npx --yes typescript tsc --noEmit -p tsconfig.json
 
-## Safe UI Change Checklist
+# format check
+npx --yes prettier --check "**/*.{ts,tsx,scss,json,md}"
 
-- Change one feature folder at a time.
-- Prefer incremental edits over large rewrites.
-- Run `ags run app.ts` after each small change.
-- If moving files, keep temporary compatibility exports until imports are updated.
-- Commit in small focused chunks so rollbacks are easy.
+# bundle
+mkdir -p build && ags bundle app.ts build/app.js --gtk 4 --root .
+```
+
+## Maintenance guidelines
+
+- Add new UI in `widget/<feature>/` first, then pair it with `style/features/_<feature>.scss`.
+- Keep cross-feature imports minimal; move shared logic to `lib/` and shared state/integration to `services/`.
+- Keep theme values centralized in `style/theme/` to avoid duplicate hardcoded values.
