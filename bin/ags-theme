@@ -40,20 +40,24 @@ write_current_theme() {
 
 notify_ags() {
 	if ! command -v ags >/dev/null 2>&1; then
-		return
+		return 1
 	fi
 
-	ags request theme-set "$1" >/dev/null 2>&1 || true
+	ags request theme-set "$1" >/dev/null 2>&1
 }
 
 reload_ags() {
+	if notify_ags "$1"; then
+		return
+	fi
+
 	if [[ -x "$HOME/.local/bin/ags-reload" ]]; then
+		echo "Warning: AGS request failed, falling back to ags-reload" >&2
 		"$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
 		return
 	fi
 
-	echo "Warning: $HOME/.local/bin/ags-reload not found, using AGS request fallback" >&2
-	notify_ags "$1"
+	echo "Warning: could not apply AGS theme live and ags-reload was not found" >&2
 }
 
 apply_external_theme() {
