@@ -173,6 +173,12 @@ export default function QuickSettingsMenu() {
               onClicked={() => setTheme(themeName)}
             >
               <box spacing={8}>
+                <label
+                  class="quick-settings__theme-name"
+                  label={themeName}
+                  xalign={0}
+                  hexpand
+                />
                 <box class="quick-settings__theme-colors" spacing={2}>
                   {themeColors[themeName].map((color: string) => (
                     <box
@@ -185,12 +191,6 @@ export default function QuickSettingsMenu() {
                     />
                   ))}
                 </box>
-                <label
-                  class="quick-settings__theme-name"
-                  label={themeName}
-                  xalign={0}
-                  hexpand
-                />
               </box>
             </button>
           ))}
