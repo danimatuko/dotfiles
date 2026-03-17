@@ -13,12 +13,21 @@ Personal dotfiles for an Arch Linux + Hyprland desktop.
 
 ## Repository Layout
 
-- `install.sh` - main bootstrap script
-- `setup/` - modular install and linking scripts
-- `config/` - application configs (`hypr`, `waybar`, `ags`, etc.)
-- `bin/` - active executable commands (extensionless)
-- `themes/` - shared theme files/assets
-- `.legacy/` - archived scripts/assets kept for reference
+```text
+dotfiles/
+├── install.sh            # main bootstrap script
+├── setup/                # modular install and linking scripts
+├── config/               # app configs (hypr, waybar, ags, nvim, etc.)
+├── bin/                  # active executable commands (extensionless)
+├── themes/               # shared theme files/assets
+└── .legacy/              # archived scripts/assets for reference
+```
+
+## AGS Project (config/ags)
+
+The AGS shell in `config/ags/` is organized by clear responsibilities: UI widgets, service/state integrations, shared utilities, and a feature/theme-based SCSS layout.
+
+For architecture details, structure overview, and maintenance guidelines, see `config/ags/README.md`.
 
 ## Install
 
@@ -59,6 +68,7 @@ bash ~/dotfiles/setup/uninstall.sh --apply --restore-latest-backup
 - This setup targets Arch Linux and Wayland/Hyprland.
 - Active command entrypoints live in `bin/` and are intended to be called via `~/.local/bin/<command>`.
 - Archived/unused content lives under `.legacy/` and is not part of the active setup path.
+- Major structural changes in `config/ags` should be reflected in `config/ags/README.md` and this root README.
 
 ## License
 
