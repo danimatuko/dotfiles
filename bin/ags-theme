@@ -34,54 +34,48 @@ read_current_theme() {
 }
 
 write_current_theme() {
-	local selected="$1"
 	mkdir -p "$cache_dir"
-	printf "%s\n" "$selected" > "$cache_file"
+	printf "%s\n" "$1" > "$cache_file"
 }
 
 notify_ags() {
-	local selected="$1"
-
 	if ! command -v ags >/dev/null 2>&1; then
 		return
 	fi
 
-	ags request theme-set "$selected" >/dev/null 2>&1 || true
+	ags request theme-set "$1" >/dev/null 2>&1 || true
 }
 
-apply_external_theme() {
-	local selected="$1"
-	local set_theme_cmd=""
-
-	if [[ -x "$HOME/.local/bin/system-theme" ]]; then
-		set_theme_cmd="$HOME/.local/bin/system-theme"
-	elif [[ -x "$(dirname "$0")/system-theme" ]]; then
-		set_theme_cmd="$(dirname "$0")/system-theme"
-	elif command -v system-theme >/dev/null 2>&1; then
-		set_theme_cmd="$(command -v system-theme)"
-	fi
-
-	if [[ -z "$set_theme_cmd" ]]; then
-		echo "Warning: system-theme script not found, only AGS theme updated" >&2
+reload_ags() {
+	if [[ -x "$HOME/.local/bin/ags-reload" ]]; then
+		"$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
 		return
 	fi
 
-	"$set_theme_cmd" "$selected"
+	echo "Warning: $HOME/.local/bin/ags-reload not found, using AGS request fallback" >&2
+	notify_ags "$1"
+}
+
+apply_external_theme() {
+	if [[ ! -x "$HOME/.local/bin/system-theme" ]]; then
+		echo "Warning: $HOME/.local/bin/system-theme not found, only AGS theme updated" >&2
+		return
+	fi
+
+	"$HOME/.local/bin/system-theme" "$1"
 }
 
 set_theme() {
-	local selected="$1"
-
-	if ! is_valid_theme "$selected"; then
-		echo "Invalid theme: $selected" >&2
+	if ! is_valid_theme "$1"; then
+		echo "Invalid theme: $1" >&2
 		echo "Available: ${themes[*]}" >&2
 		exit 1
 	fi
 
-	write_current_theme "$selected"
-	apply_external_theme "$selected"
-	notify_ags "$selected"
-	echo "$selected"
+	write_current_theme "$1"
+	apply_external_theme "$1"
+	reload_ags "$1"
+	echo "$1"
 }
 
 list_themes() {
@@ -103,9 +97,7 @@ cycle_theme() {
 	set_theme "$next"
 }
 
-command="${1:-current}"
-
-case "$command" in
+case "${1:-current}" in
 	list)
 		list_themes
 		;;
