@@ -1,0 +1,12 @@
+@use "sass:map";
+@use "./palettes" as palettes;
+
+$default-theme: catppuccin;
+
+@mixin apply-theme($theme-name) {
+  $palette: map.get(palettes.$theme-palettes, $theme-name);
+
+  @each $token, $value in $palette {
+    --ags-#{$token}: #{$value};
+  }
+}

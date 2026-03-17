@@ -1,5 +1,5 @@
-@use "./style/bar.scss";
-@use "./style/notifications.scss";
-@use "./style/osd.scss";
-@use "./style/quick-settings.scss";
-@use "./style/workspaces.scss";
+@use "./style/features/bar";
+@use "./style/features/notifications";
+@use "./style/features/osd";
+@use "./style/features/quick-settings";
+@use "./style/features/workspaces";

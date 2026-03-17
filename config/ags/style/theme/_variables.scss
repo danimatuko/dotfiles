@@ -1,0 +1,56 @@
+$color-surface: var(--ags-color-surface);
+$color-outline: var(--ags-color-outline);
+$color-on-surface: var(--ags-color-on-surface);
+
+$color-muted: var(--ags-color-muted);
+$color-emphasis: var(--ags-color-emphasis);
+$color-hover: var(--ags-color-hover);
+
+$color-brand: var(--ags-color-brand);
+$color-danger: var(--ags-color-danger);
+$color-warning: var(--ags-color-warning);
+
+$bg-base: var(--ags-bg-base);
+$bg-surface: var(--ags-bg-surface);
+$bg-surface-strong: var(--ags-bg-surface-strong);
+
+$control-color: var(--ags-control-color);
+$control-color-bright: var(--ags-control-color-bright);
+$control-text: var(--ags-control-text);
+
+$accent-color: var(--ags-accent-color);
+$accent-hover: var(--ags-accent-hover);
+$accent-text: var(--ags-accent-text);
+
+$surface: $color-surface;
+$border: $color-outline;
+$text: $color-on-surface;
+
+$alpha-widget-surface: 1;
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 14px;
+$radius-pill: 20px;
+$radius-rounded: 999px;
+
+$space-xs: 8px;
+$space-sm: 12px;
+$space-md: 16px;
+$space-lg: 20px;
+$space-2xl: 40px;
+
+$icon-size-sm: 14px;
+$icon-size-md: 16px;
+
+$motion-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+
+@mixin icon-size($size) {
+  -gtk-icon-size: $size;
+}
+
+@mixin control-reset {
+  background: none;
+  border: none;
+  box-shadow: none;
+}

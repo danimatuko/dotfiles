@@ -1,145 +1,15 @@
-@use "sass:map";
+@forward "./theme/base";
+@forward "./theme/variables";
 
-$theme-palettes: (
-  catppuccin: (
-    color-surface: #1e1e2e,
-    color-outline: #313244,
-    color-on-surface: #cdd6f4,
-    color-muted: #a6adc8,
-    color-emphasis: #bac2de,
-    color-hover: #bac2de,
-    color-brand: #89b4fa,
-    color-danger: #f38ba8,
-    color-warning: #f9e2af,
-    bg-base: #1e1e2e,
-    bg-surface: #2b2d40,
-    bg-surface-strong: #36384b,
-    control-color: #8187a2,
-    control-color-bright: #a5acc7,
-    control-text: #b8c0dd,
-    accent-color: #89b4fa,
-    accent-hover: #9ec0f5,
-    accent-text: #1f2232,
-  ),
-  gruvbox: (
-    color-surface: #282828,
-    color-outline: #504945,
-    color-on-surface: #ebdbb2,
-    color-muted: #a89984,
-    color-emphasis: #d5c4a1,
-    color-hover: #d5c4a1,
-    color-brand: #d79921,
-    color-danger: #fb4934,
-    color-warning: #fabd2f,
-    bg-base: #282828,
-    bg-surface: #32302f,
-    bg-surface-strong: #3c3836,
-    control-color: #7c6f64,
-    control-color-bright: #a89984,
-    control-text: #ebdbb2,
-    accent-color: #d79921,
-    accent-hover: #e3b557,
-    accent-text: #282828,
-  ),
-  everforest: (
-    color-surface: #2d353b,
-    color-outline: #475258,
-    color-on-surface: #d3c6aa,
-    color-muted: #9da98f,
-    color-emphasis: #e6dcc6,
-    color-hover: #e6dcc6,
-    color-brand: #a7c080,
-    color-danger: #e67e80,
-    color-warning: #dbbc7f,
-    bg-base: #2d353b,
-    bg-surface: #343f44,
-    bg-surface-strong: #3d484d,
-    control-color: #7f897d,
-    control-color-bright: #9da98f,
-    control-text: #d3c6aa,
-    accent-color: #a7c080,
-    accent-hover: #b5ca8f,
-    accent-text: #2d353b,
-  ),
-);
-
-@mixin apply-theme($theme-name) {
-  $palette: map.get($theme-palettes, $theme-name);
-
-  @each $token, $value in $palette {
-    --ags-#{$token}: #{$value};
-  }
-}
+@use "./theme/base" as *;
+@use "./theme/palettes" as palettes;
 
 :root {
-  @include apply-theme(catppuccin);
+  @include apply-theme($default-theme);
 }
 
-.theme--catppuccin {
-  @include apply-theme(catppuccin);
-}
-
-.theme--gruvbox {
-  @include apply-theme(gruvbox);
-}
-
-.theme--everforest {
-  @include apply-theme(everforest);
-}
-
-$color-surface: var(--ags-color-surface);
-$color-outline: var(--ags-color-outline);
-$color-on-surface: var(--ags-color-on-surface);
-
-$color-muted: var(--ags-color-muted);
-$color-emphasis: var(--ags-color-emphasis);
-$color-hover: var(--ags-color-hover);
-
-$color-brand: var(--ags-color-brand);
-$color-danger: var(--ags-color-danger);
-$color-warning: var(--ags-color-warning);
-
-$alpha-widget-surface: 1;
-
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 14px;
-$radius-pill: 20px;
-$radius-rounded: 999px;
-
-$space-xs: 8px;
-$space-sm: 12px;
-$space-md: 16px;
-$space-lg: 20px;
-$space-2xl: 40px;
-
-$icon-size-sm: 14px;
-$icon-size-md: 16px;
-
-$motion-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
-
-$bg-base: var(--ags-bg-base);
-$bg-surface: var(--ags-bg-surface);
-$bg-surface-strong: var(--ags-bg-surface-strong);
-
-$control-color: var(--ags-control-color);
-$control-color-bright: var(--ags-control-color-bright);
-$control-text: var(--ags-control-text);
-
-$accent-color: var(--ags-accent-color);
-$accent-hover: var(--ags-accent-hover);
-$accent-text: var(--ags-accent-text);
-
-$surface: $color-surface;
-$border: $color-outline;
-$text: $color-on-surface;
-
-@mixin icon-size($size) {
-  -gtk-icon-size: $size;
-}
-
-@mixin control-reset {
-  background: none;
-  border: none;
-  box-shadow: none;
+@each $theme-name, $_ in palettes.$theme-palettes {
+  .theme--#{$theme-name} {
+    @include apply-theme($theme-name);
+  }
 }
