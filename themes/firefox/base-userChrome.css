@@ -1,0 +1,54 @@
+:root {
+  --lwt-accent-color: var(--fx-bg) !important;
+  --lwt-text-color: var(--fx-fg) !important;
+  --toolbar-bgcolor: var(--fx-bg) !important;
+  --toolbar-color: var(--fx-fg) !important;
+  --toolbarbutton-icon-fill: var(--fx-fg) !important;
+  --toolbar-field-background-color: var(--fx-muted) !important;
+  --toolbar-field-color: var(--fx-fg) !important;
+  --toolbar-field-focus-background-color: var(--fx-hover) !important;
+  --toolbar-field-focus-color: var(--fx-fg) !important;
+  --tab-selected-bgcolor: var(--fx-muted) !important;
+  --tab-selected-textcolor: var(--fx-fg) !important;
+  --tab-hover-background-color: var(--fx-hover) !important;
+}
+
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  background: var(--fx-bg) !important;
+  color: var(--fx-fg) !important;
+}
+
+#navigator-toolbox {
+  border-bottom: 1px solid var(--fx-muted) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background: var(--fx-muted) !important;
+}
+
+.tabbrowser-tab:hover .tab-background {
+  background: var(--fx-hover) !important;
+}
+
+#urlbar-background,
+#searchbar {
+  background: var(--fx-muted) !important;
+  border-color: transparent !important;
+}
+
+#urlbar[open] > #urlbar-background,
+#urlbar[focused] > #urlbar-background {
+  background: var(--fx-hover) !important;
+}
+
+#urlbar-input::placeholder {
+  color: var(--fx-accent) !important;
+  opacity: 0.9;
+}
+
+toolbarbutton:hover {
+  background: var(--fx-hover) !important;
+}
