@@ -42,7 +42,7 @@ if [ -f "$CURRENT_THEME/rofi.rasi" ]; then
         "$HOME/.config/rofi/colors.rasi"
 
     # Refresh rofi (close any open instance)
-    pkill rofi || true
+    pkill -u "$USER" -x rofi >/dev/null 2>&1 || true
 fi
 
 # SwayOSD colors
@@ -126,9 +126,9 @@ if pgrep ghostty &>/dev/null; then
 fi
 
 # SwayNC notifications
-if command -v swaync-client &>/dev/null; then
+if command -v swaync-client &>/dev/null && pgrep -u "$USER" -x swaync >/dev/null 2>&1; then
     sleep 0.5
-    swaync-client -rs
+    swaync-client -rs >/dev/null 2>&1 || true
 fi
 
 # SwayOSD volume/brightness display
