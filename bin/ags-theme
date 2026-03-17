@@ -1,0 +1,130 @@
+#!/bin/bash
+
+set -euo pipefail
+
+themes=("catppuccin" "gruvbox" "everforest")
+default_theme="catppuccin"
+cache_dir="$HOME/.cache/ags-theme"
+cache_file="$cache_dir/current"
+
+is_valid_theme() {
+	local candidate="$1"
+
+	for theme in "${themes[@]}"; do
+		if [[ "$theme" == "$candidate" ]]; then
+			return 0
+		fi
+	done
+
+	return 1
+}
+
+read_current_theme() {
+	if [[ -f "$cache_file" ]]; then
+		local saved
+		IFS= read -r saved < "$cache_file" || true
+
+		if is_valid_theme "$saved"; then
+			echo "$saved"
+			return
+		fi
+	fi
+
+	echo "$default_theme"
+}
+
+write_current_theme() {
+	local selected="$1"
+	mkdir -p "$cache_dir"
+	printf "%s\n" "$selected" > "$cache_file"
+}
+
+notify_ags() {
+	local selected="$1"
+
+	if ! command -v ags >/dev/null 2>&1; then
+		return
+	fi
+
+	ags request theme-set "$selected" >/dev/null 2>&1 || true
+}
+
+apply_external_theme() {
+	local selected="$1"
+	local set_theme_cmd=""
+
+	if [[ -x "$HOME/.local/bin/system-theme" ]]; then
+		set_theme_cmd="$HOME/.local/bin/system-theme"
+	elif [[ -x "$(dirname "$0")/system-theme" ]]; then
+		set_theme_cmd="$(dirname "$0")/system-theme"
+	elif command -v system-theme >/dev/null 2>&1; then
+		set_theme_cmd="$(command -v system-theme)"
+	fi
+
+	if [[ -z "$set_theme_cmd" ]]; then
+		echo "Warning: system-theme script not found, only AGS theme updated" >&2
+		return
+	fi
+
+	"$set_theme_cmd" "$selected"
+}
+
+set_theme() {
+	local selected="$1"
+
+	if ! is_valid_theme "$selected"; then
+		echo "Invalid theme: $selected" >&2
+		echo "Available: ${themes[*]}" >&2
+		exit 1
+	fi
+
+	write_current_theme "$selected"
+	apply_external_theme "$selected"
+	notify_ags "$selected"
+	echo "$selected"
+}
+
+list_themes() {
+	printf "%s\n" "${themes[@]}"
+}
+
+cycle_theme() {
+	local current next index
+	current="$(read_current_theme)"
+	next="$default_theme"
+
+	for index in "${!themes[@]}"; do
+		if [[ "${themes[$index]}" == "$current" ]]; then
+			next="${themes[$(((index + 1) % ${#themes[@]}))]}"
+			break
+		fi
+	done
+
+	set_theme "$next"
+}
+
+command="${1:-current}"
+
+case "$command" in
+	list)
+		list_themes
+		;;
+	current)
+		read_current_theme
+		;;
+	set)
+		if [[ $# -lt 2 ]]; then
+			echo "Usage: ags-theme set <theme>" >&2
+			exit 1
+		fi
+
+		set_theme "$2"
+		;;
+	cycle)
+		cycle_theme
+		;;
+	*)
+		echo "Usage: ags-theme {list|current|set <theme>|cycle}" >&2
+		exit 1
+		;;
+esac
