@@ -11,7 +11,7 @@ window.Osd {
     min-width: 200px;
     padding: 16px 12px;
     border-radius: $radius-pill;
-    background: rgba($color-surface, $alpha-widget-surface);
+    background: $color-surface;
     color: $color-on-surface;
     box-shadow: 0 8px 20px rgba(black, 1);
   }

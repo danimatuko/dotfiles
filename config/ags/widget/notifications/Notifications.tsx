@@ -5,6 +5,7 @@ import {
   activeNotifications,
   dismissNotification,
 } from "../../services/notifications"
+import { getThemeWindowClass } from "../../services/theme"
 import NotificationCard from "./NotificationCard"
 
 export default function Notifications(gdkmonitor: Gdk.Monitor) {
@@ -14,7 +15,7 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
   return (
     <window
       name="notifications"
-      class="Notifications"
+      class={getThemeWindowClass("Notifications")}
       visible={activeNotifications((notifications) => notifications.length > 0)}
       gdkmonitor={gdkmonitor}
       anchor={TOP}

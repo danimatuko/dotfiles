@@ -7,6 +7,7 @@ import {
   isSidebarVisible,
   SIDEBAR_ANIMATION_MS,
 } from "../../services/sidebar"
+import { getThemeWindowClass } from "../../services/theme"
 import { BAR_HEIGHT } from "../bar/constants"
 import QuickSettingsMenu from "./QuickSettingsMenu"
 
@@ -16,7 +17,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
   return (
     <window
       name="sidebar"
-      class="Sidebar"
+      class={getThemeWindowClass("Sidebar")}
       visible={isSidebarVisible}
       gdkmonitor={gdkmonitor}
       anchor={TOP | LEFT | BOTTOM}
@@ -55,7 +56,10 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
             hexpand
             vexpand
           >
-            <box class="sidebar__content" orientation={Gtk.Orientation.VERTICAL}>
+            <box
+              class="sidebar__content"
+              orientation={Gtk.Orientation.VERTICAL}
+            >
               <QuickSettingsMenu />
             </box>
           </Gtk.ScrolledWindow>

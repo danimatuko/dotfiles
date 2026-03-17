@@ -29,9 +29,9 @@ window.Sidebar {
   .sidebar {
     min-width: 430px;
     padding: 20px 14px 14px;
-    background: rgba($color-surface, 1);
+    background: $color-surface;
     color: $color-on-surface;
-    border-right: 2px solid rgba($color-outline, 1);
+    border-right: 2px solid $color-outline;
   }
 
   .sidebar__scroll {
@@ -79,7 +79,7 @@ window.Sidebar {
 
   &__toggle-button {
     @include control-reset;
-    background: rgba($color-on-surface, 0.56);
+    background: $bg-surface;
     border-radius: $radius-sm;
     padding: 28px 14px 14px;
     color: $color-on-surface;
@@ -87,12 +87,12 @@ window.Sidebar {
     transition: background 160ms ease-out;
 
     &:hover {
-      background: rgba($color-brand, 0.8);
+      background: $accent-hover;
       color: $color-surface;
     }
 
     &--active {
-      background: rgba($color-brand, 1);
+      background: $color-brand;
       color: $color-surface;
     }
 

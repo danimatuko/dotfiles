@@ -6,6 +6,7 @@ import Clock from "./Clock"
 import SystemTray from "./SystemTray"
 import OsIcon from "./OsIcon"
 import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
+import { getThemeWindowClass } from "../../services/theme"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -14,7 +15,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     <window
       visible
       name="bar"
-      class="Bar"
+      class={getThemeWindowClass("Bar")}
       gdkmonitor={gdkmonitor}
       layer={Astal.Layer.OVERLAY}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}

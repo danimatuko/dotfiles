@@ -12,7 +12,7 @@ window.Bar {
   font-weight: bold;
 
   > centerbox {
-    background: rgba($bg-base, $alpha-widget-surface);
+    background: $bg-base;
     border-bottom: 1px solid $bg-surface-strong;
     padding: 0 5px;
   }

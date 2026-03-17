@@ -6,6 +6,7 @@ import {
   getOsdValue,
   isOsdVisible,
 } from "../services/quick-settings"
+import { getThemeWindowClass } from "../services/theme"
 
 export default function Osd(gdkmonitor: Gdk.Monitor) {
   const { BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor
@@ -13,7 +14,7 @@ export default function Osd(gdkmonitor: Gdk.Monitor) {
   return (
     <window
       name="osd"
-      class="Osd"
+      class={getThemeWindowClass("Osd")}
       visible={isOsdVisible}
       gdkmonitor={gdkmonitor}
       anchor={BOTTOM | LEFT | RIGHT}
