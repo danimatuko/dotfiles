@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -euo pipefail
+
+wall_dirs=(
+  "$HOME/Pictures/wallpapers"
+  "$HOME/Pictures/Wallpapers"
+)
+
+wall_dir=""
+for dir in "${wall_dirs[@]}"; do
+  if [ -d "$dir" ]; then
+    wall_dir="$dir"
+    break
+  fi
+done
+
+if [ -z "$wall_dir" ]; then
+  notify-send -u normal -i dialog-warning "Wallset" "Wallpaper directory not found"
+  exit 1
+fi
+
+mapfile -t wallpapers < <(
+  find "$wall_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.avif" \) | sort
+)
+
+if [ ${#wallpapers[@]} -eq 0 ]; then
+  notify-send -u normal -i dialog-warning "Wallset" "No wallpapers found in $wall_dir"
+  exit 1
+fi
+
+menu=""
+for wp in "${wallpapers[@]}"; do
+  menu+="$(basename "$wp")\\0icon\\x1f$wp\\n"
+done
+
+selected=$(echo -en "$menu" | rofi -dmenu -i -p "Select Wallpaper" -show-icons -theme ~/.config/rofi/layouts/wallpaper.rasi)
+
+[ -z "$selected" ] && exit 0
+
+for wp in "${wallpapers[@]}"; do
+  if [ "$(basename "$wp")" = "$selected" ]; then
+    swww img "$wp"
+    break
+  fi
+done
