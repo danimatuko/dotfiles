@@ -1,9 +1,7 @@
 @use "../theme.scss" as *;
 
 .workspaces {
-  background-color: $bg-base;
   color: $color-on-surface;
-  border-radius: $radius-pill;
 
   &__mic-access {
     color: $color-warning;
