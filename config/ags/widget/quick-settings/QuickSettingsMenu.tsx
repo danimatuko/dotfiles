@@ -89,6 +89,8 @@ export default function QuickSettingsMenu() {
         />
       </box>
 
+      <label class="quick-settings__section-label" label="Display" xalign={0} />
+
       <box
         class="quick-settings__sliders-group"
         orientation={Gtk.Orientation.VERTICAL}
@@ -152,18 +154,59 @@ export default function QuickSettingsMenu() {
         </box>
       </box>
 
+      <label class="quick-settings__section-label" label="Sound" xalign={0} />
+
+      <box
+        class="quick-settings__sliders-group"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={4}
+      >
+        <box
+          class="quick-settings__slider-card"
+          orientation={Gtk.Orientation.VERTICAL}
+          spacing={6}
+        >
+          <box class="quick-settings__slider-row" spacing={10}>
+            <box
+              class="quick-settings__slider-icon-box"
+              valign={Gtk.Align.CENTER}
+            >
+              <image
+                class="quick-settings__volume-icon"
+                iconName={getSpeakerIcon}
+              />
+            </box>
+            <slider
+              class="quick-settings__volume-slider"
+              cursor={pointerCursor}
+              hexpand
+              sensitive={canControlVolume}
+              value={getVolumeValue}
+              onValueChanged={(self) => setVolume(self.value)}
+            />
+          </box>
+        </box>
+      </box>
+
+      <label class="quick-settings__section-label" label="Power" xalign={0} />
+
       <box class="quick-settings__battery-row" spacing={8}>
         <image iconName={getBatteryIcon} />
         <label label="Battery" xalign={0} hexpand />
         <label label={getBatteryPercentage} xalign={1} />
       </box>
 
+      <label
+        class="quick-settings__section-label"
+        label="Appearance"
+        xalign={0}
+      />
+
       <box
         class="quick-settings__themes-section"
         orientation={Gtk.Orientation.VERTICAL}
         spacing={4}
       >
-        <label class="quick-settings__themes-label" label="Themes" xalign={0} />
         <box
           class="quick-settings__themes-grid"
           orientation={Gtk.Orientation.VERTICAL}

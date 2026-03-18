@@ -52,21 +52,33 @@ window.Sidebar {
 
   &__sliders-group,
   &__toggles-group {
-    padding: 2px;
+    padding: 0;
     border-radius: $radius-sm;
     background: transparent;
     border: none;
   }
 
   &__toggles-group {
-    margin-bottom: 4px;
+    margin-bottom: 0;
+  }
+
+  &__section-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: $color-emphasis;
+    padding: 8px 4px 4px;
   }
 
   &__slider-card {
-    padding: 8px 0;
+    padding: 10px 12px;
     border-radius: $radius-sm;
-    background: transparent;
+    background: $bg-surface;
     border: none;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__slider-row {
@@ -81,19 +93,28 @@ window.Sidebar {
     @include control-reset;
     background: $bg-surface;
     border-radius: $radius-sm;
-    padding: 28px 14px 14px;
+    padding: 10px 12px;
     color: $color-on-surface;
     border: none;
     transition: background 160ms ease-out;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     &:hover {
       background: $accent-hover;
-      color: $color-surface;
+      color: $accent-text;
     }
 
     &--active {
       background: $color-brand;
       color: $color-surface;
+
+      &:hover {
+        color: $color-surface;
+      }
     }
 
     &--disabled,
@@ -105,7 +126,8 @@ window.Sidebar {
   &__toggle-button--icon-only {
     min-width: 28px;
     min-height: 28px;
-    padding: 4px;
+    padding: 6px;
+    margin-bottom: 0;
   }
 
   &__toggle-content > image,
@@ -135,7 +157,7 @@ window.Sidebar {
   }
 
   &__toggle-chevron {
-    opacity: 0.7;
+    opacity: 0;
   }
 
   &__brightness-slider,
@@ -165,41 +187,52 @@ window.Sidebar {
   }
 
   &__battery-row {
-    padding: 12px;
+    @include control-reset;
+    padding: 10px 12px;
     border-radius: $radius-sm;
-    background: transparent;
-    color: $color-emphasis;
+    background: $bg-surface;
+    color: $color-on-surface;
     border: none;
+    cursor: pointer;
+    transition: background 160ms ease-out;
+    margin-bottom: 4px;
+
+    &:hover {
+      background: $accent-hover;
+      color: $accent-text;
+    }
+
+    > image {
+      @include icon-size(18px);
+      min-width: 18px;
+    }
   }
 
   &__themes-section {
-    margin-top: 8px;
-    padding: 8px;
+    margin-top: 4px;
+    padding: 0;
     border-radius: $radius-sm;
     background: transparent;
   }
 
-  &__themes-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: $color-emphasis;
-    margin-bottom: 4px;
-    padding: 0 4px;
-  }
-
   &__themes-grid {
-    padding: 2px;
+    padding: 0;
   }
 
   &__theme-button {
     @include control-reset;
-    padding: 6px 10px;
+    padding: 10px 12px;
     border-radius: $radius-sm;
     background: $bg-surface;
     border: none;
     color: $color-on-surface;
     cursor: pointer;
     transition: background 160ms ease-out;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     &:hover {
       background: $accent-hover;
