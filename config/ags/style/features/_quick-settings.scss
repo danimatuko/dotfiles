@@ -198,15 +198,21 @@ window.Sidebar {
     background: $bg-surface;
     border: none;
     color: $color-on-surface;
+    cursor: pointer;
     transition: background 160ms ease-out;
 
     &:hover {
       background: $accent-hover;
+      color: $color-on-surface;
     }
 
     &--active {
       background: $color-brand;
       color: $color-surface;
+
+      &:hover {
+        color: $color-surface;
+      }
 
       .quick-settings__theme-swatch {
         border: 1px solid rgba(255, 255, 255, 0.3);

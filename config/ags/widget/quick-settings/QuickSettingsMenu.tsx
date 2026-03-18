@@ -36,8 +36,7 @@ import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
-const capitalize = (str: string) =>
-  str.charAt(0).toUpperCase() + str.slice(1)
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
 
 export default function QuickSettingsMenu() {
   return (
@@ -173,6 +172,7 @@ export default function QuickSettingsMenu() {
                   ? "quick-settings__theme-button quick-settings__theme-button--active"
                   : "quick-settings__theme-button",
               )}
+              cursor={pointerCursor}
               onClicked={() => setTheme(themeName)}
             >
               <box spacing={8}>
