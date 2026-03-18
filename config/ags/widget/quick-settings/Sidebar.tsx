@@ -1,12 +1,7 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
 
-import {
-  closeSidebar,
-  isSidebarOpen,
-  isSidebarVisible,
-  SIDEBAR_ANIMATION_MS,
-} from "../../services/sidebar"
+import { closeSidebar, isSidebarVisible } from "../../services/sidebar"
 import { getThemeWindowClass } from "../../services/theme"
 import { BAR_HEIGHT } from "../bar/constants"
 import QuickSettingsMenu from "./QuickSettingsMenu"
@@ -17,6 +12,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
   return (
     <window
       name="sidebar"
+      namespace="ags-sidebar"
       class={getThemeWindowClass("Sidebar")}
       visible={isSidebarVisible}
       gdkmonitor={gdkmonitor}
@@ -37,34 +33,28 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
           return true
         }}
       />
-      <Gtk.Revealer
-        revealChild={isSidebarOpen}
-        transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-        transitionDuration={SIDEBAR_ANIMATION_MS}
+      <box
+        class="sidebar"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={0}
+        hexpand
+        vexpand
+        valign={Gtk.Align.FILL}
       >
-        <box
-          class="sidebar"
-          orientation={Gtk.Orientation.VERTICAL}
-          spacing={0}
+        <Gtk.ScrolledWindow
+          cssClasses={["sidebar__scroll"]}
+          vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
           hexpand
           vexpand
-          valign={Gtk.Align.FILL}
         >
-          <Gtk.ScrolledWindow
-            cssClasses={["sidebar__scroll"]}
-            vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
-            hexpand
-            vexpand
+          <box
+            class="sidebar__content"
+            orientation={Gtk.Orientation.VERTICAL}
           >
-            <box
-              class="sidebar__content"
-              orientation={Gtk.Orientation.VERTICAL}
-            >
-              <QuickSettingsMenu />
-            </box>
-          </Gtk.ScrolledWindow>
-        </box>
-      </Gtk.Revealer>
+            <QuickSettingsMenu />
+          </box>
+        </Gtk.ScrolledWindow>
+      </box>
     </window>
   )
 }

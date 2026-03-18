@@ -21,7 +21,7 @@ window.SidebarBackdrop {
 }
 
 window.Sidebar {
-  background: transparent;
+  background: color-mix(in srgb, #{$bg-base} 95%, transparent 5%);
   font-family:
     "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
     "JetBrains Mono", monospace;
@@ -29,7 +29,6 @@ window.Sidebar {
   .sidebar {
     min-width: 430px;
     padding: 20px 14px 14px;
-    background: $color-surface;
     color: $color-on-surface;
     border-right: 2px solid $color-outline;
   }
