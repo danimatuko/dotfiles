@@ -53,7 +53,7 @@ export default function QuickSettingsMenu() {
         class="quick-settings__toggles-group"
         orientation={Gtk.Orientation.HORIZONTAL}
         spacing={6}
-        halign={Gtk.Align.CENTER}
+        homogeneous
       >
         <QuickSettingsToggleButton
           iconName={getWifiIcon}
@@ -61,6 +61,7 @@ export default function QuickSettingsMenu() {
           onClicked={toggleWifi}
           sensitive={canToggleWifi}
           iconOnly
+          hexpand
           tooltipText={"Toggle Wi-Fi"}
         />
         <QuickSettingsToggleButton
@@ -69,6 +70,7 @@ export default function QuickSettingsMenu() {
           onClicked={toggleBluetooth}
           sensitive={canToggleBluetooth}
           iconOnly
+          hexpand
           tooltipText={"Toggle Bluetooth"}
         />
         <QuickSettingsToggleButton
@@ -77,6 +79,7 @@ export default function QuickSettingsMenu() {
           onClicked={toggleNightLight}
           sensitive={canToggleNightLight}
           iconOnly
+          hexpand
           tooltipText={"Toggle Night Light"}
         />
         <QuickSettingsToggleButton
@@ -85,6 +88,7 @@ export default function QuickSettingsMenu() {
           onClicked={toggleDarkMode}
           sensitive={canToggleDarkMode}
           iconOnly
+          hexpand
           tooltipText={"Toggle Dark Mode"}
         />
       </box>
