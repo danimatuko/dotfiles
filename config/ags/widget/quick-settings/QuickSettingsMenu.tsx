@@ -36,7 +36,11 @@ import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+const capitalize = (str: string) =>
+  str
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ")
 
 export default function QuickSettingsMenu() {
   return (
