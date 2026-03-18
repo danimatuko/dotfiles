@@ -22,7 +22,7 @@ is_valid_theme() {
 read_current_theme() {
 	if [[ -f "$cache_file" ]]; then
 		local saved
-		IFS= read -r saved < "$cache_file" || true
+		IFS= read -r saved <"$cache_file" || true
 
 		if is_valid_theme "$saved"; then
 			echo "$saved"
@@ -35,7 +35,7 @@ read_current_theme() {
 
 write_current_theme() {
 	mkdir -p "$cache_dir"
-	printf "%s\n" "$1" > "$cache_file"
+	printf "%s\n" "$1" >"$cache_file"
 }
 
 notify_ags() {
@@ -83,13 +83,13 @@ configure_browser_theme() {
 		cat "$HOME/dotfiles/themes/firefox/base-userChrome.css"
 		printf "\n"
 		cat "$theme_source"
-	} > "$chrome_dir/userChrome.css"
+	} >"$chrome_dir/userChrome.css"
 
 	touch "$user_js"
-	grep -q 'toolkit.legacyUserProfileCustomizations.stylesheets' "$user_js" || \
-		echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$user_js"
+	grep -q 'toolkit.legacyUserProfileCustomizations.stylesheets' "$user_js" ||
+		echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >>"$user_js"
 
-	notify-send -u normal -i applications-internet "Set Theme" "Floorp theme updated (restart Floorp to apply)"
+	# notify-send -u normal -i applications-internet "Set Theme" "Floorp theme updated (restart Floorp to apply)"
 }
 
 apply_external_theme() {
@@ -135,25 +135,25 @@ cycle_theme() {
 }
 
 case "${1:-current}" in
-	list)
-		list_themes
-		;;
-	current)
-		read_current_theme
-		;;
-	set)
-		if [[ $# -lt 2 ]]; then
-			echo "Usage: ags-theme set <theme>" >&2
-			exit 1
-		fi
-
-		set_theme "$2"
-		;;
-	cycle)
-		cycle_theme
-		;;
-	*)
-		echo "Usage: ags-theme {list|current|set <theme>|cycle}" >&2
+list)
+	list_themes
+	;;
+current)
+	read_current_theme
+	;;
+set)
+	if [[ $# -lt 2 ]]; then
+		echo "Usage: ags-theme set <theme>" >&2
 		exit 1
-		;;
+	fi
+
+	set_theme "$2"
+	;;
+cycle)
+	cycle_theme
+	;;
+*)
+	echo "Usage: ags-theme {list|current|set <theme>|cycle}" >&2
+	exit 1
+	;;
 esac
