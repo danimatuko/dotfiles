@@ -126,38 +126,6 @@ export default function QuickSettingsMenu() {
         </box>
       </box>
 
-      <box
-        class="quick-settings__sliders-group"
-        orientation={Gtk.Orientation.VERTICAL}
-        spacing={4}
-      >
-        <box
-          class="quick-settings__slider-card"
-          orientation={Gtk.Orientation.VERTICAL}
-          spacing={6}
-        >
-          <box class="quick-settings__slider-row" spacing={10}>
-            <box
-              class="quick-settings__slider-icon-box"
-              valign={Gtk.Align.CENTER}
-            >
-              <image
-                class="quick-settings__volume-icon"
-                iconName={getSpeakerIcon}
-              />
-            </box>
-            <slider
-              class="quick-settings__volume-slider"
-              cursor={pointerCursor}
-              hexpand
-              sensitive={canControlVolume}
-              value={getVolumeValue}
-              onValueChanged={(self) => setVolume(self.value)}
-            />
-          </box>
-        </box>
-      </box>
-
       <label class="quick-settings__section-label" label="Sound" xalign={0} />
 
       <box
