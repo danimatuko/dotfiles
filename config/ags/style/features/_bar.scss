@@ -165,10 +165,19 @@ window.Bar {
 
   .clock-menu__popover {
     @include control-reset;
+    background: transparent;
+
+    > arrow {
+      background: $bg-base;
+      border: none;
+    }
 
     > contents {
       @include control-reset;
       padding: 8px 0 0;
+      border: 1px solid $bg-surface-strong;
+      border-radius: $radius-lg;
+      background: $bg-base;
     }
   }
 

@@ -30,7 +30,7 @@ export default function Clock() {
   return (
     <menubutton class="clock-menu" cursor={pointerCursor}>
       <label label={time} />
-      <popover class="clock-menu__popover" hasArrow={false}>
+      <popover class="clock-menu__popover" hasArrow={true}>
         <box class="clock-menu__content" spacing={14}>
           <box class="clock-menu__calendar">
             <Gtk.Calendar />
