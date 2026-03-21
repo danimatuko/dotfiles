@@ -163,6 +163,12 @@ Guidance for agentic coding assistants operating in this dotfiles repository.
 - Treat installer/link scripts as potentially destructive: verify paths before changing move/link logic.
 - Do not run destructive git commands (`reset --hard`, force push) unless explicitly requested.
 
+## Commit Message Convention
+
+- Use `type:message` format for commit subjects.
+- Preferred types include `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, and `test`.
+- Do not use scope format like `type(scope):message` unless explicitly requested.
+
 ## Cursor and Copilot Rules
 
 - Checked for `.cursorrules`: not found.

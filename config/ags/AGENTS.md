@@ -183,6 +183,12 @@ npx vitest run path/to/file.test.ts -t "test name"
 - Do not edit large vendored/generated trees (for example `astal/`) unless explicitly asked.
 - Preserve existing style choices in touched files.
 
+## Commit Message Convention
+
+- Use `type:message` format for commit subjects.
+- Preferred types include `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, and `test`.
+- Do not use scope format like `type(scope):message` unless explicitly requested.
+
 ## Cursor and Copilot Rules
 
 Checked for agent-policy files and none were found:
