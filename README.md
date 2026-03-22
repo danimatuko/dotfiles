@@ -10,6 +10,7 @@ Personal dotfiles for an Arch Linux + Hyprland desktop.
 - Terminal: Ghostty and Kitty config
 - Utility config: Git, tmux, network/audio/bluetooth helpers
 - Runtime commands: `bin/` (linked to `~/.local/bin`)
+- Dynamic monitor management: HyprDynamicMonitors + systemd user units
 
 ## Repository Layout
 
@@ -43,6 +44,26 @@ What `install.sh` does:
 - Runs modular setup scripts from `setup/`
 - Links `bin/*` into `~/.local/bin`
 - Prompts before linking config files
+- After config linking, enables HyprDynamicMonitors user services (`hyprdynamicmonitors.service` and `hyprdynamicmonitors-prepare.service`)
+
+## Dynamic Monitor Setup (Hyprland)
+
+This repository uses HyprDynamicMonitors instead of Kanshi for monitor hotplug and lid-aware behavior.
+
+- Config lives in `config/hyprdynamicmonitors/`.
+- Hyprland sources `~/.config/hypr/monitors.conf`, which is rendered by HyprDynamicMonitors.
+- Systemd user units are stored in `config/systemd/user/` and linked to `~/.config/systemd/user/`.
+- Service setup script: `setup/hyprdynamicmonitors.sh`.
+- Service teardown script: `setup/hyprdynamicmonitors-uninstall.sh`.
+
+Monitor profiles currently cover:
+
+- Laptop-only (lid opened)
+- Docked on `DP-1`, `DP-3`, or `HDMI-A-1` with lid opened (dual screen)
+- Docked on `DP-1`, `DP-3`, or `HDMI-A-1` with lid closed (external-only)
+- Fallback profile for unmatched states
+
+For profile-level details and troubleshooting commands, see `config/hyprdynamicmonitors/README.md`.
 
 ## Useful Commands
 
@@ -52,6 +73,12 @@ bash ~/dotfiles/setup/link-bin.sh
 
 # Relink dotfiles/configs
 bash ~/dotfiles/setup/link-configs.sh
+
+# Enable/re-enable HyprDynamicMonitors user services
+bash ~/dotfiles/setup/hyprdynamicmonitors.sh
+
+# Disable HyprDynamicMonitors user services
+bash ~/dotfiles/setup/hyprdynamicmonitors-uninstall.sh
 
 # Preview uninstall actions (safe dry-run)
 bash ~/dotfiles/setup/uninstall.sh
