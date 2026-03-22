@@ -1,0 +1,15 @@
+[Unit]
+Description=HyprDynamicMonitors - Dynamic monitor configuration for Hyprland
+Documentation=https://hyprdynamicmonitors.filipmikina.com/docs/
+After=dbus.socket
+After=hyprdynamicmonitors-prepare.service
+Requires=dbus.socket
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/hyprdynamicmonitors run --enable-lid-events
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

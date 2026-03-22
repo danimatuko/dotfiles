@@ -62,6 +62,6 @@ yay -S --noconfirm --needed \
 	hyprshot \
 	satty \
 	hypridle \
-	kanshi
+	hyprdynamicmonitors-bin
 
 echo "✅ Terminal packages installed successfully!"

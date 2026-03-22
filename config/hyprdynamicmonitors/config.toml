@@ -1,0 +1,105 @@
+[general]
+destination = "$HOME/.config/hypr/monitors.conf"
+debounce_time_ms = 1000
+
+[notifications]
+disabled = true
+
+[profiles.laptop_open]
+config_file = "hyprconfigs/laptop-open.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "notify-send -a HyprDynamicMonitors -i computer-laptop 'Display profile' 'Laptop display active' -t 3000 && canberra-gtk-play -i power-unplug"
+
+[profiles.laptop_open.conditions]
+lid_state = "Opened"
+
+[[profiles.laptop_open.conditions.required_monitors]]
+name = "eDP-1"
+
+[profiles.docked_dp1_open]
+config_file = "hyprconfigs/docked-dp1-open.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "notify-send -a HyprDynamicMonitors -i video-display-symbolic 'Display profile' 'DP-1 + laptop active' -t 3000 && canberra-gtk-play -i power-plug"
+
+[profiles.docked_dp1_open.conditions]
+lid_state = "Opened"
+
+[[profiles.docked_dp1_open.conditions.required_monitors]]
+name = "eDP-1"
+
+[[profiles.docked_dp1_open.conditions.required_monitors]]
+name = "DP-1"
+
+[profiles.docked_dp1_closed]
+config_file = "hyprconfigs/docked-dp1-closed.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "for ws in 1 2 3 4 5 6 7 8 9 10; do hyprctl dispatch moveworkspacetomonitor \"$ws DP-1\"; done; notify-send -a HyprDynamicMonitors -i video-display-symbolic 'Display profile' 'DP-1 external-only (lid closed)' -t 3000 && canberra-gtk-play -i power-plug"
+
+[profiles.docked_dp1_closed.conditions]
+lid_state = "Closed"
+
+[[profiles.docked_dp1_closed.conditions.required_monitors]]
+name = "eDP-1"
+
+[[profiles.docked_dp1_closed.conditions.required_monitors]]
+name = "DP-1"
+
+[profiles.docked_dp3_open]
+config_file = "hyprconfigs/docked-dp3-open.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "notify-send -a HyprDynamicMonitors -i video-display-symbolic 'Display profile' 'DP-3 + laptop active' -t 3000 && canberra-gtk-play -i power-plug"
+
+[profiles.docked_dp3_open.conditions]
+lid_state = "Opened"
+
+[[profiles.docked_dp3_open.conditions.required_monitors]]
+name = "eDP-1"
+
+[[profiles.docked_dp3_open.conditions.required_monitors]]
+name = "DP-3"
+
+[profiles.docked_dp3_closed]
+config_file = "hyprconfigs/docked-dp3-closed.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "for ws in 1 2 3 4 5 6 7 8 9 10; do hyprctl dispatch moveworkspacetomonitor \"$ws DP-3\"; done; notify-send -a HyprDynamicMonitors -i video-display-symbolic 'Display profile' 'DP-3 external-only (lid closed)' -t 3000 && canberra-gtk-play -i power-plug"
+
+[profiles.docked_dp3_closed.conditions]
+lid_state = "Closed"
+
+[[profiles.docked_dp3_closed.conditions.required_monitors]]
+name = "eDP-1"
+
+[[profiles.docked_dp3_closed.conditions.required_monitors]]
+name = "DP-3"
+
+[profiles.docked_hdmi_open]
+config_file = "hyprconfigs/docked-hdmi-open.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "notify-send -a HyprDynamicMonitors -i video-display-symbolic 'Display profile' 'HDMI + laptop active' -t 3000 && canberra-gtk-play -i power-plug"
+
+[profiles.docked_hdmi_open.conditions]
+lid_state = "Opened"
+
+[[profiles.docked_hdmi_open.conditions.required_monitors]]
+name = "eDP-1"
+
+[[profiles.docked_hdmi_open.conditions.required_monitors]]
+name = "HDMI-A-1"
+
+[profiles.docked_hdmi_closed]
+config_file = "hyprconfigs/docked-hdmi-closed.go.tmpl"
+config_file_type = "template"
+post_apply_exec = "for ws in 1 2 3 4 5 6 7 8 9 10; do hyprctl dispatch moveworkspacetomonitor \"$ws HDMI-A-1\"; done; notify-send -a HyprDynamicMonitors -i video-display-symbolic 'Display profile' 'HDMI external-only (lid closed)' -t 3000 && canberra-gtk-play -i power-plug"
+
+[profiles.docked_hdmi_closed.conditions]
+lid_state = "Closed"
+
+[[profiles.docked_hdmi_closed.conditions.required_monitors]]
+name = "eDP-1"
+
+[[profiles.docked_hdmi_closed.conditions.required_monitors]]
+name = "HDMI-A-1"
+
+[fallback_profile]
+config_file = "hyprconfigs/fallback.go.tmpl"
+config_file_type = "template"
