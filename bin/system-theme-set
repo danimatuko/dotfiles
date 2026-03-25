@@ -110,7 +110,7 @@ if [ -d "$BG_DIR" ]; then
         BG_IMAGE="${BG_CANDIDATES[0]}"
 
         # Apply wallpaper with smooth transition
-        swww img "$BG_IMAGE" \
+        awww img "$BG_IMAGE" \
             --transition-type fade \
             --transition-duration 1 \
             --transition-fps 30

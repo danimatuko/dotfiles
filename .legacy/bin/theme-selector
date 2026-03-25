@@ -4,17 +4,17 @@
 # Hyprland Elegant Theme Switcher
 # --------------------------------
 # A script to switch wallpapers on Hyprland by selecting images using a
-# thumbnail-based Rofi menu. It applies the selected wallpaper with swww
+# thumbnail-based Rofi menu. It applies the selected wallpaper with awww
 # transitions and reloads apps that depend on the wallpaper/theme.
 #
 # Features:
 # - Auto-generates thumbnail previews for wallpapers
 # - Interactive Rofi menu with preview icons
-# - Sets wallpaper with smooth transitions via `swww`
+# - Sets wallpaper with smooth transitions via `awww`
 # - Optionally sources a reload script for apps (e.g. Waybar, GTK, etc.)
 #
 # Requirements:
-# - rofi, imagemagick (for `convert`), swww
+# - rofi, imagemagick (for `convert`), awww
 #
 # Author: Dani Matuko
 ###############################################################################
@@ -32,8 +32,8 @@ readonly RELOAD_WAYBAR_CMD="$HOME/.local/bin/reload-waybar"
 readonly RELOAD_SWAYNC_CMD="$HOME/.local/bin/reload-swaync"
 readonly ROFI_THEME="$CONFIG_DIR/wallpaper-selector.rasi"
 
-# swww transition parameters
-readonly SWWW_PARAMS="
+# awww transition parameters
+readonly AWWW_PARAMS="
 --transition-fps 60 \
 --transition-type random \
 --transition-duration 1 \
@@ -66,7 +66,7 @@ log_info() {
 
 # Ensure required programs are available
 ensure_dependencies() {
-	local deps=(rofi convert swww)
+	local deps=(rofi convert awww)
 	for cmd in "${deps[@]}"; do
 		command -v "$cmd" &>/dev/null || log_error "$cmd is required but not installed"
 	done
@@ -94,7 +94,7 @@ generate_thumbnail() {
 apply_theme() {
 	local wallpaper="$1"
 
-	swww img "$wallpaper" $SWWW_PARAMS # Set wallpaper with transition
+	awww img "$wallpaper" $AWWW_PARAMS # Set wallpaper with transition
 
 	sleep 0.5 # Brief delay to allow transition
 

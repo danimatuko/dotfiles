@@ -46,7 +46,7 @@ yay -S --noconfirm --needed \
 	wlogout \
 	swayosd \
 	impala \
-	swww \
+	awww \
 	zip \
 	libnotify \
 	nautilus \
