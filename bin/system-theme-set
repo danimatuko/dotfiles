@@ -65,6 +65,19 @@ if [ -f "$CURRENT_THEME/ghostty.conf" ]; then
     ln -sf "$CURRENT_THEME/ghostty.conf" "$HOME/.config/ghostty/themes/current"
 fi
 
+# Zellij terminal multiplexer
+if [ -f "$CURRENT_THEME/zellij" ]; then
+    echo "Configuring Zellij..."
+    ZELLIJ_THEME="$(cat "$CURRENT_THEME/zellij")"
+    ZELLIJ_CONFIG="$HOME/.config/zellij/config.kdl"
+
+    if [ -f "$ZELLIJ_CONFIG" ]; then
+        perl -0pi -e 's/theme\s+"[^"]+"/theme "'"$ZELLIJ_THEME"'"/' "$ZELLIJ_CONFIG"
+    else
+        echo "Warning: Zellij config not found at $ZELLIJ_CONFIG"
+    fi
+fi
+
 # SwayNC notifications
 if [ -f "$CURRENT_THEME/swaync.css" ]; then
     echo "Configuring notifications..."
