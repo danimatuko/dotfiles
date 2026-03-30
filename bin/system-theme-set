@@ -172,11 +172,21 @@ if pgrep swayosd-server &>/dev/null; then
     swayosd-server &
 fi
 
-# AstroVim (reload colorscheme in running instances)
+# AstroVim (reload colorscheme in running instance)
 if command -v nvim &>/dev/null; then
     ASTRO_THEME=$(cat "$HOME/.cache/current-theme/astrovim.txt")
-    nvim --remote-expr "execute('colorscheme ' .. '$ASTRO_THEME')" \
-        2>/dev/null || true
+    NVIM_THEME="$ASTRO_THEME"
+    NVIM_SOCKET="${NVIM_SOCKET:-/tmp/nvim.sock}"
+
+    # Keep this in sync with config/nvim/lua/utils/theme.lua aliases
+    case "$ASTRO_THEME" in
+        tokyonight) NVIM_THEME="tokyodark" ;;
+        gruvbox-light) NVIM_THEME="gruvbox" ;;
+        gruvbox) NVIM_THEME="gruvbox-baby" ;;
+    esac
+
+    nvim --server "$NVIM_SOCKET" --remote-send "<cmd>colorscheme $NVIM_THEME<CR>" \
+        >/dev/null 2>&1 || true
 fi
 
 
