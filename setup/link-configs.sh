@@ -32,6 +32,7 @@ backup_and_link "$CONFIG_DIR/.tmux.conf" "$HOME/.tmux.conf"
 
 # Config folders
 backup_and_link "$CONFIG_DIR/ags" "$HOME/.config/ags"
+backup_and_link "$CONFIG_DIR/fish" "$HOME/.config/fish"
 backup_and_link "$CONFIG_DIR/ghostty" "$HOME/.config/ghostty"
 backup_and_link "$CONFIG_DIR/hypr" "$HOME/.config/hypr"
 backup_and_link "$CONFIG_DIR/hyprdynamicmonitors" "$HOME/.config/hyprdynamicmonitors"

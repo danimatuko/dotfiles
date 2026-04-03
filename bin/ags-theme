@@ -60,38 +60,6 @@ reload_ags() {
 	echo "Warning: could not apply AGS theme live and ags-reload was not found" >&2
 }
 
-configure_browser_theme() {
-	local profile_dir=""
-	local chrome_dir=""
-	local user_js=""
-	local theme_source="$HOME/.cache/current-theme/firefox-userChrome.css"
-
-	[ -f "$theme_source" ] || return 0
-
-	for profile_dir in "$HOME/.floorp"/*.default*; do
-		[ -d "$profile_dir" ] && break
-	done
-
-	[ -d "$profile_dir" ] || return 0
-
-	chrome_dir="$profile_dir/chrome"
-	user_js="$profile_dir/user.js"
-
-	mkdir -p "$chrome_dir"
-
-	{
-		cat "$HOME/dotfiles/themes/firefox/base-userChrome.css"
-		printf "\n"
-		cat "$theme_source"
-	} >"$chrome_dir/userChrome.css"
-
-	touch "$user_js"
-	grep -q 'toolkit.legacyUserProfileCustomizations.stylesheets' "$user_js" ||
-		echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >>"$user_js"
-
-	# notify-send -u normal -i applications-internet "Set Theme" "Floorp theme updated (restart Floorp to apply)"
-}
-
 apply_external_theme() {
 	if [[ ! -x "$HOME/.local/bin/system-theme-set" ]]; then
 		echo "Warning: $HOME/.local/bin/system-theme-set not found, only AGS theme updated" >&2
@@ -110,7 +78,6 @@ set_theme() {
 
 	write_current_theme "$1"
 	apply_external_theme "$1"
-	configure_browser_theme "$1"
 	reload_ags "$1"
 	echo "$1"
 }

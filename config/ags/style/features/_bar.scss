@@ -30,7 +30,7 @@ window.Bar {
   .status-indicator {
     image {
       @include icon-size($icon-size-sm);
-      color: $control-color-bright;
+      // color: $control-color-bright;
     }
   }
 

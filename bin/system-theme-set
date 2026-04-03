@@ -31,6 +31,126 @@ sleep 0.1  # Let symlink settle
 # CONFIGURE APPLICATIONS
 # ============================================================================
 
+configure_floorp_theme() {
+    local profile_root="$HOME/.floorp"
+    local profiles_ini="$profile_root/profiles.ini"
+    local profile_dir=""
+    local install_default=""
+    local mapping_file="$CURRENT_THEME/firefox-addon-theme-id"
+    local addon_id=""
+    local extensions_json=""
+    local user_js=""
+    local prefs_js=""
+
+    [ -d "$profile_root" ] || return 0
+
+    if [[ ! -f "$mapping_file" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "No Floorp add-on mapping for '$THEME'"
+        return 0
+    fi
+
+    IFS= read -r addon_id <"$mapping_file" || true
+    addon_id="${addon_id//$'\r'/}"
+    addon_id="${addon_id#"${addon_id%%[![:space:]]*}"}"
+    addon_id="${addon_id%"${addon_id##*[![:space:]]}"}"
+
+    if [[ -z "$addon_id" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Invalid Floorp theme ID in $mapping_file"
+        return 0
+    fi
+
+    if [[ -f "$profiles_ini" ]]; then
+        # Find the active profile (Default=1) - this is what Floorp actually launches
+        local active_path=""
+        active_path=$(awk -F= '
+            /^\[Profile/ { in_profile = 1; cur = ""; found = 0; next }
+            /^\[/ && !/^\[Profile/ { in_profile = 0 }
+            in_profile && $1 == "Path" { cur = $2 }
+            in_profile && $1 == "Default" && $2 == "1" { found = 1 }
+            in_profile && found && cur != "" { print cur; exit }
+        ' "$profiles_ini")
+
+        if [[ -n "$active_path" && -d "$profile_root/$active_path" ]]; then
+            profile_dir="$profile_root/$active_path"
+        fi
+
+        # Fallback to Install section default
+        if [[ -z "$profile_dir" ]]; then
+            install_default=$(awk -F= '
+                /^\[Install/ { in_install = 1; next }
+                /^\[/ && !/^\[Install/ { in_install = 0 }
+                in_install && $1 == "Default" { print $2; exit }
+            ' "$profiles_ini")
+
+            if [[ -n "$install_default" && -d "$profile_root/$install_default" ]]; then
+                profile_dir="$profile_root/$install_default"
+            fi
+        fi
+    fi
+
+    if [[ -z "$profile_dir" ]]; then
+        for candidate in "$profile_root"/*.default*; do
+            if [[ -d "$candidate" ]]; then
+                profile_dir="$candidate"
+                break
+            fi
+        done
+    fi
+
+    if [[ -z "$profile_dir" || ! -d "$profile_dir" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Could not find a Floorp profile to configure"
+        return 0
+    fi
+
+    extensions_json="$profile_dir/extensions.json"
+    user_js="$profile_dir/user.js"
+    prefs_js="$profile_dir/prefs.js"
+
+    if [[ ! -f "$extensions_json" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Floorp profile metadata not found: $extensions_json"
+        return 0
+    fi
+
+    if ! grep -Fq "\"id\":\"$addon_id\"" "$extensions_json"; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Floorp theme not installed for '$THEME'"
+        return 0
+    fi
+
+    mkdir -p "$profile_dir/chrome"
+    if [[ -f "$profile_dir/chrome/userChrome.css" ]]; then
+        mv "$profile_dir/chrome/userChrome.css" "$profile_dir/chrome/userChrome.css.disabled"
+    fi
+    if [[ -f "$profile_dir/chrome/base-userChrome.css" ]]; then
+        mv "$profile_dir/chrome/base-userChrome.css" "$profile_dir/chrome/base-userChrome.css.disabled"
+    fi
+    if [[ -f "$profile_root/chrome/userChrome.css" ]]; then
+        mv "$profile_root/chrome/userChrome.css" "$profile_root/chrome/userChrome.css.disabled"
+    fi
+
+    touch "$user_js"
+    if grep -q '^user_pref("extensions.activeThemeID",' "$user_js"; then
+        sed -i -E "s#^user_pref\\(\"extensions\\.activeThemeID\",.*#user_pref(\"extensions.activeThemeID\", \"$addon_id\");#" "$user_js"
+    else
+        echo "user_pref(\"extensions.activeThemeID\", \"$addon_id\");" >>"$user_js"
+    fi
+
+    if [[ -f "$prefs_js" ]] && ! pgrep -x floorp >/dev/null 2>&1; then
+        if grep -q '^user_pref("extensions.activeThemeID",' "$prefs_js"; then
+            sed -i -E "s#^user_pref\\(\"extensions\\.activeThemeID\",.*#user_pref(\"extensions.activeThemeID\", \"$addon_id\");#" "$prefs_js"
+        else
+            echo "user_pref(\"extensions.activeThemeID\", \"$addon_id\");" >>"$prefs_js"
+        fi
+    fi
+
+    if pgrep -x floorp >/dev/null 2>&1; then
+        echo "Floorp is running. Quit all Floorp windows, then reopen to apply browser theme."
+        notify-send -u normal -i applications-internet "Set Theme" "Floorp theme queued for '$THEME'. Quit all Floorp windows, then reopen."
+    else
+        echo "Floorp add-on theme applied: $THEME"
+        notify-send -u normal -i applications-internet "Set Theme" "Floorp add-on theme set to '$THEME'"
+    fi
+}
+
 # Rofi colors
 if [ -f "$CURRENT_THEME/rofi.rasi" ]; then
     echo "Configuring Rofi..."
@@ -94,6 +214,10 @@ mkdir -p "$HOME/.cache/current-theme"
 
 # Write the selected theme name into AstroVim theme cache
 echo "$THEME" > "$ASTROVIM_THEME_FILE"
+
+# Floorp browser theme (Firefox add-on themes)
+echo "Configuring Floorp..."
+configure_floorp_theme
 
 
 # ============================================================================
@@ -176,7 +300,6 @@ fi
 if command -v nvim &>/dev/null; then
     ASTRO_THEME=$(cat "$HOME/.cache/current-theme/astrovim.txt")
     NVIM_THEME="$ASTRO_THEME"
-    NVIM_SOCKET="${NVIM_SOCKET:-/tmp/nvim.sock}"
 
     # Keep this in sync with config/nvim/lua/utils/theme.lua aliases
     case "$ASTRO_THEME" in
@@ -185,8 +308,17 @@ if command -v nvim &>/dev/null; then
         gruvbox) NVIM_THEME="gruvbox-baby" ;;
     esac
 
-    nvim --server "$NVIM_SOCKET" --remote-send "<cmd>colorscheme $NVIM_THEME<CR>" \
-        >/dev/null 2>&1 || true
+    shopt -s nullglob
+    # Broadcast the colorscheme change to every live user nvim socket.
+    # This keeps all open instances in sync with the selected system theme.
+    NVIM_SOCKETS=(/tmp/nvim-"$USER"*.sock)
+    shopt -u nullglob
+
+    for socket in "${NVIM_SOCKETS[@]}"; do
+        [ -S "$socket" ] || continue
+        nvim --server "$socket" --remote-send "<cmd>colorscheme $NVIM_THEME<CR>" \
+            >/dev/null 2>&1 || true
+    done
 fi
 
 
