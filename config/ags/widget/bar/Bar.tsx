@@ -26,7 +26,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         {/* LEFT */}
         <box class="bar__start" $type="start" halign={Gtk.Align.START}>
           <OsIcon />
-          <Workspaces />
         </box>
 
         {/* CENTER */}
@@ -37,6 +36,8 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           halign={Gtk.Align.CENTER}
         >
           <Clock />
+          <label class="bar__separator" label="•" />
+          <Workspaces />
         </box>
 
         {/* RIGHT */}

@@ -43,7 +43,7 @@ export default function Workspaces() {
             })}
             onClicked={() => hyprland.dispatch("workspace", `${ws.id}`)}
           >
-            <box class="workspaces__tile" />
+            <label class="workspaces__number" label={`${ws.id}`} />
           </button>
         )}
       </For>

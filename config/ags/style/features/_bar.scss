@@ -22,6 +22,14 @@ window.Bar {
     padding: 0 2px;
   }
 
+  .bar__separator {
+    margin: 0 10px;
+    color: color-mix(in srgb, #{$control-color-bright} 78%, transparent 22%);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
   button {
     border-radius: $radius-sm;
     margin: 2px;

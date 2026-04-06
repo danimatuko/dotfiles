@@ -2,6 +2,11 @@
 
 .workspaces {
   color: $color-on-surface;
+  padding: 0 4px;
+  margin: 2px 0;
+  border-radius: $radius-pill;
+  background: color-mix(in srgb, #{$bg-surface-strong} 72%, transparent 28%);
+  border: 1px solid color-mix(in srgb, #{$color-outline} 55%, transparent 45%);
 
   &__mic-access {
     color: $color-warning;
@@ -12,43 +17,53 @@
     margin-bottom: 2px;
   }
 
-  &__item {
+  .workspaces__item {
     @include control-reset;
-    min-width: 14px;
-    border-radius: 0;
-    padding: 0 1px;
+    min-width: 24px;
+    border-radius: 999px;
+    padding: 0 4px;
+    margin: 2px 1px;
+    min-height: 22px;
+    color: $control-text;
+    transition:
+      background-color 180ms ease-out,
+      color 180ms ease-out;
 
-    .workspaces__tile {
-      min-width: 8px;
-      min-height: 10px;
-      transition:
-        min-width 220ms $motion-emphasized,
-        background-color 180ms ease-out,
-        opacity 180ms ease-out;
-      margin: 10px 0;
-      background-color: $control-color;
-      border-radius: $radius-pill;
-      opacity: 0.78;
+    .workspaces__number {
+      font-family:
+        "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+        "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      min-width: 1.2em;
+      text-align: center;
     }
 
-    &--filled .workspaces__tile {
-      min-width: 20px;
-      background-color: $control-color-bright;
-      opacity: 0.9;
+    &--filled {
+      color: $control-color-bright;
     }
 
-    &:hover .workspaces__tile {
+    &:hover {
       background-color: $accent-hover;
+      color: $color-on-surface;
     }
 
-    &--active .workspaces__tile {
-      background-color: $accent-color;
-      min-width: 40px;
-      opacity: 1;
+    &--active {
+      background: color-mix(in srgb, #{$accent-color} 22%, #{$bg-surface} 78%);
+      color: $color-on-surface;
+      box-shadow: inset 0 0 0 1px
+        color-mix(in srgb, #{$accent-color} 38%, transparent 62%);
     }
 
-    &--urgent .workspaces__tile {
-      background-color: $color-danger;
+    &--urgent {
+      color: $color-danger;
+    }
+
+    &--active.workspaces__item--urgent {
+      background: color-mix(in srgb, #{$color-danger} 24%, #{$bg-surface} 76%);
+      color: $color-on-surface;
+      box-shadow: inset 0 0 0 1px
+        color-mix(in srgb, #{$color-danger} 48%, transparent 52%);
     }
   }
 }
