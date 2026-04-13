@@ -1,13 +1,17 @@
 #!/bin/bash
 
-ags quit >/dev/null 2>&1 || true
+set -euo pipefail
+
+app_entry="${XDG_CONFIG_HOME:-$HOME/.config}/ags/app.ts"
+timeout 2s ags quit >/dev/null 2>&1 || true
 sleep 0.5
 
-ags run >/dev/null 2>&1 &
+ags run "$app_entry" >/dev/null 2>&1 &
 sleep 0.65
 
-# Verify AGS is running before sending notification
-case "$(ags list 2>/dev/null)" in
+list_output="$(timeout 2s ags list 2>/dev/null || true)"
+
+case "$list_output" in
 *ags*)
 	notify-send --icon=view-refresh --app-name=AGS "AGS" "Reload complete"
 	canberra-gtk-play -i message >/dev/null 2>&1 &

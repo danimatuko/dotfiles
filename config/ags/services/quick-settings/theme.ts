@@ -1,7 +1,11 @@
 import GLib from "gi://GLib"
 import { execAsync } from "ags/process"
-import { createState } from "gnim"
-import { themeNames, type ThemeName } from "../theme"
+import {
+  currentTheme,
+  setTheme as setAgsTheme,
+  themeNames,
+  type ThemeName,
+} from "../theme"
 
 const themeCommand = `${GLib.get_home_dir()}/.local/bin/ags-theme`
 
@@ -16,24 +20,9 @@ export const themeColors: Record<ThemeName, string[]> = {
   tokyonight: ["#7AA2F7", "#BB9AF7", "#7DCFFF", "#9ECE6A"],
 }
 
-const isThemeName = (value: string): value is ThemeName => {
-  return themeNames.includes(value as ThemeName)
-}
-
-const [currentTheme, setCurrentTheme] = createState<ThemeName>("catppuccin")
-
-execAsync([themeCommand, "current"])
-  .then((theme: string) => {
-    const trimmed = theme.trim()
-    if (isThemeName(trimmed)) {
-      setCurrentTheme(trimmed)
-    }
-  })
-  .catch(() => {})
-
 export const getCurrentTheme = currentTheme
 
 export const setTheme = (theme: ThemeName) => {
-  setCurrentTheme(theme)
+  setAgsTheme(theme)
   execAsync([themeCommand, "set", theme]).catch(() => {})
 }

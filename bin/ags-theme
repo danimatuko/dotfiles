@@ -43,6 +43,11 @@ notify_ags() {
 		return 1
 	fi
 
+	if command -v timeout >/dev/null 2>&1; then
+		timeout 2s ags request theme-set "$1" >/dev/null 2>&1
+		return $?
+	fi
+
 	ags request theme-set "$1" >/dev/null 2>&1
 }
 
@@ -53,7 +58,11 @@ reload_ags() {
 
 	if [[ -x "$HOME/.local/bin/ags-reload" ]]; then
 		echo "Warning: AGS request failed, falling back to ags-reload" >&2
-		"$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
+		if command -v timeout >/dev/null 2>&1; then
+			timeout 8s "$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
+		else
+			"$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
+		fi
 		return
 	fi
 
@@ -66,7 +75,9 @@ apply_external_theme() {
 		return
 	fi
 
-	"$HOME/.local/bin/system-theme-set" "$1"
+	if ! "$HOME/.local/bin/system-theme-set" "$1"; then
+		echo "Warning: system-theme-set failed, AGS theme was still updated" >&2
+	fi
 }
 
 set_theme() {
