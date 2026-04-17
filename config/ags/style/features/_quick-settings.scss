@@ -206,16 +206,68 @@ window.Sidebar {
       min-width: 18px;
     }
   }
+}
 
-  &__themes-section {
-    margin-top: 4px;
-    padding: 0;
-    border-radius: $radius-sm;
-    background: transparent;
+window.ThemeSwitcherBackdrop {
+  background: transparent;
+
+  .theme-switcher-backdrop {
+    @include control-reset;
+    background: rgba(black, 0.22);
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: rgba(black, 0.26);
+    }
+  }
+}
+
+window.ThemeSwitcher {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
+
+  .theme-switcher__shell {
+    min-width: 300px;
+    border-radius: $radius-md;
+    background: color-mix(in srgb, #{$bg-base} 97%, transparent 3%);
+    border: 1px solid $bg-surface-strong;
+    padding: 8px;
+  }
+}
+
+.theme-switcher {
+  &__header {
+    @include control-reset;
+    padding: 4px;
+    margin-bottom: 2px;
   }
 
-  &__themes-grid {
-    padding: 0;
+  &__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: $color-emphasis;
+  }
+
+  &__action {
+    @include control-reset;
+    padding: 6px;
+    border-radius: $radius-sm;
+    background: $bg-surface;
+    color: $control-color-bright;
+    transition: background 160ms ease-out;
+
+    &:hover {
+      background: $accent-hover;
+      color: $accent-text;
+    }
+
+    image {
+      @include icon-size(14px);
+    }
   }
 
   &__theme-button {
@@ -246,7 +298,7 @@ window.Sidebar {
         color: $color-surface;
       }
 
-      .quick-settings__theme-swatch {
+      .theme-switcher__theme-swatch {
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
     }

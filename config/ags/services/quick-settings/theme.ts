@@ -26,3 +26,7 @@ export const setTheme = (theme: ThemeName) => {
   setAgsTheme(theme)
   execAsync([themeCommand, "set", theme]).catch(() => {})
 }
+
+export const cycleTheme = () => {
+  execAsync([themeCommand, "cycle"]).catch(() => {})
+}

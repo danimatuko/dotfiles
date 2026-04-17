@@ -6,6 +6,7 @@ import Osd from "./widget/Osd"
 import SidebarBackdrop from "./widget/quick-settings/SidebarBackdrop"
 import Sidebar from "./widget/quick-settings/Sidebar"
 import { toggleSidebar } from "./services/sidebar"
+import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
 import { currentTheme, setThemeByName, themeNames } from "./services/theme"
 
 app.start({
@@ -46,6 +47,7 @@ app.start({
     monitors.map(Bar)
     monitors.map(SidebarBackdrop)
     monitors.map(Sidebar)
+    monitors.map(ThemeSwitcher)
     monitors.map(Notifications)
     monitors.map(Osd)
   },
