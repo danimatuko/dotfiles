@@ -3,7 +3,6 @@
 set -euo pipefail
 
 wall_dirs=(
-  "$HOME/Pictures/wallpapers"
   "$HOME/Pictures/Wallpapers"
 )
 

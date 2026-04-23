@@ -224,8 +224,8 @@ configure_floorp_theme
 # SET WALLPAPER
 # ============================================================================
 
-WALLPAPER_ROOT="${WALLPAPER_DIR:-$HOME/Pictures/wallpapers}"
-BG_DIR="$WALLPAPER_ROOT/$THEME"
+WALLPAPERS_DIR="${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}"
+BG_DIR="$WALLPAPERS_DIR/$THEME"
 if [ -d "$BG_DIR" ]; then
     echo "Setting wallpaper..."
 
