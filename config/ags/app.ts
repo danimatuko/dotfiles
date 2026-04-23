@@ -6,6 +6,7 @@ import Osd from "./widget/Osd"
 import SidebarBackdrop from "./widget/quick-settings/SidebarBackdrop"
 import Sidebar from "./widget/quick-settings/Sidebar"
 import { toggleSidebar } from "./services/sidebar"
+import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
 import { currentTheme, setThemeByName, themeNames } from "./services/theme"
 
@@ -13,6 +14,12 @@ app.start({
   requestHandler(argv, response) {
     if (argv[0] === "toggle-sidebar") {
       toggleSidebar()
+      response("ok")
+      return
+    }
+
+    if (argv[0] === "toggle-theme-menu") {
+      toggleThemeMenu()
       response("ok")
       return
     }

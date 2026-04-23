@@ -23,12 +23,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={app}
     >
       <centerbox cssName="centerbox">
-        {/* LEFT */}
         <box class="bar__start" $type="start" halign={Gtk.Align.START}>
           <OsIcon />
         </box>
 
-        {/* CENTER */}
         <box
           class="bar__center"
           $type="center"
@@ -40,7 +38,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Workspaces />
         </box>
 
-        {/* RIGHT */}
         <box class="bar__end" $type="end" halign={Gtk.Align.END}>
           <box class="system-tray" tooltipText="System Tray">
             <box class="system-tray__container">
