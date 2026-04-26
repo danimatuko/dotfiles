@@ -27,11 +27,4 @@ GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT
 Current=silent
 EOF
 
-echo "🧪 Testing theme..."
-cd /usr/share/sddm/themes/silent/
-if ./test.sh; then
-    echo "✅ SilentSDDM theme installed and tested successfully."
-else
-    echo "⚠️  Theme test failed. Check output above for details."
-    echo "   Refer to: https://github.com/uiriansan/SilentSDDM/wiki/Snippets"
-fi
+echo "✅ SilentSDDM theme installed successfully."

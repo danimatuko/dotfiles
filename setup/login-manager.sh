@@ -10,5 +10,4 @@ sudo systemctl enable sddm.service
 sudo systemctl set-default graphical.target
 
 echo "✅ SDDM installation complete."
-echo "👉 Reboot to start using SDDM."
-
+echo "ℹ️  SDDM is enabled and will be used on next boot. Continuing installation..."
