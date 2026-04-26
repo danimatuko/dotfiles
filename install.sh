@@ -2,6 +2,9 @@
 
 set -e
 
+STAGE_INDEX=0
+STAGE_TOTAL=10
+
 confirm_prompt() {
 	local message="$1"
 	if command -v gum &>/dev/null; then
@@ -13,12 +16,32 @@ confirm_prompt() {
 }
 
 stage() {
+	local title="$1"
+	local detail="$2"
+	STAGE_INDEX=$((STAGE_INDEX + 1))
+	local label progress
+	label=$(printf '%02d' "$STAGE_INDEX")
+	progress="$label/$STAGE_TOTAL"
+
 	if command -v gum &>/dev/null; then
-		gum style --padding "0 2" --border double --border-foreground 212 "$1"
+		printf '\n'
+		gum style --foreground 240 "$progress"
+		gum style --foreground 212 --bold "$title"
+		if [ -n "$detail" ]; then
+			gum style --margin "0 0 1 0" --foreground 245 "$detail"
+		else
+			printf '\n'
+		fi
+		gum style --foreground 240 "────────────────────────────────────────────────────────────"
 		return
 	fi
 
-	printf '\n=== %s ===\n' "$1"
+	printf '\n%s\n' "$progress"
+	printf '%s\n' "$title"
+	if [ -n "$detail" ]; then
+		printf '%s\n' "$detail"
+	fi
+	printf '%s\n' "------------------------------------------------------------"
 }
 
 confirm_prompt "Start dotfiles installation now?" || {
@@ -49,46 +72,46 @@ fi' ERR
 
 echo "🔧 Starting modular install scripts..."
 
-stage "Bootstrap AUR Tools"
+stage "Bootstrap" "AUR helper and installer prerequisites"
 source ~/dotfiles/setup/preinstall.sh
 
-stage "Local Assets"
+stage "Local Assets" "Prepare machine-specific files and local state"
 source ~/dotfiles/setup/init-local.sh
 
-stage "Login Manager"
+stage "Display Manager" "Install and configure the graphical login stack"
 source ~/dotfiles/setup/login-manager.sh
 source ~/dotfiles/setup/sddm.sh
 
-stage "Network Setup"
+stage "Networking" "Install and configure network tooling"
 source ~/dotfiles/setup/network.sh
 
-stage "Bluetooth Setup"
+stage "Bluetooth" "Install desktop Bluetooth support"
 source ~/dotfiles/setup/bluetooth.sh
 # source ~/dotfiles/setup/fonts.sh # temporarily disabled
 
-stage "Icon Theme"
+stage "Theming" "Install shared icon and desktop theme assets"
 source ~/dotfiles/setup/icons.sh
 
-stage "Hyprland Desktop"
+stage "Desktop" "Install the Hyprland compositor and portal stack"
 source ~/dotfiles/setup/desktop.sh
 
-stage "AGS Shell"
+stage "Shell UI" "Install AGS runtime dependencies and app packages"
 source ~/dotfiles/setup/ags.sh
 
-stage "Default Shell"
+stage "User Shell" "Configure the default interactive shell"
 source ~/dotfiles/setup/shell.sh
 
-stage "Terminal Tools"
+stage "CLI Tools" "Install terminal utilities and editor setup"
 source ~/dotfiles/setup/starship.sh
 source ~/dotfiles/setup/astrovim.sh
 source ~/dotfiles/setup/terminal.sh
 
-stage "Command Links"
+stage "Command Links" "Link dotfiles bin commands into ~/.local/bin"
 source ~/dotfiles/setup/link-bin.sh
 
 echo -e "\n📝 Setup complete."
 if confirm_prompt "Link your shell/config files to ~/dotfiles now?"; then
-	stage "Config Links"
+	stage "Config Links" "Link managed configs into your home directory"
 	source ~/dotfiles/setup/link-configs.sh
 	# source ~/dotfiles/setup/hyprdynamicmonitors.sh
 else
