@@ -43,6 +43,7 @@ echo "🔧 Starting modular install scripts..."
 source ~/dotfiles/setup/preinstall.sh
 source ~/dotfiles/setup/init-local.sh
 source ~/dotfiles/setup/login-manager.sh
+source ~/dotfiles/setup/sddm.sh
 source ~/dotfiles/setup/network.sh
 source ~/dotfiles/setup/bluetooth.sh
 # source ~/dotfiles/setup/fonts.sh # temporarily disabled
