@@ -64,7 +64,14 @@ if ! fc-list | grep -qi "GeistMono Nerd Font"; then
 	cd /tmp
 	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/GeistMono.zip
 	unzip GeistMono.zip -d GeistMonoFont
-	cp GeistMonoFont/*.ttf ~/.local/share/fonts/
+	shopt -s nullglob
+	geist_fonts=(GeistMonoFont/*.ttf GeistMonoFont/*.otf)
+	if (( ${#geist_fonts[@]} > 0 )); then
+		cp "${geist_fonts[@]}" ~/.local/share/fonts/
+	else
+		echo "⚠️  No GeistMono font files found in archive. Skipping copy."
+	fi
+	shopt -u nullglob
 	rm -rf GeistMono.zip GeistMonoFont
 	fc-cache
 	cd -
