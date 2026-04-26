@@ -7,6 +7,7 @@ yay -S --noconfirm --needed \
 	git \
 	eza \
 	fd \
+	opencode \
 	fzf \
 	ripgrep \
 	bat \
