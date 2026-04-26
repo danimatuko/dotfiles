@@ -12,6 +12,15 @@ confirm_prompt() {
 	fi
 }
 
+stage() {
+	if command -v gum &>/dev/null; then
+		gum style --padding "0 2" --border double --border-foreground 212 "$1"
+		return
+	fi
+
+	printf '\n=== %s ===\n' "$1"
+}
+
 confirm_prompt "Start dotfiles installation now?" || {
 	echo "⏩ Installation cancelled."
 	exit 0
@@ -40,24 +49,46 @@ fi' ERR
 
 echo "🔧 Starting modular install scripts..."
 
+stage "Bootstrap AUR Tools"
 source ~/dotfiles/setup/preinstall.sh
+
+stage "Local Assets"
 source ~/dotfiles/setup/init-local.sh
+
+stage "Login Manager"
 source ~/dotfiles/setup/login-manager.sh
 source ~/dotfiles/setup/sddm.sh
+
+stage "Network Setup"
 source ~/dotfiles/setup/network.sh
+
+stage "Bluetooth Setup"
 source ~/dotfiles/setup/bluetooth.sh
 # source ~/dotfiles/setup/fonts.sh # temporarily disabled
+
+stage "Icon Theme"
 source ~/dotfiles/setup/icons.sh
+
+stage "Hyprland Desktop"
 source ~/dotfiles/setup/desktop.sh
+
+stage "AGS Shell"
 source ~/dotfiles/setup/ags.sh
+
+stage "Default Shell"
 source ~/dotfiles/setup/shell.sh
+
+stage "Terminal Tools"
 source ~/dotfiles/setup/starship.sh
 source ~/dotfiles/setup/astrovim.sh
 source ~/dotfiles/setup/terminal.sh
+
+stage "Command Links"
 source ~/dotfiles/setup/link-bin.sh
 
 echo -e "\n📝 Setup complete."
 if confirm_prompt "Link your shell/config files to ~/dotfiles now?"; then
+	stage "Config Links"
 	source ~/dotfiles/setup/link-configs.sh
 	# source ~/dotfiles/setup/hyprdynamicmonitors.sh
 else
