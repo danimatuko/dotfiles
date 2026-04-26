@@ -5,7 +5,6 @@ echo "📦 Installing CLI & Hyprland tools via yay..."
 
 yay -S --noconfirm --needed \
 	git \
-	fish \
 	eza \
 	fd \
 	fzf \
@@ -13,6 +12,7 @@ yay -S --noconfirm --needed \
 	bat \
 	zoxide \
 	tmux \
+	zellij \
 	vim \
 	nvim \
 	lazygit \
