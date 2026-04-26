@@ -57,7 +57,7 @@ source ~/dotfiles/setup/link-bin.sh
 echo -e "\n📝 Setup complete."
 if confirm_prompt "Link your shell/config files to ~/dotfiles now?"; then
 	source ~/dotfiles/setup/link-configs.sh
-	source ~/dotfiles/setup/hyprdynamicmonitors.sh
+	# source ~/dotfiles/setup/hyprdynamicmonitors.sh
 else
 	echo "⏩ Skipped config sync (your current files stay the same)."
 	echo "ℹ️  HyprDynamicMonitors service setup skipped until configs are linked."
