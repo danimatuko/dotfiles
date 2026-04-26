@@ -1,10 +1,11 @@
 #!/bin/bash
 set -e
 
-echo "📦 Installing desktop apps via yay..."
+echo "📦 Installing compositor and portal stack via yay..."
 
 yay -S --noconfirm --needed \
-  discord
+  hyprland \
+  xdg-desktop-portal-hyprland \
+  xdg-desktop-portal-gtk
 
-echo "✅ Desktop apps installed successfully!"
-
+echo "✅ Desktop stack installed successfully!"

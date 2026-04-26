@@ -48,10 +48,11 @@ source ~/dotfiles/setup/network.sh
 source ~/dotfiles/setup/bluetooth.sh
 # source ~/dotfiles/setup/fonts.sh # temporarily disabled
 source ~/dotfiles/setup/icons.sh
+source ~/dotfiles/setup/desktop.sh
+source ~/dotfiles/setup/ags.sh
 source ~/dotfiles/setup/starship.sh
 source ~/dotfiles/setup/astrovim.sh
 source ~/dotfiles/setup/terminal.sh
-source ~/dotfiles/setup/desktop.sh
 source ~/dotfiles/setup/link-bin.sh
 
 echo -e "\n📝 Setup complete."
