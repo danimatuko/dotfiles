@@ -25,14 +25,14 @@ stage() {
 
 	if command -v gum &>/dev/null; then
 		printf '\n'
-		gum style --foreground 240 "$progress"
-		gum style --foreground 212 --bold "$title"
+		gum style --foreground 240 -- "$progress"
+		gum style --foreground 212 --bold -- "$title"
 		if [ -n "$detail" ]; then
-			gum style --margin "0 0 1 0" --foreground 245 "$detail"
+			gum style --margin "0 0 1 0" --foreground 245 -- "$detail"
 		else
 			printf '\n'
 		fi
-		gum style --foreground 240 "------------------------------------------------------------"
+		gum style --foreground 240 -- "------------------------------------------------------------"
 		return
 	fi
 
