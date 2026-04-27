@@ -2,7 +2,7 @@
 
 set -e
 
-echo "📦 Installing AGS runtime dependencies..."
+echo "[INFO] Installing AGS runtime dependencies..."
 
 packages=(libastal-meta nodejs npm)
 
@@ -15,4 +15,4 @@ yay -S --noconfirm --needed "${packages[@]}"
 cd "$HOME/dotfiles/config/ags"
 npm ci
 
-echo "✅ AGS dependencies installed successfully!"
+echo "[OK] AGS dependencies installed successfully."

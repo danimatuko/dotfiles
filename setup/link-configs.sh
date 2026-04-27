@@ -6,7 +6,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 CONFIG_DIR="$DOTFILES_DIR/config"
 BACKUP_DIR="$HOME/dotfiles_backup_$(date +"%Y-%m-%d_%H-%M-%S")"
 
-echo "📦 Creating backup directory: $BACKUP_DIR"
+echo "[INFO] Creating backup directory: $BACKUP_DIR"
 mkdir -p "$BACKUP_DIR"
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/systemd/user"
@@ -16,11 +16,11 @@ backup_and_link() {
 	local dest=$2
 
 	if [ -e "$dest" ] || [ -L "$dest" ]; then
-		echo "📁 Backing up $dest → $BACKUP_DIR"
+		echo "[INFO] Backing up $dest to $BACKUP_DIR"
 		mv "$dest" "$BACKUP_DIR/"
 	fi
 
-	echo "🔗 Linking $src → $dest"
+	echo "[INFO] Linking $src to $dest"
 	ln -sf "$src" "$dest"
 }
 
@@ -50,5 +50,5 @@ backup_and_link "$CONFIG_DIR/systemd/user/hyprdynamicmonitors.service" "$HOME/.c
 backup_and_link "$CONFIG_DIR/systemd/user/hyprdynamicmonitors-prepare.service" "$HOME/.config/systemd/user/hyprdynamicmonitors-prepare.service"
 
 echo ""
-echo "✅ All specified files and configs linked!"
-echo "📂 Backups are in $BACKUP_DIR"
+echo "[OK] All specified files and configs linked."
+echo "[INFO] Backups are in $BACKUP_DIR"

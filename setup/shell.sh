@@ -2,11 +2,11 @@
 
 set -e
 
-echo "🐟 Installing fish shell..."
+echo "[INFO] Installing fish shell..."
 
 yay -S --noconfirm --needed fish
 
-echo "🔧 Setting default shell to fish..."
+echo "[INFO] Setting default shell to fish..."
 sudo usermod --shell "$(command -v fish)" "$USER"
 
-echo "✅ Fish shell installed and set as default."
+echo "[OK] Fish shell installed and set as default."

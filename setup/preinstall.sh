@@ -21,9 +21,8 @@ fi
 
 # install gum
 if command -v gum &>/dev/null; then
-  echo "✅ gum is already installed."
+  echo "[OK] gum is already installed."
 else
-  echo "🧃 Installing gum..."
+  echo "[INFO] Installing gum..."
   yay -S --noconfirm --needed gum
 fi
-

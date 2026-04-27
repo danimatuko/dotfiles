@@ -63,7 +63,7 @@ do_remove_path() {
 
 	if $APPLY; then
 		rm -rf "$target"
-		echo "🗑️  Removed: $target"
+		echo "[OK] Removed: $target"
 	else
 		echo "[dry-run] remove: $target"
 	fi
@@ -81,13 +81,13 @@ do_remove_symlink() {
 	resolved=$(readlink -f "$target")
 
 	if [[ "$resolved" != "$expected_prefix"* ]]; then
-		echo "⚠️  Skip $target (not linked to $expected_prefix)"
+		echo "[WARN] Skip $target (not linked to $expected_prefix)"
 		return 0
 	fi
 
 	if $APPLY; then
 		rm -f "$target"
-		echo "🗑️  Removed symlink: $target"
+		echo "[OK] Removed symlink: $target"
 	else
 		echo "[dry-run] remove symlink: $target"
 	fi
@@ -98,7 +98,7 @@ if $RESTORE_BACKUP; then
 fi
 
 if $RESTORE_BACKUP && [[ -z "$BACKUP_DIR" ]]; then
-	echo "❌ No backup folder found at ~/dotfiles_backup_*"
+	echo "[ERROR] No backup folder found at ~/dotfiles_backup_*"
 	exit 1
 fi
 
@@ -112,7 +112,7 @@ if $APPLY; then
 	if [[ -f "$DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh" ]]; then
 		source "$DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh"
 	else
-		echo "⚠️  Missing $DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh"
+		echo "[WARN] Missing $DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh"
 	fi
 else
 	echo "[dry-run] disable user service: hyprdynamicmonitors.service"
@@ -145,7 +145,7 @@ if $RESTORE_BACKUP; then
 		do_remove_path "$HOME/.config"
 		if $APPLY; then
 			mv "$BACKUP_DIR/config" "$HOME/.config"
-			echo "♻️  Restored: $HOME/.config"
+			echo "[OK] Restored: $HOME/.config"
 		else
 			echo "[dry-run] restore $BACKUP_DIR/config -> $HOME/.config"
 		fi
@@ -156,7 +156,7 @@ if $RESTORE_BACKUP; then
 			do_remove_path "$HOME/$name"
 			if $APPLY; then
 				mv "$BACKUP_DIR/$name" "$HOME/$name"
-				echo "♻️  Restored: $HOME/$name"
+				echo "[OK] Restored: $HOME/$name"
 			else
 				echo "[dry-run] restore $BACKUP_DIR/$name -> $HOME/$name"
 			fi
@@ -176,7 +176,7 @@ if $REMOVE_BIN_LINKS; then
 fi
 
 if $APPLY; then
-	echo "\n✅ Uninstall actions completed."
+	echo "\n[OK] Uninstall actions completed."
 else
-	echo "\n✅ Dry-run complete. Use --apply to execute."
+	echo "\n[OK] Dry-run complete. Use --apply to execute."
 fi

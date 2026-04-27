@@ -32,7 +32,7 @@ stage() {
 		else
 			printf '\n'
 		fi
-		gum style --foreground 240 "────────────────────────────────────────────────────────────"
+		gum style --foreground 240 "------------------------------------------------------------"
 		return
 	fi
 
@@ -45,24 +45,24 @@ stage() {
 }
 
 confirm_prompt "Start dotfiles installation now?" || {
-	echo "⏩ Installation cancelled."
+	echo "[INFO] Installation cancelled."
 	exit 0
 }
 
 if confirm_prompt "Backup your current config files before install?"; then
 	BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y-%m-%d_%H-%M-%S)"
-	echo "🛟 Backing up existing dotfiles to $BACKUP_DIR..."
+	echo "[INFO] Backing up existing dotfiles to $BACKUP_DIR..."
 	mkdir -p "$BACKUP_DIR"
 
-	mv ~/.config "$BACKUP_DIR/config" 2>/dev/null || echo "📁 No ~/.config to backup"
+	mv ~/.config "$BACKUP_DIR/config" 2>/dev/null || echo "[INFO] No ~/.config to backup"
 	mv ~/.bashrc "$BACKUP_DIR/" 2>/dev/null || true
 	mv ~/.gitconfig "$BACKUP_DIR/" 2>/dev/null || true
 	mv ~/.tmux.conf "$BACKUP_DIR/" 2>/dev/null || true
 else
-	echo "⏩ Skipping initial backup."
+	echo "[INFO] Skipping initial backup."
 fi
 
-trap 'echo -e "\n❌ Dotfiles installation failed."
+trap 'echo -e "\n[ERROR] Dotfiles installation failed."
 if command -v gum &>/dev/null; then
   gum confirm "Would you like to retry the installation?" && exec bash "$0" || exit 1
 else
@@ -70,7 +70,7 @@ else
   [[ "$confirm" =~ ^[Yy]$ ]] && exec bash "$0" || exit 1
 fi' ERR
 
-echo "🔧 Starting modular install scripts..."
+echo "[INFO] Starting modular install scripts..."
 
 stage "Bootstrap" "AUR helper and installer prerequisites"
 source ~/dotfiles/setup/preinstall.sh
@@ -109,14 +109,14 @@ source ~/dotfiles/setup/terminal.sh
 stage "Command Links" "Link dotfiles bin commands into ~/.local/bin"
 source ~/dotfiles/setup/link-bin.sh
 
-echo -e "\n📝 Setup complete."
+echo -e "\n[OK] Setup complete."
 if confirm_prompt "Link your shell/config files to ~/dotfiles now?"; then
 	stage "Config Links" "Link managed configs into your home directory"
 	source ~/dotfiles/setup/link-configs.sh
 	# source ~/dotfiles/setup/hyprdynamicmonitors.sh
 else
-	echo "⏩ Skipped config sync (your current files stay the same)."
-	echo "ℹ️  HyprDynamicMonitors service setup skipped until configs are linked."
+	echo "[INFO] Skipped config sync (your current files stay the same)."
+	echo "[INFO] HyprDynamicMonitors service setup skipped until configs are linked."
 fi
 
 sudo updatedb

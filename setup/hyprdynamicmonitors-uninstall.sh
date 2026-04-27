@@ -6,8 +6,8 @@ MAIN_UNIT="hyprdynamicmonitors.service"
 PREPARE_UNIT="hyprdynamicmonitors-prepare.service"
 
 warn_and_continue() {
-	echo "⚠️  $1"
-	echo "↪️  You can run this manually after login:"
+	echo "[WARN] $1"
+	echo "[INFO] You can run this manually after login:"
 	echo "   systemctl --user disable --now $MAIN_UNIT $PREPARE_UNIT"
 	echo "   systemctl --user daemon-reload"
 }
@@ -31,5 +31,5 @@ if ! systemctl --user daemon-reload; then
 	finish 0
 fi
 
-echo "✅ HyprDynamicMonitors services disabled."
+echo "[OK] HyprDynamicMonitors services disabled."
 finish 0

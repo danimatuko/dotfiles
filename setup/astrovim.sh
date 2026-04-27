@@ -2,7 +2,7 @@
 
 set -e
 
-echo "🛠️ Installing AstroNvim..."
+echo "[INFO] Installing AstroNvim..."
 
 # Clone AstroNvim template
 git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
@@ -10,5 +10,4 @@ git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
 # Remove template's git history
 rm -rf ~/.config/nvim/.git
 
-echo "🚀 AstroNvim installed. Launch Neovim to complete setup: nvim"
-
+echo "[OK] AstroNvim installed. Launch Neovim to complete setup: nvim"

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "📦 Installing CLI & Hyprland tools via yay..."
+echo "[INFO] Installing CLI and Hyprland tools via yay..."
 
 yay -S --noconfirm --needed \
 	git \
@@ -65,4 +65,4 @@ yay -S --noconfirm --needed \
 	hypridle \
 	hyprdynamicmonitors-bin
 
-echo "✅ Terminal packages installed successfully!"
+echo "[OK] Terminal packages installed successfully."
