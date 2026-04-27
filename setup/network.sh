@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Ensure iwd service will be started
+# Ensure the iwd stack starts on boot.
 sudo systemctl enable iwd.service
+sudo systemctl enable systemd-networkd.service
 
 # Prevent systemd-networkd-wait-online timeout on boot
 sudo systemctl disable systemd-networkd-wait-online.service

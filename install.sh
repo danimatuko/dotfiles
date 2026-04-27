@@ -87,7 +87,7 @@ source ~/dotfiles/setup/network.sh
 
 stage "Bluetooth" "Install desktop Bluetooth support"
 source ~/dotfiles/setup/bluetooth.sh
-# source ~/dotfiles/setup/fonts.sh # temporarily disabled
+source ~/dotfiles/setup/fonts.sh 
 
 stage "Theming" "Install shared icon and desktop theme assets"
 source ~/dotfiles/setup/icons.sh
@@ -105,6 +105,9 @@ stage "CLI Tools" "Install terminal utilities and editor setup"
 source ~/dotfiles/setup/starship.sh
 source ~/dotfiles/setup/astrovim.sh
 source ~/dotfiles/setup/terminal.sh
+
+stage "Post-Install" "Validate services and reconcile Wi-Fi backend"
+source ~/dotfiles/setup/postinstall.sh
 
 stage "Command Links" "Link dotfiles bin commands into ~/.local/bin"
 source ~/dotfiles/setup/link-bin.sh
