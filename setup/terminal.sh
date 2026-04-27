@@ -44,6 +44,7 @@ yay -S --noconfirm --needed \
 	blueman \
 	bluez \
 	bluez-utils \
+	bluetui \
 	wlogout \
 	swayosd \
 	impala \
