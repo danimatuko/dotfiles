@@ -18,6 +18,7 @@ export const themeColors: Record<ThemeName, string[]> = {
   "gruvbox-light": ["#FB4934", "#B8BB26", "#FABD2F", "#83A598"],
   nord: ["#88C0D0", "#81A1C1", "#5E81AC", "#BF616A"],
   tokyonight: ["#7AA2F7", "#BB9AF7", "#7DCFFF", "#9ECE6A"],
+  kanagawa: ["#7E9CD8", "#957FB8", "#C0A36E", "#76946A"],
 }
 
 export const getCurrentTheme = currentTheme

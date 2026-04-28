@@ -306,6 +306,7 @@ if command -v nvim &>/dev/null; then
         tokyonight) NVIM_THEME="tokyodark" ;;
         gruvbox-light) NVIM_THEME="gruvbox" ;;
         gruvbox) NVIM_THEME="gruvbox-baby" ;;
+        kanagawa) NVIM_THEME="tokyodark" ;;
     esac
 
     shopt -s nullglob

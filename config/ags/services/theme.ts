@@ -8,6 +8,7 @@ export const themeNames = [
   "everforest",
   "nord",
   "tokyonight",
+  "kanagawa",
 ] as const
 
 export type ThemeName = (typeof themeNames)[number]

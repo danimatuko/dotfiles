@@ -1,0 +1,9 @@
+:root {
+  --background: #0d0c0c;
+  --background-alt: #1a1a22;
+  --text: #dcd7ba;
+  --text-alt: #c8c093;
+  --selected: rgba(126, 156, 216, 0.32);
+  --hover: rgba(126, 156, 216, 0.16);
+  --urgent: #e46876;
+}

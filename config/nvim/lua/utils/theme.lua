@@ -13,6 +13,7 @@ local theme_aliases = {
   ["tokyonight"] = "tokyodark",
   ["gruvbox-light"] = "gruvbox",
   ["gruvbox"] = "gruvbox-baby",
+  ["kanagawa"] = "tokyodark",
 }
 
 function M.get_theme()
