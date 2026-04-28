@@ -7,6 +7,7 @@ import { BAR_HEIGHT } from "../bar/constants"
 import QuickSettingsMenu from "./QuickSettingsMenu"
 
 const sidebarWidth = 430
+const sidebarOffset = 16
 
 export default function Sidebar(gdkmonitor: Gdk.Monitor) {
   const { TOP, RIGHT, BOTTOM } = Astal.WindowAnchor
@@ -20,9 +21,9 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       anchor={TOP | RIGHT | BOTTOM}
       layer={Astal.Layer.TOP}
-      marginTop={BAR_HEIGHT + 12}
-      marginRight={12}
-      marginBottom={12}
+      marginTop={BAR_HEIGHT + sidebarOffset}
+      marginRight={sidebarOffset}
+      marginBottom={sidebarOffset}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
       onNotifyVisible={(self) => {

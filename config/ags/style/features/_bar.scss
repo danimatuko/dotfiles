@@ -14,16 +14,16 @@ window.Bar {
   > centerbox {
     background: color-mix(in srgb, #{$bg-base} 95%, transparent 5%);
     border-bottom: none;
-    padding: 0 5px;
+    padding: 4px 10px;
   }
 
   .bar__start,
   .bar__end {
-    padding: 0 2px;
+    padding: 0 4px;
   }
 
   .bar__separator {
-    margin: 0 10px;
+    margin: 0 14px;
     color: color-mix(in srgb, #{$control-color-bright} 78%, transparent 22%);
     font-size: 0.82rem;
     font-weight: 700;
@@ -45,9 +45,9 @@ window.Bar {
   .os-icon {
     @include control-reset;
     border-radius: $radius-sm;
-    margin: 2px 8px 2px 2px;
+    margin: 3px 10px 3px 3px;
     padding: 0 6px;
-    min-height: 22px;
+    min-height: 24px;
     background: transparent;
     color: $control-color-bright;
 
@@ -91,7 +91,7 @@ window.Bar {
     @include control-reset;
     border-radius: $radius-sm;
     padding: 0 6px;
-    min-height: 22px;
+    min-height: 24px;
 
     image {
       @include icon-size($icon-size-sm);
@@ -125,7 +125,7 @@ window.Bar {
 
   .quick-status {
     @include control-reset;
-    margin: 2px 4px 2px 0;
+    margin: 3px 6px 3px 0;
   }
 
   .quick-settings__toggle-menu {
@@ -137,9 +137,9 @@ window.Bar {
 
   .quick-settings__theme-menu-toggle,
   .quick-settings__sidebar-toggle {
-    min-height: 22px;
-    min-width: 22px;
-    padding: 3px;
+    min-height: 24px;
+    min-width: 24px;
+    padding: 4px;
     margin: 0;
 
     image {
@@ -173,8 +173,8 @@ window.Bar {
     > button {
       @include control-reset;
       border-radius: 999px;
-      padding: 0 10px;
-      min-height: 22px;
+      padding: 0 12px;
+      min-height: 24px;
       color: $control-text;
 
       &:hover {
