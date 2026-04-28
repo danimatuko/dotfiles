@@ -21,16 +21,26 @@ window.SidebarBackdrop {
 }
 
 window.Sidebar {
-  background: color-mix(in srgb, #{$bg-base} 95%, transparent 5%);
+  background: transparent;
   font-family:
     "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
     "JetBrains Mono", monospace;
 
   .sidebar {
     min-width: 430px;
-    padding: 20px 14px 14px;
+    padding: 18px 16px 16px;
     color: $color-on-surface;
-    border-left: none;
+    border: 1px solid
+      color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+    border-radius: $radius-md;
+    background:
+      radial-gradient(
+        120% 100% at 100% 0%,
+        rgba(255, 255, 255, 0.06) 0%,
+        transparent 60%
+      ),
+      color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+    box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
   }
 
   .sidebar__scroll {
@@ -39,20 +49,60 @@ window.Sidebar {
 
   .sidebar__content {
     margin-right: 2px;
-    padding: 24px 0;
+    padding: 8px 0 12px;
   }
 }
 
 .quick-settings {
   &__menu {
-    padding: 2px;
+    padding: 6px;
     color: $color-on-surface;
+  }
+
+  &__header {
+    padding: 10px 12px 14px;
+    border-radius: $radius-md;
+    background:
+      linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.08),
+        rgba(255, 255, 255, 0.02)
+      ),
+      color-mix(in srgb, #{$bg-surface} 78%, #{$color-brand} 22%);
+    border: 1px solid
+      color-mix(in srgb, #{$color-brand} 42%, #{$bg-surface} 58%);
+  }
+
+  &__eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: color-mix(in srgb, #{$color-emphasis} 76%, #{$color-brand} 24%);
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $color-emphasis;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    color: color-mix(in srgb, #{$color-on-surface} 76%, transparent 24%);
+  }
+
+  &__section-card {
+    padding: 10px;
+    border-radius: $radius-md;
+    background: color-mix(in srgb, #{$bg-surface} 94%, #{$bg-base} 6%);
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 84%, #{$color-brand} 16%);
   }
 
   &__sliders-group,
   &__toggles-group {
     padding: 0;
-    border-radius: $radius-sm;
+    border-radius: $radius-md;
     background: transparent;
     border: none;
   }
@@ -62,18 +112,24 @@ window.Sidebar {
   }
 
   &__section-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: $color-emphasis;
-    padding: 8px 4px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, #{$color-emphasis} 76%, #{$color-brand} 24%);
+    padding: 2px 4px 4px;
   }
 
   &__slider-card {
-    padding: 10px 12px;
+    padding: 12px;
     border-radius: $radius-sm;
-    background: $bg-surface;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 80%,
+      #{$bg-surface} 20%
+    );
     border: none;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 
     &:last-child {
       margin-bottom: 0;
@@ -85,17 +141,25 @@ window.Sidebar {
   }
 
   &__slider-icon-box {
-    min-width: 18px;
+    min-width: 20px;
   }
 
   &__toggle-button {
     @include control-reset;
-    background: $bg-surface;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 82%,
+      #{$bg-surface} 18%
+    );
     border-radius: $radius-sm;
-    padding: 10px 12px;
+    padding: 12px;
     color: $color-on-surface;
-    border: none;
-    transition: background 160ms ease-out;
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+    transition:
+      background 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
     margin-bottom: 4px;
 
     &:last-child {
@@ -103,12 +167,18 @@ window.Sidebar {
     }
 
     &:hover {
-      background: $accent-hover;
+      background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+      border-color: color-mix(
+        in srgb,
+        #{$color-brand} 46%,
+        #{$bg-surface-strong} 54%
+      );
       color: $accent-text;
     }
 
     &--active {
-      background: $color-brand;
+      background: color-mix(in srgb, #{$color-brand} 90%, #{$bg-surface} 10%);
+      border-color: color-mix(in srgb, #{$color-brand} 72%, white 28%);
       color: $color-surface;
 
       &:hover {
@@ -124,8 +194,8 @@ window.Sidebar {
 
   &__toggle-button--icon-only {
     min-width: 0;
-    min-height: 28px;
-    padding: 6px;
+    min-height: 34px;
+    padding: 8px;
     margin-bottom: 0;
   }
 
@@ -164,15 +234,19 @@ window.Sidebar {
     min-width: 140px;
 
     trough {
-      min-height: 10px;
+      min-height: 9px;
       border-radius: 999px;
-      background: $bg-surface-strong;
+      background: color-mix(in srgb, #{$bg-surface-strong} 92%, black 8%);
       border: none;
     }
 
     highlight {
       border-radius: 999px;
-      background: $color-brand;
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, #{$color-brand} 76%, white 24%),
+        $color-brand
+      );
     }
 
     slider {
@@ -187,17 +261,29 @@ window.Sidebar {
 
   &__battery-row {
     @include control-reset;
-    padding: 10px 12px;
+    padding: 12px;
     border-radius: $radius-sm;
-    background: $bg-surface;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 80%,
+      #{$bg-surface} 20%
+    );
     color: $color-on-surface;
-    border: none;
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
     cursor: pointer;
-    transition: background 160ms ease-out;
-    margin-bottom: 4px;
+    transition:
+      background 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
 
     &:hover {
-      background: $accent-hover;
+      background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+      border-color: color-mix(
+        in srgb,
+        #{$color-brand} 46%,
+        #{$bg-surface-strong} 54%
+      );
       color: $accent-text;
     }
 

@@ -36,61 +36,97 @@ export default function QuickSettingsMenu() {
     <box
       class="quick-settings__menu"
       orientation={Gtk.Orientation.VERTICAL}
-      spacing={8}
+      spacing={14}
     >
       <box
-        class="quick-settings__toggles-group"
-        orientation={Gtk.Orientation.HORIZONTAL}
-        spacing={6}
-        homogeneous
+        class="quick-settings__header"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={3}
       >
-        <QuickSettingsToggleButton
-          iconName={getWifiIcon}
-          className={getWifiButtonClass}
-          onClicked={toggleWifi}
-          sensitive={canToggleWifi}
-          iconOnly
-          hexpand
-          tooltipText={"Toggle Wi-Fi"}
+        <label
+          class="quick-settings__eyebrow"
+          label="CONTROL CENTER"
+          xalign={0}
         />
-        <QuickSettingsToggleButton
-          iconName={getBluetoothIcon}
-          className={getBluetoothButtonClass}
-          onClicked={toggleBluetooth}
-          sensitive={canToggleBluetooth}
-          iconOnly
-          hexpand
-          tooltipText={"Toggle Bluetooth"}
+        <label
+          class="quick-settings__title"
+          label="Quick Settings"
+          xalign={0}
         />
-        <QuickSettingsToggleButton
-          iconName={getNightLightIcon}
-          className={getNightLightButtonClass}
-          onClicked={toggleNightLight}
-          sensitive={canToggleNightLight}
-          iconOnly
-          hexpand
-          tooltipText={"Toggle Night Light"}
-        />
-        <QuickSettingsToggleButton
-          iconName={getDarkModeIcon}
-          className={getDarkModeButtonClass}
-          onClicked={toggleDarkMode}
-          sensitive={canToggleDarkMode}
-          iconOnly
-          hexpand
-          tooltipText={"Toggle Dark Mode"}
+        <label
+          class="quick-settings__subtitle"
+          label="System controls and status"
+          xalign={0}
         />
       </box>
 
-      <label class="quick-settings__section-label" label="Display" xalign={0} />
+      <box
+        class="quick-settings__section-card"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={10}
+      >
+        <label
+          class="quick-settings__section-label"
+          label="Connectivity"
+          xalign={0}
+        />
+        <box
+          class="quick-settings__toggles-group"
+          orientation={Gtk.Orientation.HORIZONTAL}
+          spacing={8}
+          homogeneous
+        >
+          <QuickSettingsToggleButton
+            iconName={getWifiIcon}
+            className={getWifiButtonClass}
+            onClicked={toggleWifi}
+            sensitive={canToggleWifi}
+            iconOnly
+            hexpand
+            tooltipText={"Toggle Wi-Fi"}
+          />
+          <QuickSettingsToggleButton
+            iconName={getBluetoothIcon}
+            className={getBluetoothButtonClass}
+            onClicked={toggleBluetooth}
+            sensitive={canToggleBluetooth}
+            iconOnly
+            hexpand
+            tooltipText={"Toggle Bluetooth"}
+          />
+          <QuickSettingsToggleButton
+            iconName={getNightLightIcon}
+            className={getNightLightButtonClass}
+            onClicked={toggleNightLight}
+            sensitive={canToggleNightLight}
+            iconOnly
+            hexpand
+            tooltipText={"Toggle Night Light"}
+          />
+          <QuickSettingsToggleButton
+            iconName={getDarkModeIcon}
+            className={getDarkModeButtonClass}
+            onClicked={toggleDarkMode}
+            sensitive={canToggleDarkMode}
+            iconOnly
+            hexpand
+            tooltipText={"Toggle Dark Mode"}
+          />
+        </box>
+      </box>
 
       <box
-        class="quick-settings__sliders-group"
+        class="quick-settings__section-card"
         orientation={Gtk.Orientation.VERTICAL}
-        spacing={4}
+        spacing={8}
       >
+        <label
+          class="quick-settings__section-label"
+          label="Display"
+          xalign={0}
+        />
         <box
-          class="quick-settings__slider-card"
+          class="quick-settings__sliders-group"
           orientation={Gtk.Orientation.VERTICAL}
           spacing={6}
         >
@@ -115,15 +151,14 @@ export default function QuickSettingsMenu() {
         </box>
       </box>
 
-      <label class="quick-settings__section-label" label="Sound" xalign={0} />
-
       <box
-        class="quick-settings__sliders-group"
+        class="quick-settings__section-card"
         orientation={Gtk.Orientation.VERTICAL}
-        spacing={4}
+        spacing={8}
       >
+        <label class="quick-settings__section-label" label="Sound" xalign={0} />
         <box
-          class="quick-settings__slider-card"
+          class="quick-settings__sliders-group"
           orientation={Gtk.Orientation.VERTICAL}
           spacing={6}
         >
@@ -149,12 +184,18 @@ export default function QuickSettingsMenu() {
         </box>
       </box>
 
-      <label class="quick-settings__section-label" label="Power" xalign={0} />
+      <box
+        class="quick-settings__section-card"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={8}
+      >
+        <label class="quick-settings__section-label" label="Power" xalign={0} />
 
-      <box class="quick-settings__battery-row" spacing={8}>
-        <image iconName={getBatteryIcon} />
-        <label label="Battery" xalign={0} hexpand />
-        <label label={getBatteryPercentage} xalign={1} />
+        <box class="quick-settings__battery-row" spacing={8}>
+          <image iconName={getBatteryIcon} />
+          <label label="Battery" xalign={0} hexpand />
+          <label label={getBatteryPercentage} xalign={1} />
+        </box>
       </box>
     </box>
   )

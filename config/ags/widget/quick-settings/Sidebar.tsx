@@ -20,7 +20,9 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       anchor={TOP | RIGHT | BOTTOM}
       layer={Astal.Layer.TOP}
-      marginTop={BAR_HEIGHT}
+      marginTop={BAR_HEIGHT + 12}
+      marginRight={12}
+      marginBottom={12}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
       onNotifyVisible={(self) => {
@@ -35,25 +37,36 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
           return true
         }}
       />
-      <box
-        class="sidebar"
-        orientation={Gtk.Orientation.VERTICAL}
-        spacing={0}
-        widthRequest={sidebarWidth}
-        vexpand
+      <Gtk.Revealer
+        revealChild={isSidebarVisible}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+        transitionDuration={220}
         halign={Gtk.Align.END}
         valign={Gtk.Align.FILL}
       >
-        <Gtk.ScrolledWindow
-          cssClasses={["sidebar__scroll"]}
-          vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
+        <box
+          class="sidebar"
+          orientation={Gtk.Orientation.VERTICAL}
+          spacing={0}
+          widthRequest={sidebarWidth}
           vexpand
+          halign={Gtk.Align.END}
+          valign={Gtk.Align.FILL}
         >
-          <box class="sidebar__content" orientation={Gtk.Orientation.VERTICAL}>
-            <QuickSettingsMenu />
-          </box>
-        </Gtk.ScrolledWindow>
-      </box>
+          <Gtk.ScrolledWindow
+            cssClasses={["sidebar__scroll"]}
+            vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
+            vexpand
+          >
+            <box
+              class="sidebar__content"
+              orientation={Gtk.Orientation.VERTICAL}
+            >
+              <QuickSettingsMenu />
+            </box>
+          </Gtk.ScrolledWindow>
+        </box>
+      </Gtk.Revealer>
     </window>
   )
 }
