@@ -8,9 +8,10 @@ const wifiEnabled = wifi ? createBinding(wifi, "enabled") : null
 export const canToggleWifi = Boolean(wifi)
 
 export const getWifiIcon = wifi
-  ? createBinding(wifi, "iconName").as(
-      (name) => name || "network-wireless-offline-symbolic",
-    )
+  ? createBinding(wifi, "enabled").as((enabled) => {
+      if (!enabled) return "network-wireless-disabled-symbolic"
+      return "network-wireless-signal-excellent-symbolic"
+    })
   : "network-wireless-disabled-symbolic"
 
 export const getWifiButtonClass = wifiEnabled
