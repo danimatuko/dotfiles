@@ -1,6 +1,6 @@
 import { createState } from "gnim"
 
-const [sidebarVisibleState, setSidebarVisibleState] = createState(false)
+const [sidebarVisibleState, setSidebarVisibleState] = createState(true)
 
 export const isSidebarVisible = sidebarVisibleState
 

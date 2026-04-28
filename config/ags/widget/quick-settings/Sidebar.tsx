@@ -6,8 +6,10 @@ import { getThemeWindowClass } from "../../services/theme"
 import { BAR_HEIGHT } from "../bar/constants"
 import QuickSettingsMenu from "./QuickSettingsMenu"
 
+const sidebarWidth = 430
+
 export default function Sidebar(gdkmonitor: Gdk.Monitor) {
-  const { TOP, LEFT, BOTTOM } = Astal.WindowAnchor
+  const { TOP, RIGHT, BOTTOM } = Astal.WindowAnchor
 
   return (
     <window
@@ -16,7 +18,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
       class={getThemeWindowClass("Sidebar")}
       visible={isSidebarVisible}
       gdkmonitor={gdkmonitor}
-      anchor={TOP | LEFT | BOTTOM}
+      anchor={TOP | RIGHT | BOTTOM}
       layer={Astal.Layer.TOP}
       marginTop={BAR_HEIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
@@ -37,20 +39,17 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
         class="sidebar"
         orientation={Gtk.Orientation.VERTICAL}
         spacing={0}
-        hexpand
+        widthRequest={sidebarWidth}
         vexpand
+        halign={Gtk.Align.END}
         valign={Gtk.Align.FILL}
       >
         <Gtk.ScrolledWindow
           cssClasses={["sidebar__scroll"]}
           vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
-          hexpand
           vexpand
         >
-          <box
-            class="sidebar__content"
-            orientation={Gtk.Orientation.VERTICAL}
-          >
+          <box class="sidebar__content" orientation={Gtk.Orientation.VERTICAL}>
             <QuickSettingsMenu />
           </box>
         </Gtk.ScrolledWindow>

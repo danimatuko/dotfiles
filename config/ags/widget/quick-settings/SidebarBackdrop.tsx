@@ -24,7 +24,6 @@ export default function SidebarBackdrop(gdkmonitor: Gdk.Monitor) {
       application={app}
     >
       <box class="sidebar-backdrop" hexpand vexpand>
-        <box class="sidebar-backdrop__spacer" widthRequest={sidebarWidth} />
         <button
           class="sidebar-backdrop__dismiss"
           cursor={Gdk.Cursor.new_from_name("pointer", null)}
@@ -32,6 +31,7 @@ export default function SidebarBackdrop(gdkmonitor: Gdk.Monitor) {
           vexpand
           onClicked={closeSidebar}
         />
+        <box class="sidebar-backdrop__spacer" widthRequest={sidebarWidth} />
       </box>
     </window>
   )

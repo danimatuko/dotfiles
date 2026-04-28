@@ -135,7 +135,8 @@ window.Bar {
     padding: 0;
   }
 
-  .quick-settings__theme-menu-toggle {
+  .quick-settings__theme-menu-toggle,
+  .quick-settings__sidebar-toggle {
     min-height: 22px;
     min-width: 22px;
     padding: 3px;
@@ -144,6 +145,11 @@ window.Bar {
     image {
       @include icon-size($icon-size-sm);
     }
+  }
+
+  .quick-settings__sidebar-toggle-glyph {
+    font-size: 1.15rem;
+    line-height: 1;
   }
 
   .status-indicator {
