@@ -6,11 +6,14 @@ import {
   dismissNotification,
 } from "../../services/notifications"
 import { getThemeWindowClass } from "../../services/theme"
+import {
+  NOTIFICATIONS_RIGHT_MARGIN,
+  NOTIFICATIONS_TOP_MARGIN,
+} from "./constants"
 import NotificationCard from "./NotificationCard"
 
 export default function Notifications(gdkmonitor: Gdk.Monitor) {
-  const { TOP } = Astal.WindowAnchor
-  const barOffset = 30
+  const { TOP, RIGHT } = Astal.WindowAnchor
 
   return (
     <window
@@ -18,8 +21,9 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
       class={getThemeWindowClass("Notifications")}
       visible={activeNotifications((notifications) => notifications.length > 0)}
       gdkmonitor={gdkmonitor}
-      anchor={TOP}
-      marginTop={barOffset}
+      anchor={TOP | RIGHT}
+      marginTop={NOTIFICATIONS_TOP_MARGIN}
+      marginRight={NOTIFICATIONS_RIGHT_MARGIN}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={app}
     >
@@ -28,7 +32,7 @@ export default function Notifications(gdkmonitor: Gdk.Monitor) {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={10}
         valign={Gtk.Align.START}
-        halign={Gtk.Align.CENTER}
+        halign={Gtk.Align.END}
       >
         <For each={activeNotifications}>
           {(notification) => (

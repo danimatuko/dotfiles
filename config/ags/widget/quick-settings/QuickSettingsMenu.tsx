@@ -1,4 +1,5 @@
 import { Gdk, Gtk } from "ags/gtk4"
+import { For } from "ags"
 
 import {
   canControlVolume,
@@ -28,6 +29,12 @@ import {
   toggleWifi,
 } from "../../services/quick-settings"
 import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
+import NotificationCard from "../notifications/NotificationCard"
+import {
+  clearNotificationHistory,
+  dismissNotification,
+  notificationHistory,
+} from "../../services/notifications"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
@@ -195,6 +202,54 @@ export default function QuickSettingsMenu() {
           <image iconName={getBatteryIcon} />
           <label label="Battery" xalign={0} hexpand />
           <label label={getBatteryPercentage} xalign={1} />
+        </box>
+      </box>
+
+      <box
+        class="quick-settings__section-card"
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={8}
+      >
+        <box class="quick-settings__section-header" spacing={8}>
+          <label
+            class="quick-settings__section-label"
+            label="Notifications"
+            xalign={0}
+            hexpand
+          />
+          <button
+            class="quick-settings__action-button"
+            visible={notificationHistory((items) => items.length > 0)}
+            onClicked={clearNotificationHistory}
+          >
+            <label label="Clear" />
+          </button>
+        </box>
+        <label
+          class="quick-settings__notifications-empty"
+          visible={notificationHistory((items) => items.length === 0)}
+          label="No recent notifications"
+          xalign={0}
+        />
+        <box
+          class="quick-settings__notifications-list"
+          orientation={Gtk.Orientation.VERTICAL}
+          spacing={6}
+        >
+          <For each={notificationHistory}>
+            {(notification) => (
+              <NotificationCard
+                appName={notification.appName}
+                summary={notification.summary}
+                body={notification.body}
+                iconName={notification.iconName}
+                timeLabel={notification.timeLabel}
+                bodyVisible={Boolean(notification.body.length)}
+                onClose={() => dismissNotification(notification.id)}
+                className="quick-settings__notification-card"
+              />
+            )}
+          </For>
         </box>
       </box>
     </box>
