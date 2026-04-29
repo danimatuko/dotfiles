@@ -7,6 +7,36 @@ import { showOsd } from "./osd"
 
 const speaker = AstalWp.get_default()?.defaultSpeaker ?? null
 
+const getSpeakerVolume = () => {
+  const value = Number((speaker as { volume?: number } | null)?.volume ?? 0)
+  return clamp(Number.isFinite(value) ? value : 0, 0, 1)
+}
+
+const getSpeakerMuted = () => {
+  const candidate =
+    (speaker as { mute?: boolean; muted?: boolean } | null)?.mute ??
+    (speaker as { mute?: boolean; muted?: boolean } | null)?.muted
+
+  return Boolean(candidate)
+}
+
+const showCurrentSpeakerOsd = () => {
+  const volume = getSpeakerVolume()
+  const iconName = getSpeakerMuted()
+    ? "audio-volume-muted-symbolic"
+    : getVolumeIconByValue(volume)
+
+  showOsd(iconName, volume)
+}
+
+speaker?.connect("notify::mute", () => {
+  showCurrentSpeakerOsd()
+})
+
+speaker?.connect("notify::muted", () => {
+  showCurrentSpeakerOsd()
+})
+
 export const getSpeakerIcon = speaker
   ? createBinding(speaker, "volumeIcon").as(
       (name) => name || "audio-volume-muted-symbolic",
