@@ -8,6 +8,33 @@ import {
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
+const hasIcon = (iconName: string) => {
+  const display = Gdk.Display.get_default()
+  const iconTheme = display ? Gtk.IconTheme.get_for_display(display) : null
+  return iconTheme?.has_icon(iconName) ?? false
+}
+
+const pickFirstExistingIcon = (iconNames: string[]) => {
+  for (const iconName of iconNames) {
+    if (hasIcon(iconName)) return iconName
+  }
+
+  return "dialog-information-symbolic"
+}
+
+const getNotificationIconName = (isDoNotDisturbEnabled: boolean) =>
+  isDoNotDisturbEnabled
+    ? pickFirstExistingIcon([
+        "notifications-disabled-symbolic",
+        "notification-disabled-symbolic",
+        "preferences-system-notifications-symbolic",
+      ])
+    : pickFirstExistingIcon([
+        "preferences-system-notifications-symbolic",
+        "notification-symbolic",
+        "dialog-information-symbolic",
+      ])
+
 export default function NotificationIndicator() {
   return (
     <button
@@ -26,13 +53,10 @@ export default function NotificationIndicator() {
             : "No notifications",
       )}
     >
-      {/* TODO: Replace with a theme-robust icon strategy; some icon themes hide this glyph. */}
       <overlay>
         <image
-          iconName={notificationHistory((items) =>
-            isDoNotDisturbEnabled()
-              ? "notifications-disabled-symbolic"
-              : "preferences-system-notifications-symbolic",
+          iconName={isDoNotDisturbEnabled((enabled) =>
+            getNotificationIconName(enabled),
           )}
         />
         <label

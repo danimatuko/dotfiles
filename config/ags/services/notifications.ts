@@ -13,9 +13,8 @@ export type NotificationEntry = {
 
 const notifd = AstalNotifd.get_default()
 const maxActiveToasts = 4
+const maxNotificationHistory = 100
 
-const [activeNotificationState, setActiveNotificationState] =
-  createState<NotificationEntry | null>(null)
 const [activeNotificationsState, setActiveNotificationsState] = createState<
   NotificationEntry[]
 >([])
@@ -34,10 +33,6 @@ const clearHideTimer = (id: number) => {
   hideTimeoutIds.delete(id)
 }
 
-const setTopActiveNotification = (notifications: NotificationEntry[]) => {
-  setActiveNotificationState(notifications[0] ?? null)
-}
-
 const removeActiveNotification = (id: number) => {
   clearHideTimer(id)
 
@@ -45,7 +40,6 @@ const removeActiveNotification = (id: number) => {
     (notification) => notification.id !== id,
   )
   setActiveNotificationsState(nextActive)
-  setTopActiveNotification(nextActive)
 }
 
 const clearAllActiveNotifications = () => {
@@ -55,7 +49,15 @@ const clearAllActiveNotifications = () => {
 
   hideTimeoutIds.clear()
   setActiveNotificationsState([])
-  setActiveNotificationState(null)
+}
+
+const upsertHistory = (entry: NotificationEntry) => {
+  const nextHistory = [
+    entry,
+    ...notificationHistoryState().filter((item) => item.id !== entry.id),
+  ].slice(0, maxNotificationHistory)
+
+  setNotificationHistoryState(nextHistory)
 }
 
 const getTimeLabel = () => GLib.DateTime.new_now_local()?.format("%H:%M") ?? ""
@@ -85,14 +87,10 @@ const handleNotification = (id: number) => {
   if (!entry) return
 
   if (doNotDisturbState()) {
-    setNotificationHistoryState([
-      entry,
-      ...notificationHistoryState().filter((item) => item.id !== id),
-    ])
+    upsertHistory(entry)
     return
   }
 
-  setActiveNotificationState(entry)
   const previousActive = activeNotificationsState()
   const nextActive = [
     entry,
@@ -105,11 +103,7 @@ const handleNotification = (id: number) => {
   dropped.forEach((item) => clearHideTimer(item.id))
 
   setActiveNotificationsState(nextActive)
-  setTopActiveNotification(nextActive)
-  setNotificationHistoryState([
-    entry,
-    ...notificationHistoryState().filter((item) => item.id !== id),
-  ])
+  upsertHistory(entry)
 
   clearHideTimer(id)
   const timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 5000, () => {
@@ -127,7 +121,6 @@ notifd?.connect("resolved", (_: unknown, id: number) => {
   removeActiveNotification(id)
 })
 
-export const activeNotification = activeNotificationState
 export const activeNotifications = activeNotificationsState
 export const notificationHistory = notificationHistoryState
 export const isDoNotDisturbEnabled = doNotDisturbState
