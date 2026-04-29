@@ -15,6 +15,12 @@ export const getBluetoothIcon = bluetoothPowered.as((powered) =>
     : "bluetooth-disabled-symbolic",
 )
 
+export const getBluetoothTooltip = bluetoothPowered.as((powered) => {
+  if (!bluetooth.adapter) return "Bluetooth: Unavailable"
+  if (!powered) return "Bluetooth: Off\nClick to open Bluetui"
+  return "Bluetooth: On\nClick to open Bluetui"
+})
+
 export const getBluetoothButtonClass = bluetoothPowered.as((powered) =>
   powered
     ? "quick-settings__toggle-button quick-settings__toggle-button--active"

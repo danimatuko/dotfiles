@@ -42,7 +42,8 @@ window.Bar {
     }
   }
 
-  .status-indicator--wifi {
+  .status-indicator--wifi,
+  .status-indicator--bluetooth {
     @include control-reset;
     background: transparent;
     padding: 0;
