@@ -43,7 +43,8 @@ window.Bar {
   }
 
   .status-indicator--wifi,
-  .status-indicator--bluetooth {
+  .status-indicator--bluetooth,
+  .status-indicator--speaker {
     @include control-reset;
     background: transparent;
     padding: 0;
