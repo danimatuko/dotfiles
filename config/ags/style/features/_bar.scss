@@ -409,11 +409,7 @@ window.Bar {
     cursor: pointer;
 
     &:hover {
-      background: linear-gradient(
-        90deg,
-        color-mix(in srgb, #{$color-brand} 52%, transparent 48%),
-        color-mix(in srgb, #{$color-brand} 70%, #{$accent-hover} 30%)
-      );
+      @include gradient-brand-hover;
       color: $accent-text;
     }
   }
@@ -424,21 +420,13 @@ window.Bar {
   }
 
   .clock-menu__calendar calendar > grid > label.today {
-    background: linear-gradient(
-      90deg,
-      color-mix(in srgb, #{$color-brand} 76%, white 24%),
-      $color-brand
-    );
+    @include gradient-brand-fill;
     color: $color-surface;
     font-weight: 700;
   }
 
   .clock-menu__calendar calendar > grid > label:selected {
-    background: linear-gradient(
-      90deg,
-      color-mix(in srgb, #{$color-brand} 64%, white 36%),
-      color-mix(in srgb, #{$color-brand} 86%, #{$accent-hover} 14%)
-    );
+    @include gradient-brand-selected;
     color: $accent-text;
     font-weight: 700;
   }

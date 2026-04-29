@@ -67,3 +67,27 @@ $focus-ring-color: color-mix(in srgb, #{$color-brand} 74%, white 26%);
     0 0 0 $focus-ring-width
       color-mix(in srgb, #{$focus-ring-color} 34%, transparent 66%);
 }
+
+@mixin gradient-brand-fill {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #{$color-brand} 76%, white 24%),
+    $color-brand
+  );
+}
+
+@mixin gradient-brand-hover {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #{$color-brand} 52%, transparent 48%),
+    color-mix(in srgb, #{$color-brand} 70%, #{$accent-hover} 30%)
+  );
+}
+
+@mixin gradient-brand-selected {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #{$color-brand} 64%, white 36%),
+    color-mix(in srgb, #{$color-brand} 86%, #{$accent-hover} 14%)
+  );
+}

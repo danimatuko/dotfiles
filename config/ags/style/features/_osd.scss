@@ -49,11 +49,7 @@ window.Osd {
 
     block.filled {
       border-radius: $radius-rounded;
-      background: linear-gradient(
-        90deg,
-        color-mix(in srgb, #{$color-brand} 76%, white 24%),
-        $color-brand
-      );
+      @include gradient-brand-fill;
     }
   }
 
