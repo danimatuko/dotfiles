@@ -6,6 +6,7 @@ import Pango from "gi://Pango"
 import { createState } from "gnim"
 
 import { closeLauncher, isLauncherVisible } from "../../services/launcher"
+import { getThemeWindowClass } from "../../services/theme"
 
 type LauncherApp = {
   id: string
@@ -100,7 +101,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
     <window
       name="app-launcher"
       namespace="ags-app-launcher"
-      class="AppLauncher"
+      class={getThemeWindowClass("AppLauncher")}
       visible={isLauncherVisible}
       gdkmonitor={gdkmonitor}
       layer={Astal.Layer.TOP}
