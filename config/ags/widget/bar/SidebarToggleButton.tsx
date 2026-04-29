@@ -7,14 +7,21 @@ export default function SidebarToggleButton() {
     <button
       class={isSidebarVisible((visible) =>
         visible
-          ? "quick-settings__toggle-button quick-settings__toggle-button--active quick-settings__sidebar-toggle"
-          : "quick-settings__toggle-button quick-settings__sidebar-toggle",
+          ? "bar__sidebar-toggle bar__sidebar-toggle--active"
+          : "bar__sidebar-toggle",
       )}
       cursor={Gdk.Cursor.new_from_name("pointer", null)}
       onClicked={toggleSidebar}
       tooltipText="Toggle sidebar"
     >
-      <label class="quick-settings__sidebar-toggle-glyph" label="☰" />
+      <label
+        class={isSidebarVisible((visible) =>
+          visible
+            ? "bar__sidebar-toggle-glyph bar__sidebar-toggle-glyph--active"
+            : "bar__sidebar-toggle-glyph",
+        )}
+        label={isSidebarVisible((visible) => (visible ? "✕" : "☰"))}
+      />
     </button>
   )
 }
