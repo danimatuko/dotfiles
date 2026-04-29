@@ -6,6 +6,7 @@ import Clock from "./Clock"
 import SystemTray from "./SystemTray"
 import OsIcon from "./OsIcon"
 import SidebarToggleButton from "./SidebarToggleButton"
+import NotificationIndicator from "./NotificationIndicator"
 import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
 import { getThemeWindowClass } from "../../services/theme"
 
@@ -48,6 +49,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
               <image iconName="pan-start-symbolic" />
             </box>
           </box>
+          <NotificationIndicator />
           <box class="quick-status">
             <QuickSettingsToggleMenu />
           </box>

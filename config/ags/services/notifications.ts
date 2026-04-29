@@ -19,6 +19,7 @@ const [activeNotificationState, setActiveNotificationState] =
 const [activeNotificationsState, setActiveNotificationsState] = createState<
   NotificationEntry[]
 >([])
+const [doNotDisturbState, setDoNotDisturbState] = createState(false)
 const [notificationHistoryState, setNotificationHistoryState] = createState<
   NotificationEntry[]
 >([])
@@ -83,6 +84,14 @@ const handleNotification = (id: number) => {
   const entry = notificationToEntry(id)
   if (!entry) return
 
+  if (doNotDisturbState()) {
+    setNotificationHistoryState([
+      entry,
+      ...notificationHistoryState().filter((item) => item.id !== id),
+    ])
+    return
+  }
+
   setActiveNotificationState(entry)
   const previousActive = activeNotificationsState()
   const nextActive = [
@@ -121,6 +130,16 @@ notifd?.connect("resolved", (_: unknown, id: number) => {
 export const activeNotification = activeNotificationState
 export const activeNotifications = activeNotificationsState
 export const notificationHistory = notificationHistoryState
+export const isDoNotDisturbEnabled = doNotDisturbState
+
+export const toggleDoNotDisturb = () => {
+  const nextEnabled = !doNotDisturbState()
+  setDoNotDisturbState(nextEnabled)
+
+  if (nextEnabled) {
+    clearAllActiveNotifications()
+  }
+}
 
 export const clearNotificationHistory = () => {
   clearAllActiveNotifications()

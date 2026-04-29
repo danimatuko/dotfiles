@@ -32,8 +32,10 @@ import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
 import NotificationCard from "../notifications/NotificationCard"
 import {
   clearNotificationHistory,
+  isDoNotDisturbEnabled,
   dismissNotification,
   notificationHistory,
+  toggleDoNotDisturb,
 } from "../../services/notifications"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
@@ -217,6 +219,16 @@ export default function QuickSettingsMenu() {
             xalign={0}
             hexpand
           />
+          <button
+            class={isDoNotDisturbEnabled((enabled) =>
+              enabled
+                ? "quick-settings__toggle-button quick-settings__toggle-button--active"
+                : "quick-settings__toggle-button",
+            )}
+            onClicked={toggleDoNotDisturb}
+          >
+            <label label="Do Not Disturb" />
+          </button>
           <button
             class="quick-settings__action-button"
             visible={notificationHistory((items) => items.length > 0)}

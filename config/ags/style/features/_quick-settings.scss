@@ -124,6 +124,12 @@ window.Sidebar {
     min-height: 24px;
   }
 
+  &__section-header .quick-settings__toggle-button {
+    min-height: 24px;
+    padding: 4px 9px;
+    margin-bottom: 0;
+  }
+
   &__action-button {
     @include control-reset;
     min-height: 24px;
