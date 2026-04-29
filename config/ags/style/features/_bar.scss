@@ -194,30 +194,38 @@ window.Bar {
     background: transparent;
 
     > arrow {
-      background: $bg-base;
+      background: color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
       border: none;
     }
 
     > contents {
       @include control-reset;
       padding: 8px 0 0;
-      border: 1px solid $bg-surface-strong;
+      border: 1px solid
+        color-mix(in srgb, #{$color-brand} 24%, #{$bg-surface} 76%);
       border-radius: $radius-lg;
-      background: $bg-base;
+      background:
+        radial-gradient(
+          130% 100% at 100% 0%,
+          rgba(255, 255, 255, 0.06) 0%,
+          transparent 62%
+        ),
+        color-mix(in srgb, #{$bg-base} 92%, #{$bg-surface} 8%);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
     }
   }
 
   .clock-menu__content {
-    padding: 12px;
+    padding: 10px;
     border-radius: $radius-lg;
     border: none;
-    background: $bg-base;
+    background: transparent;
     color: $color-on-surface;
     box-shadow: none;
   }
 
   .clock-menu__calendar {
-    min-width: 286px;
+    min-width: 294px;
   }
 
   .clock-menu__calendar calendar {
@@ -225,7 +233,7 @@ window.Bar {
     border-radius: $radius-lg;
     border: none;
     color: $color-on-surface;
-    background: linear-gradient(180deg, $bg-base, $bg-surface-strong);
+    background: transparent;
     box-shadow: none;
   }
 
@@ -233,8 +241,13 @@ window.Bar {
     margin-bottom: 8px;
     padding: 6px 4px;
     border-radius: $radius-sm;
-    background: $color-outline;
-    border: none;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 86%,
+      #{$bg-surface} 14%
+    );
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
     box-shadow: none;
   }
 
@@ -248,7 +261,7 @@ window.Bar {
     box-shadow: none;
 
     &:hover {
-      background: $accent-hover;
+      background: color-mix(in srgb, #{$accent-hover} 68%, #{$color-brand} 32%);
     }
   }
 
@@ -269,54 +282,14 @@ window.Bar {
   }
 
   .clock-menu__calendar calendar > grid > label.today {
-    background: $accent-color;
-    color: $accent-text;
+    background: color-mix(in srgb, #{$color-brand} 88%, #{$bg-surface} 12%);
+    color: $color-surface;
     font-weight: 700;
   }
 
   .clock-menu__calendar calendar > grid > label:selected {
-    background: $accent-hover;
+    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
     color: $accent-text;
     font-weight: 700;
-  }
-
-  .clock-menu__notifications {
-    min-width: 380px;
-    max-width: 380px;
-  }
-
-  .clock-menu__notifications-header {
-    margin-bottom: 8px;
-  }
-
-  .clock-menu__notifications-title {
-    font-weight: 700;
-  }
-
-  .clock-menu__notifications-clear {
-    @include control-reset;
-    border-radius: $radius-sm;
-    padding: 1px 8px;
-    background: $color-outline;
-    color: $color-on-surface;
-
-    &:hover {
-      background: $accent-hover;
-      color: $accent-text;
-    }
-  }
-
-  .clock-menu__notifications-list {
-    min-height: 80px;
-    padding-right: 6px;
-  }
-
-  .clock-menu__notifications-scroll {
-    min-height: 320px;
-    max-height: 320px;
-  }
-
-  .clock-menu__notifications-empty {
-    opacity: 0.65;
   }
 }
