@@ -6,6 +6,8 @@ import Osd from "./widget/Osd"
 import SidebarBackdrop from "./widget/quick-settings/SidebarBackdrop"
 import Sidebar from "./widget/quick-settings/Sidebar"
 import { toggleSidebar } from "./services/sidebar"
+import AppLauncher from "./widget/launcher/AppLauncher"
+import { toggleLauncher } from "./services/launcher"
 import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
 import { currentTheme, setThemeByName, themeNames } from "./services/theme"
@@ -20,6 +22,12 @@ app.start({
 
     if (argv[0] === "toggle-theme-menu") {
       toggleThemeMenu()
+      response("ok")
+      return
+    }
+
+    if (argv[0] === "toggle-launcher") {
+      toggleLauncher()
       response("ok")
       return
     }
@@ -54,6 +62,7 @@ app.start({
     monitors.map(Bar)
     monitors.map(SidebarBackdrop)
     monitors.map(Sidebar)
+    monitors.map(AppLauncher)
     monitors.map(ThemeSwitcher)
     monitors.map(Notifications)
     monitors.map(Osd)

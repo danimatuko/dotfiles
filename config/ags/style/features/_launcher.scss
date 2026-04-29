@@ -1,0 +1,86 @@
+@use "../theme.scss" as *;
+
+$launcher-radius: $radius-lg;
+$launcher-font-size: 1.06rem;
+$launcher-subtext-size: 0.94rem;
+
+window.AppLauncher {
+  background: transparent;
+  color: $color-on-surface;
+  font-family: "SF Pro Display", "SF Pro Text", sans-serif;
+}
+
+.app-launcher {
+  background: transparent;
+}
+
+.app-launcher__backdrop {
+  @include control-reset;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+.app-launcher__panel {
+  margin-top: 0;
+  padding: 14px;
+  border-radius: $launcher-radius;
+  border: 1px solid $color-outline;
+  background: color-mix(in srgb, #{$bg-base} 96%, transparent 4%);
+}
+
+.app-launcher__search {
+  border-radius: $radius-md;
+  border: 1px solid $color-outline;
+  background: $bg-surface;
+  color: $color-on-surface;
+  padding: 8px 10px;
+  min-height: 40px;
+  font-size: $launcher-font-size;
+}
+
+.app-launcher__list {
+}
+
+.app-launcher__scroller {
+}
+
+.app-launcher__item {
+  @include control-reset;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  padding: 6px 8px;
+  background: transparent;
+
+  &:hover {
+    border-color: $color-outline;
+    background: $color-hover;
+  }
+}
+
+.app-launcher__item--selected {
+  border-color: $color-outline;
+  background: $color-hover;
+}
+
+.app-launcher__item-content {
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.app-launcher__item-icon {
+  @include icon-size($icon-size-md);
+  color: $color-brand;
+}
+
+.app-launcher__item-name {
+  color: $color-on-surface;
+  font-weight: 600;
+  font-size: $launcher-font-size;
+}
+
+.app-launcher__item-desc {
+  color: $color-muted;
+  font-size: $launcher-subtext-size;
+  margin-left: 12px;
+}

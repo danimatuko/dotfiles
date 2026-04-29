@@ -5,6 +5,7 @@ import Workspaces from "./Workspaces"
 import Clock from "./Clock"
 import SystemTray from "./SystemTray"
 import OsIcon from "./OsIcon"
+import LauncherToggleButton from "./LauncherToggleButton"
 import SidebarToggleButton from "./SidebarToggleButton"
 import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
 import { getThemeWindowClass } from "../../services/theme"
@@ -40,6 +41,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         </box>
 
         <box class="bar__end" $type="end" halign={Gtk.Align.END}>
+          <LauncherToggleButton />
           <box class="system-tray" tooltipText="System Tray">
             <box class="system-tray__container">
               <SystemTray />
