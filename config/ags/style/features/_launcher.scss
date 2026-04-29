@@ -1,13 +1,19 @@
 @use "../theme.scss" as *;
 
 $launcher-radius: $radius-lg;
+$launcher-item-radius: $radius-sm;
 $launcher-font-size: 1.06rem;
 $launcher-subtext-size: 0.94rem;
 
 window.AppLauncher {
   background: transparent;
   color: $color-on-surface;
-  font-family: "SF Pro Display", "SF Pro Text", sans-serif;
+  font-family:
+    Iosevka,
+    "JetBrainsMono Nerd Font Propo",
+    "JetBrainsMono Nerd Font",
+    "JetBrains Mono",
+    monospace;
 }
 
 .app-launcher {
@@ -24,14 +30,21 @@ window.AppLauncher {
   margin-top: 0;
   padding: 14px;
   border-radius: $launcher-radius;
-  border: 1px solid $color-outline;
-  background: color-mix(in srgb, #{$bg-base} 96%, transparent 4%);
+  border: 1px solid color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    ),
+    color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+  box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
 }
 
 .app-launcher__search {
   border-radius: $radius-md;
-  border: 1px solid $color-outline;
-  background: $bg-surface;
+  border: 1px solid color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+  background: color-mix(in srgb, #{$bg-surface-strong} 80%, #{$bg-surface} 20%);
   color: $color-on-surface;
   padding: 8px 10px;
   min-height: 40px;
@@ -46,20 +59,20 @@ window.AppLauncher {
 
 .app-launcher__item {
   @include control-reset;
-  border-radius: $radius-sm;
+  border-radius: $launcher-item-radius;
   border: 1px solid transparent;
   padding: 6px 8px;
   background: transparent;
 
   &:hover {
-    border-color: $color-outline;
-    background: $color-hover;
+    border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
   }
 }
 
 .app-launcher__item--selected {
-  border-color: $color-outline;
-  background: $color-hover;
+  border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+  background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
 }
 
 .app-launcher__item-content {
