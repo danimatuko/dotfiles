@@ -31,7 +31,8 @@ $alpha-widget-surface: 1;
 $radius-sm: 8px;
 $radius-md: 12px;
 $radius-lg: 14px;
-$radius-pill: 20px;
+$radius-capsule: 20px;
+$radius-pill: $radius-capsule;
 $radius-rounded: 999px;
 
 $space-xs: 8px;

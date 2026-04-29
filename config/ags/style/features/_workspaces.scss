@@ -4,7 +4,7 @@
   color: $color-on-surface;
   padding: 0 5px;
   margin: 2px 0;
-  border-radius: $radius-pill;
+  border-radius: $radius-capsule;
   background: linear-gradient(
     180deg,
     color-mix(in srgb, #{$bg-surface} 86%, transparent 14%),
