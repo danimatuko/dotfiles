@@ -183,6 +183,19 @@ npx vitest run path/to/file.test.ts -t "test name"
 - Do not edit large vendored/generated trees (for example `astal/`) unless explicitly asked.
 - Preserve existing style choices in touched files.
 
+## UX Taste Profile (User Preference)
+
+Use this profile when making AGS UI/UX changes unless the user explicitly asks otherwise.
+
+- Prefer a classic desktop feel over flashy/experimental layouts.
+- Prioritize practical UX: low interruption, quick glance readability, and persistent access to history/status.
+- Keep interfaces compact but breathable; avoid both cramped and oversized spacing.
+- Maintain strong visual hierarchy (clear sections, deliberate alignment, purposeful emphasis).
+- Keep components in the same visual family (consistent border radii, surfaces, contrast, and motion language).
+- Avoid "box inside a box" visual clutter unless there is a clear semantic reason.
+- Prefer incremental refinements over full restyles.
+- Keep implementation maintainable: avoid magic numbers, centralize layout constants, and use explicit state names.
+
 ## Commit Message Convention
 
 - Use `type:message` format for commit subjects.
