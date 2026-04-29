@@ -55,6 +55,10 @@ window.Bar {
       background: transparent;
       color: $color-brand;
     }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
   }
 
   .os-icon__glyph {
@@ -98,6 +102,10 @@ window.Bar {
       color: $control-color-bright;
       transition: transform 620ms $motion-emphasized;
     }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
   }
 
   .system-tray:hover .system-tray__toggle image {
@@ -116,6 +124,10 @@ window.Bar {
       padding: 0 1px;
       min-width: 0;
       @include control-reset;
+
+      &:focus-visible {
+        @include focus-ring;
+      }
     }
 
     image {
@@ -145,6 +157,10 @@ window.Bar {
 
     &:hover {
       color: $color-brand;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
     }
   }
 
@@ -179,6 +195,10 @@ window.Bar {
 
     image {
       @include icon-size($icon-size-sm);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
     }
   }
 
@@ -245,6 +265,10 @@ window.Bar {
 
       &:active {
         transform: translateY(0);
+      }
+
+      &:focus-visible {
+        @include focus-ring;
       }
     }
   }

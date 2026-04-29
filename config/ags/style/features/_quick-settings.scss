@@ -120,6 +120,16 @@ window.Sidebar {
     padding: 2px 4px 4px;
   }
 
+  &__section-label-row {
+    min-height: 20px;
+  }
+
+  &__section-label-icon {
+    @include icon-size(14px);
+    color: color-mix(in srgb, #{$color-emphasis} 70%, #{$color-brand} 30%);
+    min-width: 14px;
+  }
+
   &__section-header {
     min-height: 24px;
   }
@@ -153,6 +163,10 @@ window.Sidebar {
         #{$bg-surface-strong} 54%
       );
       color: $accent-text;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
     }
   }
 
@@ -238,6 +252,10 @@ window.Sidebar {
       color: $accent-text;
     }
 
+    &:focus-visible {
+      @include focus-ring;
+    }
+
     &--active {
       background: color-mix(in srgb, #{$color-brand} 90%, #{$bg-surface} 10%);
       border-color: color-mix(in srgb, #{$color-brand} 72%, white 28%);
@@ -266,6 +284,19 @@ window.Sidebar {
   &__slider-icon-box > image {
     @include icon-size(20px);
     min-width: 22px;
+  }
+
+  &__toggle-icon {
+    color: color-mix(in srgb, #{$color-on-surface} 74%, transparent 26%);
+    transition: color 160ms ease-out;
+  }
+
+  &__toggle-button--active .quick-settings__toggle-icon--wifi {
+    color: color-mix(in srgb, #{$color-brand} 86%, white 14%);
+  }
+
+  &__toggle-button--active .quick-settings__toggle-icon--bluetooth {
+    color: color-mix(in srgb, #{$color-brand} 78%, #{$color-emphasis} 22%);
   }
 
   &__brightness-icon,
@@ -347,6 +378,10 @@ window.Sidebar {
         #{$bg-surface-strong} 54%
       );
       color: $accent-text;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
     }
 
     > image {

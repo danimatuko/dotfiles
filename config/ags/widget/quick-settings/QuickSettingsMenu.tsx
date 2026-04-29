@@ -40,6 +40,20 @@ import {
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
+type SectionHeaderProps = {
+  iconName: string
+  label: string
+}
+
+function SectionHeader({ iconName, label }: SectionHeaderProps) {
+  return (
+    <box class="quick-settings__section-label-row" spacing={6} hexpand>
+      <image class="quick-settings__section-label-icon" iconName={iconName} />
+      <label class="quick-settings__section-label" label={label} xalign={0} />
+    </box>
+  )
+}
+
 export default function QuickSettingsMenu() {
   return (
     <box
@@ -74,10 +88,9 @@ export default function QuickSettingsMenu() {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={10}
       >
-        <label
-          class="quick-settings__section-label"
+        <SectionHeader
+          iconName="network-wireless-signal-excellent-symbolic"
           label="Connectivity"
-          xalign={0}
         />
         <box
           class="quick-settings__toggles-group"
@@ -87,6 +100,7 @@ export default function QuickSettingsMenu() {
         >
           <QuickSettingsToggleButton
             iconName={getWifiIcon}
+            iconClassName="quick-settings__toggle-icon quick-settings__toggle-icon--wifi"
             className={getWifiButtonClass}
             onClicked={toggleWifi}
             sensitive={canToggleWifi}
@@ -96,6 +110,7 @@ export default function QuickSettingsMenu() {
           />
           <QuickSettingsToggleButton
             iconName={getBluetoothIcon}
+            iconClassName="quick-settings__toggle-icon quick-settings__toggle-icon--bluetooth"
             className={getBluetoothButtonClass}
             onClicked={toggleBluetooth}
             sensitive={canToggleBluetooth}
@@ -129,11 +144,7 @@ export default function QuickSettingsMenu() {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={8}
       >
-        <label
-          class="quick-settings__section-label"
-          label="Display"
-          xalign={0}
-        />
+        <SectionHeader iconName="video-display-symbolic" label="Display" />
         <box
           class="quick-settings__sliders-group"
           orientation={Gtk.Orientation.VERTICAL}
@@ -165,7 +176,7 @@ export default function QuickSettingsMenu() {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={8}
       >
-        <label class="quick-settings__section-label" label="Sound" xalign={0} />
+        <SectionHeader iconName="audio-speakers-symbolic" label="Sound" />
         <box
           class="quick-settings__sliders-group"
           orientation={Gtk.Orientation.VERTICAL}
@@ -198,7 +209,7 @@ export default function QuickSettingsMenu() {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={8}
       >
-        <label class="quick-settings__section-label" label="Power" xalign={0} />
+        <SectionHeader iconName="battery-good-symbolic" label="Power" />
 
         <box class="quick-settings__battery-row" spacing={8}>
           <image iconName={getBatteryIcon} />
@@ -213,11 +224,9 @@ export default function QuickSettingsMenu() {
         spacing={8}
       >
         <box class="quick-settings__section-header" spacing={8}>
-          <label
-            class="quick-settings__section-label"
+          <SectionHeader
+            iconName="preferences-system-notifications-symbolic"
             label="Notifications"
-            xalign={0}
-            hexpand
           />
           <button
             class={isDoNotDisturbEnabled((enabled) =>

@@ -4,6 +4,7 @@ import type { Accessor } from "gnim"
 type Props = {
   label?: string
   iconName: string | Accessor<string>
+  iconClassName?: string
   className: string | Accessor<string>
   sensitive: boolean | Accessor<boolean>
   onClicked: () => void
@@ -14,6 +15,7 @@ type Props = {
 export default function QuickSettingsToggleButton({
   label,
   iconName,
+  iconClassName,
   className,
   sensitive,
   onClicked,
@@ -43,7 +45,10 @@ export default function QuickSettingsToggleButton({
         halign={iconOnly ? Gtk.Align.CENTER : undefined}
         valign={iconOnly ? Gtk.Align.CENTER : undefined}
       >
-        <image iconName={iconName} />
+        <image
+          class={iconClassName ?? "quick-settings__toggle-icon"}
+          iconName={iconName}
+        />
         <label
           class="quick-settings__toggle-label"
           label={label ?? ""}
