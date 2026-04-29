@@ -42,7 +42,7 @@ What `install.sh` does:
 
 - Asks before starting and asks whether to create a backup
 - Runs modular setup scripts from `setup/`
-- Runs a post-install validation step that disables `NetworkManager` and ensures `iwd` is active
+- Runs a post-install validation step that enables `NetworkManager` and disables conflicting network services
 - Links `bin/*` into `~/.local/bin`
 - Prompts before linking config files
 - After config linking, enables HyprDynamicMonitors user services (`hyprdynamicmonitors.service` and `hyprdynamicmonitors-prepare.service`)

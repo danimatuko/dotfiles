@@ -47,7 +47,7 @@ yay -S --noconfirm --needed \
 	bluetui \
 	wlogout \
 	swayosd \
-	impala \
+	gazelle-tui \
 	awww \
 	zip \
 	libnotify \

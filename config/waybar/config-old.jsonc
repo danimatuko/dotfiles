@@ -315,7 +315,7 @@
         "format-linked": "󰈀 {ifname} (No IP)",
         "format-disconnected": " ",
         "tooltip-format-disconnected": "Disconnected",
-        "on-click":"ghostty --class=Impala -e impala",
+        "on-click":"ghostty --class=TUI.float -e gazelle-tui",
         "on-click-right": "~/dotfiles/bin/rofi-wifi-menu.sh",
         "interval": 2,
     },

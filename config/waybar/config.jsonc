@@ -73,7 +73,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "spacing": 1,
-    "on-click": "uwsm app -- ghostty --class=TUI.float -e impala"
+    "on-click": "uwsm app -- ghostty --class=TUI.float -e gazelle-tui"
   },
 
   "battery": {
