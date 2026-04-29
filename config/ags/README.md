@@ -43,6 +43,26 @@ config/ags/
 - `lib/*` should not depend on `widget/*` or AGS UI components.
 - `style/features/*` should consume theme variables/mixins from `style/theme.scss`.
 
+## Theming pattern
+
+- Use `getThemeWindowClass("<WindowClass>")` for themed windows so they follow active `.theme--*` classes.
+- Keep feature styling under `style/features/_<feature>.scss` and consume tokens from `style/theme.scss`.
+
+```tsx
+import { getThemeWindowClass } from "./services/theme"
+
+<window class={getThemeWindowClass("AppLauncher")}>...</window>
+```
+
+```scss
+@use "../theme.scss" as *;
+
+window.AppLauncher {
+  color: $color-on-surface;
+  background: $bg-base;
+}
+```
+
 ## Development commands
 
 ```bash
