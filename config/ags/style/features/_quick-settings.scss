@@ -300,6 +300,7 @@ window.Sidebar {
   }
 
   &__brightness-icon,
+  &__night-light-icon,
   &__volume-icon {
     color: $color-on-surface;
   }
@@ -323,6 +324,7 @@ window.Sidebar {
   }
 
   &__brightness-slider,
+  &__night-light-slider,
   &__volume-slider {
     min-width: 140px;
 

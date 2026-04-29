@@ -17,12 +17,14 @@ import {
   getDarkModeIcon,
   getNightLightButtonClass,
   getNightLightIcon,
+  getNightLightTemperatureValue,
   getSpeakerIcon,
   getVolumeValue,
   getWifiButtonClass,
   getWifiIcon,
   setVolume,
   setBrightness,
+  setNightLightTemperature,
   toggleDarkMode,
   toggleBluetooth,
   toggleNightLight,
@@ -166,6 +168,24 @@ export default function QuickSettingsMenu() {
               hexpand
               value={getBrightnessValue}
               onValueChanged={(self) => setBrightness(self.value)}
+            />
+          </box>
+          <box class="quick-settings__slider-row" spacing={10}>
+            <box
+              class="quick-settings__slider-icon-box"
+              valign={Gtk.Align.CENTER}
+            >
+              <image
+                class="quick-settings__night-light-icon"
+                iconName="night-light-symbolic"
+              />
+            </box>
+            <slider
+              class="quick-settings__night-light-slider"
+              cursor={pointerCursor}
+              hexpand
+              value={getNightLightTemperatureValue}
+              onValueChanged={(self) => setNightLightTemperature(self.value)}
             />
           </box>
         </box>
