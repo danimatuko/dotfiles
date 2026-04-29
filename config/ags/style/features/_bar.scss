@@ -149,11 +149,7 @@ window.Bar {
   }
 
   .notification-indicator--has-items {
-    color: color-mix(
-      in srgb,
-      #{$color-brand} 82%,
-      #{$color-emphasis} 18%
-    );
+    color: color-mix(in srgb, #{$color-brand} 82%, #{$color-emphasis} 18%);
   }
 
   .notification-indicator__badge {
@@ -206,7 +202,7 @@ window.Bar {
         "JetBrains Mono", monospace;
       font-weight: 300;
       font-size: 0.88rem;
-      color: $control-text;
+      color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
     }
 
     > button {
@@ -214,15 +210,41 @@ window.Bar {
       border-radius: 999px;
       padding: 0 12px;
       min-height: 24px;
-      color: $control-text;
+      color: $color-emphasis;
+      background: color-mix(
+        in srgb,
+        #{$bg-surface-strong} 48%,
+        transparent 52%
+      );
+      border: 1px solid
+        color-mix(in srgb, #{$bg-surface-strong} 76%, transparent 24%);
+      transition:
+        background 170ms ease-out,
+        border-color 170ms ease-out,
+        color 170ms ease-out,
+        transform 140ms ease-out;
 
       &:hover {
-        background: transparent;
-        color: $color-brand;
+        background: color-mix(
+          in srgb,
+          #{$accent-hover} 68%,
+          #{$color-brand} 32%
+        );
+        border-color: color-mix(
+          in srgb,
+          #{$color-brand} 44%,
+          #{$bg-surface-strong} 56%
+        );
+        color: $accent-text;
+        transform: translateY(-1px);
       }
 
       &:hover label {
-        color: $color-brand;
+        color: $accent-text;
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }
@@ -317,6 +339,7 @@ window.Bar {
 
   .clock-menu__calendar calendar > grid > label.day-name {
     font-weight: 700;
+    color: color-mix(in srgb, #{$color-on-surface} 72%, #{$color-brand} 28%);
   }
 
   .clock-menu__calendar calendar > grid > label.today {
