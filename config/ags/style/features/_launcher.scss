@@ -2,8 +2,8 @@
 
 $launcher-radius: $radius-lg;
 $launcher-item-radius: $radius-sm;
-$launcher-font-size: 1.06rem;
-$launcher-subtext-size: 0.94rem;
+$launcher-font-size: 1.2rem;
+$launcher-subtext-size: 1rem;
 
 window.AppLauncher {
   background: transparent;
@@ -77,13 +77,14 @@ window.AppLauncher {
 
 .app-launcher__item-content {
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
 }
 
 .app-launcher__item-icon {
   @include icon-size($icon-size-md);
   color: $color-brand;
+  margin-right: 8px;
 }
 
 .app-launcher__item-name {
