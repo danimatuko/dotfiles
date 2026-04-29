@@ -44,7 +44,8 @@ window.Bar {
 
   .status-indicator--wifi,
   .status-indicator--bluetooth,
-  .status-indicator--speaker {
+  .status-indicator--speaker,
+  .status-indicator--sidebar {
     @include control-reset;
     background: transparent;
     padding: 0;
@@ -60,9 +61,30 @@ window.Bar {
       transition: color 140ms ease-out;
     }
 
-    &:hover image {
+    &:hover image,
+    &:hover label {
       color: $color-brand;
     }
+  }
+
+  .status-indicator--sidebar {
+    color: $color-emphasis;
+  }
+
+  .status-indicator--sidebar--active {
+    color: $color-brand;
+  }
+
+  .status-indicator__glyph {
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 700;
+    transition: color 140ms ease-out;
+  }
+
+  .status-indicator__glyph--sidebar {
+    font-size: 1.12rem;
+    font-weight: 800;
   }
 
   .os-icon {
@@ -222,59 +244,6 @@ window.Bar {
     &:focus-visible {
       @include focus-ring;
     }
-  }
-
-  .bar__sidebar-toggle {
-    @include control-reset;
-    min-height: 24px;
-    min-width: 24px;
-    padding: 4px;
-    margin: 0;
-    border-radius: $radius-sm;
-    color: $color-emphasis;
-    background: color-mix(in srgb, #{$bg-surface-strong} 58%, transparent 42%);
-    border: 1px solid
-      color-mix(in srgb, #{$bg-surface-strong} 84%, transparent 16%);
-    transition:
-      background 170ms ease-out,
-      border-color 170ms ease-out,
-      color 170ms ease-out,
-      transform 140ms ease-out;
-
-    &:hover {
-      background: color-mix(in srgb, #{$accent-hover} 68%, #{$color-brand} 32%);
-      border-color: color-mix(
-        in srgb,
-        #{$color-brand} 44%,
-        #{$bg-surface-strong} 56%
-      );
-      color: $accent-text;
-      transform: translateY(-1px);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-
-    &:focus-visible {
-      @include focus-ring;
-    }
-  }
-
-  .bar__sidebar-toggle--active {
-    background: color-mix(in srgb, #{$color-brand} 90%, #{$bg-surface} 10%);
-    border-color: color-mix(in srgb, #{$color-brand} 72%, white 28%);
-    color: $color-surface;
-  }
-
-  .bar__sidebar-toggle-glyph {
-    font-size: 1rem;
-    line-height: 1;
-    font-weight: 700;
-  }
-
-  .bar__sidebar-toggle-glyph--active {
-    font-size: 0.9rem;
   }
 
   .status-indicator {
