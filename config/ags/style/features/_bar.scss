@@ -42,6 +42,27 @@ window.Bar {
     }
   }
 
+  .status-indicator--wifi {
+    @include control-reset;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    -gtk-icon-cursor: pointer;
+
+    &:hover {
+      background: transparent;
+    }
+
+    image {
+      transition: color 140ms ease-out;
+    }
+
+    &:hover image {
+      color: $color-brand;
+    }
+  }
+
   .os-icon {
     @include control-reset;
     border-radius: $radius-sm;
