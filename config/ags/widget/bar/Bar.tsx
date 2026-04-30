@@ -6,6 +6,7 @@ import Clock from "./Clock"
 import SystemTray from "./SystemTray"
 import OsIcon from "./OsIcon"
 import SidebarToggleButton from "./SidebarToggleButton"
+import WallpaperToggleButton from "./WallpaperToggleButton"
 import NotificationIndicator from "./NotificationIndicator"
 import QuickSettingsToggleMenu from "../quick-settings/QuickSettingsToggleMenu"
 import { getThemeWindowClass } from "../../services/theme"
@@ -53,6 +54,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <box class="quick-status">
             <QuickSettingsToggleMenu />
           </box>
+          <WallpaperToggleButton />
           <SidebarToggleButton />
         </box>
       </centerbox>

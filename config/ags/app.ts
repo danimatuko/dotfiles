@@ -8,6 +8,8 @@ import Sidebar from "./widget/quick-settings/Sidebar"
 import { toggleSidebar } from "./services/sidebar"
 import AppLauncher from "./widget/launcher/AppLauncher"
 import { toggleLauncher } from "./services/launcher"
+import WallpaperMenu from "./widget/wallpaper/WallpaperMenu"
+import { toggleWallpaperMenu } from "./services/wallpaper-menu"
 import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
 import {
@@ -34,6 +36,12 @@ app.start({
 
     if (argv[0] === "toggle-launcher") {
       toggleLauncher()
+      response("ok")
+      return
+    }
+
+    if (argv[0] === "toggle-wallpaper-menu") {
+      toggleWallpaperMenu()
       response("ok")
       return
     }
@@ -76,6 +84,7 @@ app.start({
     monitors.map(SidebarBackdrop)
     monitors.map(Sidebar)
     monitors.map(AppLauncher)
+    monitors.map(WallpaperMenu)
     monitors.map(ThemeSwitcher)
     monitors.map(Notifications)
     monitors.map(Osd)
