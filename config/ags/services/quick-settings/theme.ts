@@ -1,13 +1,10 @@
-import GLib from "gi://GLib"
-import { execAsync } from "ags/process"
 import {
+  cycleTheme as cycleAgsTheme,
   currentTheme,
   setTheme as setAgsTheme,
   themeNames,
   type ThemeName,
 } from "../theme"
-
-const themeCommand = `${GLib.get_home_dir()}/.local/bin/ags-theme`
 
 export { themeNames }
 export type { ThemeName }
@@ -25,9 +22,8 @@ export const getCurrentTheme = currentTheme
 
 export const setTheme = (theme: ThemeName) => {
   setAgsTheme(theme)
-  execAsync([themeCommand, "set", theme]).catch(() => {})
 }
 
 export const cycleTheme = () => {
-  execAsync([themeCommand, "cycle"]).catch(() => {})
+  cycleAgsTheme()
 }

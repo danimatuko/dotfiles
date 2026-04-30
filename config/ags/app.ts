@@ -10,7 +10,7 @@ import AppLauncher from "./widget/launcher/AppLauncher"
 import { toggleLauncher } from "./services/launcher"
 import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
-import { currentTheme, setThemeByName, themeNames } from "./services/theme"
+import { currentTheme, cycleTheme, setThemeByName, themeNames } from "./services/theme"
 
 app.start({
   requestHandler(argv, response) {
@@ -51,6 +51,11 @@ app.start({
       }
 
       response(setThemeByName(theme) ? "ok" : "invalid theme")
+      return
+    }
+
+    if (argv[0] === "theme-cycle") {
+      response(cycleTheme())
       return
     }
 

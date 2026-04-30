@@ -1,4 +1,5 @@
 import GLib from "gi://GLib"
+import { execAsync } from "ags/process"
 import { createState } from "gnim"
 
 export const themeNames = [
@@ -16,6 +17,7 @@ export type ThemeName = (typeof themeNames)[number]
 const defaultTheme: ThemeName = "catppuccin"
 const cacheDir = `${GLib.get_user_cache_dir()}/ags-theme`
 const cacheFile = `${cacheDir}/current`
+const systemThemeCommand = `${GLib.get_home_dir()}/.local/bin/system-theme-set`
 
 const isThemeName = (value: string): value is ThemeName => {
   return themeNames.includes(value as ThemeName)
@@ -48,10 +50,22 @@ export const getThemeWindowClass = (baseClass: string) =>
 export const setTheme = (themeName: ThemeName) => {
   setThemeState(themeName)
   writeThemeToCache(themeName)
+
+  execAsync([systemThemeCommand, themeName]).catch(() => {})
 }
 
 export const setThemeByName = (themeName: string) => {
   if (!isThemeName(themeName)) return false
   setTheme(themeName)
   return true
+}
+
+export const cycleTheme = () => {
+  const current = theme()
+  const currentIndex = themeNames.indexOf(current)
+  const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % themeNames.length
+  const nextTheme = themeNames[nextIndex]
+
+  setTheme(nextTheme)
+  return nextTheme
 }

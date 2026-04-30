@@ -2,119 +2,44 @@
 
 set -euo pipefail
 
-themes=("catppuccin" "gruvbox" "gruvbox-light" "everforest" "nord" "tokyonight" "kanagawa")
-default_theme="catppuccin"
-cache_dir="$HOME/.cache/ags-theme"
-cache_file="$cache_dir/current"
+cache_file="$HOME/.cache/ags-theme/current"
 
-is_valid_theme() {
-	local candidate="$1"
-
-	for theme in "${themes[@]}"; do
-		if [[ "$theme" == "$candidate" ]]; then
-			return 0
-		fi
-	done
-
-	return 1
-}
-
-read_current_theme() {
-	if [[ -f "$cache_file" ]]; then
-		local saved
-		IFS= read -r saved <"$cache_file" || true
-
-		if is_valid_theme "$saved"; then
-			echo "$saved"
-			return
-		fi
-	fi
-
-	echo "$default_theme"
-}
-
-write_current_theme() {
-	mkdir -p "$cache_dir"
-	printf "%s\n" "$1" >"$cache_file"
-}
-
-notify_ags() {
+require_ags() {
 	if ! command -v ags >/dev/null 2>&1; then
-		return 1
+		echo "ags CLI not found" >&2
+		exit 1
 	fi
+}
+
+ags_request() {
+	require_ags
 
 	if command -v timeout >/dev/null 2>&1; then
-		timeout 2s ags request theme-set "$1" >/dev/null 2>&1
+		timeout 3s ags request "$@"
 		return $?
 	fi
 
-	ags request theme-set "$1" >/dev/null 2>&1
+	ags request "$@"
 }
 
-reload_ags() {
-	if notify_ags "$1"; then
+read_current_theme() {
+	if output="$(ags_request theme-current 2>/dev/null)"; then
+		echo "$output"
 		return
 	fi
 
-	if [[ -x "$HOME/.local/bin/ags-reload" ]]; then
-		echo "Warning: AGS request failed, falling back to ags-reload" >&2
-		if command -v timeout >/dev/null 2>&1; then
-			timeout 8s "$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
-		else
-			"$HOME/.local/bin/ags-reload" >/dev/null 2>&1 || true
-		fi
+	if [[ -f "$cache_file" ]]; then
+		IFS= read -r saved <"$cache_file" || true
+		echo "${saved:-catppuccin}"
 		return
 	fi
 
-	echo "Warning: could not apply AGS theme live and ags-reload was not found" >&2
-}
-
-apply_external_theme() {
-	if [[ ! -x "$HOME/.local/bin/system-theme-set" ]]; then
-		echo "Warning: $HOME/.local/bin/system-theme-set not found, only AGS theme updated" >&2
-		return
-	fi
-
-	if ! "$HOME/.local/bin/system-theme-set" "$1"; then
-		echo "Warning: system-theme-set failed, AGS theme was still updated" >&2
-	fi
-}
-
-set_theme() {
-	if ! is_valid_theme "$1"; then
-		echo "Invalid theme: $1" >&2
-		echo "Available: ${themes[*]}" >&2
-		exit 1
-	fi
-
-	write_current_theme "$1"
-	apply_external_theme "$1"
-	reload_ags "$1"
-	echo "$1"
-}
-
-list_themes() {
-	printf "%s\n" "${themes[@]}"
-}
-
-cycle_theme() {
-	local current next index
-	current="$(read_current_theme)"
-	next="$default_theme"
-
-	for index in "${!themes[@]}"; do
-		if [[ "${themes[$index]}" == "$current" ]]; then
-			next="${themes[$(((index + 1) % ${#themes[@]}))]}"
-			break
-		fi
-	done
-
-	set_theme "$next"
+	echo "catppuccin"
 }
 
 case "${1:-current}" in
 list)
-	list_themes
+	ags_request theme-list
 	;;
 current)
 	read_current_theme
@@ -125,10 +50,16 @@ set)
 		exit 1
 	fi
 
-	set_theme "$2"
+	result="$(ags_request theme-set "$2" 2>/dev/null || true)"
+	if [[ "$result" != "ok" ]]; then
+		echo "Failed to set theme: ${result:-request failed}" >&2
+		exit 1
+	fi
+
+	echo "$2"
 	;;
 cycle)
-	cycle_theme
+	ags_request theme-cycle
 	;;
 *)
 	echo "Usage: ags-theme {list|current|set <theme>|cycle}" >&2
