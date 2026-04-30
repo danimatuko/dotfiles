@@ -10,7 +10,13 @@ import AppLauncher from "./widget/launcher/AppLauncher"
 import { toggleLauncher } from "./services/launcher"
 import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
-import { currentTheme, cycleTheme, setThemeByName, themeNames } from "./services/theme"
+import {
+  applyCurrentThemeCss,
+  currentTheme,
+  cycleTheme,
+  setThemeByName,
+  themeNames,
+} from "./services/theme"
 
 app.start({
   requestHandler(argv, response) {
@@ -63,6 +69,8 @@ app.start({
   },
   css: style,
   main() {
+    applyCurrentThemeCss()
+
     const monitors = app.get_monitors()
     monitors.map(Bar)
     monitors.map(SidebarBackdrop)

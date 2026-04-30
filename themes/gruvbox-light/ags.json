@@ -1,0 +1,25 @@
+{
+  "id": "gruvbox-light",
+  "label": "Gruvbox Light",
+  "swatches": ["#FB4934", "#B8BB26", "#FABD2F", "#83A598"],
+  "ags": {
+    "color-surface": "#fbf1c7",
+    "color-outline": "#d5c4a1",
+    "color-on-surface": "#3c3836",
+    "color-muted": "#665c54",
+    "color-emphasis": "#504945",
+    "color-hover": "#504945",
+    "color-brand": "#d79921",
+    "color-danger": "#fb4934",
+    "color-warning": "#fabd2f",
+    "bg-base": "#fbf1c7",
+    "bg-surface": "#eee5d1",
+    "bg-surface-strong": "#e6dcc3",
+    "control-color": "#928374",
+    "control-color-bright": "#665c54",
+    "control-text": "#3c3836",
+    "accent-color": "#d79921",
+    "accent-hover": "#e3b557",
+    "accent-text": "#fbf1c7"
+  }
+}

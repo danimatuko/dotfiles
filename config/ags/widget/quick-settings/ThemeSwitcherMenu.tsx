@@ -4,19 +4,12 @@ import {
   cycleTheme,
   getCurrentTheme,
   setTheme,
-  themeColors,
-  themeNames,
+  themeOptions,
   type ThemeName,
 } from "../../services/quick-settings"
 import { closeThemeMenu } from "../../services/theme-menu"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
-
-const capitalize = (str: string) =>
-  str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ")
 
 const onThemeSelected = (themeName: ThemeName) => {
   setTheme(themeName)
@@ -60,25 +53,25 @@ export default function ThemeSwitcherMenu() {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={4}
       >
-        {themeNames.map((themeName: ThemeName) => (
+        {themeOptions.map((themeOption) => (
           <button
             class={getCurrentTheme((current: ThemeName) =>
-              current === themeName
+              current === themeOption.id
                 ? "theme-switcher__theme-button theme-switcher__theme-button--active"
                 : "theme-switcher__theme-button",
             )}
             cursor={pointerCursor}
-            onClicked={() => onThemeSelected(themeName)}
+            onClicked={() => onThemeSelected(themeOption.id)}
           >
             <box spacing={8}>
               <label
                 class="theme-switcher__theme-name"
-                label={capitalize(themeName)}
+                label={themeOption.label}
                 xalign={0}
                 hexpand
               />
               <box class="theme-switcher__theme-colors" spacing={2}>
-                {themeColors[themeName].map((color: string) => (
+                {themeOption.swatches.map((color: string) => (
                   <box
                     class="theme-switcher__theme-swatch"
                     css={`

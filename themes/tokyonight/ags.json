@@ -1,0 +1,25 @@
+{
+  "id": "tokyonight",
+  "label": "Tokyonight",
+  "swatches": ["#7AA2F7", "#BB9AF7", "#7DCFFF", "#9ECE6A"],
+  "ags": {
+    "color-surface": "#1a1b26",
+    "color-outline": "#414868",
+    "color-on-surface": "#a9b1d6",
+    "color-muted": "#565f89",
+    "color-emphasis": "#c0caf5",
+    "color-hover": "#c0caf5",
+    "color-brand": "#7aa2f7",
+    "color-danger": "#f7768e",
+    "color-warning": "#e0af68",
+    "bg-base": "#1a1b26",
+    "bg-surface": "#24283b",
+    "bg-surface-strong": "#292e42",
+    "control-color": "#3b4261",
+    "control-color-bright": "#565f89",
+    "control-text": "#a9b1d6",
+    "accent-color": "#7aa2f7",
+    "accent-hover": "#89b4fa",
+    "accent-text": "#1a1b26"
+  }
+}
