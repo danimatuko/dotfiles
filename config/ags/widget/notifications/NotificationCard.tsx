@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4"
+import { Gdk, Gtk } from "ags/gtk4"
 import type { Accessor } from "gnim"
 
 type NotificationCardProps = {
@@ -26,6 +26,7 @@ export default function NotificationCard({
   showIcon = true,
   className = "",
 }: NotificationCardProps) {
+  const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
   const cardClass = compact
     ? `notification-card notification-card--compact ${className}`
     : `notification-card ${className}`
@@ -48,6 +49,7 @@ export default function NotificationCard({
         <button
           class="notification-card__close"
           visible={Boolean(onClose)}
+          cursor={pointerCursor}
           onClicked={() => onClose?.()}
         >
           <image iconName="window-close-symbolic" />

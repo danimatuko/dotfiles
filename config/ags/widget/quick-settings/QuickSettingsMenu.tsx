@@ -235,12 +235,6 @@ export default function QuickSettingsMenu() {
         spacing={8}
       >
         <SectionHeader iconName="battery-good-symbolic" label="Power" />
-
-        <box class="quick-settings__battery-row" spacing={8}>
-          <image iconName={getBatteryIcon} />
-          <label label="Battery" xalign={0} hexpand />
-          <label label={getBatteryPercentage} xalign={1} />
-        </box>
         <box
           class="quick-settings__power-actions"
           orientation={Gtk.Orientation.HORIZONTAL}
@@ -251,6 +245,7 @@ export default function QuickSettingsMenu() {
             class="quick-settings__action-button quick-settings__power-action-button"
             onClicked={lockSession}
             tooltipText="Lock"
+            cursor={pointerCursor}
           >
             <image iconName="system-lock-screen-symbolic" />
           </button>
@@ -258,6 +253,7 @@ export default function QuickSettingsMenu() {
             class="quick-settings__action-button quick-settings__power-action-button"
             onClicked={logoutSession}
             tooltipText="Logout"
+            cursor={pointerCursor}
           >
             <image iconName="system-log-out-symbolic" />
           </button>
@@ -265,6 +261,7 @@ export default function QuickSettingsMenu() {
             class="quick-settings__action-button quick-settings__power-action-button"
             onClicked={suspendSystem}
             tooltipText="Sleep"
+            cursor={pointerCursor}
           >
             <image iconName="weather-clear-night-symbolic" />
           </button>
@@ -272,6 +269,7 @@ export default function QuickSettingsMenu() {
             class="quick-settings__action-button quick-settings__power-action-button"
             onClicked={rebootSystem}
             tooltipText="Restart"
+            cursor={pointerCursor}
           >
             <image iconName="system-reboot-symbolic" />
           </button>
@@ -279,9 +277,15 @@ export default function QuickSettingsMenu() {
             class="quick-settings__action-button quick-settings__power-action-button"
             onClicked={poweroffSystem}
             tooltipText="Shutdown"
+            cursor={pointerCursor}
           >
             <image iconName="system-shutdown-symbolic" />
           </button>
+        </box>
+        <box class="quick-settings__battery-row" spacing={8}>
+          <image iconName={getBatteryIcon} />
+          <label label="Battery" xalign={0} hexpand />
+          <label label={getBatteryPercentage} xalign={1} />
         </box>
       </box>
 
@@ -302,6 +306,7 @@ export default function QuickSettingsMenu() {
                 : "quick-settings__toggle-button",
             )}
             onClicked={toggleDoNotDisturb}
+            cursor={pointerCursor}
           >
             <label label="Do Not Disturb" />
           </button>
@@ -309,6 +314,7 @@ export default function QuickSettingsMenu() {
             class="quick-settings__action-button"
             visible={notificationHistory((items) => items.length > 0)}
             onClicked={clearNotificationHistory}
+            cursor={pointerCursor}
           >
             <label label="Clear" />
           </button>

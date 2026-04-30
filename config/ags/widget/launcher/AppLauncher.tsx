@@ -20,9 +20,11 @@ const installedApps = Gio.AppInfo.get_all()
   .filter((appInfo) => appInfo.should_show())
   .map((appInfo) => {
     const id = `${appInfo.get_id() ?? ""}`.trim()
-    const name = `${appInfo.get_display_name() ?? appInfo.get_name() ?? ""}`.trim()
+    const name =
+      `${appInfo.get_display_name() ?? appInfo.get_name() ?? ""}`.trim()
     const description = `${appInfo.get_description() ?? ""}`.trim()
-    const iconName = `${appInfo.get_icon()?.to_string() ?? "application-x-executable-symbolic"}`.trim()
+    const iconName =
+      `${appInfo.get_icon()?.to_string() ?? "application-x-executable-symbolic"}`.trim()
 
     return {
       id: id || name,
@@ -38,6 +40,7 @@ const installedApps = Gio.AppInfo.get_all()
 const [queryState, setQueryState] = createState("")
 const [selectedIndexState, setSelectedIndexState] = createState(0)
 let launcherScroller: Gtk.ScrolledWindow | null = null
+const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
 const normalize = (value: string) => value.toLowerCase().trim()
 
@@ -161,7 +164,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
       <overlay class="app-launcher" hexpand vexpand>
         <button
           class="app-launcher__backdrop"
-          cursor={Gdk.Cursor.new_from_name("default", null)}
+          cursor={pointerCursor}
           onClicked={closeLauncher}
           hexpand
           vexpand
@@ -195,9 +198,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
             onMap={(self) => {
               launcherScroller = self
             }}
-            cssClasses={[
-              "app-launcher__scroller",
-            ]}
+            cssClasses={["app-launcher__scroller"]}
             vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
             hscrollbarPolicy={Gtk.PolicyType.NEVER}
             widthRequest={600}
@@ -216,6 +217,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
                         ? "app-launcher__item app-launcher__item--selected"
                         : "app-launcher__item",
                     )}
+                    cursor={pointerCursor}
                     onClicked={() => launchApp(entry)}
                     tooltipText={entry.id}
                   >
