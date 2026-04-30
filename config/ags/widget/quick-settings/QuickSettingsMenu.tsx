@@ -5,6 +5,7 @@ import DisplaySection from "./DisplaySection"
 import NotificationsSection from "./NotificationsSection"
 import PowerSection from "./PowerSection"
 import SoundSection from "./SoundSection"
+import WallpaperSection from "./WallpaperSection"
 
 export default function QuickSettingsMenu() {
   return (
@@ -39,6 +40,7 @@ export default function QuickSettingsMenu() {
       <DisplaySection />
       <SoundSection />
       <PowerSection />
+      <WallpaperSection />
       <NotificationsSection />
     </box>
   )
