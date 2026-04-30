@@ -18,7 +18,12 @@ import {
   getNightLightButtonClass,
   getNightLightIcon,
   getNightLightTemperatureValue,
+  lockSession,
+  logoutSession,
+  poweroffSystem,
+  rebootSystem,
   getSpeakerIcon,
+  suspendSystem,
   getVolumeValue,
   getWifiButtonClass,
   getWifiIcon,
@@ -235,6 +240,48 @@ export default function QuickSettingsMenu() {
           <image iconName={getBatteryIcon} />
           <label label="Battery" xalign={0} hexpand />
           <label label={getBatteryPercentage} xalign={1} />
+        </box>
+        <box
+          class="quick-settings__power-actions"
+          orientation={Gtk.Orientation.HORIZONTAL}
+          spacing={8}
+          homogeneous
+        >
+          <button
+            class="quick-settings__action-button quick-settings__power-action-button"
+            onClicked={lockSession}
+            tooltipText="Lock"
+          >
+            <image iconName="system-lock-screen-symbolic" />
+          </button>
+          <button
+            class="quick-settings__action-button quick-settings__power-action-button"
+            onClicked={logoutSession}
+            tooltipText="Logout"
+          >
+            <image iconName="system-log-out-symbolic" />
+          </button>
+          <button
+            class="quick-settings__action-button quick-settings__power-action-button"
+            onClicked={suspendSystem}
+            tooltipText="Sleep"
+          >
+            <image iconName="weather-clear-night-symbolic" />
+          </button>
+          <button
+            class="quick-settings__action-button quick-settings__power-action-button"
+            onClicked={rebootSystem}
+            tooltipText="Restart"
+          >
+            <image iconName="system-reboot-symbolic" />
+          </button>
+          <button
+            class="quick-settings__action-button quick-settings__power-action-button"
+            onClicked={poweroffSystem}
+            tooltipText="Shutdown"
+          >
+            <image iconName="system-shutdown-symbolic" />
+          </button>
         </box>
       </box>
 

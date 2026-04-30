@@ -391,6 +391,20 @@ window.Sidebar {
       min-width: 18px;
     }
   }
+
+  &__power-actions {
+    margin-top: 6px;
+  }
+
+  &__power-action-button {
+    min-height: 30px;
+    padding: 6px;
+
+    > image {
+      @include icon-size(14px);
+      min-width: 14px;
+    }
+  }
 }
 
 window.ThemeSwitcherBackdrop {
