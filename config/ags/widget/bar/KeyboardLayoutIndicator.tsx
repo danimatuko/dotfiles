@@ -1,6 +1,10 @@
 import { createPoll } from "ags/time"
 import { execAsync } from "ags/process"
 import { Gdk } from "ags/gtk4"
+import {
+  POINTER_CURSOR_NAME,
+  STATUS_INDICATOR_BASE_CLASS,
+} from "./constants"
 
 type HyprlandDevices = {
   keyboards?: Array<{
@@ -10,10 +14,11 @@ type HyprlandDevices = {
   }>
 }
 
+const pointerCursor = Gdk.Cursor.new_from_name(POINTER_CURSOR_NAME, null)
 const fallbackLayoutLabel = "--"
 const fallbackLayoutName = "Keyboard layout unavailable"
-const tooltipHint = "Click to switch"
-const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
+const keyboardLayoutPollIntervalMs = 1000
+const keyboardLayoutTooltipHint = "Click to switch"
 
 const toShortLayoutLabel = (keymap: string) => {
   if (/^[a-z]{2,3}$/i.test(keymap)) {
@@ -78,13 +83,21 @@ const cycleKeyboardLayout = async () => {
 }
 
 export default function KeyboardLayoutIndicator() {
-  const layout = createPoll(fallbackLayoutLabel, 1000, getLayoutLabel)
-  const layoutName = createPoll(fallbackLayoutName, 1000, getLayoutName)
-  const tooltipText = layoutName.as((name) => `${name} - ${tooltipHint}`)
+  const layout = createPoll(
+    fallbackLayoutLabel,
+    keyboardLayoutPollIntervalMs,
+    getLayoutLabel,
+  )
+  const layoutName = createPoll(
+    fallbackLayoutName,
+    keyboardLayoutPollIntervalMs,
+    getLayoutName,
+  )
+  const tooltipText = layoutName.as((name) => `${name} - ${keyboardLayoutTooltipHint}`)
 
   return (
     <button
-      class="status-indicator status-indicator--keyboard"
+      class={`${STATUS_INDICATOR_BASE_CLASS} status-indicator--keyboard`}
       cursor={pointerCursor}
       onClicked={cycleKeyboardLayout}
       tooltipText={tooltipText}

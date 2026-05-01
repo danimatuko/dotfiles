@@ -5,8 +5,9 @@ import {
   getBluetoothIcon,
   getBluetoothTooltip,
 } from "../../services/quick-settings"
+import { POINTER_CURSOR_NAME, STATUS_INDICATOR_BASE_CLASS } from "./constants"
 
-const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
+const pointerCursor = Gdk.Cursor.new_from_name(POINTER_CURSOR_NAME, null)
 
 const launchBluetoothTui = () => {
   execAsync(["ghostty", "--class=TUI.float", "-e", "bluetui"]).catch(() => {})
@@ -15,7 +16,7 @@ const launchBluetoothTui = () => {
 export default function BluetoothIndicator() {
   return (
     <button
-      class="status-indicator status-indicator--bluetooth"
+      class={`${STATUS_INDICATOR_BASE_CLASS} status-indicator--bluetooth`}
       cursor={pointerCursor}
       onClicked={launchBluetoothTui}
       tooltipText={getBluetoothTooltip}
