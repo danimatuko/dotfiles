@@ -45,7 +45,8 @@ window.Bar {
   .status-indicator--wifi,
   .status-indicator--bluetooth,
   .status-indicator--speaker,
-  .status-indicator--sidebar {
+  .status-indicator--sidebar,
+  .status-indicator--keyboard {
     @include control-reset;
     background: transparent;
     padding: 0;
@@ -69,6 +70,21 @@ window.Bar {
 
   .status-indicator--sidebar {
     color: $color-emphasis;
+  }
+
+  .status-indicator--keyboard {
+    padding: 0 8px;
+    min-height: 24px;
+    color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
+  }
+
+  .status-indicator__layout {
+    font-family:
+      "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+      "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1;
   }
 
   .status-indicator--sidebar--active {
