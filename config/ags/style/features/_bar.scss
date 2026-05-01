@@ -73,8 +73,9 @@ window.Bar {
   }
 
   .status-indicator--keyboard {
-    padding: 0 8px;
+    padding: 0 6px;
     min-height: 24px;
+    margin: 0 4px 0 0;
     color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
   }
 
