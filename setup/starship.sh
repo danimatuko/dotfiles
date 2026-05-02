@@ -2,9 +2,8 @@
 
 # Install starship prompt
 if ! command -v starship &>/dev/null; then
-  echo "🌟 Installing starship prompt..."
+  echo "[INFO] Installing starship prompt..."
   yay -S --noconfirm --needed starship
 else
-  echo "🌟 Starship already installed."
+  echo "[OK] Starship already installed."
 fi
-

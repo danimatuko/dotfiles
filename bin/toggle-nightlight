@@ -1,11 +1,106 @@
 #!/bin/bash
 
-if [[ $SWAYNC_TOGGLE_STATE == "true" ]]; then
-    # Enable night light (warm temperature)
-    hyprctl hyprsunset temperature 4500
-    notify-send "󰃞 Night Light" "Enabled - Eyes protected" -t 2000 -u low
-else
-    # Disable night light (normal temperature)
-    hyprctl hyprsunset identity
-    notify-send "󰃞 Night Light" "Disabled - Normal colors restored" -t 2000 -u low
-fi
+set -euo pipefail
+
+# XDG_RUNTIME_DIR is the per-user runtime directory (e.g. /run/user/1000). Falls back to /tmp if unset.
+state_file="${XDG_RUNTIME_DIR:-/tmp}/night-light.state"
+temperature_file="${XDG_RUNTIME_DIR:-/tmp}/night-light.temperature"
+temperature="${NIGHT_LIGHT_TEMPERATURE:-4500}"
+
+mode="${1:-toggle}"
+
+is_enabled() {
+	[[ -f "$state_file" ]] && [[ "$(<"$state_file")" == "on" ]]
+}
+
+clamp_temperature() {
+	local value="$1"
+
+	if (( value < 1000 )); then
+		echo 1000
+	elif (( value > 10000 )); then
+		echo 10000
+	else
+		echo "$value"
+	fi
+}
+
+read_temperature() {
+	if [[ -f "$temperature_file" ]]; then
+		cat "$temperature_file"
+	else
+		echo "$temperature"
+	fi
+}
+
+write_temperature() {
+	local value="$1"
+	printf "%s\n" "$value" >"$temperature_file"
+}
+
+apply_temperature() {
+	local value="$1"
+	hyprctl hyprsunset temperature "$value" >/dev/null
+}
+
+handle_status() {
+	if is_enabled; then
+		echo "on"
+	else
+		echo "off"
+	fi
+}
+
+handle_temperature() {
+	read_temperature
+}
+
+handle_set_temperature() {
+	local requested_temperature="${1:-}"
+	if [[ ! "$requested_temperature" =~ ^[0-9]+$ ]]; then
+		echo "invalid temperature" >&2
+		exit 1
+	fi
+
+	local clamped_temperature
+	clamped_temperature="$(clamp_temperature "$requested_temperature")"
+	write_temperature "$clamped_temperature"
+
+	if is_enabled; then
+		apply_temperature "$clamped_temperature"
+	fi
+
+	echo "$clamped_temperature"
+}
+
+handle_toggle() {
+	local current_temperature
+	current_temperature="$(read_temperature)"
+
+	if is_enabled; then
+		hyprctl hyprsunset identity >/dev/null
+		printf "off\n" >"$state_file"
+	else
+		apply_temperature "$current_temperature"
+		printf "on\n" >"$state_file"
+	fi
+}
+
+case "$mode" in
+	status)
+		handle_status
+		;;
+	temperature)
+		handle_temperature
+		;;
+	set-temperature)
+		handle_set_temperature "${2:-}"
+		;;
+	toggle)
+		handle_toggle
+		;;
+	*)
+		echo "unknown mode: $mode" >&2
+		exit 1
+		;;
+esac

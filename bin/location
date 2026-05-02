@@ -1,0 +1,44 @@
+#!/bin/bash
+
+CACHE_FILE="/tmp/hyprlock-location.txt"
+CACHE_TTL=1800
+
+read_cache() {
+  if [ -f "$CACHE_FILE" ]; then
+    now=$(date +%s)
+    mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)
+    age=$((now - mtime))
+    if [ "$age" -lt "$CACHE_TTL" ]; then
+      cat "$CACHE_FILE"
+      return 0
+    fi
+  fi
+  return 1
+}
+
+fetch_location() {
+  location=$(curl -fsS --max-time 4 "https://ipapi.co/city/" 2>/dev/null)
+  country=$(curl -fsS --max-time 4 "https://ipapi.co/country_code/" 2>/dev/null)
+
+  if [ -n "$location" ] && [ -n "$country" ]; then
+    printf "%s, %s" "$location" "$country"
+    return 0
+  fi
+
+  return 1
+}
+
+if read_cache; then
+  exit 0
+fi
+
+if output=$(fetch_location); then
+  printf "%s" "$output" >"$CACHE_FILE"
+  printf "%s\n" "$output"
+else
+  if [ -f "$CACHE_FILE" ]; then
+    cat "$CACHE_FILE"
+  else
+    printf "Location unavailable\n"
+  fi
+fi

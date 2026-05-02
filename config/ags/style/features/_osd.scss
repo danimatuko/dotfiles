@@ -1,0 +1,65 @@
+@use "../theme.scss" as *;
+
+window.Osd {
+  background: transparent;
+
+  .osd__container {
+    min-width: 0;
+  }
+
+  .osd {
+    min-width: 260px;
+    padding: 10px 12px;
+    border-radius: $radius-capsule;
+    border: 1px solid
+      color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+    background:
+      radial-gradient(
+        120% 100% at 100% 0%,
+        rgba(255, 255, 255, 0.06) 0%,
+        transparent 62%
+      ),
+      color-mix(in srgb, #{$bg-surface} 92%, #{$bg-base} 8%);
+    color: $color-on-surface;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+  }
+
+  .osd__icon {
+    @include icon-size(18px);
+    color: $color-emphasis;
+  }
+
+  .osd__level {
+    min-width: 170px;
+    min-height: $space-xs;
+    margin: 0 2px;
+    transform: scaleY(0.82);
+    border-radius: $radius-rounded;
+    overflow: hidden;
+
+    trough {
+      background: color-mix(in srgb, #{$bg-surface-strong} 90%, black 10%);
+      border-radius: $radius-rounded;
+    }
+
+    block {
+      min-height: $space-xs;
+      border-radius: $radius-rounded;
+    }
+
+    block.filled {
+      border-radius: $radius-rounded;
+      @include gradient-brand-fill;
+    }
+  }
+
+  .osd__value {
+    min-width: 40px;
+    font-family:
+      "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+      "JetBrains Mono", monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: $color-emphasis;
+  }
+}

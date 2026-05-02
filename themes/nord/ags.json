@@ -1,0 +1,25 @@
+{
+  "id": "nord",
+  "label": "Nord",
+  "swatches": ["#88C0D0", "#81A1C1", "#5E81AC", "#BF616A"],
+  "ags": {
+    "color-surface": "#2e3440",
+    "color-outline": "#434c5e",
+    "color-on-surface": "#eceff4",
+    "color-muted": "#d8dee9",
+    "color-emphasis": "#e5e9f0",
+    "color-hover": "#e5e9f0",
+    "color-brand": "#88c0d0",
+    "color-danger": "#bf616a",
+    "color-warning": "#ebcb8b",
+    "bg-base": "#2e3440",
+    "bg-surface": "#3b4252",
+    "bg-surface-strong": "#434c5e",
+    "control-color": "#4c566a",
+    "control-color-bright": "#5e81ac",
+    "control-text": "#eceff4",
+    "accent-color": "#88c0d0",
+    "accent-hover": "#81a1c1",
+    "accent-text": "#2e3440"
+  }
+}

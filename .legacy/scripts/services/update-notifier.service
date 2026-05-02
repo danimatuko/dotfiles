@@ -1,0 +1,7 @@
+[Unit]
+Description=Notify available system updates (Pacman + AUR)
+
+[Service]
+ExecStart=%h/.local/bin/pacman-update-check.sh
+
+

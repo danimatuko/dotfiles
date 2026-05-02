@@ -21,7 +21,7 @@ for file in "$SOURCE_DIR"/*; do
     fi
 
     ln -s "$file" "$target"
-    echo "✔ Linked $filename"
+    echo "[OK] Linked $filename"
 done
 
 echo "Done!"

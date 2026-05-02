@@ -1,0 +1,333 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Get theme name from command line
+THEME=$1
+THEMES_DIR="$HOME/dotfiles/themes"
+CURRENT_THEME="$HOME/.cache/current-theme"
+
+echo "Switching to theme: $THEME"
+
+# ============================================================================
+# VALIDATION
+# ============================================================================
+
+if [ ! -d "$THEMES_DIR/$THEME" ]; then
+    notify-send -u critical -i dialog-error "Set Theme" "Theme '$THEME' not found"
+    canberra-gtk-play -i bell >/dev/null 2>&1 &
+    exit 1
+fi
+
+# ============================================================================
+# UPDATE THEME SYMLINK
+# ============================================================================
+
+echo "Setting up theme symlink..."
+ln -sfn "$THEMES_DIR/$THEME" "$CURRENT_THEME"
+sleep 0.1  # Let symlink settle
+
+# ============================================================================
+# CONFIGURE APPLICATIONS
+# ============================================================================
+
+configure_floorp_theme() {
+    local profile_root="$HOME/.floorp"
+    local profiles_ini="$profile_root/profiles.ini"
+    local profile_dir=""
+    local install_default=""
+    local mapping_file="$CURRENT_THEME/firefox-addon-theme-id"
+    local addon_id=""
+    local extensions_json=""
+    local user_js=""
+    local prefs_js=""
+
+    [ -d "$profile_root" ] || return 0
+
+    if [[ ! -f "$mapping_file" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "No Floorp add-on mapping for '$THEME'"
+        return 0
+    fi
+
+    IFS= read -r addon_id <"$mapping_file" || true
+    addon_id="${addon_id//$'\r'/}"
+    addon_id="${addon_id#"${addon_id%%[![:space:]]*}"}"
+    addon_id="${addon_id%"${addon_id##*[![:space:]]}"}"
+
+    if [[ -z "$addon_id" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Invalid Floorp theme ID in $mapping_file"
+        return 0
+    fi
+
+    if [[ -f "$profiles_ini" ]]; then
+        # Find the active profile (Default=1) - this is what Floorp actually launches
+        local active_path=""
+        active_path=$(awk -F= '
+            /^\[Profile/ { in_profile = 1; cur = ""; found = 0; next }
+            /^\[/ && !/^\[Profile/ { in_profile = 0 }
+            in_profile && $1 == "Path" { cur = $2 }
+            in_profile && $1 == "Default" && $2 == "1" { found = 1 }
+            in_profile && found && cur != "" { print cur; exit }
+        ' "$profiles_ini")
+
+        if [[ -n "$active_path" && -d "$profile_root/$active_path" ]]; then
+            profile_dir="$profile_root/$active_path"
+        fi
+
+        # Fallback to Install section default
+        if [[ -z "$profile_dir" ]]; then
+            install_default=$(awk -F= '
+                /^\[Install/ { in_install = 1; next }
+                /^\[/ && !/^\[Install/ { in_install = 0 }
+                in_install && $1 == "Default" { print $2; exit }
+            ' "$profiles_ini")
+
+            if [[ -n "$install_default" && -d "$profile_root/$install_default" ]]; then
+                profile_dir="$profile_root/$install_default"
+            fi
+        fi
+    fi
+
+    if [[ -z "$profile_dir" ]]; then
+        for candidate in "$profile_root"/*.default*; do
+            if [[ -d "$candidate" ]]; then
+                profile_dir="$candidate"
+                break
+            fi
+        done
+    fi
+
+    if [[ -z "$profile_dir" || ! -d "$profile_dir" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Could not find a Floorp profile to configure"
+        return 0
+    fi
+
+    extensions_json="$profile_dir/extensions.json"
+    user_js="$profile_dir/user.js"
+    prefs_js="$profile_dir/prefs.js"
+
+    if [[ ! -f "$extensions_json" ]]; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Floorp profile metadata not found: $extensions_json"
+        return 0
+    fi
+
+    if ! grep -Fq "\"id\":\"$addon_id\"" "$extensions_json"; then
+        notify-send -u normal -i dialog-warning "Set Theme" "Floorp theme not installed for '$THEME'"
+        return 0
+    fi
+
+    mkdir -p "$profile_dir/chrome"
+    if [[ -f "$profile_dir/chrome/userChrome.css" ]]; then
+        mv "$profile_dir/chrome/userChrome.css" "$profile_dir/chrome/userChrome.css.disabled"
+    fi
+    if [[ -f "$profile_dir/chrome/base-userChrome.css" ]]; then
+        mv "$profile_dir/chrome/base-userChrome.css" "$profile_dir/chrome/base-userChrome.css.disabled"
+    fi
+    if [[ -f "$profile_root/chrome/userChrome.css" ]]; then
+        mv "$profile_root/chrome/userChrome.css" "$profile_root/chrome/userChrome.css.disabled"
+    fi
+
+    touch "$user_js"
+    if grep -q '^user_pref("extensions.activeThemeID",' "$user_js"; then
+        sed -i -E "s#^user_pref\\(\"extensions\\.activeThemeID\",.*#user_pref(\"extensions.activeThemeID\", \"$addon_id\");#" "$user_js"
+    else
+        echo "user_pref(\"extensions.activeThemeID\", \"$addon_id\");" >>"$user_js"
+    fi
+
+    if [[ -f "$prefs_js" ]] && ! pgrep -x floorp >/dev/null 2>&1; then
+        if grep -q '^user_pref("extensions.activeThemeID",' "$prefs_js"; then
+            sed -i -E "s#^user_pref\\(\"extensions\\.activeThemeID\",.*#user_pref(\"extensions.activeThemeID\", \"$addon_id\");#" "$prefs_js"
+        else
+            echo "user_pref(\"extensions.activeThemeID\", \"$addon_id\");" >>"$prefs_js"
+        fi
+    fi
+
+    if pgrep -x floorp >/dev/null 2>&1; then
+        echo "Floorp is running. Quit all Floorp windows, then reopen to apply browser theme."
+        notify-send -u normal -i applications-internet "Set Theme" "Floorp theme queued for '$THEME'. Quit all Floorp windows, then reopen."
+    else
+        echo "Floorp add-on theme applied: $THEME"
+        notify-send -u normal -i applications-internet "Set Theme" "Floorp add-on theme set to '$THEME'"
+    fi
+}
+
+# Rofi colors
+if [ -f "$CURRENT_THEME/rofi.rasi" ]; then
+    echo "Configuring Rofi..."
+
+    mkdir -p "$HOME/.config/rofi"
+
+    # Link colorscheme into active colors file
+    ln -sfn "$CURRENT_THEME/rofi.rasi" \
+        "$HOME/.config/rofi/colors.rasi"
+
+    # Refresh rofi (close any open instance)
+    pkill -u "$USER" -x rofi >/dev/null 2>&1 || true
+fi
+
+# SwayOSD colors
+if [ -f "$CURRENT_THEME/swayosd.css" ]; then
+    echo "Configuring SwayOSD..."
+    mkdir -p "$HOME/.config/swayosd"
+    ln -sfn "$CURRENT_THEME/swayosd.css" "$HOME/.config/swayosd/colors.css"
+fi
+
+# GTK theme
+if [ -f "$CURRENT_THEME/gtk-theme.txt" ] && command -v gsettings &>/dev/null; then
+    echo "Applying GTK theme..."
+    gsettings set org.gnome.desktop.interface gtk-theme "$(cat "$CURRENT_THEME/gtk-theme.txt")"
+fi
+
+# Ghostty terminal
+if [ -f "$CURRENT_THEME/ghostty.conf" ]; then
+    echo "Configuring Ghostty..."
+    mkdir -p "$HOME/.config/ghostty/themes"
+    ln -sf "$CURRENT_THEME/ghostty.conf" "$HOME/.config/ghostty/themes/current"
+fi
+
+# Zellij terminal multiplexer
+if [ -f "$CURRENT_THEME/zellij" ]; then
+    echo "Configuring Zellij..."
+    ZELLIJ_THEME="$(cat "$CURRENT_THEME/zellij")"
+    ZELLIJ_CONFIG="$HOME/.config/zellij/config.kdl"
+
+    if [ -f "$ZELLIJ_CONFIG" ]; then
+        perl -0pi -e 's/theme\s+"[^"]+"/theme "'"$ZELLIJ_THEME"'"/' "$ZELLIJ_CONFIG"
+    else
+        echo "Warning: Zellij config not found at $ZELLIJ_CONFIG"
+    fi
+fi
+
+# SwayNC notifications
+if [ -f "$CURRENT_THEME/swaync.css" ]; then
+    echo "Configuring notifications..."
+    mkdir -p "$HOME/.config/swaync"
+    ln -sfn "$CURRENT_THEME/swaync.css" "$HOME/.config/swaync/theme.css"
+fi
+
+# AstroVim colorscheme
+echo "Configuring AstroVim..."
+
+ASTROVIM_THEME_FILE="$HOME/.cache/current-theme/astrovim.txt"
+
+mkdir -p "$HOME/.cache/current-theme"
+
+# Write the selected theme name into AstroVim theme cache
+echo "$THEME" > "$ASTROVIM_THEME_FILE"
+
+# Floorp browser theme (Firefox add-on themes)
+echo "Configuring Floorp..."
+configure_floorp_theme
+
+
+# ============================================================================
+# SET WALLPAPER
+# ============================================================================
+
+WALLPAPERS_DIR="${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}"
+BG_DIR="$WALLPAPERS_DIR/$THEME"
+if [ -d "$BG_DIR" ]; then
+    echo "Setting wallpaper..."
+
+    shopt -s nullglob nocaseglob
+    BG_CANDIDATES=(
+        "$BG_DIR"/*.jpg
+        "$BG_DIR"/*.jpeg
+        "$BG_DIR"/*.png
+        "$BG_DIR"/*.webp
+        "$BG_DIR"/*.gif
+        "$BG_DIR"/*.bmp
+        "$BG_DIR"/*.avif
+    )
+    shopt -u nocaseglob nullglob
+
+    if [ ${#BG_CANDIDATES[@]} -gt 0 ]; then
+        IFS=$'\n' BG_CANDIDATES=($(printf '%s\n' "${BG_CANDIDATES[@]}" | sort))
+        unset IFS
+        BG_IMAGE="${BG_CANDIDATES[0]}"
+
+        # Apply wallpaper with smooth transition
+        awww img "$BG_IMAGE" \
+            --transition-type fade \
+            --transition-duration 1 \
+            --transition-fps 30
+
+        # Save for lock screen
+        mkdir -p "$HOME/.cache"
+        rm -f "$HOME/.cache/current-wallpaper"  # Remove old symlink/file first
+        cp "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
+    else
+        notify-send -u normal -i dialog-warning "Set Theme" "No wallpaper image found in $BG_DIR"
+    fi
+else
+    notify-send -u normal -i dialog-warning "Set Theme" "Wallpaper directory not found: $BG_DIR"
+fi
+
+# ============================================================================
+# RELOAD APPLICATIONS
+# ============================================================================
+
+echo "Reloading applications..."
+
+# Waybar status bar
+if pgrep waybar &>/dev/null; then
+    killall waybar && waybar &
+fi
+
+# Hyprland window manager  
+if command -v hyprctl &>/dev/null; then
+    hyprctl reload
+fi
+
+# Ghostty terminal (reload config)
+if pgrep ghostty &>/dev/null; then
+    killall -SIGUSR2 ghostty
+fi
+
+# SwayNC notifications
+if command -v swaync-client &>/dev/null && pgrep -u "$USER" -x swaync >/dev/null 2>&1; then
+    sleep 0.5
+    swaync-client -rs >/dev/null 2>&1 || true
+fi
+
+# SwayOSD volume/brightness display
+if pgrep swayosd-server &>/dev/null; then
+    killall swayosd-server
+    swayosd-server &
+fi
+
+# AstroVim (reload colorscheme in running instance)
+if command -v nvim &>/dev/null; then
+    ASTRO_THEME=$(cat "$HOME/.cache/current-theme/astrovim.txt")
+    NVIM_THEME="$ASTRO_THEME"
+
+    # Keep this in sync with config/nvim/lua/utils/theme.lua aliases
+    case "$ASTRO_THEME" in
+        tokyonight) NVIM_THEME="tokyodark" ;;
+        gruvbox-light) NVIM_THEME="gruvbox" ;;
+        gruvbox) NVIM_THEME="gruvbox-baby" ;;
+        kanagawa) NVIM_THEME="tokyodark" ;;
+    esac
+
+    shopt -s nullglob
+    # Broadcast the colorscheme change to every live user nvim socket.
+    # This keeps all open instances in sync with the selected system theme.
+    NVIM_SOCKETS=(/tmp/nvim-"$USER"*.sock)
+    shopt -u nullglob
+
+    for socket in "${NVIM_SOCKETS[@]}"; do
+        [ -S "$socket" ] || continue
+        nvim --server "$socket" --remote-send "<cmd>colorscheme $NVIM_THEME<CR>" \
+            >/dev/null 2>&1 || true
+    done
+fi
+
+
+# ============================================================================
+# FINISH
+# ============================================================================
+
+sleep 0.5
+echo "Theme switched successfully!"
+notify-send -u normal -i preferences-desktop-wallpaper "Theme Changed" "Switched to: ${THEME:-unknown}"
+canberra-gtk-play -i message >/dev/null 2>&1 &

@@ -1,0 +1,521 @@
+@use "../theme.scss" as *;
+
+window.SidebarBackdrop {
+  background: transparent;
+
+  .sidebar-backdrop,
+  .sidebar-backdrop__spacer {
+    background: transparent;
+  }
+
+  .sidebar-backdrop__dismiss {
+    @include control-reset;
+    background: rgba(black, 0.22);
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: rgba(black, 0.26);
+    }
+  }
+}
+
+window.Sidebar {
+  background: transparent;
+  font-family:
+    "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
+
+  .sidebar {
+    min-width: 430px;
+    padding: 18px 16px 16px;
+    color: $color-on-surface;
+    border: 1px solid
+      color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+    border-radius: $radius-md;
+    background:
+      radial-gradient(
+        120% 100% at 100% 0%,
+        rgba(255, 255, 255, 0.06) 0%,
+        transparent 60%
+      ),
+      color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+    box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
+  }
+
+  .sidebar__scroll {
+    min-height: 0;
+  }
+
+  .sidebar__content {
+    margin-right: 2px;
+    padding: 8px 0 12px;
+  }
+}
+
+.quick-settings {
+  &__menu {
+    padding: 6px;
+    color: $color-on-surface;
+  }
+
+  &__header {
+    padding: 10px 12px 14px;
+    border-radius: $radius-md;
+    background:
+      linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.08),
+        rgba(255, 255, 255, 0.02)
+      ),
+      color-mix(in srgb, #{$bg-surface} 78%, #{$color-brand} 22%);
+    border: 1px solid
+      color-mix(in srgb, #{$color-brand} 42%, #{$bg-surface} 58%);
+  }
+
+  &__eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: color-mix(in srgb, #{$color-emphasis} 76%, #{$color-brand} 24%);
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $color-emphasis;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    color: color-mix(in srgb, #{$color-on-surface} 76%, transparent 24%);
+  }
+
+  &__section-card {
+    padding: 10px;
+    border-radius: $radius-md;
+    background: color-mix(in srgb, #{$bg-surface} 94%, #{$bg-base} 6%);
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 84%, #{$color-brand} 16%);
+  }
+
+  &__sliders-group,
+  &__toggles-group {
+    padding: 0;
+    border-radius: $radius-md;
+    background: transparent;
+    border: none;
+  }
+
+  &__toggles-group {
+    margin-bottom: 0;
+  }
+
+  &__section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, #{$color-emphasis} 76%, #{$color-brand} 24%);
+    padding: 2px 4px 4px;
+  }
+
+  &__section-label-row {
+    min-height: 20px;
+  }
+
+  &__section-label-icon {
+    @include icon-size(14px);
+    color: color-mix(in srgb, #{$color-emphasis} 70%, #{$color-brand} 30%);
+    min-width: 14px;
+  }
+
+  &__section-header {
+    min-height: 24px;
+  }
+
+  &__section-header .quick-settings__toggle-button {
+    min-height: 24px;
+    padding: 4px 9px;
+    margin-bottom: 0;
+  }
+
+  &__action-button {
+    @include control-reset;
+    cursor: pointer;
+    min-height: 24px;
+    padding: 4px 9px;
+    border-radius: $radius-sm;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 82%,
+      #{$bg-surface} 18%
+    );
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+    color: $color-on-surface;
+    font-size: 11px;
+
+    &:hover {
+      background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+      border-color: color-mix(
+        in srgb,
+        #{$color-brand} 46%,
+        #{$bg-surface-strong} 54%
+      );
+      color: $accent-text;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__notifications-empty {
+    font-size: 12px;
+    opacity: 0.7;
+    padding: 2px 4px;
+  }
+
+  &__notifications-list {
+    margin-top: 2px;
+  }
+
+  &__notification-card {
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    border-radius: $radius-sm;
+    padding: 8px 10px;
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 86%, #{$color-brand} 14%);
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 84%,
+      #{$bg-surface} 16%
+    );
+    box-shadow: none;
+  }
+
+  &__slider-card {
+    padding: 12px;
+    border-radius: $radius-sm;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 80%,
+      #{$bg-surface} 20%
+    );
+    border: none;
+    margin-bottom: 6px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__slider-row {
+    min-height: 34px;
+  }
+
+  &__slider-icon-box {
+    min-width: 20px;
+  }
+
+  &__toggle-button {
+    @include control-reset;
+    cursor: pointer;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 82%,
+      #{$bg-surface} 18%
+    );
+    border-radius: $radius-sm;
+    padding: 12px;
+    color: $color-on-surface;
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+    transition:
+      background 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+      border-color: color-mix(
+        in srgb,
+        #{$color-brand} 46%,
+        #{$bg-surface-strong} 54%
+      );
+      color: $accent-text;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--active {
+      background: color-mix(in srgb, #{$color-brand} 90%, #{$bg-surface} 10%);
+      border-color: color-mix(in srgb, #{$color-brand} 72%, white 28%);
+      color: $color-surface;
+
+      &:hover {
+        color: $color-surface;
+      }
+    }
+
+    &--disabled,
+    &:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+  }
+
+  &__toggle-button--icon-only {
+    min-width: 0;
+    min-height: 34px;
+    padding: 8px;
+    margin-bottom: 0;
+  }
+
+  &__toggle-content > image,
+  &__battery-row > image,
+  &__slider-icon-box > image {
+    @include icon-size(20px);
+    min-width: 22px;
+  }
+
+  &__toggle-icon {
+    color: color-mix(in srgb, #{$color-on-surface} 74%, transparent 26%);
+    transition: color 160ms ease-out;
+  }
+
+  &__toggle-button--active .quick-settings__toggle-icon--wifi {
+    color: color-mix(in srgb, #{$color-brand} 86%, white 14%);
+  }
+
+  &__toggle-button--active .quick-settings__toggle-icon--bluetooth {
+    color: color-mix(in srgb, #{$color-brand} 78%, #{$color-emphasis} 22%);
+  }
+
+  &__brightness-icon,
+  &__night-light-icon,
+  &__volume-icon {
+    color: $color-on-surface;
+  }
+
+  &__toggle-content {
+    min-width: 0;
+  }
+
+  &__toggle-button--icon-only .quick-settings__toggle-content {
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+  }
+
+  &__toggle-button--icon-only .quick-settings__toggle-content > image {
+    min-width: 20px;
+  }
+
+  &__toggle-chevron {
+    opacity: 0;
+  }
+
+  &__brightness-slider,
+  &__night-light-slider,
+  &__volume-slider {
+    min-width: 140px;
+
+    trough {
+      min-height: 9px;
+      border-radius: 999px;
+      background: color-mix(in srgb, #{$bg-surface-strong} 92%, black 8%);
+      border: none;
+    }
+
+    highlight {
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, #{$color-brand} 76%, white 24%),
+        $color-brand
+      );
+    }
+
+    slider {
+      min-width: 0;
+      min-height: 0;
+      border-radius: 999px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &__battery-row {
+    @include control-reset;
+    padding: 12px;
+    border-radius: $radius-sm;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 80%,
+      #{$bg-surface} 20%
+    );
+    color: $color-on-surface;
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+    cursor: pointer;
+    transition:
+      background 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
+
+    &:hover {
+      background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+      border-color: color-mix(
+        in srgb,
+        #{$color-brand} 46%,
+        #{$bg-surface-strong} 54%
+      );
+      color: $accent-text;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    > image {
+      @include icon-size(18px);
+      min-width: 18px;
+    }
+  }
+
+  &__power-actions {
+    margin-top: 6px;
+  }
+
+  &__power-action-button {
+    min-height: 30px;
+    padding: 6px;
+
+    > image {
+      @include icon-size(14px);
+      min-width: 14px;
+    }
+  }
+}
+
+window.ThemeSwitcherBackdrop {
+  background: transparent;
+
+  .theme-switcher-backdrop {
+    @include control-reset;
+    background: rgba(black, 0.22);
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: rgba(black, 0.26);
+    }
+  }
+}
+
+window.ThemeSwitcher {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
+
+  .theme-switcher__shell {
+    min-width: 500px;
+    border-radius: $radius-md;
+    background: color-mix(in srgb, #{$bg-base} 97%, transparent 3%);
+    border: 1px solid $bg-surface-strong;
+    padding: 8px;
+  }
+}
+
+.theme-switcher {
+  &__header {
+    @include control-reset;
+    padding: 4px;
+    margin-bottom: 2px;
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: $color-emphasis;
+  }
+
+  &__action {
+    @include control-reset;
+    padding: 6px;
+    border-radius: $radius-sm;
+    background: $bg-surface;
+    color: $control-color-bright;
+    transition: background 160ms ease-out;
+
+    &:hover {
+      background: $accent-hover;
+      color: $accent-text;
+    }
+
+    image {
+      @include icon-size(14px);
+    }
+  }
+
+  &__theme-button {
+    @include control-reset;
+    padding: 10px 12px;
+    border-radius: $radius-sm;
+    background: $bg-surface;
+    border: none;
+    color: $color-on-surface;
+    cursor: pointer;
+    transition: background 160ms ease-out;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: $accent-hover;
+      color: $accent-text;
+    }
+
+    &--active {
+      background: $color-brand;
+      color: $color-surface;
+
+      &:hover {
+        color: $color-surface;
+      }
+
+      .theme-switcher__theme-swatch {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  &__theme-colors {
+    min-width: 70px;
+  }
+
+  &__theme-swatch {
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__theme-name {
+    font-size: 13px;
+  }
+}

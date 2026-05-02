@@ -1,102 +1,103 @@
+# Dotfiles
 
-# 🛠️ Dotfiles
+Personal dotfiles for an Arch Linux + Hyprland desktop.
 
-A collection of my personal configuration files to quickly bootstrap a modern development environment on Arch Linux (Hyprland-based).
+## What's Included
 
----
+- Shell: Bash, Starship, fzf, zoxide
+- Editor: Neovim (AstroNvim)
+- WM + desktop: Hyprland, Waybar, Rofi, SwayNC, wlogout
+- Terminal: Ghostty and Kitty config
+- Utility config: Git, tmux, network/audio/bluetooth helpers
+- Runtime commands: `bin/` (linked to `~/.local/bin`)
+- Dynamic monitor management: HyprDynamicMonitors + systemd user units
 
-## 📦 Included Configurations
+## Repository Layout
 
-This repository includes settings and scripts for:
+```text
+dotfiles/
+├── install.sh            # main bootstrap script
+├── setup/                # modular install and linking scripts
+├── config/               # app configs (hypr, waybar, ags, nvim, etc.)
+├── bin/                  # active executable commands (extensionless)
+├── themes/               # shared theme files/assets
+└── .legacy/              # archived scripts/assets for reference
+```
 
-* **Bash** — Modular `bashrc` with `starship`, `zoxide`, `fzf`, etc.
-* **Tmux** — Minimal terminal multiplexer setup
-* **Git** — Git identity and general preferences
-* **Hyprland** — Wayland window manager configuration
-* **Kitty / Ghostty** — Terminal emulators with matching themes
-* **Neovim (AstroNvim)** — Fully-featured NVim configuration with lazy-loading plugins
-* **Waybar** — Custom status bar setup
-* **Rofi** — Themed app launcher with icon and font support
-* **SwayNC** — Notification center
-* **Bluetooth / Audio / Network** — Helpers and GUI tools (`blueman`, `pavucontrol`, etc.)
-* **Custom Scripts** — Located in `scripts/`, symlinked automatically
+## AGS Project (config/ags)
 
----
+The AGS shell in `config/ags/` is organized by clear responsibilities: UI widgets, service/state integrations, shared utilities, and a feature/theme-based SCSS layout.
 
-## 🚀 Quick Installation
+For architecture details, structure overview, and maintenance guidelines, see `config/ags/README.md`.
 
-Clone the repo using a shallow clone (faster download):
+## Install
 
 ```bash
-git clone --depth=1 [https://github.com/danimatuko/dotfiles.git](https://github.com/danimatuko/dotfiles.git) ~/dotfiles
-````
-
-Run the modular install script:
-
-Bash
-
-```
+git clone --depth=1 https://github.com/danimatuko/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
 
-> 🛟 The script automatically installs `yay`, backs up existing configs, and prompts before linking.
+What `install.sh` does:
 
----
+- Asks before starting and asks whether to create a backup
+- Runs modular setup scripts from `setup/`
+- Runs a post-install validation step that enables `NetworkManager` and disables conflicting network services
+- Links `bin/*` into `~/.local/bin`
+- Prompts before linking config files
+- After config linking, enables HyprDynamicMonitors user services (`hyprdynamicmonitors.service` and `hyprdynamicmonitors-prepare.service`)
 
-## 🔗 How Linking Works
+## Dynamic Monitor Setup (Hyprland)
 
-The script will:
+This repository uses HyprDynamicMonitors instead of Kanshi for monitor hotplug and lid-aware behavior.
 
-1. Create a timestamped backup (e.g. `~/dotfiles_backup_2025-07-11_15-32-00`)
-    
-2. Prompt to confirm linking your `.bashrc`, `.tmux.conf`, `.gitconfig`, and config folders
-    
-3. Use symlinks (`ln -sf`) so updates can be version-controlled and shared easily
-    
+- Config lives in `config/hyprdynamicmonitors/`.
+- Hyprland sources `~/.config/hypr/monitors.conf`, which is rendered by HyprDynamicMonitors.
+- Systemd user units are stored in `config/systemd/user/` and linked to `~/.config/systemd/user/`.
+- Service setup script: `setup/hyprdynamicmonitors.sh`.
+- Service teardown script: `setup/hyprdynamicmonitors-uninstall.sh`.
 
----
+Monitor profiles currently cover:
 
-## 🐛 Troubleshooting Tips
+- Laptop-only (lid opened)
+- Docked on `DP-1`, `DP-3`, or `HDMI-A-1` with lid opened (dual screen)
+- Docked on `DP-1`, `DP-3`, or `HDMI-A-1` with lid closed (external-only)
+- Fallback profile for unmatched states
 
-- **Check if configs are linked**:
-    
+For profile-level details and troubleshooting commands, see `config/hyprdynamicmonitors/README.md`.
 
-  `bash   ls -la ~/.config/`  
+## Useful Commands
 
-- Check backups:
-    
-      Look inside the ~/dotfiles_backup_<timestamp> directory.
-    
-- **Re-run just the link script**:
-    
+```bash
+# Relink active commands into ~/.local/bin
+bash ~/dotfiles/setup/link-bin.sh
 
-  `bash   bash ~/dotfiles/link-dotfiles.sh`  
+# Relink dotfiles/configs
+bash ~/dotfiles/setup/link-configs.sh
 
----
+# Enable/re-enable HyprDynamicMonitors user services
+bash ~/dotfiles/setup/hyprdynamicmonitors.sh
 
-## ⚙️ Requirements
+# Disable HyprDynamicMonitors user services
+bash ~/dotfiles/setup/hyprdynamicmonitors-uninstall.sh
 
-- Based on **Arch Linux**
-    
-- The installer handles installing `yay` (AUR helper) if missing
-    
-- Designed for a **Wayland + Hyprland** setup
-    
-- Includes optional scripts for font, icon, and clipboard support
-    
+# Preview uninstall actions (safe dry-run)
+bash ~/dotfiles/setup/uninstall.sh
 
----
+# Apply uninstall actions
+bash ~/dotfiles/setup/uninstall.sh --apply
 
-## 📌 TODO
+# Apply uninstall + restore from latest backup
+bash ~/dotfiles/setup/uninstall.sh --apply --restore-latest-backup
+```
 
-- [ ] Add workspaces overview
-    
-- [ ] Display settings menu (extend, duplicate...)
-    
+## Notes
 
----
+- This setup targets Arch Linux and Wayland/Hyprland.
+- Active command entrypoints live in `bin/` and are intended to be called via `~/.local/bin/<command>`.
+- Archived/unused content lives under `.legacy/` and is not part of the active setup path.
+- Major structural changes in `config/ags` should be reflected in `config/ags/README.md` and this root README.
 
-## 📝 License
+## License
 
-This dotfiles repository is distributed under the MIT License. Use freely and adapt as needed.
+MIT

@@ -1,0 +1,100 @@
+@use "../theme.scss" as *;
+
+$launcher-radius: $radius-lg;
+$launcher-item-radius: $radius-sm;
+$launcher-font-size: 1.2rem;
+$launcher-subtext-size: 1rem;
+
+window.AppLauncher {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    Iosevka,
+    "JetBrainsMono Nerd Font Propo",
+    "JetBrainsMono Nerd Font",
+    "JetBrains Mono",
+    monospace;
+}
+
+.app-launcher {
+  background: transparent;
+}
+
+.app-launcher__backdrop {
+  @include control-reset;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+.app-launcher__panel {
+  margin-top: 0;
+  padding: 14px;
+  border-radius: $launcher-radius;
+  border: 1px solid color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    ),
+    color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+  box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
+}
+
+.app-launcher__search {
+  border-radius: $radius-md;
+  border: 1px solid color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+  background: color-mix(in srgb, #{$bg-surface-strong} 80%, #{$bg-surface} 20%);
+  color: $color-on-surface;
+  padding: 8px 10px;
+  min-height: 40px;
+  font-size: $launcher-font-size;
+}
+
+.app-launcher__list {
+}
+
+.app-launcher__scroller {
+}
+
+.app-launcher__item {
+  @include control-reset;
+  border-radius: $launcher-item-radius;
+  border: 1px solid transparent;
+  padding: 6px 8px;
+  background: transparent;
+
+  &:hover {
+    border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+  }
+}
+
+.app-launcher__item--selected {
+  border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+  background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+}
+
+.app-launcher__item-content {
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.app-launcher__item-icon {
+  @include icon-size($icon-size-md);
+  color: $color-brand;
+  margin-right: 8px;
+}
+
+.app-launcher__item-name {
+  color: $color-on-surface;
+  font-weight: 600;
+  font-size: $launcher-font-size;
+}
+
+.app-launcher__item-desc {
+  color: $color-muted;
+  font-size: $launcher-subtext-size;
+  margin-left: 12px;
+}

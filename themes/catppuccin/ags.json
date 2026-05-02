@@ -1,0 +1,25 @@
+{
+  "id": "catppuccin",
+  "label": "Catppuccin",
+  "swatches": ["#F5C2E7", "#CBA6F7", "#89B4FA", "#94E2D5"],
+  "ags": {
+    "color-surface": "#1e1e2e",
+    "color-outline": "#313244",
+    "color-on-surface": "#cdd6f4",
+    "color-muted": "#a6adc8",
+    "color-emphasis": "#bac2de",
+    "color-hover": "#bac2de",
+    "color-brand": "#89b4fa",
+    "color-danger": "#f38ba8",
+    "color-warning": "#f9e2af",
+    "bg-base": "#1e1e2e",
+    "bg-surface": "#2b2d40",
+    "bg-surface-strong": "#36384b",
+    "control-color": "#8187a2",
+    "control-color-bright": "#a5acc7",
+    "control-text": "#b8c0dd",
+    "accent-color": "#89b4fa",
+    "accent-hover": "#9ec0f5",
+    "accent-text": "#1f2232"
+  }
+}

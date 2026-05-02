@@ -1,34 +1,34 @@
 #!/bin/bash
 set -e
 
-echo "📦 Setting up local user assets..."
+# Purpose: prepare local asset directories and sync wallpapers used by system theme scripts.
 
 # -------------------------------------------------
-# Base paths
+# Variables
 # -------------------------------------------------
-DOTFILES_DIR="$HOME/dotfiles"
-ASSETS_DIR="$DOTFILES_DIR/assets"
-
 LOCAL_DIR="$HOME/.local"
-LOCAL_SHARE="$LOCAL_DIR/share"
+PICTURES_DIR="$HOME/Pictures"
+WALLPAPERS_DIR="$PICTURES_DIR/Wallpapers"
+WALLPAPER_REPO_URL="https://github.com/danimatuko/wallpapers.git"
 
-# Ensure core local directories exist
-mkdir -p "$LOCAL_SHARE"
+# -------------------------------------------------
+# Setup local directories
+# -------------------------------------------------
+echo "[INFO] Setting up local user assets..."
+mkdir -p "$LOCAL_DIR/share"
 mkdir -p "$LOCAL_DIR/bin"
 mkdir -p "$LOCAL_DIR/state"
+mkdir -p "$PICTURES_DIR"
+mkdir -p "$WALLPAPERS_DIR"
 
-# -------------------------------------------------
-# Copy local assets into ~/.local/share
-# Put related user assets here:
-# sounds, wallpapers, icons, themes, etc.
-# -------------------------------------------------
+if [ -d "$WALLPAPERS_DIR/.git" ]; then
+	echo "[INFO] Updating wallpapers..."
+	git -C "$WALLPAPERS_DIR" pull --ff-only || echo "[WARN] Wallpaper update failed. Continuing."
+elif [ -z "$(ls -A "$WALLPAPERS_DIR" 2>/dev/null)" ]; then
+	echo "[INFO] Cloning wallpapers..."
+	git clone --depth 1 "$WALLPAPER_REPO_URL" "$WALLPAPERS_DIR" || echo "[WARN] Wallpaper clone failed. Continuing."
+else
+	echo "[WARN] $WALLPAPERS_DIR exists and is not a git repo. Skipping wallpaper sync."
+fi
 
-# Sounds
-SOUNDS_SRC="$ASSETS_DIR/sounds"
-SOUNDS_DEST="$LOCAL_SHARE/sounds"
-
-echo "🔊 Copying sounds..."
-mkdir -p "$SOUNDS_DEST"
-cp -r "$SOUNDS_SRC/"* "$SOUNDS_DEST/"
-
-echo "✅ Local assets ready."
+echo "[OK] Local assets ready."

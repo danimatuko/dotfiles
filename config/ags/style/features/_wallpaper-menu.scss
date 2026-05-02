@@ -1,0 +1,115 @@
+@use "../theme.scss" as *;
+
+window.WallpaperMenu {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    Iosevka, "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
+}
+
+.wallpaper-menu {
+  background: transparent;
+}
+
+.wallpaper-menu__backdrop {
+  @include control-reset;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+.wallpaper-menu__panel {
+  margin-top: 0;
+  padding: 14px;
+  border-radius: $radius-lg;
+  border: 1px solid color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    ),
+    color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+  box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
+}
+
+.wallpaper-menu__header {
+  align-items: center;
+}
+
+.wallpaper-menu__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $color-emphasis;
+}
+
+.wallpaper-menu__count {
+  color: $color-muted;
+  font-size: 1rem;
+}
+
+.wallpaper-menu__search {
+  border-radius: $radius-md;
+  border: 1px solid
+    color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+  background: color-mix(in srgb, #{$bg-surface-strong} 80%, #{$bg-surface} 20%);
+  color: $color-on-surface;
+  padding: 8px 10px;
+  min-height: 40px;
+  font-size: 1.06rem;
+}
+
+.wallpaper-menu__grid {
+  padding: 2px;
+}
+
+.wallpaper-menu__item {
+  @include control-reset;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  padding: 8px;
+  background: transparent;
+  min-width: 260px;
+
+  &:hover {
+    border-color: color-mix(
+      in srgb,
+      #{$color-brand} 46%,
+      #{$bg-surface-strong} 54%
+    );
+    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+  }
+}
+
+.wallpaper-menu__item--selected {
+  border-color: color-mix(
+    in srgb,
+    #{$color-brand} 46%,
+    #{$bg-surface-strong} 54%
+  );
+  background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+}
+
+.wallpaper-menu__item-content {
+  align-items: start;
+  min-width: 0;
+}
+
+.wallpaper-menu__thumb {
+  min-width: 240px;
+  min-height: 148px;
+  max-width: 240px;
+  max-height: 148px;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid
+    color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+  background: color-mix(in srgb, #{$bg-surface-strong} 88%, #{$bg-surface} 12%);
+}
+
+.wallpaper-menu__item-name {
+  color: $color-on-surface;
+  font-size: 0.95rem;
+  font-weight: 600;
+}

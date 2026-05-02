@@ -1,0 +1,68 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cache_file="$HOME/.cache/ags-theme/current"
+
+require_ags() {
+	if ! command -v ags >/dev/null 2>&1; then
+		echo "ags CLI not found" >&2
+		exit 1
+	fi
+}
+
+ags_request() {
+	require_ags
+
+	if command -v timeout >/dev/null 2>&1; then
+		timeout 3s ags request "$@"
+		return $?
+	fi
+
+	ags request "$@"
+}
+
+read_current_theme() {
+	if output="$(ags_request theme-current 2>/dev/null)"; then
+		echo "$output"
+		return
+	fi
+
+	if [[ -f "$cache_file" ]]; then
+		IFS= read -r saved <"$cache_file" || true
+		echo "${saved:-catppuccin}"
+		return
+	fi
+
+	echo "catppuccin"
+}
+
+case "${1:-current}" in
+list)
+	ags_request theme-list
+	;;
+current)
+	read_current_theme
+	;;
+set)
+	if [[ $# -lt 2 ]]; then
+		echo "Usage: ags-theme set <theme>" >&2
+		exit 1
+	fi
+
+	result="$(ags_request theme-set "$2" 2>/dev/null || true)"
+	if [[ "$result" != "ok" ]]; then
+		echo "Failed to set theme: ${result:-request failed}" >&2
+		exit 1
+	fi
+
+	echo "$2"
+	;;
+cycle)
+	ags_request theme-cycle
+	;;
+*)
+	echo "Usage: ags-theme {list|current|set <theme>|cycle}" >&2
+	exit 1
+	;;
+esac

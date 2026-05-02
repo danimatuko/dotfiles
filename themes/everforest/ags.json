@@ -1,0 +1,25 @@
+{
+  "id": "everforest",
+  "label": "Everforest",
+  "swatches": ["#A7C080", "#7Fbbb3", "#DBBC7F", "#E69875"],
+  "ags": {
+    "color-surface": "#2d353b",
+    "color-outline": "#475258",
+    "color-on-surface": "#d3c6aa",
+    "color-muted": "#9da98f",
+    "color-emphasis": "#e6dcc6",
+    "color-hover": "#e6dcc6",
+    "color-brand": "#a7c080",
+    "color-danger": "#e67e80",
+    "color-warning": "#dbbc7f",
+    "bg-base": "#2d353b",
+    "bg-surface": "#343f44",
+    "bg-surface-strong": "#3d484d",
+    "control-color": "#7f897d",
+    "control-color-bright": "#9da98f",
+    "control-text": "#d3c6aa",
+    "accent-color": "#a7c080",
+    "accent-hover": "#b5ca8f",
+    "accent-text": "#2d353b"
+  }
+}

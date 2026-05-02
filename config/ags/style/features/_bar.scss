@@ -1,0 +1,443 @@
+@use "../theme.scss" as *;
+
+window.Bar {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    Iosevka,
+    FontAwesome,
+    Noto Sans CJK,
+    Jetbrains Nerd Font Propo,
+    sans-serif;
+  font-weight: bold;
+
+  > centerbox {
+    background: color-mix(in srgb, #{$bg-base} 95%, transparent 5%);
+    border-bottom: none;
+    padding: 4px 10px;
+  }
+
+  .bar__start,
+  .bar__end {
+    padding: 0 4px;
+  }
+
+  .bar__separator {
+    margin: 0 14px;
+    color: color-mix(in srgb, #{$control-color-bright} 78%, transparent 22%);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  button {
+    border-radius: $radius-sm;
+    margin: 2px;
+  }
+
+  .status-indicator {
+    image {
+      @include icon-size($icon-size-sm);
+      // color: $control-color-bright;
+    }
+  }
+
+  .status-indicator--wifi,
+  .status-indicator--bluetooth,
+  .status-indicator--speaker,
+  .status-indicator--battery,
+  .status-indicator--sidebar,
+  .status-indicator--keyboard {
+    @include control-reset;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    -gtk-icon-cursor: pointer;
+
+    &:hover {
+      background: transparent;
+    }
+
+    image {
+      transition: color 140ms ease-out;
+    }
+
+    &:hover image,
+    &:hover label {
+      color: $color-brand;
+    }
+  }
+
+  .status-indicator--sidebar {
+    color: $color-emphasis;
+  }
+
+  .status-indicator--keyboard {
+    padding: 0 6px;
+    min-height: 24px;
+    margin: 0 4px 0 0;
+    color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
+  }
+
+  .status-indicator__layout {
+    font-family:
+      "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+      "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .status-indicator--sidebar--active {
+    color: $color-brand;
+  }
+
+  .status-indicator__glyph {
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 700;
+    transition: color 140ms ease-out;
+  }
+
+  .status-indicator__glyph--sidebar {
+    font-size: 1.12rem;
+    font-weight: 800;
+  }
+
+  .os-icon {
+    @include control-reset;
+    border-radius: $radius-sm;
+    margin: 3px 10px 3px 3px;
+    padding: 0 6px;
+    min-height: 24px;
+    background: transparent;
+    color: $control-color-bright;
+
+    &:hover {
+      background: transparent;
+      color: $color-brand;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  .os-icon__glyph {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .system-tray {
+    background: transparent;
+    @include control-reset;
+    border-radius: 0;
+    padding: 1px;
+    margin-right: 4px;
+  }
+
+  .system-tray__container {
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    margin-right: 0;
+    transition:
+      max-width 620ms $motion-emphasized,
+      opacity 460ms ease-out,
+      margin-right 620ms $motion-emphasized;
+  }
+
+  .system-tray:hover .system-tray__container {
+    max-width: 420px;
+    opacity: 1;
+    margin-right: 3px;
+  }
+
+  .system-tray__toggle {
+    @include control-reset;
+    border-radius: $radius-sm;
+    padding: 0 6px;
+    min-height: 24px;
+
+    image {
+      @include icon-size($icon-size-sm);
+      color: $control-color-bright;
+      transition: transform 620ms $motion-emphasized;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  .system-tray:hover .system-tray__toggle image {
+    transform: rotate(180deg);
+  }
+
+  .system-tray__list {
+    padding: 2px 0;
+  }
+
+  .system-tray__item {
+    min-width: 0;
+
+    > button {
+      margin: 0;
+      padding: 0 1px;
+      min-width: 0;
+      @include control-reset;
+
+      &:focus-visible {
+        @include focus-ring;
+      }
+    }
+
+    image {
+      @include icon-size($icon-size-sm);
+    }
+  }
+
+  .quick-status {
+    @include control-reset;
+    margin: 3px 6px 3px 0;
+  }
+
+  .notification-indicator {
+    @include control-reset;
+    border-radius: $radius-sm;
+    min-height: 24px;
+    min-width: 24px;
+    padding: 4px;
+    margin: 0 4px 0 0;
+    color: $color-emphasis;
+
+    image {
+      @include icon-size($icon-size-sm);
+      color: inherit;
+      opacity: 1;
+    }
+
+    &:hover {
+      color: $color-brand;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  .notification-indicator--has-items {
+    color: color-mix(in srgb, #{$color-brand} 82%, #{$color-emphasis} 18%);
+  }
+
+  .notification-indicator__badge {
+    min-width: 0;
+    min-height: 0;
+    margin: -3px -2px 0 0;
+    color: $color-brand;
+    font-size: 0.9rem;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .quick-settings__toggle-menu {
+    @include control-reset;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .quick-settings__theme-menu-toggle,
+  .quick-settings__launcher-toggle {
+    min-height: 24px;
+    min-width: 24px;
+    padding: 4px;
+    margin: 0;
+
+    image {
+      @include icon-size($icon-size-sm);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  .status-indicator {
+    min-height: 16px;
+    min-width: 16px;
+  }
+
+  .clock-menu {
+    @include control-reset;
+    background: transparent;
+
+    label {
+      font-family:
+        "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+        "JetBrains Mono", monospace;
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
+    }
+
+    > button {
+      @include control-reset;
+      border-radius: 999px;
+      padding: 0 12px;
+      min-height: 24px;
+      color: $color-emphasis;
+      background: color-mix(
+        in srgb,
+        #{$bg-surface-strong} 48%,
+        transparent 52%
+      );
+      border: 1px solid
+        color-mix(in srgb, #{$bg-surface-strong} 76%, transparent 24%);
+      transition:
+        background 170ms ease-out,
+        border-color 170ms ease-out,
+        color 170ms ease-out,
+        transform 140ms ease-out;
+
+      &:hover {
+        background: color-mix(
+          in srgb,
+          #{$accent-hover} 68%,
+          #{$color-brand} 32%
+        );
+        border-color: color-mix(
+          in srgb,
+          #{$color-brand} 44%,
+          #{$bg-surface-strong} 56%
+        );
+        color: $accent-text;
+        transform: translateY(-1px);
+      }
+
+      &:hover label {
+        color: $accent-text;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:focus-visible {
+        @include focus-ring;
+      }
+    }
+  }
+
+  .clock-menu__popover {
+    @include control-reset;
+    background: transparent;
+
+    > arrow {
+      background: color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+      border: none;
+    }
+
+    > contents {
+      @include control-reset;
+      padding: 8px 0 0;
+      border: 1px solid
+        color-mix(in srgb, #{$color-brand} 24%, #{$bg-surface} 76%);
+      border-radius: $radius-lg;
+      background:
+        radial-gradient(
+          130% 100% at 100% 0%,
+          rgba(255, 255, 255, 0.06) 0%,
+          transparent 62%
+        ),
+        color-mix(in srgb, #{$bg-base} 92%, #{$bg-surface} 8%);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .clock-menu__content {
+    padding: 10px;
+    border-radius: $radius-lg;
+    border: none;
+    background: transparent;
+    color: $color-on-surface;
+    box-shadow: none;
+  }
+
+  .clock-menu__calendar {
+    min-width: 294px;
+  }
+
+  .clock-menu__calendar calendar {
+    padding: 12px;
+    border-radius: $radius-lg;
+    border: none;
+    color: $color-on-surface;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .clock-menu__calendar calendar > header {
+    margin-bottom: 8px;
+    padding: 6px 4px;
+    border-radius: $radius-sm;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 86%,
+      #{$bg-surface} 14%
+    );
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+    box-shadow: none;
+  }
+
+  .clock-menu__calendar calendar > header button {
+    @include control-reset;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 999px;
+    color: $color-on-surface;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: color-mix(in srgb, #{$accent-hover} 68%, #{$color-brand} 32%);
+    }
+  }
+
+  .clock-menu__calendar calendar > grid {
+    padding: 4px;
+    border-radius: $radius-sm;
+  }
+
+  .clock-menu__calendar calendar > grid > label {
+    min-width: 28px;
+    min-height: 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      @include gradient-brand-hover;
+      color: $accent-text;
+    }
+  }
+
+  .clock-menu__calendar calendar > grid > label.day-name {
+    font-weight: 700;
+    color: color-mix(in srgb, #{$color-on-surface} 72%, #{$color-brand} 28%);
+  }
+
+  .clock-menu__calendar calendar > grid > label.today {
+    @include gradient-brand-fill;
+    color: $color-surface;
+    font-weight: 700;
+  }
+
+  .clock-menu__calendar calendar > grid > label:selected {
+    @include gradient-brand-selected;
+    color: $accent-text;
+    font-weight: 700;
+  }
+}

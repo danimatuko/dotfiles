@@ -1,0 +1,15 @@
+@forward "./theme/base";
+@forward "./theme/variables";
+
+@use "./theme/base" as *;
+@use "./theme/palettes" as palettes;
+
+:root {
+  @include apply-theme($default-theme);
+}
+
+@each $theme-name, $_ in palettes.$theme-palettes {
+  .theme--#{$theme-name} {
+    @include apply-theme($theme-name);
+  }
+}

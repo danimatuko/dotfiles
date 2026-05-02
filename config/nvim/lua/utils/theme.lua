@@ -12,6 +12,8 @@ local theme_file = vim.fn.expand "~/.cache/current-theme/astrovim.txt"
 local theme_aliases = {
   ["tokyonight"] = "tokyodark",
   ["gruvbox-light"] = "gruvbox",
+  ["gruvbox"] = "gruvbox-baby",
+  ["kanagawa"] = "tokyodark",
 }
 
 function M.get_theme()
