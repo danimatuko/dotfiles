@@ -12,6 +12,8 @@ import WallpaperMenu from "./widget/wallpaper/WallpaperMenu"
 import { toggleWallpaperMenu } from "./services/wallpaper-menu"
 import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
+import PowerMenu from "./widget/power/PowerMenu"
+import { togglePowerMenu } from "./services/power-menu"
 import {
   applyCurrentThemeCss,
   currentTheme,
@@ -42,6 +44,12 @@ app.start({
 
     if (argv[0] === "toggle-wallpaper-menu") {
       toggleWallpaperMenu()
+      response("ok")
+      return
+    }
+
+    if (argv[0] === "toggle-power-menu") {
+      togglePowerMenu()
       response("ok")
       return
     }
@@ -86,6 +94,7 @@ app.start({
     monitors.map(AppLauncher)
     monitors.map(WallpaperMenu)
     monitors.map(ThemeSwitcher)
+    monitors.map(PowerMenu)
     monitors.map(Notifications)
     monitors.map(Osd)
   },

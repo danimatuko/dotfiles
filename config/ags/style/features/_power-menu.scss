@@ -1,0 +1,93 @@
+@use "../theme.scss" as *;
+
+$power-menu-radius: $radius-lg;
+
+window.PowerMenu {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    Iosevka,
+    "JetBrainsMono Nerd Font Propo",
+    "JetBrainsMono Nerd Font",
+    "JetBrains Mono",
+    monospace;
+}
+
+.power-menu {
+  background: transparent;
+}
+
+.power-menu__backdrop {
+  @include control-reset;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+.power-menu__panel {
+  padding: 14px;
+  border-radius: $power-menu-radius;
+  border: 1px solid color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    ),
+    color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+  box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
+}
+
+.power-menu__title {
+  color: $color-on-surface;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.power-menu__actions {
+}
+
+.power-menu__item {
+  @include control-reset;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  padding: 8px 10px;
+  background: transparent;
+
+  &:hover {
+    border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+  }
+}
+
+.power-menu__item--selected {
+  border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+  background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+}
+
+.power-menu__item-content {
+  align-items: center;
+}
+
+.power-menu__item-icon {
+  @include icon-size($icon-size-md);
+  color: $color-brand;
+}
+
+.power-menu__item-label {
+  color: $color-on-surface;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.power-menu__item--danger {
+  .power-menu__item-icon,
+  .power-menu__item-label {
+    color: color-mix(in srgb, #{$color-danger} 78%, #{$color-on-surface} 22%);
+  }
+
+  &:hover {
+    border-color: color-mix(in srgb, #{$color-danger} 54%, #{$bg-surface-strong} 46%);
+    background: color-mix(in srgb, #{$color-danger} 24%, #{$bg-surface} 76%);
+  }
+}
