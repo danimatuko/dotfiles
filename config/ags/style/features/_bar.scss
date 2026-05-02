@@ -45,6 +45,7 @@ window.Bar {
   .status-indicator--wifi,
   .status-indicator--bluetooth,
   .status-indicator--speaker,
+  .status-indicator--battery,
   .status-indicator--sidebar,
   .status-indicator--keyboard {
     @include control-reset;

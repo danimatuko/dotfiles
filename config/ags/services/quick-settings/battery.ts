@@ -84,3 +84,21 @@ export const getBatteryIcon = createBinding(battery, "batteryIconName").as(
 export const getBatteryPercentage = createBinding(battery, "percentage").as(
   (value) => `${Math.floor(value * 100)}%`,
 )
+
+export const getBatteryTooltip = createBinding(battery, "percentage").as((value) => {
+  const percent = `${Math.floor(value * 100)}%`
+  const state = isBatteryCharging() ? "Charging" : "Discharging"
+  return `Battery: ${percent} (${state})`
+})
+
+export const showBatteryDetails = () => {
+  const percent = getBatteryPercent()
+  const state = isBatteryCharging() ? "Charging" : "Discharging"
+  execAsync([
+    "notify-send",
+    "Battery",
+    `${percent}% (${state})`,
+    "-i",
+    battery.batteryIconName || "battery-missing-symbolic",
+  ]).catch(() => {})
+}
