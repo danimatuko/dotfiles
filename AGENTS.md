@@ -4,41 +4,51 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 
 ## Scope
 
-- Root instructions apply everywhere unless a deeper `AGENTS.md` overrides them.
-- `config/ags/AGENTS.md` is authoritative inside `config/ags/`.
+- Root rules apply repo-wide unless a deeper `AGENTS.md` overrides them.
+- `config/ags/AGENTS.md` is authoritative for everything under `config/ags/`.
 
-## Source Of Truth
+## Verified Source Of Truth
 
-- Prefer executable scripts over prose when behavior conflicts (`install.sh`, `setup/*.sh`, `bin/*`).
-- `.legacy/` is archived reference only; do not edit unless explicitly asked.
+- Prefer executable behavior over docs when they differ: `install.sh`, `setup/*.sh`, `bin/*`.
 
-## High-Value Structure
+## Project Boundaries
 
-- `install.sh`: interactive bootstrap; sources staged scripts in `setup/`.
-- `setup/`: install/link/uninstall logic (most operational behavior lives here).
-- `bin/`: active user-facing commands linked into `~/.local/bin`.
-- `themes/`: shared theme assets; AGS theme metadata is per-theme `themes/<id>/ags.json`.
+- Root repo is shell-script driven; there is no root `package.json`/task runner/CI workflow.
+- The only Node/TypeScript project is `config/ags/` (`package.json`, `tsconfig.json`).
+- Do not mix AGS-specific rules into root edits; defer to `config/ags/AGENTS.md` when working there.
 
-## Commands Agents Should Use
+## High-Signal Layout
 
-- Full install: `./install.sh`
-- Relink configs (destructive backup+move): `bash setup/link-configs.sh`
-- Relink command symlinks: `bash setup/link-bin.sh`
-- Enable HyprDynamicMonitors units (after linking configs): `bash setup/hyprdynamicmonitors.sh`
-- Disable HyprDynamicMonitors units: `bash setup/hyprdynamicmonitors-uninstall.sh`
-- Uninstall preview/apply:
-  - dry-run: `bash setup/uninstall.sh`
+- `install.sh`: interactive orchestrator; sources setup stages in fixed order.
+- `setup/`: real install/link/uninstall behavior.
+- `config/`: symlinked runtime configs.
+- `bin/`: active command entrypoints linked into `~/.local/bin` by `setup/link-bin.sh`.
+
+## Commands That Matter
+
+- Full bootstrap: `./install.sh`
+- Relink dotfiles/configs (destructive move to backup first): `bash setup/link-configs.sh`
+- Relink `bin/` commands: `bash setup/link-bin.sh`
+- Enable HyprDynamicMonitors services after configs are linked: `bash setup/hyprdynamicmonitors.sh`
+- Disable HyprDynamicMonitors services: `bash setup/hyprdynamicmonitors-uninstall.sh`
+- Uninstall flow:
+  - preview: `bash setup/uninstall.sh`
   - apply: `bash setup/uninstall.sh --apply`
-  - apply + restore backup: `bash setup/uninstall.sh --apply --restore-latest-backup`
+  - apply + restore latest backup: `bash setup/uninstall.sh --apply --restore-latest-backup`
+- AGS package checks (run inside `config/ags/`):
+  - typecheck: `npx --yes typescript tsc --noEmit -p tsconfig.json`
+  - format check: `npx --yes prettier --check "**/*.{ts,tsx,scss,json,md}"`
 
-## Repo-Specific Gotchas
+## Non-Obvious Gotchas
 
-- `setup/link-configs.sh` moves existing targets into `~/dotfiles_backup_<timestamp>` before relinking.
-- `setup/uninstall.sh` only removes symlinks that resolve under this repo; default mode is dry-run.
-- Keep `bin/` entrypoints extensionless and executable (they are linked by filename into `~/.local/bin`).
-- AGS themes are discovered from `themes/*/ags.json`; missing/invalid manifests are ignored.
+- `install.sh` is interactive (confirm prompts) and runs privileged actions; it is not CI-safe automation.
+- `install.sh` currently does **not** auto-run `setup/hyprdynamicmonitors.sh` after linking configs (call it manually).
+- `setup/link-configs.sh` uses `mv` into `~/dotfiles_backup_<timestamp>` for existing targets, including `~/.config/*` entries it manages.
+- `setup/uninstall.sh` defaults to dry-run and only removes symlinks that resolve under this repo path.
+- `setup/uninstall.sh --apply --restore-latest-backup` removes current `~/.config` before restoring `backup/config`.
+- Prefer `setup/link-configs.sh` and `setup/link-bin.sh`; similarly named legacy helpers (`setup/link-dotfiles.sh`, `setup/deploy-scripts.sh`) are not used by `install.sh`.
 
-## Quick Verification After Shell Script Edits
+## Fast Verification After Shell Edits
 
 - Single file: `bash -n path/to/script`
-- Batch check: `for f in setup/*.sh bin/*; do [ -f "$f" ] && bash -n "$f"; done`
+- Batch: `for f in setup/*.sh bin/*; do [ -f "$f" ] && bash -n "$f"; done`
