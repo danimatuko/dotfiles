@@ -34,7 +34,6 @@ window.WallpaperMenu {
 }
 
 .wallpaper-menu__header {
-  align-items: center;
 }
 
 .wallpaper-menu__title {
@@ -91,17 +90,13 @@ window.WallpaperMenu {
 }
 
 .wallpaper-menu__item-content {
-  align-items: start;
   min-width: 0;
 }
 
 .wallpaper-menu__thumb {
   min-width: 240px;
   min-height: 148px;
-  max-width: 240px;
-  max-height: 148px;
   border-radius: $radius-sm;
-  overflow: hidden;
   padding: 0;
   border: 1px solid
     color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);

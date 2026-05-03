@@ -1,9 +1,7 @@
 @use "../theme.scss" as *;
 
 .notification-card {
-  width: 360px;
   min-width: 360px;
-  max-width: 360px;
   border-radius: 18px;
   padding: 12px 14px;
   background: color-mix(in srgb, #{$bg-surface} 88%, #{$bg-base} 12%);
@@ -13,9 +11,7 @@
 }
 
 .notification-card--compact {
-  width: auto;
   min-width: 0;
-  max-width: none;
   border-radius: $radius-sm;
   border: 1px solid $color-on-surface;
   background: $color-surface;

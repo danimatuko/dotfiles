@@ -6,11 +6,8 @@ window.PowerMenu {
   background: transparent;
   color: $color-on-surface;
   font-family:
-    Iosevka,
-    "JetBrainsMono Nerd Font Propo",
-    "JetBrainsMono Nerd Font",
-    "JetBrains Mono",
-    monospace;
+    Iosevka, "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
 }
 
 .power-menu {
@@ -55,18 +52,25 @@ window.PowerMenu {
   background: transparent;
 
   &:hover {
-    border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+    border-color: color-mix(
+      in srgb,
+      #{$color-brand} 46%,
+      #{$bg-surface-strong} 54%
+    );
     background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
   }
 }
 
 .power-menu__item--selected {
-  border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+  border-color: color-mix(
+    in srgb,
+    #{$color-brand} 46%,
+    #{$bg-surface-strong} 54%
+  );
   background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
 }
 
 .power-menu__item-content {
-  align-items: center;
 }
 
 .power-menu__item-icon {
@@ -87,7 +91,11 @@ window.PowerMenu {
   }
 
   &:hover {
-    border-color: color-mix(in srgb, #{$color-danger} 54%, #{$bg-surface-strong} 46%);
+    border-color: color-mix(
+      in srgb,
+      #{$color-danger} 54%,
+      #{$bg-surface-strong} 46%
+    );
     background: color-mix(in srgb, #{$color-danger} 24%, #{$bg-surface} 76%);
   }
 }

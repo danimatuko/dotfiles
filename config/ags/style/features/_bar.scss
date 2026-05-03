@@ -52,8 +52,6 @@ window.Bar {
     background: transparent;
     padding: 0;
     margin: 0;
-    cursor: pointer;
-    -gtk-icon-cursor: pointer;
 
     &:hover {
       background: transparent;
@@ -138,18 +136,14 @@ window.Bar {
   }
 
   .system-tray__container {
-    overflow: hidden;
-    max-width: 0;
     opacity: 0;
     margin-right: 0;
     transition:
-      max-width 620ms $motion-emphasized,
       opacity 460ms ease-out,
       margin-right 620ms $motion-emphasized;
   }
 
   .system-tray:hover .system-tray__container {
-    max-width: 420px;
     opacity: 1;
     margin-right: 3px;
   }
@@ -416,7 +410,6 @@ window.Bar {
     min-height: 26px;
     border-radius: 999px;
     font-weight: 600;
-    cursor: pointer;
 
     &:hover {
       @include gradient-brand-hover;

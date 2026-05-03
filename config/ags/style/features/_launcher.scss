@@ -9,11 +9,8 @@ window.AppLauncher {
   background: transparent;
   color: $color-on-surface;
   font-family:
-    Iosevka,
-    "JetBrainsMono Nerd Font Propo",
-    "JetBrainsMono Nerd Font",
-    "JetBrains Mono",
-    monospace;
+    Iosevka, "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
 }
 
 .app-launcher {
@@ -43,7 +40,8 @@ window.AppLauncher {
 
 .app-launcher__search {
   border-radius: $radius-md;
-  border: 1px solid color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
+  border: 1px solid
+    color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
   background: color-mix(in srgb, #{$bg-surface-strong} 80%, #{$bg-surface} 20%);
   color: $color-on-surface;
   padding: 8px 10px;
@@ -65,19 +63,25 @@ window.AppLauncher {
   background: transparent;
 
   &:hover {
-    border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+    border-color: color-mix(
+      in srgb,
+      #{$color-brand} 46%,
+      #{$bg-surface-strong} 54%
+    );
     background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
   }
 }
 
 .app-launcher__item--selected {
-  border-color: color-mix(in srgb, #{$color-brand} 46%, #{$bg-surface-strong} 54%);
+  border-color: color-mix(
+    in srgb,
+    #{$color-brand} 46%,
+    #{$bg-surface-strong} 54%
+  );
   background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
 }
 
 .app-launcher__item-content {
-  align-items: center;
-  gap: 10px;
   min-width: 0;
 }
 

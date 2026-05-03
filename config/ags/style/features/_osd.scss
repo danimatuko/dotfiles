@@ -35,8 +35,6 @@ window.Osd {
     margin: 0 2px;
     transform: scaleY(0.82);
     border-radius: $radius-rounded;
-    overflow: hidden;
-
     trough {
       background: color-mix(in srgb, #{$bg-surface-strong} 90%, black 10%);
       border-radius: $radius-rounded;
