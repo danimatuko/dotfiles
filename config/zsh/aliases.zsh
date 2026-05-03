@@ -7,6 +7,7 @@ alias c='clear'
 alias rm='rm -i'
 alias nv='nvim'
 alias cd='z'
+alias oc='opencode'
 
 # Directories
 alias dots='cd ~/dotfiles && nvim'

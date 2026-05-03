@@ -3,6 +3,7 @@
 alias c='clear'
 alias rm='rm -i'
 alias vim='nvim'
+alias oc='opencode'
 alias dots='cd ~/dotfiles && nvim'
 alias hypr='cd ~/.config/hypr && nvim'
 alias ls='eza --group-directories-first --icons'
@@ -14,4 +15,3 @@ alias astrovim='NVIM_APPNAME=nvim-astro nvim'
 alias cat='bat --style=numbers --color=always'
 alias lg='lazygit'
 alias gs='git status'
-
