@@ -192,7 +192,11 @@ if [ -f "$CURRENT_THEME/zellij" ]; then
     ZELLIJ_CONFIG="$HOME/.config/zellij/config.kdl"
 
     if [ -f "$ZELLIJ_CONFIG" ]; then
-        perl -0pi -e 's/theme\s+"[^"]+"/theme "'"$ZELLIJ_THEME"'"/' "$ZELLIJ_CONFIG"
+        if grep -Eq '^[[:space:]]*theme[[:space:]]+"[^"]+"' "$ZELLIJ_CONFIG"; then
+            sed -i -E "s#^([[:space:]]*theme[[:space:]]+)\"[^\"]+\"#\1\"$ZELLIJ_THEME\"#" "$ZELLIJ_CONFIG"
+        else
+            printf '\ntheme "%s"\n' "$ZELLIJ_THEME" >>"$ZELLIJ_CONFIG"
+        fi
     else
         echo "Warning: Zellij config not found at $ZELLIJ_CONFIG"
     fi
