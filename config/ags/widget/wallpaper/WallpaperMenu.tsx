@@ -19,6 +19,10 @@ const [queryState, setQueryState] = createState("")
 const [selectedIndexState, setSelectedIndexState] = createState(0)
 const [showAllWallpapersState, setShowAllWallpapersState] = createState(false)
 
+const wallpaperGridColumns = 3
+const wallpaperItemEstimatedHeight = 182
+const wallpaperGridRowSpacing = 8
+
 let wallpaperScroller: Gtk.ScrolledWindow | null = null
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
@@ -55,6 +59,46 @@ const normalizeSelectedIndex = (nextIndex: number, resultCount: number) => {
   if (nextIndex < 0) return resultCount - 1
   if (nextIndex >= resultCount) return 0
   return nextIndex
+}
+
+const getDirectionalSelectedIndex = (
+  keyval: number,
+  selectedIndex: number,
+  resultCount: number,
+) => {
+  switch (keyval) {
+    case Gdk.KEY_Left:
+      return normalizeSelectedIndex(selectedIndex - 1, resultCount)
+    case Gdk.KEY_Right:
+      return normalizeSelectedIndex(selectedIndex + 1, resultCount)
+    case Gdk.KEY_Up:
+      return normalizeSelectedIndex(selectedIndex - wallpaperGridColumns, resultCount)
+    case Gdk.KEY_Down:
+      return normalizeSelectedIndex(selectedIndex + wallpaperGridColumns, resultCount)
+    default:
+      return selectedIndex
+  }
+}
+
+const ensureSelectedWallpaperVisible = (selectedIndex: number) => {
+  const adjustment = wallpaperScroller?.vadjustment
+  if (!adjustment) return
+
+  const rowHeight = wallpaperItemEstimatedHeight + wallpaperGridRowSpacing
+  const selectedRow = Math.floor(selectedIndex / wallpaperGridColumns)
+  const selectedTop = selectedRow * rowHeight
+  const selectedBottom = selectedTop + rowHeight
+  const viewportTop = adjustment.value
+  const viewportBottom = viewportTop + adjustment.page_size
+
+  if (selectedTop < viewportTop) {
+    adjustment.set_value(selectedTop)
+    return
+  }
+
+  if (selectedBottom > viewportBottom) {
+    adjustment.set_value(selectedBottom - adjustment.page_size)
+  }
 }
 
 const sleep = (milliseconds: number) =>
@@ -147,21 +191,19 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
           )
           if (filtered.length < 1) return false
 
-          if (keyval === Gdk.KEY_Down) {
-            const nextIndex = normalizeSelectedIndex(
-              selectedIndexState() + 1,
+          if (
+            keyval === Gdk.KEY_Left ||
+            keyval === Gdk.KEY_Right ||
+            keyval === Gdk.KEY_Up ||
+            keyval === Gdk.KEY_Down
+          ) {
+            const nextIndex = getDirectionalSelectedIndex(
+              keyval,
+              selectedIndexState(),
               filtered.length,
             )
             setSelectedIndexState(nextIndex)
-            return true
-          }
-
-          if (keyval === Gdk.KEY_Up) {
-            const nextIndex = normalizeSelectedIndex(
-              selectedIndexState() - 1,
-              filtered.length,
-            )
-            setSelectedIndexState(nextIndex)
+            ensureSelectedWallpaperVisible(nextIndex)
             return true
           }
 
