@@ -18,12 +18,19 @@ import { currentTheme, getThemeWindowClass } from "../../services/theme"
 const [queryState, setQueryState] = createState("")
 const [selectedIndexState, setSelectedIndexState] = createState(0)
 const [showAllWallpapersState, setShowAllWallpapersState] = createState(false)
+const [focusModeState, setFocusModeState] = createState<
+  "search" | "toggle" | "grid"
+>("search")
 
 const wallpaperGridColumns = 3
 const wallpaperItemEstimatedHeight = 182
 const wallpaperGridRowSpacing = 8
+const wallpaperMenuPanelWidth = 760
+const wallpaperMenuScrollerWidth = 740
 
 let wallpaperScroller: Gtk.ScrolledWindow | null = null
+let wallpaperSearchEntry: Gtk.Entry | null = null
+let wallpaperToggleSwitch: Gtk.Switch | null = null
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
@@ -50,9 +57,16 @@ const getFilteredWallpapers = (
   })
 }
 
-const filteredWallpapersState = queryState((query) =>
-  getFilteredWallpapers(query, showAllWallpapersState(), currentTheme()),
-)
+const getVisibleWallpapers = () =>
+  getFilteredWallpapers(queryState(), showAllWallpapersState(), currentTheme())
+
+const [visibleWallpapersState, setVisibleWallpapersState] = createState<
+  WallpaperEntry[]
+>([])
+
+const refreshVisibleWallpapers = () => {
+  setVisibleWallpapersState(getVisibleWallpapers())
+}
 
 const normalizeSelectedIndex = (nextIndex: number, resultCount: number) => {
   if (resultCount < 1) return 0
@@ -99,6 +113,32 @@ const ensureSelectedWallpaperVisible = (selectedIndex: number) => {
   if (selectedBottom > viewportBottom) {
     adjustment.set_value(selectedBottom - adjustment.page_size)
   }
+}
+
+const focusOrder: Array<"search" | "toggle" | "grid"> = [
+  "search",
+  "toggle",
+  "grid",
+]
+
+const setFocusMode = (nextMode: "search" | "toggle" | "grid") => {
+  setFocusModeState(nextMode)
+
+  if (nextMode === "search") {
+    wallpaperSearchEntry?.grab_focus()
+    return
+  }
+
+  if (nextMode === "toggle") {
+    wallpaperToggleSwitch?.grab_focus()
+  }
+}
+
+const cycleFocusMode = (step: number) => {
+  const currentIndex = focusOrder.indexOf(focusModeState())
+  const nextIndex =
+    (currentIndex + step + focusOrder.length) % focusOrder.length
+  setFocusMode(focusOrder[nextIndex])
 }
 
 const sleep = (milliseconds: number) =>
@@ -171,32 +211,56 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
           self.present()
           setQueryState("")
           setSelectedIndexState(0)
-          setShowAllWallpapersState(false)
+          setFocusMode("search")
+          refreshVisibleWallpapers()
           wallpaperScroller?.vadjustment?.set_value(0)
         }
       }}
       application={app}
     >
       <Gtk.EventControllerKey
-        onKeyPressed={(_, keyval) => {
+        propagationPhase={Gtk.PropagationPhase.CAPTURE}
+        onKeyPressed={(_, keyval, _keycode, state) => {
           if (keyval === Gdk.KEY_Escape) {
             closeWallpaperMenu()
             return true
           }
 
-          const filtered = getFilteredWallpapers(
-            queryState(),
-            showAllWallpapersState(),
-            currentTheme(),
-          )
-          if (filtered.length < 1) return false
+          if (keyval === Gdk.KEY_Tab) {
+            const isShiftTab =
+              (state & Gdk.ModifierType.SHIFT_MASK) === Gdk.ModifierType.SHIFT_MASK
+            cycleFocusMode(isShiftTab ? -1 : 1)
+            return true
+          }
 
-          if (
+          if (focusModeState() === "toggle") {
+            if (
+              keyval === Gdk.KEY_Return ||
+              keyval === Gdk.KEY_KP_Enter ||
+              keyval === Gdk.KEY_space
+            ) {
+              const nextShowAll = !showAllWallpapersState()
+              wallpaperToggleSwitch?.set_active(nextShowAll)
+              setShowAllWallpapersState(nextShowAll)
+              setSelectedIndexState(0)
+              refreshVisibleWallpapers()
+              wallpaperScroller?.vadjustment?.set_value(0)
+              return true
+            }
+
+            return false
+          }
+
+          const isGridArrowKey =
             keyval === Gdk.KEY_Left ||
             keyval === Gdk.KEY_Right ||
             keyval === Gdk.KEY_Up ||
             keyval === Gdk.KEY_Down
-          ) {
+
+          if (focusModeState() === "grid" && isGridArrowKey) {
+            const filtered = visibleWallpapersState()
+            if (filtered.length < 1) return true
+
             const nextIndex = getDirectionalSelectedIndex(
               keyval,
               selectedIndexState(),
@@ -207,9 +271,13 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
             return true
           }
 
-          if (keyval === Gdk.KEY_Return || keyval === Gdk.KEY_KP_Enter) {
+          if (
+            focusModeState() === "grid" &&
+            (keyval === Gdk.KEY_Return || keyval === Gdk.KEY_KP_Enter)
+          ) {
+            const filtered = visibleWallpapersState()
             const selected = filtered[selectedIndexState()]
-            if (!selected) return false
+            if (!selected) return true
             applyWallpaper(selected).catch(() => {})
             return true
           }
@@ -232,21 +300,21 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
           class="wallpaper-menu__panel"
           orientation={Gtk.Orientation.VERTICAL}
           spacing={8}
-          widthRequest={760}
+          widthRequest={wallpaperMenuPanelWidth}
           halign={Gtk.Align.CENTER}
           valign={Gtk.Align.CENTER}
         >
           <box class="wallpaper-menu__header" spacing={8}>
             <label
               class="wallpaper-menu__title"
-              label="Wallpaper Selector"
+              label="Wallpapers"
               xalign={0}
               hexpand
             />
             <label
               class="wallpaper-menu__count"
               label={queryState(() => {
-                const filteredCount = filteredWallpapersState().length
+                const filteredCount = visibleWallpapersState().length
                 const modeLabel = showAllWallpapersState()
                   ? "all"
                   : `${currentTheme() || "theme"}`
@@ -255,45 +323,54 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
               })}
               xalign={1}
             />
-          </box>
-
-          <button
-            class="wallpaper-menu__toggle"
-            cursor={pointerCursor}
-            halign={Gtk.Align.START}
-            onClicked={() => {
-              setShowAllWallpapersState(!showAllWallpapersState())
-              setSelectedIndexState(0)
-              wallpaperScroller?.vadjustment?.set_value(0)
-            }}
-          >
-            <label
-              label={showAllWallpapersState((showAllWallpapers) =>
-                showAllWallpapers
-                  ? "Show current theme wallpapers"
-                  : "Show all wallpapers",
+            <label class="wallpaper-menu__toggle-label" label="Theme only" xalign={0} />
+            <switch
+              class={focusModeState((focusMode) =>
+                focusMode === "toggle"
+                  ? "wallpaper-menu__switch wallpaper-menu__switch--focused"
+                  : "wallpaper-menu__switch",
               )}
+              cursor={pointerCursor}
+              valign={Gtk.Align.CENTER}
+              active={showAllWallpapersState((showAll) => !showAll)}
+              onMap={(self) => {
+                wallpaperToggleSwitch = self
+              }}
+              onNotifyActive={(self) => {
+                setFocusModeState("toggle")
+                setShowAllWallpapersState(!self.active)
+                setSelectedIndexState(0)
+                refreshVisibleWallpapers()
+                wallpaperScroller?.vadjustment?.set_value(0)
+              }}
             />
-          </button>
+            <label
+              class="wallpaper-menu__toggle-state"
+              label={showAllWallpapersState((showAll) =>
+                showAll ? "all" : "theme",
+              )}
+              xalign={0}
+            />
+          </box>
 
           <entry
             class="wallpaper-menu__search"
-            placeholderText="Search wallpapers..."
+            placeholderText="Search wallpapers by name or path..."
             text={queryState}
+            onMap={(self) => {
+              wallpaperSearchEntry = self
+            }}
+            onActivate={() => {
+              setFocusMode("grid")
+            }}
+            onNotifyHasFocus={(self) => {
+              if (self.hasFocus) setFocusModeState("search")
+            }}
             onNotifyText={(self) => {
               setQueryState(`${self.text ?? ""}`)
               setSelectedIndexState(0)
+              refreshVisibleWallpapers()
               wallpaperScroller?.vadjustment?.set_value(0)
-            }}
-            onActivate={() => {
-              const filtered = getFilteredWallpapers(
-                queryState(),
-                showAllWallpapersState(),
-                currentTheme(),
-              )
-              const selected = filtered[selectedIndexState()]
-              if (!selected) return
-              applyWallpaper(selected).catch(() => {})
             }}
             activatesDefault
           />
@@ -303,9 +380,11 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
               wallpaperScroller = self
             }}
             cssClasses={["wallpaper-menu__scroller"]}
+            minContentWidth={wallpaperMenuScrollerWidth}
+            propagateNaturalWidth={false}
             vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
             hscrollbarPolicy={Gtk.PolicyType.NEVER}
-            widthRequest={740}
+            widthRequest={wallpaperMenuScrollerWidth}
             heightRequest={520}
           >
             <Gtk.FlowBox
@@ -313,14 +392,15 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
               columnSpacing={8}
               rowSpacing={8}
               minChildrenPerLine={3}
-              maxChildrenPerLine={5}
+              maxChildrenPerLine={3}
               selectionMode={Gtk.SelectionMode.NONE}
             >
               <For
-                each={filteredWallpapersState}
+                each={visibleWallpapersState}
               >
                 {(entry, index) => (
                   <button
+                    canFocus={false}
                     class={selectedIndexState((selectedIndex) =>
                       selectedIndex === index.get()
                         ? "wallpaper-menu__item wallpaper-menu__item--selected"
@@ -329,6 +409,8 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
                     cursor={pointerCursor}
                     tooltipText={entry.path}
                     onClicked={() => {
+                      setFocusMode("grid")
+                      setSelectedIndexState(index.get())
                       applyWallpaper(entry).catch(() => {})
                     }}
                   >
@@ -361,6 +443,15 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
               </For>
             </Gtk.FlowBox>
           </Gtk.ScrolledWindow>
+
+          <box class="wallpaper-menu__meta" spacing={8}>
+            <label
+              class="wallpaper-menu__hint"
+              label="Tab: search/toggle/grid  •  Arrows: move  •  Enter: apply  •  Esc: close"
+              xalign={0}
+              hexpand
+            />
+          </box>
         </box>
       </overlay>
     </window>
