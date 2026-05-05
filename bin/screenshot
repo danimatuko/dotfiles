@@ -6,6 +6,7 @@
 # Use Screenshots inside system Pictures folder, or fallback
 PICTURES_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
 OUTPUT_DIR="$PICTURES_DIR/Screenshots"
+OUTPUT_FILE="$OUTPUT_DIR/screenshot-$(date +'%d-%m-%Y_%H-%M-%S').png"
 
 mkdir -p "$OUTPUT_DIR"
 
@@ -14,7 +15,7 @@ MODE="${1:-region}"
 
 pkill slurp || hyprshot -m $MODE --raw |
   satty --filename - \
-        --output-filename "$OUTPUT_DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
+        --output-filename "$OUTPUT_FILE" \
         --early-exit \
         --actions-on-enter save-to-clipboard \
         --save-after-copy \
