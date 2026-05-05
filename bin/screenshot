@@ -7,31 +7,12 @@
 PICTURES_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
 OUTPUT_DIR="$PICTURES_DIR/Screenshots"
 
-# Ensure destination directory exists (new machine / fresh user profile)
 mkdir -p "$OUTPUT_DIR"
 
-# Normalize mode for hyprshot
-mode="${1:-region}"
+MODE="${1:-region}"
+[[ "$MODE" == "output" || "$MODE" == "screen" ]] && MODE="output -m active"
 
-case "$mode" in
-  region)
-    hyprshot_args=( -m region )
-    ;;
-  window)
-    hyprshot_args=( -m window )
-    ;;
-  output|screen)
-    # Capture the currently active monitor
-    hyprshot_args=( -m output -m active )
-    ;;
-  *)
-    notify-send -u normal "Screenshot" "Invalid mode: $mode"
-    exit 1
-    ;;
-esac
-
-# Take screenshot using hyprshot and process with satty
-pkill slurp || hyprshot "${hyprshot_args[@]}" --raw |
+pkill slurp || hyprshot -m $MODE --raw |
   satty --filename - \
         --output-filename "$OUTPUT_DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
         --early-exit \
