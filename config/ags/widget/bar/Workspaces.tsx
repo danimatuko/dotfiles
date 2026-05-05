@@ -6,6 +6,7 @@ const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
 export default function Workspaces() {
   const hyprland = AstalHyprland.get_default()
+  const minWorkspaceSlots = 5
 
   const workspaces = createBinding(hyprland, "workspaces")
   const focused = createBinding(hyprland, "focusedWorkspace")
@@ -20,7 +21,7 @@ export default function Workspaces() {
     }
 
     const ids = [...byId.keys()]
-    for (let id = 1; id <= 5; id += 1) {
+    for (let id = 1; id <= minWorkspaceSlots; id += 1) {
       if (!byId.has(id)) {
         ids.push(id)
       }

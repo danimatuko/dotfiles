@@ -265,172 +265,76 @@ window.Bar {
 
   .clock-menu {
     @include control-reset;
-    background: transparent;
+    border-radius: 999px;
+    min-height: 22px;
+    padding: 0 10px;
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 62%, transparent 38%);
+    background: color-mix(in srgb, #{$bg-surface-strong} 34%, transparent 66%);
+    transition:
+      background 140ms ease-out,
+      border-color 140ms ease-out,
+      box-shadow 140ms ease-out;
 
-    label {
-      font-family:
-        "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
-        "JetBrains Mono", monospace;
-      font-weight: 300;
-      font-size: 0.88rem;
-      color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
-    }
-
-    > button {
-      @include control-reset;
-      border-radius: 999px;
-      padding: 0 12px;
-      min-height: 24px;
-      color: $color-emphasis;
-      background: color-mix(
+    &:hover {
+      background: color-mix(in srgb, #{$accent-hover} 56%, #{$color-brand} 20%);
+      border-color: color-mix(
         in srgb,
-        #{$bg-surface-strong} 48%,
-        transparent 52%
+        #{$color-brand} 34%,
+        #{$bg-surface-strong} 66%
       );
-      border: 1px solid
-        color-mix(in srgb, #{$bg-surface-strong} 76%, transparent 24%);
-      transition:
-        background 170ms ease-out,
-        border-color 170ms ease-out,
-        color 170ms ease-out,
-        transform 140ms ease-out;
-
-      &:hover {
-        background: color-mix(
-          in srgb,
-          #{$accent-hover} 68%,
-          #{$color-brand} 32%
-        );
-        border-color: color-mix(
-          in srgb,
-          #{$color-brand} 44%,
-          #{$bg-surface-strong} 56%
-        );
-        color: $accent-text;
-        transform: translateY(-1px);
-      }
-
-      &:hover label {
-        color: $accent-text;
-      }
-
-      &:active {
-        transform: translateY(0);
-      }
-
-      &:focus-visible {
-        @include focus-ring;
-      }
-    }
-  }
-
-  .clock-menu__popover {
-    @include control-reset;
-    background: transparent;
-
-    > arrow {
-      background: color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
-      border: none;
+      box-shadow: inset 0 0 0 1px
+        color-mix(in srgb, #{$color-brand} 22%, transparent 78%);
     }
 
-    > contents {
-      @include control-reset;
-      padding: 8px 0 0;
-      border: 1px solid
-        color-mix(in srgb, #{$color-brand} 24%, #{$bg-surface} 76%);
-      border-radius: $radius-lg;
-      background:
-        radial-gradient(
-          130% 100% at 100% 0%,
-          rgba(255, 255, 255, 0.06) 0%,
-          transparent 62%
-        ),
-        color-mix(in srgb, #{$bg-base} 92%, #{$bg-surface} 8%);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+    &:active {
+      background: color-mix(in srgb, #{$color-brand} 16%, #{$bg-surface} 84%);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
     }
   }
 
   .clock-menu__content {
-    padding: 10px;
-    border-radius: $radius-lg;
-    border: none;
-    background: transparent;
-    color: $color-on-surface;
-    box-shadow: none;
+    spacing: 8px;
+    align-items: baseline;
   }
 
-  .clock-menu__calendar {
-    min-width: 294px;
-  }
-
-  .clock-menu__calendar calendar {
-    padding: 12px;
-    border-radius: $radius-lg;
-    border: none;
-    color: $color-on-surface;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  .clock-menu__calendar calendar > header {
-    margin-bottom: 8px;
-    padding: 6px 4px;
-    border-radius: $radius-sm;
-    background: color-mix(
-      in srgb,
-      #{$bg-surface-strong} 86%,
-      #{$bg-surface} 14%
-    );
-    border: 1px solid
-      color-mix(in srgb, #{$bg-surface-strong} 88%, transparent 12%);
-    box-shadow: none;
-  }
-
-  .clock-menu__calendar calendar > header button {
-    @include control-reset;
-    min-width: 24px;
-    min-height: 24px;
-    border-radius: 999px;
-    color: $color-on-surface;
-    border: none;
-    box-shadow: none;
-
-    &:hover {
-      background: color-mix(in srgb, #{$accent-hover} 68%, #{$color-brand} 32%);
-    }
-  }
-
-  .clock-menu__calendar calendar > grid {
-    padding: 4px;
-    border-radius: $radius-sm;
-  }
-
-  .clock-menu__calendar calendar > grid > label {
-    min-width: 28px;
-    min-height: 26px;
-    border-radius: 999px;
+  .clock-menu__time {
+    font-family:
+      "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+      "JetBrains Mono", monospace;
     font-weight: 600;
-
-    &:hover {
-      @include gradient-brand-hover;
-      color: $accent-text;
-    }
+    font-size: 0.84rem;
+    color: color-mix(in srgb, #{$control-text} 90%, #{$color-emphasis} 10%);
+    letter-spacing: 0.01em;
   }
 
-  .clock-menu__calendar calendar > grid > label.day-name {
-    font-weight: 700;
-    color: color-mix(in srgb, #{$color-on-surface} 72%, #{$color-brand} 28%);
+  .clock-menu__date {
+    font-size: 0.73rem;
+    font-weight: 500;
+    color: color-mix(in srgb, #{$color-on-surface} 64%, #{$color-brand} 36%);
+    margin-top: 1px;
+    letter-spacing: 0.01em;
   }
 
-  .clock-menu__calendar calendar > grid > label.today {
-    @include gradient-brand-fill;
-    color: $color-surface;
-    font-weight: 700;
+  .clock-menu__date,
+  .clock-menu__time,
+  .clock-menu__separator {
+    margin: 0;
+    padding: 0;
   }
 
-  .clock-menu__calendar calendar > grid > label:selected {
-    @include gradient-brand-selected;
-    color: $accent-text;
-    font-weight: 700;
+  .clock-menu__content .clock-menu__date,
+  .clock-menu__content .clock-menu__time,
+  .clock-menu__content .clock-menu__separator {
+    min-height: 1em;
+  }
+
+  .clock-menu__separator {
+    font-size: 0.62rem;
+    color: color-mix(in srgb, #{$color-outline} 56%, transparent 44%);
+    margin-top: -1px;
   }
 }
