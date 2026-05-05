@@ -16,15 +16,7 @@ type ScreenshotAction = {
   args: string[]
 }
 
-const screenshotScriptCandidates = [
-  `${GLib.get_home_dir()}/.local/bin/screenshot`,
-  `${GLib.get_home_dir()}/dotfiles/bin/screenshot`,
-]
-
-const getScreenshotScriptPath = () =>
-  screenshotScriptCandidates.find((path) =>
-    GLib.file_test(path, GLib.FileTest.IS_EXECUTABLE),
-  )
+const screenshotScriptPath = `${GLib.get_home_dir()}/.local/bin/screenshot`
 
 const screenshotActions: ScreenshotAction[] = [
   {
@@ -56,18 +48,6 @@ const normalizeSelectedIndex = (nextIndex: number, resultCount: number) => {
 
 const triggerScreenshot = (action: ScreenshotAction) => {
   closeScreenshotMenu()
-
-  const screenshotScriptPath = getScreenshotScriptPath()
-  if (!screenshotScriptPath) {
-    execAsync([
-      "notify-send",
-      "-u",
-      "critical",
-      "Screenshot",
-      "Could not find executable screenshot script",
-    ]).catch(() => {})
-    return
-  }
 
   execAsync([screenshotScriptPath, ...action.args]).catch((error) => {
     const message = `${error}`.split("\n")[0]?.trim() || "unknown error"

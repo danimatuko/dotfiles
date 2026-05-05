@@ -11,9 +11,16 @@ OUTPUT_FILE="$OUTPUT_DIR/screenshot-$(date +'%d-%m-%Y_%H-%M-%S').png"
 mkdir -p "$OUTPUT_DIR"
 
 MODE="${1:-region}"
-[[ "$MODE" == "output" || "$MODE" == "screen" ]] && MODE="output -m active"
 
-pkill slurp || hyprshot -m $MODE --raw |
+if [[ "$MODE" == "output" || "$MODE" == "screen" ]]; then
+  HYPRSHOT_ARGS=(-m output -m active)
+else
+  HYPRSHOT_ARGS=(-m "$MODE")
+fi
+
+pkill slurp >/dev/null 2>&1 || true
+
+hyprshot "${HYPRSHOT_ARGS[@]}" --raw |
   satty --filename - \
         --output-filename "$OUTPUT_FILE" \
         --early-exit \
