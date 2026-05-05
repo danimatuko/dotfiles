@@ -29,7 +29,7 @@ const getScreenshotScriptPath = () =>
 const screenshotActions: ScreenshotAction[] = [
   {
     label: "Region",
-    iconName: "selection-rectangular-symbolic",
+    iconName: "camera-photo-symbolic",
     args: [],
   },
   {
