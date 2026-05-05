@@ -1,0 +1,86 @@
+@use "../theme.scss" as *;
+
+$screenshot-menu-radius: $radius-lg;
+
+window.ScreenshotMenu {
+  background: transparent;
+  color: $color-on-surface;
+  font-family:
+    Iosevka, "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+    "JetBrains Mono", monospace;
+}
+
+.screenshot-menu {
+  background: transparent;
+}
+
+.screenshot-menu__backdrop {
+  @include control-reset;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+.screenshot-menu__panel {
+  padding: 14px;
+  border-radius: $screenshot-menu-radius;
+  border: 1px solid color-mix(in srgb, #{$color-brand} 28%, #{$bg-surface} 72%);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    ),
+    color-mix(in srgb, #{$bg-base} 90%, #{$bg-surface} 10%);
+  box-shadow: -14px 0 40px rgba(0, 0, 0, 0.32);
+}
+
+.screenshot-menu__title {
+  color: $color-on-surface;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.screenshot-menu__actions {
+}
+
+.screenshot-menu__item {
+  @include control-reset;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  min-width: 130px;
+  padding: 10px 12px;
+  background: transparent;
+
+  &:hover {
+    border-color: color-mix(
+      in srgb,
+      #{$color-brand} 46%,
+      #{$bg-surface-strong} 54%
+    );
+    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+  }
+}
+
+.screenshot-menu__item--selected {
+  border-color: color-mix(
+    in srgb,
+    #{$color-brand} 46%,
+    #{$bg-surface-strong} 54%
+  );
+  background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+}
+
+.screenshot-menu__item-content {
+  min-width: 100px;
+}
+
+.screenshot-menu__item-icon {
+  @include icon-size($icon-size-md);
+  color: $color-brand;
+}
+
+.screenshot-menu__item-label {
+  color: $color-on-surface;
+  font-size: 1.05rem;
+  font-weight: 650;
+}

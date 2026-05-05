@@ -14,6 +14,8 @@ import { toggleThemeMenu } from "./services/theme-menu"
 import ThemeSwitcher from "./widget/quick-settings/ThemeSwitcher"
 import PowerMenu from "./widget/power/PowerMenu"
 import { togglePowerMenu } from "./services/power-menu"
+import ScreenshotMenu from "./widget/screenshot/ScreenshotMenu"
+import { toggleScreenshotMenu } from "./services/screenshot-menu"
 import {
   applyCurrentThemeCss,
   currentTheme,
@@ -50,6 +52,12 @@ app.start({
 
     if (argv[0] === "toggle-power-menu") {
       togglePowerMenu()
+      response("ok")
+      return
+    }
+
+    if (argv[0] === "toggle-screenshot-menu") {
+      toggleScreenshotMenu()
       response("ok")
       return
     }
@@ -95,6 +103,7 @@ app.start({
     monitors.map(WallpaperMenu)
     monitors.map(ThemeSwitcher)
     monitors.map(PowerMenu)
+    monitors.map(ScreenshotMenu)
     monitors.map(Notifications)
     monitors.map(Osd)
   },
