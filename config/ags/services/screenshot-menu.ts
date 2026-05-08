@@ -1,23 +1,8 @@
-import { createState } from "gnim"
+import { createVisibilityState } from "./visibility-state"
 
-const [screenshotMenuVisibleState, setScreenshotMenuVisibleState] =
-  createState(false)
+const screenshotMenuVisibilityState = createVisibilityState(false)
 
-export const isScreenshotMenuVisible = screenshotMenuVisibleState
-
-export const openScreenshotMenu = () => {
-  setScreenshotMenuVisibleState(true)
-}
-
-export const closeScreenshotMenu = () => {
-  setScreenshotMenuVisibleState(false)
-}
-
-export const toggleScreenshotMenu = () => {
-  if (screenshotMenuVisibleState()) {
-    closeScreenshotMenu()
-    return
-  }
-
-  openScreenshotMenu()
-}
+export const isScreenshotMenuVisible = screenshotMenuVisibilityState.isVisible
+export const openScreenshotMenu = screenshotMenuVisibilityState.open
+export const closeScreenshotMenu = screenshotMenuVisibilityState.close
+export const toggleScreenshotMenu = screenshotMenuVisibilityState.toggle

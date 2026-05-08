@@ -1,22 +1,8 @@
-import { createState } from "gnim"
+import { createVisibilityState } from "./visibility-state"
 
-const [themeMenuVisibleState, setThemeMenuVisibleState] = createState(false)
+const themeMenuVisibilityState = createVisibilityState(false)
 
-export const isThemeMenuVisible = themeMenuVisibleState
-
-export const openThemeMenu = () => {
-  setThemeMenuVisibleState(true)
-}
-
-export const closeThemeMenu = () => {
-  setThemeMenuVisibleState(false)
-}
-
-export const toggleThemeMenu = () => {
-  if (themeMenuVisibleState()) {
-    closeThemeMenu()
-    return
-  }
-
-  openThemeMenu()
-}
+export const isThemeMenuVisible = themeMenuVisibilityState.isVisible
+export const openThemeMenu = themeMenuVisibilityState.open
+export const closeThemeMenu = themeMenuVisibilityState.close
+export const toggleThemeMenu = themeMenuVisibilityState.toggle

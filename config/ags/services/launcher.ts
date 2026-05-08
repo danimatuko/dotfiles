@@ -1,22 +1,8 @@
-import { createState } from "gnim"
+import { createVisibilityState } from "./visibility-state"
 
-const [launcherVisibleState, setLauncherVisibleState] = createState(false)
+const launcherVisibilityState = createVisibilityState(false)
 
-export const isLauncherVisible = launcherVisibleState
-
-export const openLauncher = () => {
-  setLauncherVisibleState(true)
-}
-
-export const closeLauncher = () => {
-  setLauncherVisibleState(false)
-}
-
-export const toggleLauncher = () => {
-  if (launcherVisibleState()) {
-    closeLauncher()
-    return
-  }
-
-  openLauncher()
-}
+export const isLauncherVisible = launcherVisibilityState.isVisible
+export const openLauncher = launcherVisibilityState.open
+export const closeLauncher = launcherVisibilityState.close
+export const toggleLauncher = launcherVisibilityState.toggle

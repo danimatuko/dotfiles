@@ -1,22 +1,8 @@
-import { createState } from "gnim"
+import { createVisibilityState } from "./visibility-state"
 
-const [powerMenuVisibleState, setPowerMenuVisibleState] = createState(false)
+const powerMenuVisibilityState = createVisibilityState(false)
 
-export const isPowerMenuVisible = powerMenuVisibleState
-
-export const openPowerMenu = () => {
-  setPowerMenuVisibleState(true)
-}
-
-export const closePowerMenu = () => {
-  setPowerMenuVisibleState(false)
-}
-
-export const togglePowerMenu = () => {
-  if (powerMenuVisibleState()) {
-    closePowerMenu()
-    return
-  }
-
-  openPowerMenu()
-}
+export const isPowerMenuVisible = powerMenuVisibilityState.isVisible
+export const openPowerMenu = powerMenuVisibilityState.open
+export const closePowerMenu = powerMenuVisibilityState.close
+export const togglePowerMenu = powerMenuVisibilityState.toggle

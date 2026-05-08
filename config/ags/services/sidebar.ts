@@ -1,22 +1,8 @@
-import { createState } from "gnim"
+import { createVisibilityState } from "./visibility-state"
 
-const [sidebarVisibleState, setSidebarVisibleState] = createState(true)
+const sidebarVisibilityState = createVisibilityState(false)
 
-export const isSidebarVisible = sidebarVisibleState
-
-export const openSidebar = () => {
-  setSidebarVisibleState(true)
-}
-
-export const closeSidebar = () => {
-  setSidebarVisibleState(false)
-}
-
-export const toggleSidebar = () => {
-  if (sidebarVisibleState()) {
-    closeSidebar()
-    return
-  }
-
-  openSidebar()
-}
+export const isSidebarVisible = sidebarVisibilityState.isVisible
+export const openSidebar = sidebarVisibilityState.open
+export const closeSidebar = sidebarVisibilityState.close
+export const toggleSidebar = sidebarVisibilityState.toggle
