@@ -19,7 +19,7 @@ export default function SidebarToggleButton() {
     >
       <image
         iconName={isSidebarVisible((visible) =>
-          visible ? "window-close-symbolic" : "open-menu-symbolic",
+          visible ? "window-close-symbolic" : "sidebar-show-right-symbolic",
         )}
       />
     </button>
