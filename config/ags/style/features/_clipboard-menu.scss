@@ -81,10 +81,16 @@ window.ClipboardMenu {
   min-width: 38px;
   padding: 6px;
   border-color: transparent;
+  opacity: 0;
+  transition: opacity 120ms ease;
 
   &:hover {
     border-color: transparent;
   }
+}
+
+.clipboard-menu__row:hover .clipboard-menu__delete {
+  opacity: 1;
 }
 
 .clipboard-menu__delete-icon {
@@ -95,7 +101,8 @@ window.ClipboardMenu {
 .clipboard-menu__search {
   border-radius: $radius-sm;
   margin-bottom: 4px;
-  padding: 10px 12px;
+  padding: 7px 10px;
+  font-size: 0.92rem;
 }
 
 .clipboard-menu__hint {
@@ -110,14 +117,9 @@ window.ClipboardMenu {
 
 .clipboard-menu__row {
   min-height: 38px;
-}
-
-.clipboard-menu__item {
-  @include control-reset;
-  border-radius: $radius-sm;
   border: 1px solid transparent;
-  padding: 8px 10px;
-  background: transparent;
+  border-radius: $radius-sm;
+  padding: 0 4px;
 
   &:hover {
     border-color: color-mix(
@@ -125,17 +127,21 @@ window.ClipboardMenu {
       #{$color-brand} 46%,
       #{$bg-surface-strong} 54%
     );
-    background: color-mix(in srgb, #{$accent-hover} 70%, #{$color-brand} 30%);
+    background: color-mix(in srgb, #{$bg-surface} 88%, #{$color-brand} 12%);
   }
 }
 
-.clipboard-menu__item--selected {
-  border-color: color-mix(
-    in srgb,
-    #{$color-brand} 36%,
-    #{$bg-surface-strong} 64%
-  );
+.clipboard-menu__row--selected {
+  border-color: color-mix(in srgb, #{$color-brand} 36%, #{$bg-surface-strong} 64%);
   background: color-mix(in srgb, #{$bg-surface} 82%, #{$color-brand} 18%);
+}
+
+.clipboard-menu__item {
+  @include control-reset;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  padding: 8px 6px;
+  background: transparent;
 }
 
 .clipboard-menu__item-label {

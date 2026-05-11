@@ -150,7 +150,7 @@ export default function ClipboardMenu(gdkmonitor: Gdk.Monitor) {
     >
       <Gtk.EventControllerKey
         propagationPhase={Gtk.PropagationPhase.CAPTURE}
-        onKeyPressed={(_, keyval) => {
+        onKeyPressed={(_, keyval, _keycode, state) => {
           if (keyval === Gdk.KEY_Escape) {
             closeClipboardMenu()
             return true
@@ -163,6 +163,19 @@ export default function ClipboardMenu(gdkmonitor: Gdk.Monitor) {
             }
 
             return false
+          }
+
+          if (keyval === Gdk.KEY_Tab) {
+            const isShiftPressed =
+              (state & Gdk.ModifierType.SHIFT_MASK) ===
+              Gdk.ModifierType.SHIFT_MASK
+            const nextIndex = normalizeSelectedIndex(
+              selectedIndexState() + (isShiftPressed ? -1 : 1),
+              filtered.length,
+            )
+            setSelectedIndexState(nextIndex)
+            ensureSelectedVisible(nextIndex)
+            return true
           }
 
           if (keyval === Gdk.KEY_Down) {
@@ -189,6 +202,17 @@ export default function ClipboardMenu(gdkmonitor: Gdk.Monitor) {
             const selected = filtered[selectedIndexState()]
             if (!selected) return false
             copyEntry(selected).catch(() => {})
+            return true
+          }
+
+          const isCtrlPressed =
+            (state & Gdk.ModifierType.CONTROL_MASK) ===
+            Gdk.ModifierType.CONTROL_MASK
+
+          if (keyval === Gdk.KEY_Delete || (isCtrlPressed && keyval === Gdk.KEY_d)) {
+            const selected = filtered[selectedIndexState()]
+            if (!selected) return false
+            deleteEntry(selected).catch(() => {})
             return true
           }
 
@@ -246,7 +270,7 @@ export default function ClipboardMenu(gdkmonitor: Gdk.Monitor) {
 
           <label
             class="clipboard-menu__hint"
-            label="Use Up/Down to navigate, Enter to copy, Esc to close"
+            label="Use Tab/Shift+Tab or Up/Down to navigate, Enter to copy, Ctrl+D/Delete to remove, Esc to close"
             xalign={0}
           />
 
@@ -290,13 +314,16 @@ export default function ClipboardMenu(gdkmonitor: Gdk.Monitor) {
               />
               <For each={queryState((query) => getFilteredEntries(query))}>
                 {(entry: ClipboardEntry, index) => (
-                  <box class="clipboard-menu__row" spacing={6}>
+                  <box
+                    class={selectedIndexState((selectedIndex) =>
+                      selectedIndex === index.get()
+                        ? "clipboard-menu__row clipboard-menu__row--selected"
+                        : "clipboard-menu__row",
+                    )}
+                    spacing={6}
+                  >
                     <button
-                      class={selectedIndexState((selectedIndex) =>
-                        selectedIndex === index.get()
-                          ? "clipboard-menu__item clipboard-menu__item--selected"
-                          : "clipboard-menu__item",
-                      )}
+                      class="clipboard-menu__item"
                       cursor={pointerCursor}
                       onClicked={() => {
                         copyEntry(entry).catch(() => {})
