@@ -65,20 +65,30 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         </box>
 
         <box class="bar__end" $type="end" halign={Gtk.Align.END}>
-          <box class="system-tray" tooltipText="System Tray">
-            <box class="system-tray__container">
-              <SystemTray />
+          <box class="bar__end-group bar__end-group--balanced" spacing={4}>
+            <box class="system-tray" tooltipText="System Tray">
+              <box class="system-tray__container">
+                <SystemTray />
+              </box>
+              <box class="system-tray__toggle">
+                <image iconName="pan-start-symbolic" />
+              </box>
             </box>
-            <box class="system-tray__toggle">
-              <image iconName="pan-start-symbolic" />
+            <NotificationIndicator />
+            <KeyboardLayoutIndicator />
+          </box>
+
+          <label class="bar__separator" label="|" />
+
+          <box
+            class="bar__end-group bar__end-group--actions bar__end-group--balanced"
+            spacing={4}
+          >
+            <box class="quick-status">
+              <QuickSettingsToggleMenu />
             </box>
+            <SidebarToggleButton />
           </box>
-          <NotificationIndicator />
-          <KeyboardLayoutIndicator />
-          <box class="quick-status">
-            <QuickSettingsToggleMenu />
-          </box>
-          <SidebarToggleButton />
         </box>
       </centerbox>
     </window>

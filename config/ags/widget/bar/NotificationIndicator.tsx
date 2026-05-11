@@ -1,5 +1,4 @@
 import { Gdk, Gtk } from "ags/gtk4"
-
 import {
   isDoNotDisturbEnabled,
   notificationHistory,
@@ -7,33 +6,6 @@ import {
 } from "../../services/notifications"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
-
-const hasIcon = (iconName: string) => {
-  const display = Gdk.Display.get_default()
-  const iconTheme = display ? Gtk.IconTheme.get_for_display(display) : null
-  return iconTheme?.has_icon(iconName) ?? false
-}
-
-const pickFirstExistingIcon = (iconNames: string[]) => {
-  for (const iconName of iconNames) {
-    if (hasIcon(iconName)) return iconName
-  }
-
-  return "dialog-information-symbolic"
-}
-
-const getNotificationIconName = (isDoNotDisturbEnabled: boolean) =>
-  isDoNotDisturbEnabled
-    ? pickFirstExistingIcon([
-        "notifications-disabled-symbolic",
-        "notification-disabled-symbolic",
-        "preferences-system-notifications-symbolic",
-      ])
-    : pickFirstExistingIcon([
-        "preferences-system-notifications-symbolic",
-        "notification-symbolic",
-        "dialog-information-symbolic",
-      ])
 
 export default function NotificationIndicator() {
   return (
@@ -53,11 +25,10 @@ export default function NotificationIndicator() {
             : "No notifications",
       )}
     >
-      <overlay>
+      <box class="notification-indicator__content">
         <image
-          iconName={isDoNotDisturbEnabled((enabled) =>
-            getNotificationIconName(enabled),
-          )}
+          class="notification-indicator__icon"
+          iconName="preferences-system-notifications-symbolic"
         />
         <label
           class="notification-indicator__badge"
@@ -66,7 +37,7 @@ export default function NotificationIndicator() {
           halign={Gtk.Align.END}
           valign={Gtk.Align.START}
         />
-      </overlay>
+      </box>
     </button>
   )
 }

@@ -22,6 +22,22 @@ window.Bar {
     padding: 0 2px;
   }
 
+  .bar__end {
+    align-items: center;
+  }
+
+  .bar__end-group {
+    align-items: center;
+  }
+
+  .bar__end-group--balanced {
+    min-height: 24px;
+  }
+
+  .bar__end-group--actions {
+    margin-left: 0;
+  }
+
   .bar__center {
     spacing: 0;
   }
@@ -114,6 +130,12 @@ window.Bar {
     line-height: 1;
   }
 
+  .bar__end .bar__separator {
+    margin: 0 8px;
+    font-size: 0.74rem;
+    color: color-mix(in srgb, #{$color-outline} 72%, transparent 28%);
+  }
+
   button {
     border-radius: $radius-sm;
     margin: 1px;
@@ -152,13 +174,16 @@ window.Bar {
   }
 
   .status-indicator--sidebar {
+    min-height: 24px;
+    min-width: 24px;
+    padding: 0 4px;
     color: $color-emphasis;
   }
 
   .status-indicator--keyboard {
     padding: 0 6px;
     min-height: 24px;
-    margin: 0 4px 0 0;
+    margin: 0;
     color: color-mix(in srgb, #{$control-text} 86%, #{$color-emphasis} 14%);
   }
 
@@ -185,6 +210,10 @@ window.Bar {
   .status-indicator__glyph--sidebar {
     font-size: 1.12rem;
     font-weight: 800;
+  }
+
+  .status-indicator__icon--sidebar {
+    @include icon-size($icon-size-sm);
   }
 
   .os-icon {
@@ -216,18 +245,23 @@ window.Bar {
     @include control-reset;
     border-radius: 0;
     padding: 1px;
-    margin-right: 2px;
+    margin-right: 0;
   }
 
   .system-tray__container {
+    min-width: 0;
+    max-width: 0;
+    overflow: hidden;
     opacity: 0;
     margin-right: 0;
     transition:
+      max-width 620ms $motion-emphasized,
       opacity 460ms ease-out,
       margin-right 620ms $motion-emphasized;
   }
 
   .system-tray:hover .system-tray__container {
+    max-width: 320px;
     opacity: 1;
     margin-right: 3px;
   }
@@ -278,7 +312,7 @@ window.Bar {
 
   .quick-status {
     @include control-reset;
-    margin: 2px 4px 2px 0;
+    margin: 0;
   }
 
   .notification-indicator {
@@ -287,8 +321,8 @@ window.Bar {
     min-height: 24px;
     min-width: 24px;
     padding: 4px;
-    margin: 0 2px 0 0;
-    color: $color-emphasis;
+    margin: 0;
+    color: $control-color-bright;
 
     image {
       @include icon-size($icon-size-sm);
@@ -306,15 +340,25 @@ window.Bar {
   }
 
   .notification-indicator--has-items {
-    color: color-mix(in srgb, #{$color-brand} 82%, #{$color-emphasis} 18%);
+    color: $control-color-bright;
+  }
+
+  .notification-indicator__content {
+    spacing: 0;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .notification-indicator__icon {
+    @include icon-size($icon-size-sm);
   }
 
   .notification-indicator__badge {
     min-width: 0;
     min-height: 0;
-    margin: -3px -2px 0 0;
+    margin: -8px 0 0 -8px;
     color: $color-brand;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1;
     font-weight: 700;
   }

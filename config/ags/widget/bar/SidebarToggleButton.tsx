@@ -18,8 +18,11 @@ export default function SidebarToggleButton() {
       )}
     >
       <image
+        class="status-indicator__icon status-indicator__icon--sidebar"
         iconName={isSidebarVisible((visible) =>
-          visible ? "window-close-symbolic" : "sidebar-show-right-symbolic",
+          visible
+            ? "sidebar-hide-right-symbolic"
+            : "sidebar-show-right-symbolic",
         )}
       />
     </button>
