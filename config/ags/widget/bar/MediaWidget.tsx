@@ -4,7 +4,7 @@ import { Gdk } from "ags/gtk4"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 const mediaPollIntervalMs = 220
-const mediaFallbackLabel = "Nothing playing"
+const mediaFallbackLabel = "No media"
 const mediaLabelMaxLength = 30
 const mediaRefreshIntervalMs = 1000
 const mediaScrollGap = "   "
@@ -65,7 +65,7 @@ const loadMediaInfo = async (): Promise<MediaInfo> => {
       return {
         label: mediaFallbackLabel,
         tooltip: mediaFallbackLabel,
-        visible: false,
+        visible: true,
       }
     }
 
@@ -106,7 +106,7 @@ const loadMediaInfo = async (): Promise<MediaInfo> => {
     return {
       label: mediaFallbackLabel,
       tooltip: mediaFallbackLabel,
-      visible: false,
+      visible: true,
     }
   }
 }
@@ -120,7 +120,7 @@ export default function MediaWidget() {
     {
       label: mediaFallbackLabel,
       tooltip: mediaFallbackLabel,
-      visible: false,
+      visible: true,
     },
     mediaPollIntervalMs,
     loadMediaInfo,
