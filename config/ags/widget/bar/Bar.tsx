@@ -38,7 +38,12 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           halign={Gtk.Align.CENTER}
         >
           <centerbox class="bar__center-layout" hexpand>
-            <box class="bar__center-side bar__center-side--left" $type="start">
+            <box
+              class="bar__center-side bar__center-side--left"
+              $type="start"
+              hexpand
+              halign={Gtk.Align.END}
+            >
               <Clock />
             </box>
 
@@ -48,7 +53,12 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
               <label class="bar__center-separator" label="|" />
             </box>
 
-            <box class="bar__center-side bar__center-side--right" $type="end">
+            <box
+              class="bar__center-side bar__center-side--right"
+              $type="end"
+              hexpand
+              halign={Gtk.Align.START}
+            >
               <MediaWidget />
             </box>
           </centerbox>
