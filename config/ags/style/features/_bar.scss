@@ -36,20 +36,29 @@ window.Bar {
 
   .bar__center .clock-menu {
     margin: 0;
-    min-height: 18px;
-    padding: 0 6px;
+    min-height: 22px;
+    padding: 0 9px;
   }
 
   .bar__center .clock-menu__content {
-    spacing: 5px;
+    spacing: 8px;
   }
 
   .bar__center .clock-menu__time {
-    font-size: 0.76rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: color-mix(in srgb, #{$control-text} 94%, #{$color-emphasis} 6%);
   }
 
   .bar__center .clock-menu__date {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: color-mix(in srgb, #{$control-text} 94%, #{$color-emphasis} 6%);
+  }
+
+  .bar__center .clock-menu__separator {
+    font-size: 0.66rem;
+    color: color-mix(in srgb, #{$color-outline} 72%, transparent 28%);
   }
 
   .media-widget {
