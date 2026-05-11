@@ -3,6 +3,7 @@ import { Astal, Gtk, Gdk } from "ags/gtk4"
 
 import Workspaces from "./Workspaces"
 import Clock from "./Clock"
+import MediaWidget from "./MediaWidget"
 import SystemTray from "./SystemTray"
 import OsIcon from "./OsIcon"
 import SidebarToggleButton from "./SidebarToggleButton"
@@ -36,9 +37,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           hexpand
           halign={Gtk.Align.CENTER}
         >
-          <Workspaces />
-          <label class="bar__center-separator" label="|" />
           <Clock />
+          <label class="bar__center-separator" label="|" />
+          <Workspaces />
+          <MediaWidget />
         </box>
 
         <box class="bar__end" $type="end" halign={Gtk.Align.END}>

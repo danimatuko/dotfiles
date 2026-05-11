@@ -52,6 +52,38 @@ window.Bar {
     font-size: 0.68rem;
   }
 
+  .media-widget {
+    spacing: 0;
+    align-items: center;
+  }
+
+  .media-widget__button {
+    @include control-reset;
+    margin: 0;
+    padding: 0 2px;
+    min-height: 18px;
+    border: none;
+    background: transparent;
+    color: color-mix(in srgb, #{$color-on-surface} 80%, #{$color-emphasis} 20%);
+
+    &:hover {
+      background: transparent;
+      color: color-mix(in srgb, #{$control-text} 86%, #{$color-brand} 14%);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  .media-widget__label {
+    margin: 0;
+    padding: 0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
   .bar__separator {
     margin: 0 14px;
     color: color-mix(in srgb, #{$control-color-bright} 78%, transparent 22%);
