@@ -16,6 +16,8 @@ import PowerMenu from "./widget/power/PowerMenu"
 import { togglePowerMenu } from "./services/power-menu"
 import ScreenshotMenu from "./widget/screenshot/ScreenshotMenu"
 import { toggleScreenshotMenu } from "./services/screenshot-menu"
+import ClipboardMenu from "./widget/clipboard/ClipboardMenu"
+import { toggleClipboardMenu } from "./services/clipboard-menu"
 import {
   applyCurrentThemeCss,
   currentTheme,
@@ -62,6 +64,12 @@ app.start({
       return
     }
 
+    if (argv[0] === "toggle-clipboard-menu") {
+      toggleClipboardMenu()
+      response("ok")
+      return
+    }
+
     if (argv[0] === "theme-list") {
       response(themeNames.join("\n"))
       return
@@ -104,6 +112,7 @@ app.start({
     monitors.map(ThemeSwitcher)
     monitors.map(PowerMenu)
     monitors.map(ScreenshotMenu)
+    monitors.map(ClipboardMenu)
     monitors.map(Notifications)
     monitors.map(Osd)
   },
