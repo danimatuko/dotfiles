@@ -128,7 +128,6 @@ export default function MediaWidget() {
 
   return (
     <box class="media-widget" visible={mediaInfo.as((info) => info.visible)}>
-      <label class="bar__center-separator" label="|" />
       <button
         class="media-widget__button"
         cursor={pointerCursor}

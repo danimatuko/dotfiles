@@ -37,10 +37,21 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           hexpand
           halign={Gtk.Align.CENTER}
         >
-          <Clock />
-          <label class="bar__center-separator" label="|" />
-          <Workspaces />
-          <MediaWidget />
+          <centerbox class="bar__center-layout" hexpand>
+            <box class="bar__center-side bar__center-side--left" $type="start">
+              <Clock />
+            </box>
+
+            <box class="bar__center-anchor" $type="center">
+              <label class="bar__center-separator" label="|" />
+              <Workspaces />
+              <label class="bar__center-separator" label="|" />
+            </box>
+
+            <box class="bar__center-side bar__center-side--right" $type="end">
+              <MediaWidget />
+            </box>
+          </centerbox>
         </box>
 
         <box class="bar__end" $type="end" halign={Gtk.Align.END}>

@@ -23,7 +23,20 @@ window.Bar {
   }
 
   .bar__center {
-    spacing: 6px;
+    spacing: 0;
+  }
+
+  .bar__center-layout {
+    min-width: 520px;
+    min-height: 22px;
+  }
+
+  .bar__center-anchor {
+    align-items: center;
+  }
+
+  .bar__center-side {
+    align-items: center;
   }
 
   .bar__center-separator {
