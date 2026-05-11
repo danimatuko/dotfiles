@@ -14,12 +14,42 @@ window.Bar {
   > centerbox {
     background: color-mix(in srgb, #{$bg-base} 95%, transparent 5%);
     border-bottom: none;
-    padding: 4px 10px;
+    padding: 3px 8px;
   }
 
   .bar__start,
   .bar__end {
-    padding: 0 4px;
+    padding: 0 2px;
+  }
+
+  .bar__center {
+    spacing: 6px;
+  }
+
+  .bar__center-separator {
+    margin: 0 4px;
+    color: color-mix(in srgb, #{$color-outline} 72%, transparent 28%);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .bar__center .clock-menu {
+    margin: 0;
+    min-height: 18px;
+    padding: 0 6px;
+  }
+
+  .bar__center .clock-menu__content {
+    spacing: 5px;
+  }
+
+  .bar__center .clock-menu__time {
+    font-size: 0.76rem;
+  }
+
+  .bar__center .clock-menu__date {
+    font-size: 0.68rem;
   }
 
   .bar__separator {
@@ -32,7 +62,7 @@ window.Bar {
 
   button {
     border-radius: $radius-sm;
-    margin: 2px;
+    margin: 1px;
   }
 
   .status-indicator {
@@ -106,7 +136,7 @@ window.Bar {
   .os-icon {
     @include control-reset;
     border-radius: $radius-sm;
-    margin: 3px 10px 3px 3px;
+    margin: 2px 6px 2px 2px;
     padding: 0 6px;
     min-height: 24px;
     background: transparent;
@@ -132,7 +162,7 @@ window.Bar {
     @include control-reset;
     border-radius: 0;
     padding: 1px;
-    margin-right: 4px;
+    margin-right: 2px;
   }
 
   .system-tray__container {
@@ -151,7 +181,7 @@ window.Bar {
   .system-tray__toggle {
     @include control-reset;
     border-radius: $radius-sm;
-    padding: 0 6px;
+    padding: 0 4px;
     min-height: 24px;
 
     image {
@@ -194,7 +224,7 @@ window.Bar {
 
   .quick-status {
     @include control-reset;
-    margin: 3px 6px 3px 0;
+    margin: 2px 4px 2px 0;
   }
 
   .notification-indicator {
@@ -203,7 +233,7 @@ window.Bar {
     min-height: 24px;
     min-width: 24px;
     padding: 4px;
-    margin: 0 4px 0 0;
+    margin: 0 2px 0 0;
     color: $color-emphasis;
 
     image {
@@ -265,30 +295,24 @@ window.Bar {
 
   .clock-menu {
     @include control-reset;
-    border-radius: 999px;
-    min-height: 22px;
-    padding: 0 10px;
-    border: 1px solid
-      color-mix(in srgb, #{$bg-surface-strong} 62%, transparent 38%);
-    background: color-mix(in srgb, #{$bg-surface-strong} 34%, transparent 66%);
+    border-radius: 0;
+    min-height: 18px;
+    padding: 0 2px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
     transition:
-      background 140ms ease-out,
-      border-color 140ms ease-out,
-      box-shadow 140ms ease-out;
+      color 140ms ease-out,
+      opacity 140ms ease-out;
 
     &:hover {
-      background: color-mix(in srgb, #{$accent-hover} 56%, #{$color-brand} 20%);
-      border-color: color-mix(
-        in srgb,
-        #{$color-brand} 34%,
-        #{$bg-surface-strong} 66%
-      );
-      box-shadow: inset 0 0 0 1px
-        color-mix(in srgb, #{$color-brand} 22%, transparent 78%);
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
     }
 
     &:active {
-      background: color-mix(in srgb, #{$color-brand} 16%, #{$bg-surface} 84%);
+      background: transparent;
     }
 
     &:focus-visible {
@@ -297,7 +321,7 @@ window.Bar {
   }
 
   .clock-menu__content {
-    spacing: 8px;
+    spacing: 6px;
     align-items: baseline;
   }
 

@@ -40,6 +40,9 @@ export default function Workspaces() {
     })
   })
 
+  const getHasUrgentClient = (clients: unknown[]) =>
+    clients.some((client) => Boolean((client as { urgent?: boolean }).urgent))
+
   return (
     <box class="workspaces">
       <For each={workspaceSlots}>
@@ -57,19 +60,32 @@ export default function Workspaces() {
               if (clients.length > 0) {
                 classes.push("workspaces__item--filled")
               }
-              if (
-                clients.some((client) =>
-                  Boolean((client as { urgent?: boolean }).urgent),
-                )
-              ) {
+              if (getHasUrgentClient(clients)) {
                 classes.push("workspaces__item--urgent")
               }
 
               return classes
             })}
+            tooltipText={`Workspace ${workspace.id}`}
             onClicked={() => hyprland.dispatch("workspace", `${workspace.id}`)}
           >
-            <label class="workspaces__number" label={`${workspace.id}`} />
+            <label
+              class="workspaces__number"
+              label={focused.as((focusedWorkspace) => {
+                const isActive = focusedWorkspace?.id === workspace.id
+                const hasUrgent = getHasUrgentClient(workspace.clients)
+
+                if (hasUrgent) {
+                  return "!"
+                }
+
+                if (isActive) {
+                  return `${workspace.id}`
+                }
+
+                return workspace.clients.length > 0 ? "•" : "·"
+              })}
+            />
           </button>
         )}
       </For>
