@@ -29,7 +29,6 @@ yay -S --noconfirm --needed \
 	fastfetch \
 	wl-clipboard \
 	kitty \
-	alacritty \
 	ghostty \
 	wlogout \
 	pavucontrol \
@@ -42,7 +41,6 @@ yay -S --noconfirm --needed \
 	bluez \
 	bluez-utils \
 	bluetui \
-	wlogout \
 	gazelle-tui \
 	awww \
 	zip \
