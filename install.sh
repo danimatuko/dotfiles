@@ -116,10 +116,8 @@ echo -e "\n[OK] Setup complete."
 if confirm_prompt "Link your shell/config files to ~/dotfiles now?"; then
 	stage "Config Links" "Link managed configs into your home directory"
 	source ~/dotfiles/setup/link-configs.sh
-	# source ~/dotfiles/setup/hyprdynamicmonitors.sh
 else
 	echo "[INFO] Skipped config sync (your current files stay the same)."
-	echo "[INFO] HyprDynamicMonitors service setup skipped until configs are linked."
 fi
 
 sudo updatedb

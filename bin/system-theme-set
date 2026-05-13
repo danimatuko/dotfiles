@@ -151,13 +151,6 @@ configure_floorp_theme() {
     fi
 }
 
-# SwayOSD colors
-if [ -f "$CURRENT_THEME/swayosd.css" ]; then
-    echo "Configuring SwayOSD..."
-    mkdir -p "$HOME/.config/swayosd"
-    ln -sfn "$CURRENT_THEME/swayosd.css" "$HOME/.config/swayosd/colors.css"
-fi
-
 # GTK theme
 if [ -f "$CURRENT_THEME/gtk-theme.txt" ] && command -v gsettings &>/dev/null; then
     echo "Applying GTK theme..."
@@ -260,12 +253,6 @@ fi
 # Ghostty terminal (reload config)
 if pgrep ghostty &>/dev/null; then
     killall -SIGUSR2 ghostty
-fi
-
-# SwayOSD volume/brightness display
-if pgrep swayosd-server &>/dev/null; then
-    killall swayosd-server
-    swayosd-server &
 fi
 
 # AstroVim (reload colorscheme in running instance)

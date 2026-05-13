@@ -35,16 +35,9 @@ backup_and_link "$CONFIG_DIR/ags" "$HOME/.config/ags"
 backup_and_link "$CONFIG_DIR/fish" "$HOME/.config/fish"
 backup_and_link "$CONFIG_DIR/ghostty" "$HOME/.config/ghostty"
 backup_and_link "$CONFIG_DIR/hypr" "$HOME/.config/hypr"
-backup_and_link "$CONFIG_DIR/hyprdynamicmonitors" "$HOME/.config/hyprdynamicmonitors"
-backup_and_link "$CONFIG_DIR/kanshi" "$HOME/.config/kanshi"
 backup_and_link "$CONFIG_DIR/kitty" "$HOME/.config/kitty"
 backup_and_link "$CONFIG_DIR/nvim" "$HOME/.config/nvim"
 backup_and_link "$CONFIG_DIR/wlogout" "$HOME/.config/wlogout"
-backup_and_link "$CONFIG_DIR/swayosd" "$HOME/.config/swayosd"
-
-# Systemd user units
-backup_and_link "$CONFIG_DIR/systemd/user/hyprdynamicmonitors.service" "$HOME/.config/systemd/user/hyprdynamicmonitors.service"
-backup_and_link "$CONFIG_DIR/systemd/user/hyprdynamicmonitors-prepare.service" "$HOME/.config/systemd/user/hyprdynamicmonitors-prepare.service"
 
 echo ""
 echo "[OK] All specified files and configs linked."

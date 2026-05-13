@@ -29,8 +29,6 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 - Full bootstrap: `./install.sh`
 - Relink dotfiles/configs (destructive move to backup first): `bash setup/link-configs.sh`
 - Relink `bin/` commands: `bash setup/link-bin.sh`
-- Enable HyprDynamicMonitors services after configs are linked: `bash setup/hyprdynamicmonitors.sh`
-- Disable HyprDynamicMonitors services: `bash setup/hyprdynamicmonitors-uninstall.sh`
 - Uninstall flow:
   - preview: `bash setup/uninstall.sh`
   - apply: `bash setup/uninstall.sh --apply`
@@ -42,7 +40,6 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 ## Non-Obvious Gotchas
 
 - `install.sh` is interactive (confirm prompts) and runs privileged actions; it is not CI-safe automation.
-- `install.sh` currently does **not** auto-run `setup/hyprdynamicmonitors.sh` after linking configs (call it manually).
 - `setup/link-configs.sh` uses `mv` into `~/dotfiles_backup_<timestamp>` for existing targets, including `~/.config/*` entries it manages.
 - `setup/uninstall.sh` defaults to dry-run and only removes symlinks that resolve under this repo path.
 - `setup/uninstall.sh --apply --restore-latest-backup` removes current `~/.config` before restoring `backup/config`.
