@@ -31,9 +31,6 @@ yay -S --noconfirm --needed \
 	kitty \
 	alacritty \
 	ghostty \
-	waybar \
-	swaync \
-	rofi \
 	wlogout \
 	pavucontrol \
 	pipewire \
