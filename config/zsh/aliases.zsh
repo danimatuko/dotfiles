@@ -25,7 +25,7 @@ alias lg='lazygit'
 alias gs='git status'
 
 # Neovim variants
-alias astrovim='NVIM_APPNAME=nvim-astro nvim'
+alias lazyvim='nvim'
 alias nvchad='NVIM_APPNAME=nvim-chad nvim'
 
 # Better cat
