@@ -43,7 +43,7 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 - `setup/link-dotfiles.sh` uses `mv` into `~/dotfiles_backup_<timestamp>` for existing targets, including `~/.config/*` entries it manages.
 - `setup/uninstall.sh` defaults to dry-run and only removes symlinks that resolve under this repo path.
 - `setup/uninstall.sh --apply --restore-latest-backup` removes current `~/.config` before restoring `backup/config`.
-- Prefer `setup/link-dotfiles.sh` and `setup/link-bin.sh`; similarly named legacy helper (`setup/deploy-scripts.sh`) is not used by `install.sh`.
+- Prefer `setup/link-dotfiles.sh` and `setup/link-bin.sh`.
 
 ## Fast Verification After Shell Edits
 
