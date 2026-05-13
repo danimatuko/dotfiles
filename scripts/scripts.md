@@ -52,11 +52,6 @@ This will:
 
 ## 🧼 Additional Utilities
 
-- `reload-waybar.sh`, `reload-swaync.sh`: Reload system components  
-- `screenshot-*.sh`: Take various types of screenshots  
-- `set-wallpaper-colors.sh`, `update-waybar-colors.sh`: Sync Pywal colors with UI elements  
-- `pywal-theme.sh`: Triggered via Waypaper to update themes dynamically  
-- `waypaper-update-theme.sh`: Updates wallpaper and related themes  
 - `update-notifier.sh` A minimal notifier that uses `checkupdates` to count available system updates and sends a simple desktop notification.
 
 ---
@@ -81,4 +76,3 @@ This will:
 ## 🧠 License
 
 Feel free to copy, modify, and reuse these scripts. A credit would be nice, but not required.
-
