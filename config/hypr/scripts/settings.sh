@@ -12,28 +12,23 @@ ${BREAK_LINE}╚═╝┴ ┴┴ ┴┘└┘└─┘└─┘  ╚═╝└─
 EOF
 
     CHOICE=$(gum choose --height 10 --cursor.foreground 212 \
-        "Toggle Light/Dark Mode" \
-        "Wallpaper" \
-        "Blue Light Filter" \
+        "Theme Menu" \
+        "Wallpaper Menu" \
+        "Toggle Blue Light Filter" \
         "Exit")
     
     # Exit on ESC
     [ -z "$CHOICE" ] && exit 0
 
     case $CHOICE in
-        "Toggle Light/Dark Mode")
-            ~/.config/hypr/scripts/toggle-darkmode.sh
+        "Theme Menu")
+            ags request toggle-theme-menu
             ;;
-        "Wallpaper")
-            ~/.config/hypr/scripts/theme-selector.sh
+        "Wallpaper Menu")
+            ags request toggle-wallpaper-menu
             ;;
-        "Blue Light Filter")
-            FILTER=$(gum choose "Enable" "Disable")
-            if [ "$FILTER" = "Enable" ]; then
-                hyprctl hyprsunset temperature 3500
-            else
-                hyprctl hyprsunset identity
-            fi
+        "Toggle Blue Light Filter")
+            ~/.local/bin/toggle-nightlight
             ;;
         "Exit")
             break
