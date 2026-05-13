@@ -1,9 +1,0 @@
-:root {
-  --background: #2d353b;
-  --background-alt: #343f44;
-  --text: #d3c6aa;
-  --text-alt: #a7c080;
-  --selected: rgba(167, 192, 128, 0.4);
-  --hover: rgba(167, 192, 128, 0.16);
-  --urgent: #e67e80;
-}
