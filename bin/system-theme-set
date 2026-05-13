@@ -51,16 +51,6 @@ if [ -f "$CURRENT_THEME/zellij" ]; then
     fi
 fi
 
-# LazyVim colorscheme
-echo "Configuring LazyVim..."
-
-LAZYVIM_THEME_FILE="$HOME/.cache/current-theme/lazyvim.txt"
-
-mkdir -p "$HOME/.cache/current-theme"
-
-# Write the selected theme name into LazyVim theme cache
-echo "$THEME" > "$LAZYVIM_THEME_FILE"
-
 # ============================================================================
 # SET WALLPAPER
 # ============================================================================
@@ -119,32 +109,6 @@ fi
 if pgrep ghostty &>/dev/null; then
     killall -SIGUSR2 ghostty
 fi
-
-# LazyVim (reload colorscheme in running instance)
-if command -v nvim &>/dev/null; then
-    LAZY_THEME=$(cat "$HOME/.cache/current-theme/lazyvim.txt")
-    NVIM_THEME="$LAZY_THEME"
-
-    # Keep this in sync with config/nvim/lua/utils/theme.lua aliases
-    case "$LAZY_THEME" in
-        tokyonight) NVIM_THEME="tokyodark" ;;
-        gruvbox-light) NVIM_THEME="gruvbox" ;;
-        gruvbox) NVIM_THEME="gruvbox-baby" ;;
-    esac
-
-    shopt -s nullglob
-    # Broadcast the colorscheme change to every live user nvim socket.
-    # This keeps all open instances in sync with the selected system theme.
-    NVIM_SOCKETS=(/tmp/nvim-"$USER"*.sock)
-    shopt -u nullglob
-
-    for socket in "${NVIM_SOCKETS[@]}"; do
-        [ -S "$socket" ] || continue
-        nvim --server "$socket" --remote-send "<cmd>colorscheme $NVIM_THEME<CR>" \
-            >/dev/null 2>&1 || true
-    done
-fi
-
 
 # ============================================================================
 # FINISH
