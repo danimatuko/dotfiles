@@ -43,7 +43,6 @@ yay -S --noconfirm --needed \
 	bluez-utils \
 	bluetui \
 	wlogout \
-	swayosd \
 	gazelle-tui \
 	awww \
 	zip \
@@ -60,7 +59,6 @@ yay -S --noconfirm --needed \
 	tar \
 	hyprshot \
 	satty \
-	hypridle \
-	hyprdynamicmonitors-bin
+	hypridle
 
 echo "[OK] Terminal packages installed successfully."

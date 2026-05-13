@@ -108,16 +108,7 @@ if $RESTORE_BACKUP; then
 fi
 
 echo "\n== User Services =="
-if $APPLY; then
-	if [[ -f "$DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh" ]]; then
-		source "$DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh"
-	else
-		echo "[WARN] Missing $DOTFILES_DIR/setup/hyprdynamicmonitors-uninstall.sh"
-	fi
-else
-	echo "[dry-run] disable user service: hyprdynamicmonitors.service"
-	echo "[dry-run] disable user service: hyprdynamicmonitors-prepare.service"
-fi
+echo "[INFO] No managed user services to disable."
 
 echo "\n== Config and Dotfile Links =="
 do_remove_symlink "$HOME/.bashrc" "$DOTFILES_DIR/config"
@@ -127,14 +118,9 @@ do_remove_symlink "$HOME/.tmux.conf" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/ags" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/ghostty" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/hypr" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/hyprdynamicmonitors" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/kanshi" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/kitty" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/nvim" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/wlogout" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/swayosd" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/systemd/user/hyprdynamicmonitors.service" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/systemd/user/hyprdynamicmonitors-prepare.service" "$DOTFILES_DIR/config"
 
 if $RESTORE_BACKUP; then
 	echo "\n== Restore from Backup =="
