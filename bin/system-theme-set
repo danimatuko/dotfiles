@@ -27,12 +27,6 @@ echo "Setting up theme symlink..."
 ln -sfn "$THEMES_DIR/$THEME" "$CURRENT_THEME"
 sleep 0.1  # Let symlink settle
 
-# GTK theme
-if [ -f "$CURRENT_THEME/gtk-theme.txt" ] && command -v gsettings &>/dev/null; then
-    echo "Applying GTK theme..."
-    gsettings set org.gnome.desktop.interface gtk-theme "$(cat "$CURRENT_THEME/gtk-theme.txt")"
-fi
-
 # Ghostty terminal
 if [ -f "$CURRENT_THEME/ghostty.conf" ]; then
     echo "Configuring Ghostty..."
