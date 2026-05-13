@@ -51,15 +51,15 @@ if [ -f "$CURRENT_THEME/zellij" ]; then
     fi
 fi
 
-# AstroVim colorscheme
-echo "Configuring AstroVim..."
+# LazyVim colorscheme
+echo "Configuring LazyVim..."
 
-ASTROVIM_THEME_FILE="$HOME/.cache/current-theme/astrovim.txt"
+LAZYVIM_THEME_FILE="$HOME/.cache/current-theme/lazyvim.txt"
 
 mkdir -p "$HOME/.cache/current-theme"
 
-# Write the selected theme name into AstroVim theme cache
-echo "$THEME" > "$ASTROVIM_THEME_FILE"
+# Write the selected theme name into LazyVim theme cache
+echo "$THEME" > "$LAZYVIM_THEME_FILE"
 
 # ============================================================================
 # SET WALLPAPER
@@ -120,13 +120,13 @@ if pgrep ghostty &>/dev/null; then
     killall -SIGUSR2 ghostty
 fi
 
-# AstroVim (reload colorscheme in running instance)
+# LazyVim (reload colorscheme in running instance)
 if command -v nvim &>/dev/null; then
-    ASTRO_THEME=$(cat "$HOME/.cache/current-theme/astrovim.txt")
-    NVIM_THEME="$ASTRO_THEME"
+    LAZY_THEME=$(cat "$HOME/.cache/current-theme/lazyvim.txt")
+    NVIM_THEME="$LAZY_THEME"
 
     # Keep this in sync with config/nvim/lua/utils/theme.lua aliases
-    case "$ASTRO_THEME" in
+    case "$LAZY_THEME" in
         tokyonight) NVIM_THEME="tokyodark" ;;
         gruvbox-light) NVIM_THEME="gruvbox" ;;
         gruvbox) NVIM_THEME="gruvbox-baby" ;;
