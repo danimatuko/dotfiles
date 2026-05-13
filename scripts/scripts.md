@@ -60,7 +60,6 @@ This will:
 
 - `checkupdates` (from `pacman-contrib`)  
 - `notify-send` (provided by `libnotify`)  
-- A notification daemon like swaync  
 - `systemd --user` support  
 
 ---

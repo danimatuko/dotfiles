@@ -151,20 +151,6 @@ configure_floorp_theme() {
     fi
 }
 
-# Rofi colors
-if [ -f "$CURRENT_THEME/rofi.rasi" ]; then
-    echo "Configuring Rofi..."
-
-    mkdir -p "$HOME/.config/rofi"
-
-    # Link colorscheme into active colors file
-    ln -sfn "$CURRENT_THEME/rofi.rasi" \
-        "$HOME/.config/rofi/colors.rasi"
-
-    # Refresh rofi (close any open instance)
-    pkill -u "$USER" -x rofi >/dev/null 2>&1 || true
-fi
-
 # SwayOSD colors
 if [ -f "$CURRENT_THEME/swayosd.css" ]; then
     echo "Configuring SwayOSD..."
@@ -200,13 +186,6 @@ if [ -f "$CURRENT_THEME/zellij" ]; then
     else
         echo "Warning: Zellij config not found at $ZELLIJ_CONFIG"
     fi
-fi
-
-# SwayNC notifications
-if [ -f "$CURRENT_THEME/swaync.css" ]; then
-    echo "Configuring notifications..."
-    mkdir -p "$HOME/.config/swaync"
-    ln -sfn "$CURRENT_THEME/swaync.css" "$HOME/.config/swaync/theme.css"
 fi
 
 # AstroVim colorscheme
@@ -273,11 +252,6 @@ fi
 
 echo "Reloading applications..."
 
-# Waybar status bar
-if pgrep waybar &>/dev/null; then
-    killall waybar && waybar &
-fi
-
 # Hyprland window manager  
 if command -v hyprctl &>/dev/null; then
     hyprctl reload
@@ -286,12 +260,6 @@ fi
 # Ghostty terminal (reload config)
 if pgrep ghostty &>/dev/null; then
     killall -SIGUSR2 ghostty
-fi
-
-# SwayNC notifications
-if command -v swaync-client &>/dev/null && pgrep -u "$USER" -x swaync >/dev/null 2>&1; then
-    sleep 0.5
-    swaync-client -rs >/dev/null 2>&1 || true
 fi
 
 # SwayOSD volume/brightness display
