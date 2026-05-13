@@ -42,7 +42,7 @@ What install.sh does:
 bash ~/dotfiles/setup/link-bin.sh
 
 # Relink dotfiles/configs (moves existing targets to a timestamped backup)
-bash ~/dotfiles/setup/link-configs.sh
+bash ~/dotfiles/setup/link-dotfiles.sh
 
 # Preview uninstall (dry-run)
 bash ~/dotfiles/setup/uninstall.sh

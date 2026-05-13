@@ -27,7 +27,7 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 ## Commands That Matter
 
 - Full bootstrap: `./install.sh`
-- Relink dotfiles/configs (destructive move to backup first): `bash setup/link-configs.sh`
+- Relink dotfiles/configs (destructive move to backup first): `bash setup/link-dotfiles.sh`
 - Relink `bin/` commands: `bash setup/link-bin.sh`
 - Uninstall flow:
   - preview: `bash setup/uninstall.sh`
@@ -40,10 +40,10 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 ## Non-Obvious Gotchas
 
 - `install.sh` is interactive (confirm prompts) and runs privileged actions; it is not CI-safe automation.
-- `setup/link-configs.sh` uses `mv` into `~/dotfiles_backup_<timestamp>` for existing targets, including `~/.config/*` entries it manages.
+- `setup/link-dotfiles.sh` uses `mv` into `~/dotfiles_backup_<timestamp>` for existing targets, including `~/.config/*` entries it manages.
 - `setup/uninstall.sh` defaults to dry-run and only removes symlinks that resolve under this repo path.
 - `setup/uninstall.sh --apply --restore-latest-backup` removes current `~/.config` before restoring `backup/config`.
-- Prefer `setup/link-configs.sh` and `setup/link-bin.sh`; similarly named legacy helpers (`setup/link-dotfiles.sh`, `setup/deploy-scripts.sh`) are not used by `install.sh`.
+- Prefer `setup/link-dotfiles.sh` and `setup/link-bin.sh`; similarly named legacy helper (`setup/deploy-scripts.sh`) is not used by `install.sh`.
 
 ## Fast Verification After Shell Edits
 
