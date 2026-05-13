@@ -54,9 +54,6 @@ fi
 # Neovim theme (LazyVim colorscheme spec)
 if [ -f "$CURRENT_THEME/neovim.lua" ]; then
     echo "Configuring Neovim theme..."
-    if pgrep nvim &>/dev/null; then
-        notify-send -u normal -i accessories-text-editor "Set Theme" "Neovim theme source updated. Restart Neovim to apply."
-    fi
 fi
 
 # ============================================================================
@@ -96,10 +93,10 @@ if [ -d "$BG_DIR" ]; then
         rm -f "$HOME/.cache/current-wallpaper"  # Remove old symlink/file first
         cp "$BG_IMAGE" "$HOME/.cache/current-wallpaper"
     else
-        notify-send -u normal -i dialog-warning "Set Theme" "No wallpaper image found in $BG_DIR"
+        echo "Warning: no wallpaper image found in $BG_DIR"
     fi
 else
-    notify-send -u normal -i dialog-warning "Set Theme" "Wallpaper directory not found: $BG_DIR"
+    echo "Warning: wallpaper directory not found: $BG_DIR"
 fi
 
 # ============================================================================
@@ -124,5 +121,5 @@ fi
 
 sleep 0.5
 echo "Theme switched successfully!"
-notify-send -u normal -i preferences-desktop-wallpaper "Theme Changed" "Switched to: ${THEME:-unknown}"
+notify-send -a "Theme Switcher" -u normal -i preferences-desktop-wallpaper "Theme Switched" "Active theme: ${THEME:-unknown}"
 canberra-gtk-play -i message >/dev/null 2>&1 &
