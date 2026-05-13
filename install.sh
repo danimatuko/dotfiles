@@ -103,7 +103,7 @@ source ~/dotfiles/setup/shell.sh
 
 stage "CLI Tools" "Install terminal utilities and editor setup"
 source ~/dotfiles/setup/starship.sh
-source ~/dotfiles/setup/astrovim.sh
+source ~/dotfiles/setup/lazyvim.sh
 source ~/dotfiles/setup/terminal.sh
 
 stage "Post-Install" "Validate services and reconcile Wi-Fi backend"
