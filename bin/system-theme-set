@@ -54,12 +54,8 @@ fi
 # Neovim theme (LazyVim colorscheme spec)
 if [ -f "$CURRENT_THEME/neovim.lua" ]; then
     echo "Configuring Neovim theme..."
-    NVIM_THEME_DEST="$HOME/.cache/current-theme/neovim.lua"
-    mkdir -p "$(dirname "$NVIM_THEME_DEST")"
-    ln -sfn "$CURRENT_THEME/neovim.lua" "$NVIM_THEME_DEST"
-
     if pgrep nvim &>/dev/null; then
-        notify-send -u normal -i accessories-text-editor "Set Theme" "Neovim theme file updated. Restart Neovim to apply."
+        notify-send -u normal -i accessories-text-editor "Set Theme" "Neovim theme source updated. Restart Neovim to apply."
     fi
 fi
 
