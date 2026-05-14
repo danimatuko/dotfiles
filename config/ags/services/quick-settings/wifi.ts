@@ -3,7 +3,10 @@ import { createBinding } from "gnim"
 
 const network = AstalNetwork.get_default()
 const wifi = network.wifi
-const wifiEnabled = wifi ? createBinding(wifi, "enabled") : null
+const wifiEnabledBinding = wifi ? createBinding(wifi, "enabled") : null
+const wifiButtonClass = "quick-settings__toggle-button"
+const wifiButtonClassActive =
+  "quick-settings__toggle-button quick-settings__toggle-button--active"
 
 export const canToggleWifi = createBinding(network, "wifi").as((adapter) =>
   Boolean(adapter),
@@ -27,16 +30,14 @@ export const getWifiTooltip = wifi
     })
   : "Wi-Fi: Unavailable"
 
-export const getWifiButtonClass = wifiEnabled
-  ? wifiEnabled.as((enabled) =>
-      enabled
-        ? "quick-settings__toggle-button quick-settings__toggle-button--active"
-        : "quick-settings__toggle-button",
+export const getWifiButtonClass = wifiEnabledBinding
+  ? wifiEnabledBinding.as((enabled) =>
+      enabled ? wifiButtonClassActive : wifiButtonClass,
     )
-  : "quick-settings__toggle-button"
+  : wifiButtonClass
 
 export const toggleWifi = () => {
-  const currentWifi = network.wifi
-  if (!currentWifi) return
-  currentWifi.enabled = !currentWifi.enabled
+  const wifiAdapter = network.wifi
+  if (!wifiAdapter) return
+  wifiAdapter.enabled = !wifiAdapter.enabled
 }

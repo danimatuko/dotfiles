@@ -3,12 +3,20 @@ import { createBinding } from "gnim"
 
 const bluetooth = AstalBluetooth.get_default()
 const bluetoothPowered = createBinding(bluetooth, "isPowered")
-const bluetoothAdapter = createBinding(bluetooth, "adapter")
+const bluetoothHasAdapter = createBinding(bluetooth, "adapter").as((adapter) =>
+  Boolean(adapter),
+)
+const bluetoothButtonClass = "quick-settings__toggle-button"
+const bluetoothButtonClassActive =
+  "quick-settings__toggle-button quick-settings__toggle-button--active"
 
 const getConnectedDeviceNames = () => {
   const devices =
-    ((bluetooth as { devices?: Array<{ connected?: boolean; name?: string | null }> })
-      .devices ?? [])
+    (
+      bluetooth as {
+        devices?: Array<{ connected?: boolean; name?: string | null }>
+      }
+    ).devices ?? []
 
   const connectedNames = devices
     .filter((device) => Boolean(device.connected))
@@ -18,18 +26,16 @@ const getConnectedDeviceNames = () => {
   return connectedNames
 }
 
-export const canToggleBluetooth = bluetoothAdapter.as((adapter) =>
-  Boolean(adapter),
-)
+export const canToggleBluetooth = bluetoothHasAdapter
 
 export const getBluetoothIcon = bluetoothPowered.as((powered) =>
-  bluetooth.adapter && powered
+  bluetoothHasAdapter() && powered
     ? "bluetooth-symbolic"
     : "bluetooth-disabled-symbolic",
 )
 
 export const getBluetoothTooltip = bluetoothPowered.as((powered) => {
-  if (!bluetooth.adapter) return "Bluetooth: Unavailable"
+  if (!bluetoothHasAdapter()) return "Bluetooth: Unavailable"
   if (!powered) return "Bluetooth: Off\nClick to open Bluetui"
 
   const connectedNames = getConnectedDeviceNames()
@@ -41,12 +47,10 @@ export const getBluetoothTooltip = bluetoothPowered.as((powered) => {
 })
 
 export const getBluetoothButtonClass = bluetoothPowered.as((powered) =>
-  powered
-    ? "quick-settings__toggle-button quick-settings__toggle-button--active"
-    : "quick-settings__toggle-button",
+  powered ? bluetoothButtonClassActive : bluetoothButtonClass,
 )
 
 export const toggleBluetooth = () => {
-  if (!bluetooth.adapter) return
+  if (!bluetoothHasAdapter()) return
   bluetooth.toggle()
 }
