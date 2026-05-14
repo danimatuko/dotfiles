@@ -91,11 +91,7 @@ const parseWifiListOutput = (output: string): WifiNetwork[] => {
       }
     })
 
-  return [...uniqueNetworks.values()].sort((a, b) => {
-    if (a.isActive && !b.isActive) return -1
-    if (!a.isActive && b.isActive) return 1
-    return b.signal - a.signal
-  })
+  return [...uniqueNetworks.values()].sort((a, b) => b.signal - a.signal)
 }
 
 const wifiDeviceNameFromStatus = async () => {
