@@ -111,6 +111,87 @@ window.Sidebar {
     margin-bottom: 0;
   }
 
+  &__wifi-summary {
+    min-width: 0;
+  }
+
+  &__wifi-status {
+    font-size: 10px;
+    opacity: 0.76;
+  }
+
+  &__wifi-panel {
+    margin-top: 2px;
+  }
+
+  &__wifi-error,
+  &__wifi-empty {
+    font-size: 11px;
+    opacity: 0.78;
+    padding: 0 2px;
+  }
+
+  &__wifi-list {
+    margin-top: 2px;
+  }
+
+  &__wifi-row {
+    min-height: 34px;
+    padding: 6px 8px;
+    border-radius: $radius-sm;
+    background: color-mix(
+      in srgb,
+      #{$bg-surface-strong} 84%,
+      #{$bg-surface} 16%
+    );
+    border: 1px solid
+      color-mix(in srgb, #{$bg-surface-strong} 90%, transparent 10%);
+  }
+
+  &__wifi-signal {
+    @include icon-size(16px);
+    color: color-mix(in srgb, #{$color-on-surface} 78%, transparent 22%);
+    min-width: 18px;
+  }
+
+  &__wifi-ssid {
+    font-size: 12px;
+    color: $color-emphasis;
+  }
+
+  &__wifi-title-row {
+    min-height: 18px;
+  }
+
+  &__wifi-details-row {
+    min-height: 14px;
+  }
+
+  &__wifi-security-icon {
+    @include icon-size(11px);
+    min-width: 11px;
+    color: color-mix(in srgb, #{$color-on-surface} 66%, transparent 34%);
+  }
+
+  &__wifi-security {
+    font-size: 10px;
+    opacity: 0.72;
+  }
+
+  &__wifi-connect-button {
+    min-width: 72px;
+  }
+
+  &__wifi-connect-button--active {
+    background: color-mix(in srgb, #{$color-brand} 90%, #{$bg-surface} 10%);
+    border-color: color-mix(in srgb, #{$color-brand} 72%, white 28%);
+    color: $color-surface;
+
+    &:hover {
+      color: $color-surface;
+    }
+  }
+
   &__section-label {
     font-size: 11px;
     font-weight: 700;
@@ -142,6 +223,7 @@ window.Sidebar {
 
   &__action-button {
     @include control-reset;
+    cursor: pointer;
     min-height: 24px;
     padding: 4px 9px;
     border-radius: $radius-sm;
@@ -220,6 +302,7 @@ window.Sidebar {
 
   &__toggle-button {
     @include control-reset;
+    cursor: pointer;
     background: color-mix(
       in srgb,
       #{$bg-surface-strong} 82%,
