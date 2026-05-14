@@ -2,9 +2,13 @@ import GLib from "gi://GLib"
 import { execAsync } from "ags/process"
 import { createState } from "gnim"
 
+import { getCommandPath } from "../../lib/commands"
 import { clamp } from "../../lib/number"
 
-const nightLightCommand = `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`
+const nightLightCommand = getCommandPath(
+  "toggle-nightlight",
+  `${GLib.get_home_dir()}/.local/bin/toggle-nightlight`,
+)
 const [nightLightEnabled, setNightLightEnabled] = createState(false)
 const [nightLightTemperature, setNightLightTemperatureState] = createState(4500)
 
@@ -12,6 +16,8 @@ const minNightLightTemperature = 1000
 const maxNightLightTemperature = 10000
 
 const readNightLightTemperature = () => {
+  if (!nightLightCommand) return
+
   execAsync([nightLightCommand, "temperature"])
     .then((value) => {
       const parsedTemperature = Number.parseInt(value.trim(), 10)
@@ -25,18 +31,24 @@ const readNightLightTemperature = () => {
         ),
       )
     })
-    .catch(() => {})
+    .catch((error) => {
+      console.error("[quick-settings/night-light] failed to read temperature", error)
+    })
 }
 
-execAsync([nightLightCommand, "status"])
-  .then((status) => {
-    setNightLightEnabled(status.trim() === "on")
-  })
-  .catch(() => {})
+if (nightLightCommand) {
+  execAsync([nightLightCommand, "status"])
+    .then((status) => {
+      setNightLightEnabled(status.trim() === "on")
+    })
+    .catch((error) => {
+      console.error("[quick-settings/night-light] failed to read status", error)
+    })
+}
 
 readNightLightTemperature()
 
-export const canToggleNightLight = true
+export const canToggleNightLight = Boolean(nightLightCommand)
 
 export const getNightLightIcon = nightLightEnabled((enabled) =>
   enabled ? "night-light-symbolic" : "night-light-disabled-symbolic",
@@ -49,8 +61,13 @@ export const getNightLightButtonClass = nightLightEnabled((enabled) =>
 )
 
 export const toggleNightLight = () => {
+  if (!nightLightCommand) return
+
   setNightLightEnabled(!nightLightEnabled())
-  execAsync([nightLightCommand]).catch(() => {})
+  execAsync([nightLightCommand]).catch((error) => {
+    setNightLightEnabled(!nightLightEnabled())
+    console.error("[quick-settings/night-light] failed to toggle", error)
+  })
 }
 
 export const getNightLightTemperatureValue = nightLightTemperature(
@@ -60,14 +77,22 @@ export const getNightLightTemperatureValue = nightLightTemperature(
 )
 
 export const setNightLightTemperature = (value: number) => {
+  if (!nightLightCommand) return
+
   const clampedSliderValue = clamp(value, 0, 1)
   const nextTemperature = Math.round(
     minNightLightTemperature +
-      clampedSliderValue * (maxNightLightTemperature - minNightLightTemperature),
+      clampedSliderValue *
+        (maxNightLightTemperature - minNightLightTemperature),
   )
 
   setNightLightTemperatureState(nextTemperature)
   execAsync([nightLightCommand, "set-temperature", `${nextTemperature}`]).catch(
-    () => {},
+    (error) => {
+      console.error(
+        "[quick-settings/night-light] failed to set temperature",
+        error,
+      )
+    },
   )
 }
