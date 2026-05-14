@@ -19,19 +19,15 @@ import {
   toggleWifi,
 } from "../../services/quick-settings"
 import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
-import SectionHeader from "./SectionHeader"
+import SectionCard from "./SectionCard"
 
 export default function ConnectivitySection() {
   return (
-    <box
-      class="quick-settings__section-card"
-      orientation={Gtk.Orientation.VERTICAL}
+    <SectionCard
+      iconName="network-wireless-signal-excellent-symbolic"
+      label="Connectivity"
       spacing={10}
     >
-      <SectionHeader
-        iconName="network-wireless-signal-excellent-symbolic"
-        label="Connectivity"
-      />
       <box
         class="quick-settings__toggles-group"
         orientation={Gtk.Orientation.HORIZONTAL}
@@ -77,6 +73,6 @@ export default function ConnectivitySection() {
           tooltipText="Toggle Dark Mode"
         />
       </box>
-    </box>
+    </SectionCard>
   )
 }

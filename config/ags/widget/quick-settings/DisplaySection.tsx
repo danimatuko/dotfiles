@@ -7,17 +7,12 @@ import {
   setBrightness,
   setNightLightTemperature,
 } from "../../services/quick-settings"
-import SectionHeader from "./SectionHeader"
+import SectionCard from "./SectionCard"
 import SliderRow from "./SliderRow"
 
 export default function DisplaySection() {
   return (
-    <box
-      class="quick-settings__section-card"
-      orientation={Gtk.Orientation.VERTICAL}
-      spacing={8}
-    >
-      <SectionHeader iconName="video-display-symbolic" label="Display" />
+    <SectionCard iconName="video-display-symbolic" label="Display">
       <box
         class="quick-settings__sliders-group"
         orientation={Gtk.Orientation.VERTICAL}
@@ -38,6 +33,6 @@ export default function DisplaySection() {
           onValueChanged={(self) => setNightLightTemperature(self.value)}
         />
       </box>
-    </box>
+    </SectionCard>
   )
 }

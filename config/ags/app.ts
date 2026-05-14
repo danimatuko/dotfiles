@@ -28,76 +28,48 @@ import {
 
 app.start({
   requestHandler(argv, response) {
-    if (argv[0] === "toggle-sidebar") {
-      toggleSidebar()
-      response("ok")
-      return
+    const commandName = argv[0]
+    const handlers: Record<string, () => string> = {
+      "toggle-sidebar": () => {
+        toggleSidebar()
+        return "ok"
+      },
+      "toggle-theme-menu": () => {
+        toggleThemeMenu()
+        return "ok"
+      },
+      "toggle-launcher": () => {
+        toggleLauncher()
+        return "ok"
+      },
+      "toggle-wallpaper-menu": () => {
+        toggleWallpaperMenu()
+        return "ok"
+      },
+      "toggle-power-menu": () => {
+        togglePowerMenu()
+        return "ok"
+      },
+      "toggle-screenshot-menu": () => {
+        toggleScreenshotMenu()
+        return "ok"
+      },
+      "toggle-clipboard-menu": () => {
+        toggleClipboardMenu()
+        return "ok"
+      },
+      "theme-list": () => themeNames.join("\n"),
+      "theme-current": () => currentTheme(),
+      "theme-set": () => {
+        const theme = argv[1]
+        if (!theme) return "missing theme"
+        return setThemeByName(theme) ? "ok" : "invalid theme"
+      },
+      "theme-cycle": () => cycleTheme(),
     }
 
-    if (argv[0] === "toggle-theme-menu") {
-      toggleThemeMenu()
-      response("ok")
-      return
-    }
-
-    if (argv[0] === "toggle-launcher") {
-      toggleLauncher()
-      response("ok")
-      return
-    }
-
-    if (argv[0] === "toggle-wallpaper-menu") {
-      toggleWallpaperMenu()
-      response("ok")
-      return
-    }
-
-    if (argv[0] === "toggle-power-menu") {
-      togglePowerMenu()
-      response("ok")
-      return
-    }
-
-    if (argv[0] === "toggle-screenshot-menu") {
-      toggleScreenshotMenu()
-      response("ok")
-      return
-    }
-
-    if (argv[0] === "toggle-clipboard-menu") {
-      toggleClipboardMenu()
-      response("ok")
-      return
-    }
-
-    if (argv[0] === "theme-list") {
-      response(themeNames.join("\n"))
-      return
-    }
-
-    if (argv[0] === "theme-current") {
-      response(currentTheme())
-      return
-    }
-
-    if (argv[0] === "theme-set") {
-      const theme = argv[1]
-
-      if (!theme) {
-        response("missing theme")
-        return
-      }
-
-      response(setThemeByName(theme) ? "ok" : "invalid theme")
-      return
-    }
-
-    if (argv[0] === "theme-cycle") {
-      response(cycleTheme())
-      return
-    }
-
-    response("unknown command")
+    const handler = commandName ? handlers[commandName] : null
+    response(handler ? handler() : "unknown command")
   },
   css: style,
   main() {

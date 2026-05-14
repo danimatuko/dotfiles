@@ -8,6 +8,7 @@ type Props = {
   tooltipText: string
   onClicked: () => void
   hexpand?: boolean
+  sensitive?: boolean
 }
 
 export default function IconActionButton({
@@ -16,6 +17,7 @@ export default function IconActionButton({
   tooltipText,
   onClicked,
   hexpand = false,
+  sensitive = true,
 }: Props) {
   return (
     <button
@@ -24,6 +26,7 @@ export default function IconActionButton({
       tooltipText={tooltipText}
       cursor={pointerCursor}
       hexpand={hexpand}
+      sensitive={sensitive}
     >
       <image iconName={iconName} />
     </button>

@@ -1,14 +1,18 @@
 import GLib from "gi://GLib"
 import { execAsync } from "ags/process"
 
+import { getCommandPath, isCommandAvailable } from "../lib/commands"
+
 export type ClipboardEntry = {
   raw: string
   preview: string
 }
 
-const cliphistCommand =
-  GLib.find_program_in_path("cliphist") ||
-  `${GLib.get_home_dir()}/.local/bin/cliphist`
+const cliphistCommand = getCommandPath(
+  "cliphist",
+  `${GLib.get_home_dir()}/.local/bin/cliphist`,
+)
+const canUseClipboardCopy = isCommandAvailable("wl-copy")
 
 const parseClipboardLine = (line: string): ClipboardEntry | null => {
   const trimmed = line.trim()
@@ -40,6 +44,14 @@ const runCliphistWithInput = async (
   action: "decode" | "delete",
   raw: string,
 ) => {
+  if (!cliphistCommand) {
+    throw new Error("cliphist command is not available")
+  }
+
+  if (action === "decode" && !canUseClipboardCopy) {
+    throw new Error("wl-copy command is not available")
+  }
+
   await execAsync([
     "bash",
     "-lc",
@@ -51,6 +63,10 @@ const runCliphistWithInput = async (
 }
 
 export const listClipboardEntries = async () => {
+  if (!cliphistCommand) {
+    throw new Error("cliphist command is not available")
+  }
+
   const output = await execAsync([cliphistCommand, "list"])
   return parseClipboardOutput(`${output}`)
 }
@@ -64,5 +80,9 @@ export const deleteClipboardEntry = async (entry: ClipboardEntry) => {
 }
 
 export const clearClipboardHistory = async () => {
+  if (!cliphistCommand) {
+    throw new Error("cliphist command is not available")
+  }
+
   await execAsync([cliphistCommand, "wipe"])
 }

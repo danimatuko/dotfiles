@@ -6,17 +6,12 @@ import {
   getVolumeValue,
   setVolume,
 } from "../../services/quick-settings"
-import SectionHeader from "./SectionHeader"
+import SectionCard from "./SectionCard"
 import SliderRow from "./SliderRow"
 
 export default function SoundSection() {
   return (
-    <box
-      class="quick-settings__section-card"
-      orientation={Gtk.Orientation.VERTICAL}
-      spacing={8}
-    >
-      <SectionHeader iconName="audio-speakers-symbolic" label="Sound" />
+    <SectionCard iconName="audio-speakers-symbolic" label="Sound">
       <box
         class="quick-settings__sliders-group"
         orientation={Gtk.Orientation.VERTICAL}
@@ -31,6 +26,6 @@ export default function SoundSection() {
           onValueChanged={(self) => setVolume(self.value)}
         />
       </box>
-    </box>
+    </SectionCard>
   )
 }
