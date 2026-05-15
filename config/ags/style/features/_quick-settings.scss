@@ -148,6 +148,18 @@ window.Sidebar {
       color-mix(in srgb, #{$bg-surface-strong} 90%, transparent 10%);
   }
 
+  &__wifi-row--active {
+    background: color-mix(
+      in srgb,
+      #{$color-brand} 26%,
+      #{$bg-surface-strong} 74%
+    );
+    border-color: color-mix(in srgb, #{$color-brand} 56%, #{$bg-surface-strong} 44%);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, #{$color-brand} 36%, transparent 64%),
+      0 1px 1px rgba(0, 0, 0, 0.18);
+  }
+
   &__wifi-signal {
     @include icon-size(16px);
     color: color-mix(in srgb, #{$color-on-surface} 78%, transparent 22%);
@@ -208,16 +220,17 @@ window.Sidebar {
     }
   }
 
-  &__wifi-connect-button--active {
-    background: color-mix(in srgb, #{$color-brand} 82%, #{$bg-surface} 18%);
-    border-color: color-mix(in srgb, #{$color-brand} 72%, white 28%);
-    color: $color-surface;
+  &__action-button.quick-settings__wifi-connect-button--active {
+    background: $accent-hover;
+    border-color: color-mix(in srgb, #{$accent-hover} 72%, #{$bg-surface} 28%);
+    color: $accent-text;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.1),
-      0 1px 2px rgba(0, 0, 0, 0.2);
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 1px 2px rgba(0, 0, 0, 0.22);
 
     &:hover {
-      color: $color-surface;
+      background: color-mix(in srgb, #{$accent-hover} 88%, #{$color-brand} 12%);
+      color: $accent-text;
     }
   }
 

@@ -156,7 +156,11 @@ export default function ConnectivitySection() {
             <For each={wifiNetworks}>
               {(network: WifiNetwork) => (
                 <box
-                  class="quick-settings__wifi-row"
+                  class={
+                    network.isActive
+                      ? "quick-settings__wifi-row quick-settings__wifi-row--active"
+                      : "quick-settings__wifi-row"
+                  }
                   spacing={8}
                   valign={Gtk.Align.CENTER}
                 >
