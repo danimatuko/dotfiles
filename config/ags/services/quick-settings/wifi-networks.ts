@@ -10,6 +10,8 @@ export type WifiNetwork = {
   signal: number
   security: string
   isActive: boolean
+  isSaved: boolean
+  known: boolean
 }
 
 const nmcliCommand = getCommandPath("nmcli", "/usr/bin/nmcli")
@@ -80,6 +82,8 @@ const parseWifiListOutput = (output: string): WifiNetwork[] => {
         signal,
         security,
         isActive: inUse === "*",
+        isSaved: false,
+        known: inUse === "*",
       }
 
       if (
@@ -92,6 +96,15 @@ const parseWifiListOutput = (output: string): WifiNetwork[] => {
     })
 
   return [...uniqueNetworks.values()].sort((a, b) => b.signal - a.signal)
+}
+
+const parseKnownWifiSsids = (output: string) => {
+  return new Set(
+    output
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0),
+  )
 }
 
 const wifiDeviceNameFromStatus = async () => {
@@ -139,7 +152,52 @@ export const refreshWifiNetworks = async () => {
       "--rescan",
       "auto",
     ])
-    setWifiNetworksState(parseWifiListOutput(`${output}`))
+    const scannedNetworks = parseWifiListOutput(`${output}`)
+
+    let knownSsids = new Set<string>()
+    try {
+      const savedOutput = await execAsync([
+        getNmcliCommand(),
+        "-t",
+        "-f",
+        "NAME,TYPE,TIMESTAMP",
+        "connection",
+        "show",
+      ])
+
+      const knownWifiConnectionNames = `${savedOutput}`
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0)
+        .map(splitNmcliRow)
+        .filter((columns) => {
+          const type = columns[1] ?? ""
+          const timestamp = Number.parseInt(columns[2] ?? "0", 10)
+          return (
+            type === "802-11-wireless" &&
+            Number.isFinite(timestamp) &&
+            timestamp > 0
+          )
+        })
+        .map((columns) => (columns[0] ?? "").trim())
+        .filter((name) => name.length > 0)
+        .join("\n")
+
+      knownSsids = parseKnownWifiSsids(knownWifiConnectionNames)
+    } catch {
+      knownSsids = new Set<string>()
+    }
+
+    const networksWithKnownState = scannedNetworks.map((network) => {
+      const isSaved = knownSsids.has(network.ssid)
+      return {
+        ...network,
+        isSaved,
+        known: network.isActive || isSaved,
+      }
+    })
+
+    setWifiNetworksState(networksWithKnownState)
   } catch (error) {
     setWifiNetworksErrorState("Could not scan Wi-Fi networks")
     console.error("[quick-settings/wifi-networks] failed to refresh", error)

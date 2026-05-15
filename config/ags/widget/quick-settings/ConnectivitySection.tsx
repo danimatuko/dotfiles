@@ -50,6 +50,14 @@ export default function ConnectivitySection() {
     return `Status: Connected to ${active.ssid}`
   })
 
+  const knownWifiNetworks = wifiNetworks((entries) =>
+    entries.filter((entry) => entry.known),
+  )
+
+  const otherWifiNetworks = wifiNetworks((entries) =>
+    entries.filter((entry) => !entry.known),
+  )
+
   const bluetoothStatusLabel = bluetoothDevices((entries) => {
     const connected = entries.find((entry) => entry.connected)
     if (!connected) return "Status: Not connected"
@@ -171,99 +179,197 @@ export default function ConnectivitySection() {
             spacing={6}
           >
             <label
-              class="quick-settings__wifi-empty"
-              label="No Wi-Fi networks found"
-              visible={wifiNetworks((entries) => entries.length === 0)}
+              class="quick-settings__wifi-group-label"
+              label="Known Networks"
+              visible={knownWifiNetworks((entries) => entries.length > 0)}
               xalign={0}
             />
-            <For each={wifiNetworks}>
-              {(network: WifiNetwork) => (
-                <box
-                  class={
-                    network.isActive
-                      ? "quick-settings__wifi-row quick-settings__wifi-row--active"
-                      : "quick-settings__wifi-row"
-                  }
-                  spacing={8}
-                  valign={Gtk.Align.CENTER}
-                >
-                  <image
-                    class="quick-settings__wifi-signal"
-                    iconName={
-                      network.signal >= 80
-                        ? "network-wireless-signal-excellent-symbolic"
-                        : network.signal >= 55
-                          ? "network-wireless-signal-good-symbolic"
-                          : network.signal >= 30
-                            ? "network-wireless-signal-ok-symbolic"
-                            : "network-wireless-signal-weak-symbolic"
-                    }
-                  />
+            <label
+              class="quick-settings__wifi-empty"
+              label="No known Wi-Fi networks"
+              visible={knownWifiNetworks((entries) => entries.length === 0)}
+              xalign={0}
+            />
+            <box
+              class="quick-settings__wifi-group"
+              orientation={Gtk.Orientation.VERTICAL}
+              spacing={6}
+              visible={knownWifiNetworks((entries) => entries.length > 0)}
+            >
+              <For each={knownWifiNetworks}>
+                {(network: WifiNetwork) => (
                   <box
-                    class="quick-settings__wifi-meta"
-                    orientation={Gtk.Orientation.VERTICAL}
-                    hexpand
-                  >
-                    <box class="quick-settings__wifi-title-row" spacing={6}>
-                      <label
-                        class="quick-settings__wifi-ssid"
-                        label={network.ssid}
-                        xalign={0}
-                        hexpand
-                      />
-                    </box>
-                    <box class="quick-settings__wifi-details-row" spacing={4}>
-                      <image
-                        class="quick-settings__wifi-security-icon"
-                        iconName={
-                          network.security.toLowerCase() === "open"
-                            ? "changes-allow-symbolic"
-                            : "changes-prevent-symbolic"
-                        }
-                      />
-                      <label
-                        class="quick-settings__wifi-security"
-                        label={`${
-                          network.security.toLowerCase() === "open"
-                            ? "Open"
-                            : "Secured"
-                        }  |  ${network.signal}%`}
-                        xalign={0}
-                      />
-                    </box>
-                  </box>
-                  <button
                     class={
                       network.isActive
-                        ? "quick-settings__action-button quick-settings__wifi-connect-button quick-settings__wifi-connect-button--active"
-                        : "quick-settings__action-button quick-settings__wifi-connect-button"
+                        ? "quick-settings__wifi-row quick-settings__wifi-row--active"
+                        : "quick-settings__wifi-row"
                     }
-                    cursor={pointerCursor}
-                    sensitive={wifiNetworkAction(
-                      (actionId) => !actionId.length,
-                    )}
-                    onClicked={() => {
-                      if (network.isActive) {
-                        disconnectWifiNetwork().catch(() => {})
-                        return
-                      }
-
-                      connectWifiNetwork(network).catch(() => {})
-                    }}
+                    spacing={8}
+                    valign={Gtk.Align.CENTER}
                   >
-                    <label
-                      label={wifiNetworkAction((actionId) => {
-                        if (network.isActive && actionId === "disconnect") {
-                          return "Disconnecting..."
-                        }
-                        if (actionId === network.id) return "Connecting..."
-                        return network.isActive ? "Disconnect" : "Connect"
-                      })}
+                    <image
+                      class="quick-settings__wifi-signal"
+                      iconName={
+                        network.signal >= 80
+                          ? "network-wireless-signal-excellent-symbolic"
+                          : network.signal >= 55
+                            ? "network-wireless-signal-good-symbolic"
+                            : network.signal >= 30
+                              ? "network-wireless-signal-ok-symbolic"
+                              : "network-wireless-signal-weak-symbolic"
+                      }
                     />
-                  </button>
-                </box>
-              )}
-            </For>
+                    <box
+                      class="quick-settings__wifi-meta"
+                      orientation={Gtk.Orientation.VERTICAL}
+                      hexpand
+                    >
+                      <box class="quick-settings__wifi-title-row" spacing={6}>
+                        <label
+                          class="quick-settings__wifi-ssid"
+                          label={network.ssid}
+                          xalign={0}
+                          hexpand
+                        />
+                      </box>
+                      <box class="quick-settings__wifi-details-row" spacing={4}>
+                        <image
+                          class="quick-settings__wifi-security-icon"
+                          iconName={
+                            network.security.toLowerCase() === "open"
+                              ? "changes-allow-symbolic"
+                              : "changes-prevent-symbolic"
+                          }
+                        />
+                        <label
+                          class="quick-settings__wifi-security"
+                          label={`${
+                            network.security.toLowerCase() === "open"
+                              ? "Open"
+                              : "Secured"
+                          }  |  ${network.signal}%`}
+                          xalign={0}
+                        />
+                      </box>
+                    </box>
+                    <button
+                      class={
+                        network.isActive
+                          ? "quick-settings__action-button quick-settings__wifi-connect-button quick-settings__wifi-connect-button--active"
+                          : "quick-settings__action-button quick-settings__wifi-connect-button"
+                      }
+                      cursor={pointerCursor}
+                      sensitive={wifiNetworkAction(
+                        (actionId) => !actionId.length,
+                      )}
+                      onClicked={() => {
+                        if (network.isActive) {
+                          disconnectWifiNetwork().catch(() => {})
+                          return
+                        }
+
+                        connectWifiNetwork(network).catch(() => {})
+                      }}
+                    >
+                      <label
+                        label={wifiNetworkAction((actionId) => {
+                          if (network.isActive && actionId === "disconnect") {
+                            return "Disconnecting..."
+                          }
+                          if (actionId === network.id) return "Connecting..."
+                          return network.isActive ? "Disconnect" : "Connect"
+                        })}
+                      />
+                    </button>
+                  </box>
+                )}
+              </For>
+            </box>
+
+            <label
+              class="quick-settings__wifi-group-label"
+              label="Other Networks"
+              visible={otherWifiNetworks((entries) => entries.length > 0)}
+              xalign={0}
+            />
+            <box
+              class="quick-settings__wifi-group"
+              orientation={Gtk.Orientation.VERTICAL}
+              spacing={6}
+              visible={otherWifiNetworks((entries) => entries.length > 0)}
+            >
+              <For each={otherWifiNetworks}>
+                {(network: WifiNetwork) => (
+                  <box
+                    class="quick-settings__wifi-row"
+                    spacing={8}
+                    valign={Gtk.Align.CENTER}
+                  >
+                    <image
+                      class="quick-settings__wifi-signal"
+                      iconName={
+                        network.signal >= 80
+                          ? "network-wireless-signal-excellent-symbolic"
+                          : network.signal >= 55
+                            ? "network-wireless-signal-good-symbolic"
+                            : network.signal >= 30
+                              ? "network-wireless-signal-ok-symbolic"
+                              : "network-wireless-signal-weak-symbolic"
+                      }
+                    />
+                    <box
+                      class="quick-settings__wifi-meta"
+                      orientation={Gtk.Orientation.VERTICAL}
+                      hexpand
+                    >
+                      <box class="quick-settings__wifi-title-row" spacing={6}>
+                        <label
+                          class="quick-settings__wifi-ssid"
+                          label={network.ssid}
+                          xalign={0}
+                          hexpand
+                        />
+                      </box>
+                      <box class="quick-settings__wifi-details-row" spacing={4}>
+                        <image
+                          class="quick-settings__wifi-security-icon"
+                          iconName={
+                            network.security.toLowerCase() === "open"
+                              ? "changes-allow-symbolic"
+                              : "changes-prevent-symbolic"
+                          }
+                        />
+                        <label
+                          class="quick-settings__wifi-security"
+                          label={`${
+                            network.security.toLowerCase() === "open"
+                              ? "Open"
+                              : "Secured"
+                          }  |  ${network.signal}%`}
+                          xalign={0}
+                        />
+                      </box>
+                    </box>
+                    <button
+                      class="quick-settings__action-button quick-settings__wifi-connect-button"
+                      cursor={pointerCursor}
+                      sensitive={wifiNetworkAction(
+                        (actionId) => !actionId.length,
+                      )}
+                      onClicked={() => {
+                        connectWifiNetwork(network).catch(() => {})
+                      }}
+                    >
+                      <label
+                        label={wifiNetworkAction((actionId) =>
+                          actionId === network.id ? "Connecting..." : "Connect",
+                        )}
+                      />
+                    </button>
+                  </box>
+                )}
+              </For>
+            </box>
           </box>
         </box>
       </revealer>
