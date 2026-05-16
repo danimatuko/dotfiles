@@ -315,6 +315,14 @@ window.Bar {
     margin: 0;
   }
 
+  .quick-status__separator {
+    margin: 0 2px;
+    color: color-mix(in srgb, #{$color-outline} 72%, transparent 28%);
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
   .notification-indicator {
     @include control-reset;
     border-radius: $radius-sm;

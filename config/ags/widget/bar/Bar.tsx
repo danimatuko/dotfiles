@@ -87,6 +87,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             <box class="quick-status">
               <QuickSettingsToggleMenu />
             </box>
+            <label class="quick-status__separator" label="|" />
             <SidebarToggleButton />
           </box>
         </box>
