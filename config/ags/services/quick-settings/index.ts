@@ -1,5 +1,6 @@
 export * from "./battery"
 export * from "./bluetooth"
+export * from "./bluetooth-devices"
 export * from "./brightness"
 export * from "./dark-mode"
 export * from "./night-light"
