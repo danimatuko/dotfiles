@@ -1,12 +1,21 @@
 import AstalHyprland from "gi://AstalHyprland"
 import { createBinding, For } from "ags"
 import { Gdk } from "ags/gtk4"
+import { execAsync } from "ags/process"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
 export default function Workspaces() {
   const hyprland = AstalHyprland.get_default()
   const minWorkspaceSlots = 5
+
+  const focusWorkspace = (id: number) => {
+    execAsync([
+      "hyprctl",
+      "eval",
+      `hl.dispatch(hl.dsp.focus({ workspace = "${id}" }))`,
+    ]).catch(() => {})
+  }
 
   const workspaces = createBinding(hyprland, "workspaces")
   const focused = createBinding(hyprland, "focusedWorkspace")
@@ -67,7 +76,7 @@ export default function Workspaces() {
               return classes
             })}
             tooltipText={`Workspace ${workspace.id}`}
-            onClicked={() => hyprland.dispatch("workspace", `${workspace.id}`)}
+            onClicked={() => focusWorkspace(workspace.id)}
           >
             <label
               class="workspaces__number"
