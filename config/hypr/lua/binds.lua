@@ -23,10 +23,10 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close()) -- Close current window
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("~/.local/bin/logout-hyprland")) -- Exit Hyprland
 -- bind = $mainMod, O, overview:toggle #NOTE: requires Hyprspace plugin
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager)) -- Opens the filemanager
-hl.bind(mainMod .. " + T", dispatch("togglefloating")) -- Toggle between tiling and floating window
+hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" })) -- Toggle between tiling and floating window
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("ags request toggle-theme-menu"))
-hl.bind(mainMod .. " + F", dispatch("fullscreen")) -- Open the window in fullscreen
-hl.bind(mainMod .. " + M", dispatch("fullscreen 1")) -- Maximize window
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- Open the window in fullscreen
+hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- Maximize window
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("ags request toggle-launcher"))
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("ags request toggle-launcher"))
 hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- master
