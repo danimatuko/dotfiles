@@ -29,11 +29,11 @@ hl.bind(mainMod .. " + F", dispatch("fullscreen")) -- Open the window in fullscr
 hl.bind(mainMod .. " + M", dispatch("fullscreen 1")) -- Maximize window
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("ags request toggle-launcher"))
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("ags request toggle-launcher"))
-hl.bind(mainMod .. " + P", dispatch("pseudo")) -- dwindle
+hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- master
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("ags request toggle-power-menu"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("blazinlock -s"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("ags request toggle-sidebar"))
-hl.bind(mainMod .. " + D", dispatch("togglesplit")) -- dwindle
+hl.bind(mainMod .. " + D", hl.dsp.layout("orientationnext")) -- master
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Opens the browser
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ags request toggle-clipboard-menu"))
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/.local/bin/ags-reload")) -- Reload AGS
@@ -43,15 +43,20 @@ hl.bind("ALT + TAB", dispatch("cyclenext")) -- Change focus to another window
 
 -- Move the active window with keyboard only
 -- These four bindings use vim-style navigation keys (h/j/k/l).
-hl.bind(mainMod .. " + ALT + h", dispatch("movewindow l")) -- Move window left
-hl.bind(mainMod .. " + ALT + l", dispatch("movewindow r")) -- Move window right
-hl.bind(mainMod .. " + ALT + k", dispatch("movewindow u")) -- Move window up
-hl.bind(mainMod .. " + ALT + j", dispatch("movewindow d")) -- Move window down
+hl.bind(mainMod .. " + ALT + h", hl.dsp.layout("swapprev")) -- Move window left
+hl.bind(mainMod .. " + ALT + l", hl.dsp.layout("swapnext")) -- Move window right
+hl.bind(mainMod .. " + ALT + k", hl.dsp.layout("swapwithmaster auto")) -- Move window up
+hl.bind(mainMod .. " + ALT + j", hl.dsp.layout("swapnext")) -- Move window down
 -- Arrow-key equivalents for the same move-window actions.
-hl.bind(mainMod .. " + ALT + left", dispatch("movewindow l")) -- Move window left
-hl.bind(mainMod .. " + ALT + right", dispatch("movewindow r")) -- Move window right
-hl.bind(mainMod .. " + ALT + up", dispatch("movewindow u")) -- Move window up
-hl.bind(mainMod .. " + ALT + down", dispatch("movewindow d")) -- Move window down
+hl.bind(mainMod .. " + ALT + left", hl.dsp.layout("swapprev")) -- Move window left
+hl.bind(mainMod .. " + ALT + right", hl.dsp.layout("swapnext")) -- Move window right
+hl.bind(mainMod .. " + ALT + up", hl.dsp.layout("swapwithmaster auto")) -- Move window up
+hl.bind(mainMod .. " + ALT + down", hl.dsp.layout("swapnext")) -- Move window down
+
+-- Master layout helpers
+hl.bind(mainMod .. " + COMMA", hl.dsp.layout("focusmaster auto"))
+hl.bind(mainMod .. " + PERIOD", hl.dsp.layout("cyclenext"))
+hl.bind(mainMod .. " + SHIFT + PERIOD", hl.dsp.layout("cycleprev"))
 
 -- Screenshot binds
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("ags request toggle-screenshot-menu"))
@@ -95,16 +100,16 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true }) -- Play next track
 
 -- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. " + left", dispatch("movefocus l")) -- Move focus left
-hl.bind(mainMod .. " + right", dispatch("movefocus r")) -- Move focus right
-hl.bind(mainMod .. " + up", dispatch("movefocus u")) -- Move focus up
-hl.bind(mainMod .. " + down", dispatch("movefocus d")) -- Move focus down
+hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" })) -- Move focus left
+hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" })) -- Move focus right
+hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" })) -- Move focus up
+hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" })) -- Move focus down
 
 -- Move focus with mainMod + Vim keys (h, l, k, j)
-hl.bind(mainMod .. " + h", dispatch("movefocus l")) -- Move focus left
-hl.bind(mainMod .. " + l", dispatch("movefocus r")) -- Move focus right
-hl.bind(mainMod .. " + k", dispatch("movefocus u")) -- Move focus up
-hl.bind(mainMod .. " + j", dispatch("movefocus d")) -- Move focus down
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" })) -- Move focus left
+hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" })) -- Move focus right
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" })) -- Move focus up
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" })) -- Move focus down
 
 -- Switch workspaces with mainMod + [0-9]
 for i = 1, 10 do
