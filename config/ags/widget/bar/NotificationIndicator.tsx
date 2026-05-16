@@ -1,4 +1,4 @@
-import { Gdk, Gtk } from "ags/gtk4"
+import { Gdk } from "ags/gtk4"
 import {
   isDoNotDisturbEnabled,
   notificationHistory,
@@ -6,6 +6,11 @@ import {
 } from "../../services/notifications"
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
+
+const getNotificationIcon = (hasNotifications: boolean, isDndEnabled: boolean) => {
+  if (hasNotifications) return "󰅸"
+  return isDndEnabled ? "󱏨" : "󰂜"
+}
 
 export default function NotificationIndicator() {
   return (
@@ -26,16 +31,11 @@ export default function NotificationIndicator() {
       )}
     >
       <box class="notification-indicator__content">
-        <image
-          class="notification-indicator__icon"
-          iconName="preferences-system-notifications-symbolic"
-        />
         <label
-          class="notification-indicator__badge"
-          label="•"
-          visible={notificationHistory((items) => items.length > 0)}
-          halign={Gtk.Align.END}
-          valign={Gtk.Align.START}
+          class="notification-indicator__glyph"
+          label={notificationHistory((items) =>
+            getNotificationIcon(items.length > 0, isDoNotDisturbEnabled()),
+          )}
         />
       </box>
     </button>

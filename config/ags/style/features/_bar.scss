@@ -327,16 +327,9 @@ window.Bar {
     @include control-reset;
     border-radius: $radius-sm;
     min-height: 24px;
-    min-width: 24px;
     padding: 4px;
     margin: 0;
     color: $control-color-bright;
-
-    image {
-      @include icon-size($icon-size-sm);
-      color: inherit;
-      opacity: 1;
-    }
 
     &:hover {
       color: $color-brand;
@@ -354,21 +347,20 @@ window.Bar {
   .notification-indicator__content {
     spacing: 0;
     align-items: center;
+    justify-content: center;
     min-width: 0;
   }
 
-  .notification-indicator__icon {
-    @include icon-size($icon-size-sm);
-  }
-
-  .notification-indicator__badge {
+  .notification-indicator__glyph {
+    font-family:
+      "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font",
+      "JetBrains Mono", monospace;
     min-width: 0;
     min-height: 0;
-    margin: -8px 0 0 -8px;
-    color: $color-brand;
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1;
     font-weight: 700;
+    margin-top: 1px;
   }
 
   .quick-settings__toggle-menu {
