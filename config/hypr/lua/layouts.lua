@@ -19,6 +19,9 @@
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
 	dwindle = {
+		-- split right side only
+		force_split = 2,
+
 		preserve_split = true, -- You probably want this
 	},
 })
@@ -26,13 +29,7 @@ hl.config({
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
 	master = {
+		mfact = 0.60,
 		new_status = "master",
-	},
-})
-
--- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
-hl.config({
-	scrolling = {
-		fullscreen_on_one_column = true,
 	},
 })

@@ -8,8 +8,12 @@
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
+	hl.exec_cmd("hypridle")
+	hl.exec_cmd("awww-daemon")
+	hl.exec_cmd("hyprsunset")
+	hl.exec_cmd("canberra-gtk-play -i desktop-login")
+	hl.exec_cmd("cliphist daemon")
+	hl.exec_cmd("wl-paste --watch cliphist store")
 	hl.exec_cmd("ags run ~/.config/ags/app.ts")
-	-- hl.exec_cmd("ghostty")
-	-- hl.exec_cmd("nm-applet")
-	-- hl.exec_cmd("waybar & hyprpaper & firefox")
+	hl.exec_cmd("udiskie")
 end)
