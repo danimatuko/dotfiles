@@ -23,6 +23,7 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 - `setup/`: real install/link/uninstall behavior.
 - `config/`: symlinked runtime configs.
 - `bin/`: active command entrypoints linked into `~/.local/bin` by `setup/link-bin.sh`.
+- `config/hypr/`: Hyprland is now Lua-first (`hyprland.lua` + `lua/*.lua` modules). See `config/hypr/LUA_MIGRATION.md` for module ownership and smoke tests.
 
 ## Commands That Matter
 
@@ -36,11 +37,15 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 - AGS package checks (run inside `config/ags/`):
   - typecheck: `npx --yes typescript tsc --noEmit -p tsconfig.json`
   - format check: `npx --yes prettier --check "**/*.{ts,tsx,scss,json,md}"`
+- Hyprland Lua sanity checks:
+  - parse main file: `luac -p config/hypr/hyprland.lua`
+  - parse all modules: `for f in config/hypr/lua/*.lua; do luac -p "$f"; done`
 
 ## Non-Obvious Gotchas
 
 - `install.sh` is interactive (confirm prompts) and runs privileged actions; it is not CI-safe automation.
 - `setup/link-dotfiles.sh` uses `mv` into `~/dotfiles_backup_<timestamp>` for existing targets, including `~/.config/*` entries it manages.
+- `setup/link-bin.sh` deletes existing files/symlinks in `~/.local/bin` before relinking entries from `bin/`.
 - `setup/uninstall.sh` defaults to dry-run and only removes symlinks that resolve under this repo path.
 - `setup/uninstall.sh --apply --restore-latest-backup` removes current `~/.config` before restoring `backup/config`.
 - Prefer `setup/link-dotfiles.sh` and `setup/link-bin.sh`.
