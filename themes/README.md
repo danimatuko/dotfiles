@@ -14,7 +14,7 @@ AGS reads `ags.json` from each theme folder.
 
 - `themes/<theme-id>/ghostty.conf`
 - `themes/<theme-id>/zellij`
-- `themes/<theme-id>/hyprland.conf`
+- `themes/<theme-id>/hyprland.lua`
 - `themes/<theme-id>/hyprlock.conf`
 - `themes/<theme-id>/neovim.lua`
 - `themes/<theme-id>/btop.theme`
