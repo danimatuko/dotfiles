@@ -9,6 +9,7 @@ export type NotificationEntry = {
   body: string
   iconName: string
   timeLabel: string
+  isTransient: boolean
 }
 
 const notifd = AstalNotifd.get_default()
@@ -79,6 +80,7 @@ const notificationToEntry = (id: number): NotificationEntry | null => {
     body,
     iconName: iconName || "dialog-information-symbolic",
     timeLabel: getTimeLabel(),
+    isTransient: Boolean(notification.transient),
   }
 }
 
@@ -87,7 +89,9 @@ const handleNotification = (id: number) => {
   if (!entry) return
 
   if (doNotDisturbState()) {
-    upsertHistory(entry)
+    if (!entry.isTransient) {
+      upsertHistory(entry)
+    }
     return
   }
 
@@ -103,7 +107,9 @@ const handleNotification = (id: number) => {
   dropped.forEach((item) => clearHideTimer(item.id))
 
   setActiveNotificationsState(nextActive)
-  upsertHistory(entry)
+  if (!entry.isTransient) {
+    upsertHistory(entry)
+  }
 
   clearHideTimer(id)
   const timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 5000, () => {

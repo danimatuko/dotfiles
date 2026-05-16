@@ -13,11 +13,11 @@ list_output="$(timeout 2s ags list 2>/dev/null || true)"
 
 case "$list_output" in
 *ags*)
-	notify-send --icon=view-refresh --app-name=AGS "AGS" "Reload complete"
+	notify-send --icon=view-refresh --app-name=AGS -h boolean:transient:true "AGS" "Reload complete"
 	canberra-gtk-play -i message >/dev/null 2>&1 &
 	;;
 *)
-	notify-send --icon=dialog-error --app-name=AGS "AGS" "Reload failed"
+	notify-send --icon=dialog-error --app-name=AGS -h boolean:transient:true "AGS" "Reload failed"
 	canberra-gtk-play -i bell >/dev/null 2>&1 &
 	;;
 esac

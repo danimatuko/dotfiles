@@ -14,7 +14,7 @@ echo "Switching to theme: $THEME"
 # ============================================================================
 
 if [ ! -d "$THEMES_DIR/$THEME" ]; then
-    notify-send -u critical -i dialog-error "Set Theme" "Theme '$THEME' not found"
+    notify-send -u critical -i dialog-error -h boolean:transient:true "Set Theme" "Theme '$THEME' not found"
     canberra-gtk-play -i bell >/dev/null 2>&1 &
     exit 1
 fi
@@ -121,5 +121,5 @@ fi
 
 sleep 0.5
 echo "Theme switched successfully!"
-notify-send -a "Theme Switcher" -u normal -i preferences-desktop-wallpaper "Theme Switched" "Active theme: ${THEME:-unknown}"
+notify-send -a "Theme Switcher" -u normal -i preferences-desktop-wallpaper -h boolean:transient:true "Theme Switched" "Active theme: ${THEME:-unknown}"
 canberra-gtk-play -i message >/dev/null 2>&1 &

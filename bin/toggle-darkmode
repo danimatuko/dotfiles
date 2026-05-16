@@ -24,10 +24,10 @@ if [[ "$current_theme" == "$dark_theme" ]]; then
 	gsettings set org.gnome.desktop.interface gtk-theme "$light_theme"
 	gsettings set org.gnome.desktop.interface icon-theme "$icon_theme"
 	gsettings set org.gnome.desktop.interface color-scheme "default"
-	notify-send --icon="weather-clear" "Theme Changed" "Switched to Light Mode (${light_theme})"
+	notify-send --icon="weather-clear" -h boolean:transient:true "Theme Changed" "Switched to Light Mode (${light_theme})"
 else
 	gsettings set org.gnome.desktop.interface gtk-theme "$dark_theme"
 	gsettings set org.gnome.desktop.interface icon-theme "$icon_theme"
 	gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-	notify-send --icon="weather-clear-night" "Theme Changed" "Switched to Dark Mode (${dark_theme})"
+	notify-send --icon="weather-clear-night" -h boolean:transient:true "Theme Changed" "Switched to Dark Mode (${dark_theme})"
 fi
