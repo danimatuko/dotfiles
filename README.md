@@ -68,6 +68,30 @@ The desktop shell is based on AGS and runs on Hyprland.
 - Root repository behavior is script-driven; there is no root package.json task runner.
 - The only Node/TypeScript project in this repo is config/ags/.
 
+## Branch Naming
+
+Use branch names in one of these formats:
+
+- Preferred: `<type>/<area>-<short-description>`
+- Allowed: `<type>/<short-description>`
+
+Allowed `type` values:
+
+- `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, `test`, `perf`, `ci`, `revert`
+
+Reserved prefixes:
+
+- `release/<date-or-version>`
+- `hotfix/<area>-<short-description>`
+
+Examples:
+
+- `feat/ags-quick-settings-grouping`
+- `fix/hyprlock-theme-paths`
+- `chore/setup-prune-legacy-links`
+
+See `AGENTS.md` for full rules and additional examples.
+
 ## License
 
 MIT

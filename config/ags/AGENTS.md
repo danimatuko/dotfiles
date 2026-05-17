@@ -202,6 +202,13 @@ Use this profile when making AGS UI/UX changes unless the user explicitly asks o
 - Preferred types include `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, and `test`.
 - Do not use scope format like `type(scope):message` unless explicitly requested.
 
+## Branch Naming Convention
+
+- Branch naming follows the root convention in `AGENTS.md`.
+- Preferred format: `<type>/<area>-<short-description>`.
+- Allowed format: `<type>/<short-description>`.
+- AGS examples: `feat/ags-quick-settings-grouping`, `fix/ags-battery-indicator-click-action`.
+
 ## Cursor and Copilot Rules
 
 Checked for agent-policy files and none were found:

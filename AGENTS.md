@@ -54,3 +54,40 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 
 - Single file: `bash -n path/to/script`
 - Batch: `for f in setup/*.sh bin/*; do [ -f "$f" ] && bash -n "$f"; done`
+
+## Branch Naming Convention
+
+Use branch names in one of these formats:
+
+- Preferred: `<type>/<area>-<short-description>`
+- Allowed: `<type>/<short-description>`
+
+### Types
+
+- Required `type` values: `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, `test`, `perf`, `ci`, `revert`
+
+### Area and Description
+
+- `area` is optional but recommended (for example: `ags`, `hypr`, `setup`, `bin`, `nvim`)
+- `short-description` is required, action-focused, and lowercase kebab-case
+
+### Reserved Prefixes
+
+- `release/<date-or-version>` (for example: `release/2026-05-17`, `release/v1.2.0`)
+- `hotfix/<area>-<short-description>` (for example: `hotfix/hypr-lockscreen-crash`)
+
+### Examples
+
+- `feat/ags-quick-settings-grouping`
+- `fix/hyprlock-theme-paths`
+- `chore/setup-prune-legacy-links`
+- `docs/branch-naming-convention`
+- `refactor/bin-network-script-cleanup`
+- `fix/update-readme-links`
+
+### Rules
+
+- Use lowercase letters, numbers, and `-` only
+- Do not use spaces, underscores, or camelCase
+- Keep names concise (prefer ~50 characters or fewer)
+- Keep one primary concern per branch
