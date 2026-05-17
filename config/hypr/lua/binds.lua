@@ -28,7 +28,11 @@ hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("ags request toggle-theme-men
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- Open the window in fullscreen
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- Maximize window
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("ags request toggle-launcher"))
-hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("ags request toggle-launcher"))
+-- hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("ags request toggle-launcher"))
+hl.bind(mainMod .. " + TAB", hl.plugin.hymission.toggle)
+hl.bind(mainMod .. " + O", function()
+	hl.plugin.hymission.dispatch("open", "onlycurrentworkspace")
+end)
 hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- master
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("ags request toggle-power-menu"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("blazinlock -s"))
@@ -39,8 +43,7 @@ hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ags request toggle-clipboard-menu"))
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/.local/bin/ags-reload")) -- Reload AGS
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.local/bin/reload-hyprland")) -- Reload Hyprland config
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("ags request toggle-wallpaper-menu"))
-hl.bind("ALT + TAB", dispatch("cyclenext")) -- Change focus to another window
-
+-- hl.bind("ALT + TAB", dispatch("cyclenext")) -- Change focus to another window
 -- Move the active window with keyboard only
 -- These four bindings use vim-style navigation keys (h/j/k/l).
 hl.bind(mainMod .. " + ALT + h", hl.dsp.layout("swapprev")) -- Move window left
