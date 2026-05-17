@@ -26,6 +26,20 @@ hl.gesture({
 	action = "workspace",
 })
 
+hl.plugin.hymission.gesture({
+	fingers = 3,
+	direction = "vertical",
+	action = "toggle",
+	args = "forceall",
+})
+
+hl.plugin.hymission.gesture({
+	fingers = 4,
+	direction = "vertical",
+	action = "toggle",
+	args = "onlycurrentworkspace",
+})
+
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
 hl.device({

@@ -19,6 +19,16 @@ export default function Workspaces() {
 
   const workspaces = createBinding(hyprland, "workspaces")
   const focused = createBinding(hyprland, "focusedWorkspace")
+  const focusedClient = createBinding(hyprland, "focusedClient")
+
+  const activeWorkspaceId = focused.as((focusedWorkspace) => {
+    if (focusedWorkspace?.id != null) {
+      return focusedWorkspace.id
+    }
+
+    const clientWorkspaceId = focusedClient.get()?.workspace?.id
+    return clientWorkspaceId ?? -1
+  })
 
   const workspaceSlots = workspaces.as((wss) => {
     const byId = new Map<number, AstalHyprland.Workspace>()
@@ -59,11 +69,11 @@ export default function Workspaces() {
           <button
             class="workspaces__item"
             cursor={pointerCursor}
-            cssClasses={focused.as((focusedWorkspace) => {
+            cssClasses={activeWorkspaceId.as((currentWorkspaceId) => {
               const classes = ["workspaces__item"]
               const clients = workspace.clients
 
-              if (focusedWorkspace?.id === workspace.id) {
+              if (currentWorkspaceId === workspace.id) {
                 classes.push("workspaces__item--active")
               }
               if (clients.length > 0) {
@@ -80,8 +90,8 @@ export default function Workspaces() {
           >
             <label
               class="workspaces__number"
-              label={focused.as((focusedWorkspace) => {
-                const isActive = focusedWorkspace?.id === workspace.id
+              label={activeWorkspaceId.as((currentWorkspaceId) => {
+                const isActive = currentWorkspaceId === workspace.id
                 const hasUrgent = getHasUrgentClient(workspace.clients)
 
                 if (hasUrgent) {
