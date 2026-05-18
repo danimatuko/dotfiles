@@ -59,8 +59,8 @@ const normalizeSelectedIndex = (nextIndex: number, resultCount: number) => {
 }
 
 const runAndClose = (action: () => void) => {
-  closePowerMenu()
   action()
+  closePowerMenu()
 }
 
 export default function PowerMenu(gdkmonitor: Gdk.Monitor) {
@@ -86,6 +86,7 @@ export default function PowerMenu(gdkmonitor: Gdk.Monitor) {
       application={app}
     >
       <Gtk.EventControllerKey
+        propagationPhase={Gtk.PropagationPhase.CAPTURE}
         onKeyPressed={(_, keyval) => {
           if (keyval === Gdk.KEY_Escape) {
             closePowerMenu()
@@ -121,6 +122,7 @@ export default function PowerMenu(gdkmonitor: Gdk.Monitor) {
         <button
           class="power-menu__backdrop"
           onClicked={closePowerMenu}
+          focusable={false}
           hexpand
           vexpand
         />
@@ -145,6 +147,7 @@ export default function PowerMenu(gdkmonitor: Gdk.Monitor) {
                   `${selectedIndex === index ? "power-menu__item power-menu__item--selected" : "power-menu__item"} ${entry.className ?? ""}`.trim(),
                 )}
                 cursor={pointerCursor}
+                focusable={false}
                 onClicked={() => runAndClose(entry.action)}
               >
                 <box class="power-menu__item-content" spacing={10}>

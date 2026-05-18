@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "hyprctl dispatch exec hyprlock",
+    "action" : "hyprlock",
     "text"  : "Lock",
     "keybind" : "l"
 }
@@ -12,7 +12,7 @@
 }
 {
     "label" : "logout",
-    "action" : "~/.local/bin/logout-hyprland",
+    "action" : "hyprctl eval 'hl.dispatch(hl.dsp.exit())'",
     "text"  : "Exit",
     "keybind" : "e"
 }
