@@ -59,8 +59,8 @@ const normalizeSelectedIndex = (nextIndex: number, resultCount: number) => {
 }
 
 const runAndClose = (action: () => void) => {
-  action()
   closePowerMenu()
+  action()
 }
 
 export default function PowerMenu(gdkmonitor: Gdk.Monitor) {
