@@ -20,9 +20,8 @@ end
 -- Actions
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal)) -- Open Terminal
 hl.bind(mainMod .. " + Q", hl.dsp.window.close()) -- Close current window
-hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("~/.local/bin/logout-hyprland")) -- Exit Hyprland
--- bind = $mainMod, O, overview:toggle #NOTE: requires Hyprspace plugin
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager)) -- Opens the filemanager
+hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exit()) -- Exit Hyprland
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager)) -- Open file manager
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" })) -- Toggle between tiling and floating window
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("ags request toggle-theme-menu"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- Open the window in fullscreen
@@ -33,30 +32,30 @@ hl.bind(mainMod .. " + TAB", hl.plugin.hymission.toggle)
 hl.bind(mainMod .. " + O", function()
 	hl.plugin.hymission.dispatch("open", "onlycurrentworkspace")
 end)
-hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- master
+hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- Swap with master
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("ags request toggle-power-menu"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("blazinlock -s"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("ags request toggle-sidebar"))
-hl.bind(mainMod .. " + D", hl.dsp.layout("orientationnext")) -- master
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Opens the browser
+hl.bind(mainMod .. " + D", hl.dsp.layout("orientationnext")) -- Cycle orientation
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Open browser
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ags request toggle-clipboard-menu"))
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/.local/bin/ags-reload")) -- Reload AGS
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.local/bin/reload-hyprland")) -- Reload Hyprland config
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("ags request toggle-wallpaper-menu"))
 -- hl.bind("ALT + TAB", dispatch("cyclenext")) -- Change focus to another window
--- Move the active window with keyboard only
+-- Move active windows with keyboard only
 -- These four bindings use vim-style navigation keys (h/j/k/l).
 hl.bind(mainMod .. " + ALT + h", hl.dsp.layout("swapprev")) -- Move window left
 hl.bind(mainMod .. " + ALT + l", hl.dsp.layout("swapnext")) -- Move window right
 hl.bind(mainMod .. " + ALT + k", hl.dsp.layout("swapwithmaster auto")) -- Move window up
 hl.bind(mainMod .. " + ALT + j", hl.dsp.layout("swapnext")) -- Move window down
--- Arrow-key equivalents for the same move-window actions.
+-- Arrow-key equivalents for the same move-window actions
 hl.bind(mainMod .. " + ALT + left", hl.dsp.layout("swapprev")) -- Move window left
 hl.bind(mainMod .. " + ALT + right", hl.dsp.layout("swapnext")) -- Move window right
 hl.bind(mainMod .. " + ALT + up", hl.dsp.layout("swapwithmaster auto")) -- Move window up
 hl.bind(mainMod .. " + ALT + down", hl.dsp.layout("swapnext")) -- Move window down
 
--- Master layout helpers
+-- Master-layout helpers
 hl.bind(mainMod .. " + COMMA", hl.dsp.layout("focusmaster auto"))
 hl.bind(mainMod .. " + PERIOD", hl.dsp.layout("cyclenext"))
 hl.bind(mainMod .. " + SHIFT + PERIOD", hl.dsp.layout("cycleprev"))
@@ -126,14 +125,14 @@ for i = 1, 10 do
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i })) -- Move window to workspace
 end
 
--- Scroll through existing workspaces with mainMod + scroll
+-- Scroll through existing workspaces with mainMod + wheel
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" })) -- Scroll workspaces
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" })) -- Scroll workspaces
 
--- Switch to the next workspace with mainMod + Ctrl + Right
+-- Switch to next workspace with mainMod + Ctrl + Right
 hl.bind(mainMod .. " + CTRL + Right", hl.dsp.focus({ workspace = "+1" }))
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.focus({ workspace = "+1" }))
--- Switch to the previous workspace with mainMod + Ctrl + Left
+-- Switch to previous workspace with mainMod + Ctrl + Left
 hl.bind(mainMod .. " + CTRL + Left", hl.dsp.focus({ workspace = "-1" }))
 hl.bind(mainMod .. " + CTRL + H", hl.dsp.focus({ workspace = "-1" }))
 
