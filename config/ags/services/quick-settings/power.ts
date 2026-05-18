@@ -16,14 +16,14 @@ function runPowerCommand(command: string[]) {
   })
 }
 
-export const canLockSession = isCommandAvailable("loginctl")
+export const canLockSession = isCommandAvailable("hyprlock")
 export const canSuspendSystem = isCommandAvailable("systemctl")
 export const canRebootSystem = isCommandAvailable("systemctl")
 export const canPoweroffSystem = isCommandAvailable("systemctl")
 export const canLogoutSession = isCommandAvailable("hyprctl")
 
 export function lockSession() {
-  runPowerCommand(["loginctl", "lock-session"])
+  runPowerCommand(["hyprlock"])
 }
 
 export function suspendSystem() {
@@ -39,5 +39,5 @@ export function poweroffSystem() {
 }
 
 export function logoutSession() {
-  runPowerCommand(["hyprctl", "dispatch", "exit"])
+  runPowerCommand(["hyprctl", "eval", "hl.dispatch(hl.dsp.exit())"])
 }
