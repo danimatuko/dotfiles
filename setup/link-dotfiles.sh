@@ -38,6 +38,7 @@ backup_and_link "$CONFIG_DIR/hypr" "$HOME/.config/hypr"
 backup_and_link "$CONFIG_DIR/kitty" "$HOME/.config/kitty"
 backup_and_link "$CONFIG_DIR/nvim" "$HOME/.config/nvim"
 backup_and_link "$CONFIG_DIR/wlogout" "$HOME/.config/wlogout"
+backup_and_link "$CONFIG_DIR/zellij" "$HOME/.config/zellij"
 
 echo ""
 echo "[OK] All specified files and configs linked."

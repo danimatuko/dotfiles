@@ -1,0 +1,15 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+    }
+
+    tab name="dotfiles" {
+        pane split_direction="vertical" {
+            pane cwd="~/dotfiles" command="nvim"
+            pane size="40%" cwd="~/dotfiles" command="opencode"
+        }
+    }
+}
