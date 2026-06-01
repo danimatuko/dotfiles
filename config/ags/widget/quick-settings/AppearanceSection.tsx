@@ -16,7 +16,7 @@ const openThemeSelector = () => {
   toggleThemeMenu()
 }
 
-export default function WallpaperSection() {
+export default function AppearanceSection() {
   return (
     <SectionCard
       iconName="preferences-desktop-wallpaper-symbolic"
