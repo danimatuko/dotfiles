@@ -36,10 +36,10 @@ export default function QuickSettingsMenu() {
         />
       </box>
 
+      <PowerSection />
       <ConnectivitySection />
       <DisplaySection />
       <SoundSection />
-      <PowerSection />
       <WallpaperSection />
       <NotificationsSection />
     </box>
