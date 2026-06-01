@@ -532,6 +532,12 @@ window.Sidebar {
     margin-bottom: 0;
   }
 
+  &__toggles-group--display .quick-settings__toggle-button--icon-only,
+  &__toggles-group--connectivity .quick-settings__toggle-button--icon-only {
+    min-height: 30px;
+    padding: 6px;
+  }
+
   &__toggle-content > image,
   &__battery-row > image,
   &__slider-icon-box > image {
@@ -570,6 +576,18 @@ window.Sidebar {
 
   &__toggle-button--icon-only .quick-settings__toggle-content > image {
     min-width: 20px;
+  }
+
+  &__toggles-group--display
+    .quick-settings__toggle-button--icon-only
+    .quick-settings__toggle-content
+    > image,
+  &__toggles-group--connectivity
+    .quick-settings__toggle-button--icon-only
+    .quick-settings__toggle-content
+    > image {
+    @include icon-size(18px);
+    min-width: 18px;
   }
 
   &__toggle-chevron {

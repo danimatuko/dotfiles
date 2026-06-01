@@ -6,8 +6,6 @@ import type { WifiNetwork } from "../../services/quick-settings/wifi-networks"
 
 import {
   canToggleBluetooth,
-  canToggleDarkMode,
-  canToggleNightLight,
   canToggleWifi,
   bluetoothDeviceAction,
   bluetoothDevices,
@@ -16,10 +14,6 @@ import {
   disconnectBluetoothDevice,
   getBluetoothButtonClass,
   getBluetoothIcon,
-  getDarkModeButtonClass,
-  getDarkModeIcon,
-  getNightLightButtonClass,
-  getNightLightIcon,
   getWifiTooltip,
   getWifiButtonClass,
   getWifiIcon,
@@ -32,8 +26,6 @@ import {
   wifiNetworks,
   wifiNetworksError,
   toggleBluetooth,
-  toggleDarkMode,
-  toggleNightLight,
   toggleWifi,
 } from "../../services/quick-settings"
 import QuickSettingsToggleButton from "./QuickSettingsToggleButton"
@@ -79,7 +71,7 @@ export default function ConnectivitySection() {
       spacing={10}
     >
       <box
-        class="quick-settings__toggles-group"
+        class="quick-settings__toggles-group quick-settings__toggles-group--connectivity"
         orientation={Gtk.Orientation.HORIZONTAL}
         spacing={8}
         homogeneous
@@ -103,24 +95,6 @@ export default function ConnectivitySection() {
           iconOnly
           hexpand
           tooltipText="Toggle Bluetooth"
-        />
-        <QuickSettingsToggleButton
-          iconName={getNightLightIcon}
-          className={getNightLightButtonClass}
-          onClicked={toggleNightLight}
-          sensitive={canToggleNightLight}
-          iconOnly
-          hexpand
-          tooltipText="Toggle Night Light"
-        />
-        <QuickSettingsToggleButton
-          iconName={getDarkModeIcon}
-          className={getDarkModeButtonClass}
-          onClicked={toggleDarkMode}
-          sensitive={canToggleDarkMode}
-          iconOnly
-          hexpand
-          tooltipText="Toggle Dark Mode"
         />
       </box>
 
