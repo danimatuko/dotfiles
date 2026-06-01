@@ -1,0 +1,25 @@
+{
+  "id": "catppuccin-latte",
+  "label": "Catppuccin Latte",
+  "swatches": ["#dc8a78", "#7287fd", "#8839ef", "#179299"],
+  "ags": {
+    "color-surface": "#eff1f5",
+    "color-outline": "#bcc0cc",
+    "color-on-surface": "#4c4f69",
+    "color-muted": "#6c6f85",
+    "color-emphasis": "#5c5f77",
+    "color-hover": "#5c5f77",
+    "color-brand": "#7287fd",
+    "color-danger": "#d20f39",
+    "color-warning": "#df8e1d",
+    "bg-base": "#eff1f5",
+    "bg-surface": "#e6e9ef",
+    "bg-surface-strong": "#dce0e8",
+    "control-color": "#8c8fa1",
+    "control-color-bright": "#6c6f85",
+    "control-text": "#4c4f69",
+    "accent-color": "#7287fd",
+    "accent-hover": "#5a71f3",
+    "accent-text": "#eff1f5"
+  }
+}
