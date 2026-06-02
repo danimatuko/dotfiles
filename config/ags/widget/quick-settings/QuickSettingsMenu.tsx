@@ -1,11 +1,11 @@
 import { Gtk } from "ags/gtk4"
 
 import ConnectivitySection from "./ConnectivitySection"
+import AppearanceSection from "./AppearanceSection"
 import DisplaySection from "./DisplaySection"
 import NotificationsSection from "./NotificationsSection"
 import PowerSection from "./PowerSection"
 import SoundSection from "./SoundSection"
-import WallpaperSection from "./WallpaperSection"
 
 export default function QuickSettingsMenu() {
   return (
@@ -36,11 +36,11 @@ export default function QuickSettingsMenu() {
         />
       </box>
 
+      <PowerSection />
       <ConnectivitySection />
       <DisplaySection />
       <SoundSection />
-      <PowerSection />
-      <WallpaperSection />
+      <AppearanceSection />
       <NotificationsSection />
     </box>
   )
