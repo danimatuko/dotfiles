@@ -70,6 +70,13 @@ hl.layer_rule({
 	animation = "none",
 })
 
+-- AGS theme switcher: let GTK handle panel animation
+hl.layer_rule({
+	name = "ags-theme-switcher-animation",
+	match = { namespace = "ags-theme-switcher" },
+	animation = "none",
+})
+
 -- Smart single-window behavior (tiled + visible only)
 hl.window_rule({
 	name = "no-border-wtv1",
