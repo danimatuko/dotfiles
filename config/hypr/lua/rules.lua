@@ -63,9 +63,9 @@ hl.layer_rule({
 	animation = "fade",
 })
 
--- AGS launcher: disable compositor animation
+-- AGS launcher: let GTK handle panel animation
 hl.layer_rule({
-	name = "ags-launcher-animation-none",
+	name = "ags-launcher-animation",
 	match = { namespace = "ags-app-launcher" },
 	animation = "none",
 })
