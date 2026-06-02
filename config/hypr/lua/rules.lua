@@ -63,6 +63,13 @@ hl.layer_rule({
 	animation = "fade",
 })
 
+-- AGS launcher: disable compositor animation
+hl.layer_rule({
+	name = "ags-launcher-animation-none",
+	match = { namespace = "ags-app-launcher" },
+	animation = "none",
+})
+
 -- Smart single-window behavior (tiled + visible only)
 hl.window_rule({
 	name = "no-border-wtv1",

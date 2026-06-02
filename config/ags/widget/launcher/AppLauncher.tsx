@@ -5,6 +5,7 @@ import Gio from "gi://Gio"
 import Pango from "gi://Pango"
 import { createState } from "gnim"
 
+import { BAR_HEIGHT } from "../bar/constants"
 import { closeLauncher, isLauncherVisible } from "../../services/launcher"
 import { getThemeWindowClass } from "../../services/theme"
 
@@ -41,6 +42,7 @@ const [queryState, setQueryState] = createState("")
 const [selectedIndexState, setSelectedIndexState] = createState(0)
 let launcherScroller: Gtk.ScrolledWindow | null = null
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
+const launcherTopOffset = 16
 
 const normalize = (value: string) => value.toLowerCase().trim()
 
@@ -109,6 +111,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       layer={Astal.Layer.TOP}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
+      marginTop={BAR_HEIGHT + launcherTopOffset}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
       onNotifyVisible={(self) => {
@@ -175,7 +178,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
           spacing={8}
           widthRequest={620}
           halign={Gtk.Align.CENTER}
-          valign={Gtk.Align.CENTER}
+          valign={Gtk.Align.START}
         >
           <entry
             class="app-launcher__search"
