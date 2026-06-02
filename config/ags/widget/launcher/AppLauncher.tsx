@@ -5,6 +5,7 @@ import Gio from "gi://Gio"
 import Pango from "gi://Pango"
 import { createState } from "gnim"
 
+import { BAR_HEIGHT } from "../bar/constants"
 import { closeLauncher, isLauncherVisible } from "../../services/launcher"
 import { getThemeWindowClass } from "../../services/theme"
 
@@ -41,6 +42,7 @@ const [queryState, setQueryState] = createState("")
 const [selectedIndexState, setSelectedIndexState] = createState(0)
 let launcherScroller: Gtk.ScrolledWindow | null = null
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
+const launcherTopOffset = 16
 
 const normalize = (value: string) => value.toLowerCase().trim()
 
@@ -109,6 +111,7 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
       gdkmonitor={gdkmonitor}
       layer={Astal.Layer.TOP}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
+      marginTop={BAR_HEIGHT + launcherTopOffset}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
       onNotifyVisible={(self) => {
@@ -169,87 +172,93 @@ export default function AppLauncher(gdkmonitor: Gdk.Monitor) {
           hexpand
           vexpand
         />
-        <box
-          class="app-launcher__panel"
-          orientation={Gtk.Orientation.VERTICAL}
-          spacing={8}
-          widthRequest={620}
+        <Gtk.Revealer
+          revealChild={isLauncherVisible}
+          transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
+          transitionDuration={220}
           halign={Gtk.Align.CENTER}
-          valign={Gtk.Align.CENTER}
+          valign={Gtk.Align.START}
         >
-          <entry
-            class="app-launcher__search"
-            placeholderText="Search apps..."
-            text={queryState}
-            onNotifyText={(self) => {
-              setQueryState(`${self.text ?? ""}`)
-              setSelectedIndexState(0)
-              launcherScroller?.vadjustment?.set_value(0)
-            }}
-            onActivate={() => {
-              const filtered = getFilteredApps(queryState())
-              const selected = filtered[selectedIndexState()]
-              if (!selected) return
-              launchApp(selected)
-            }}
-            activatesDefault
-          />
-          <Gtk.ScrolledWindow
-            onMap={(self) => {
-              launcherScroller = self
-            }}
-            cssClasses={["app-launcher__scroller"]}
-            vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
-            hscrollbarPolicy={Gtk.PolicyType.NEVER}
-            widthRequest={600}
-            heightRequest={520}
+          <box
+            class="app-launcher__panel"
+            orientation={Gtk.Orientation.VERTICAL}
+            spacing={8}
+            widthRequest={620}
           >
-            <box
-              class="app-launcher__list"
-              orientation={Gtk.Orientation.VERTICAL}
-              spacing={4}
+            <entry
+              class="app-launcher__search"
+              placeholderText="Search apps..."
+              text={queryState}
+              onNotifyText={(self) => {
+                setQueryState(`${self.text ?? ""}`)
+                setSelectedIndexState(0)
+                launcherScroller?.vadjustment?.set_value(0)
+              }}
+              onActivate={() => {
+                const filtered = getFilteredApps(queryState())
+                const selected = filtered[selectedIndexState()]
+                if (!selected) return
+                launchApp(selected)
+              }}
+              activatesDefault
+            />
+            <Gtk.ScrolledWindow
+              onMap={(self) => {
+                launcherScroller = self
+              }}
+              cssClasses={["app-launcher__scroller"]}
+              vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
+              hscrollbarPolicy={Gtk.PolicyType.NEVER}
+              widthRequest={600}
+              heightRequest={520}
             >
-              <For each={queryState((query) => getFilteredApps(query))}>
-                {(entry, index) => (
-                  <button
-                    class={selectedIndexState((selectedIndex) =>
-                      selectedIndex === index.get()
-                        ? "app-launcher__item app-launcher__item--selected"
-                        : "app-launcher__item",
-                    )}
-                    cursor={pointerCursor}
-                    onClicked={() => launchApp(entry)}
-                    tooltipText={entry.id}
-                  >
-                    <box class="app-launcher__item-content" hexpand>
-                      <image
-                        class="app-launcher__item-icon"
-                        iconName={entry.iconName}
-                      />
-                      <label
-                        class="app-launcher__item-name"
-                        label={entry.name}
-                        xalign={0}
-                        hexpand
-                        ellipsize={Pango.EllipsizeMode.END}
-                        singleLineMode
-                        maxWidthChars={34}
-                      />
-                      <label
-                        class="app-launcher__item-desc"
-                        label={entry.description}
-                        xalign={1}
-                        ellipsize={Pango.EllipsizeMode.END}
-                        singleLineMode
-                        maxWidthChars={28}
-                      />
-                    </box>
-                  </button>
-                )}
-              </For>
-            </box>
-          </Gtk.ScrolledWindow>
-        </box>
+              <box
+                class="app-launcher__list"
+                orientation={Gtk.Orientation.VERTICAL}
+                spacing={4}
+              >
+                <For each={queryState((query) => getFilteredApps(query))}>
+                  {(entry, index) => (
+                    <button
+                      class={selectedIndexState((selectedIndex) =>
+                        selectedIndex === index.get()
+                          ? "app-launcher__item app-launcher__item--selected"
+                          : "app-launcher__item",
+                      )}
+                      cursor={pointerCursor}
+                      onClicked={() => launchApp(entry)}
+                      tooltipText={entry.id}
+                    >
+                      <box class="app-launcher__item-content" hexpand>
+                        <image
+                          class="app-launcher__item-icon"
+                          iconName={entry.iconName}
+                        />
+                        <label
+                          class="app-launcher__item-name"
+                          label={entry.name}
+                          xalign={0}
+                          hexpand
+                          ellipsize={Pango.EllipsizeMode.END}
+                          singleLineMode
+                          maxWidthChars={34}
+                        />
+                        <label
+                          class="app-launcher__item-desc"
+                          label={entry.description}
+                          xalign={1}
+                          ellipsize={Pango.EllipsizeMode.END}
+                          singleLineMode
+                          maxWidthChars={28}
+                        />
+                      </box>
+                    </button>
+                  )}
+                </For>
+              </box>
+            </Gtk.ScrolledWindow>
+          </box>
+        </Gtk.Revealer>
       </overlay>
     </window>
   )
