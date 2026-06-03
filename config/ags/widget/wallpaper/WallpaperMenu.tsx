@@ -357,7 +357,15 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
                     >
                       <box class="wallpaper-menu__thumb-frame">
                         <Gtk.Picture
-                          class="wallpaper-menu__thumb"
+                          class={selectedIndexState((selectedIndex) => {
+                            const base = "wallpaper-menu__thumb"
+                            const idx = index.get()
+                            if (idx === selectedIndex) return base
+                            const distance = Math.abs(idx - selectedIndex)
+                            if (distance === 1)
+                              return `${base} wallpaper-menu__thumb--adjacent`
+                            return `${base} wallpaper-menu__thumb--distant`
+                          })}
                           file={Gio.File.new_for_path(entry.path)}
                           contentFit={Gtk.ContentFit.COVER}
                           canShrink
