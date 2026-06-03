@@ -323,6 +323,16 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
             hscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
             heightRequest={wallpaperMenuScrollerHeight}
           >
+            <Gtk.EventControllerScroll
+              propagationPhase={Gtk.PropagationPhase.CAPTURE}
+              flags={Gtk.EventControllerScrollFlags.VERTICAL}
+              onScroll={(_, dx, dy) => {
+                const adj = wallpaperScroller?.hadjustment
+                if (!adj) return false
+                adj.set_value(adj.value + (dx || dy) * 4)
+                return true
+              }}
+            />
             <box
               class="wallpaper-menu__grid"
               orientation={Gtk.Orientation.HORIZONTAL}

@@ -16,6 +16,7 @@ window.WallpaperMenu {
   @include control-reset;
   min-width: 1px;
   min-height: 1px;
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .wallpaper-menu__panel {
@@ -120,7 +121,9 @@ window.WallpaperMenu {
 }
 
 .wallpaper-menu__item--selected .wallpaper-menu__thumb {
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, #{$color-brand} 60%, transparent 40%),
+    0 18px 40px rgba(0, 0, 0, 0.28);
 }
 .wallpaper-menu__item-name {
   color: $color-on-surface;
@@ -129,4 +132,9 @@ window.WallpaperMenu {
   min-width: 0;
   min-height: 18px;
   padding: 4px 6px 0;
+}
+
+.wallpaper-menu__item--selected .wallpaper-menu__item-name {
+  color: color-mix(in srgb, #{$color-brand} 80%, #{$color-on-surface} 20%);
+  font-weight: 600;
 }
