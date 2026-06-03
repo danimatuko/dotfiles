@@ -81,7 +81,8 @@ window.WallpaperMenu {
 }
 
 .wallpaper-menu__switch--focused {
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, #{$color-brand} 58%, #{$bg-surface} 42%);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, #{$color-brand} 58%, #{$bg-surface} 42%);
   border-radius: $radius-sm;
 }
 

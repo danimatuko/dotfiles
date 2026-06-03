@@ -86,9 +86,15 @@ const getDirectionalSelectedIndex = (
     case Gdk.KEY_Right:
       return normalizeSelectedIndex(selectedIndex + 1, resultCount)
     case Gdk.KEY_Up:
-      return normalizeSelectedIndex(selectedIndex - wallpaperGridColumns, resultCount)
+      return normalizeSelectedIndex(
+        selectedIndex - wallpaperGridColumns,
+        resultCount,
+      )
     case Gdk.KEY_Down:
-      return normalizeSelectedIndex(selectedIndex + wallpaperGridColumns, resultCount)
+      return normalizeSelectedIndex(
+        selectedIndex + wallpaperGridColumns,
+        resultCount,
+      )
     default:
       return selectedIndex
   }
@@ -228,7 +234,8 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
 
           if (keyval === Gdk.KEY_Tab) {
             const isShiftTab =
-              (state & Gdk.ModifierType.SHIFT_MASK) === Gdk.ModifierType.SHIFT_MASK
+              (state & Gdk.ModifierType.SHIFT_MASK) ===
+              Gdk.ModifierType.SHIFT_MASK
             cycleFocusMode(isShiftTab ? -1 : 1)
             return true
           }
@@ -323,7 +330,11 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
               })}
               xalign={1}
             />
-            <label class="wallpaper-menu__toggle-label" label="Theme only" xalign={0} />
+            <label
+              class="wallpaper-menu__toggle-label"
+              label="Theme only"
+              xalign={0}
+            />
             <switch
               class={focusModeState((focusMode) =>
                 focusMode === "toggle"
@@ -395,9 +406,7 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
               maxChildrenPerLine={3}
               selectionMode={Gtk.SelectionMode.NONE}
             >
-              <For
-                each={visibleWallpapersState}
-              >
+              <For each={visibleWallpapersState}>
                 {(entry, index) => (
                   <button
                     canFocus={false}

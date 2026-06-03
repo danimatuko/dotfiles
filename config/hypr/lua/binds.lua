@@ -28,7 +28,7 @@ hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- O
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- Maximize window
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("ags request toggle-launcher"))
 -- hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("ags request toggle-launcher"))
-hl.bind(mainMod .. " + TAB", hl.plugin.hymission.toggle)
+-- hl.bind(mainMod .. " + TAB", hl.plugin.hymission.toggle)
 hl.bind(mainMod .. " + O", function()
 	hl.plugin.hymission.dispatch("open", "onlycurrentworkspace")
 end)
