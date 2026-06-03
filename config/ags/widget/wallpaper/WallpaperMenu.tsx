@@ -19,7 +19,7 @@ const [selectedIndexState, setSelectedIndexState] = createState(0)
 
 const wallpaperItemEstimatedWidth = 288
 const wallpaperItemColumnSpacing = 8
-const wallpaperMenuScrollerHeight = 400
+const wallpaperMenuScrollerHeight = 330
 const wallpaperDockTransitionDuration = 240
 const wallpaperScrollAnimationDuration = 160
 const wallpaperThumbWidth = 260
@@ -309,8 +309,6 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
           hexpand
           halign={Gtk.Align.FILL}
           valign={Gtk.Align.END}
-          marginStart={16}
-          marginEnd={16}
         >
           <Gtk.ScrolledWindow
             onMap={(self) => {
