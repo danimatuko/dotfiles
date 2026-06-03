@@ -19,7 +19,7 @@ const [selectedIndexState, setSelectedIndexState] = createState(0)
 
 const wallpaperItemEstimatedWidth = 288
 const wallpaperItemColumnSpacing = 8
-const wallpaperMenuScrollerHeight = 280
+const wallpaperMenuScrollerHeight = 400
 const wallpaperDockTransitionDuration = 240
 const wallpaperScrollAnimationDuration = 160
 const wallpaperThumbWidth = 260
@@ -28,6 +28,38 @@ const wallpaperThumbHeight = 172
 let wallpaperScroller: Gtk.ScrolledWindow | null = null
 let wallpaperItemButtons: Gtk.Button[] = []
 let scrollAnimationSourceId: number | null = null
+const [panelState, setPanelState] = createState<"hidden" | "open">("hidden")
+let closeTimerId: number | null = null
+let openTimerId: number | null = null
+
+const cancelCloseTimer = () => {
+  if (closeTimerId !== null) {
+    GLib.Source.remove(closeTimerId)
+    closeTimerId = null
+  }
+}
+
+const cancelOpenTimer = () => {
+  if (openTimerId !== null) {
+    GLib.Source.remove(openTimerId)
+    openTimerId = null
+  }
+}
+
+const requestClosePanel = () => {
+  cancelOpenTimer()
+  setPanelState("hidden")
+  cancelCloseTimer()
+  closeTimerId = GLib.timeout_add(
+    GLib.PRIORITY_DEFAULT,
+    wallpaperDockTransitionDuration,
+    () => {
+      closeWallpaperMenu()
+      closeTimerId = null
+      return GLib.SOURCE_REMOVE
+    },
+  )
+}
 
 const pointerCursor = Gdk.Cursor.new_from_name("pointer", null)
 
@@ -196,7 +228,7 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
       class={getThemeWindowClass("WallpaperMenu")}
       visible={isWallpaperMenuVisible}
       gdkmonitor={gdkmonitor}
-      layer={Astal.Layer.TOP}
+      layer={Astal.Layer.OVERLAY}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
       exclusivity={Astal.Exclusivity.IGNORE}
       keymode={Astal.Keymode.ON_DEMAND}
@@ -206,6 +238,14 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
           setSelectedIndexState(0)
           refreshVisibleWallpapers()
           wallpaperScroller?.hadjustment?.set_value(0)
+          cancelCloseTimer()
+          cancelOpenTimer()
+          setPanelState("hidden")
+          openTimerId = GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+            setPanelState("open")
+            openTimerId = null
+            return GLib.SOURCE_REMOVE
+          })
         }
       }}
       application={app}
@@ -214,7 +254,7 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
         propagationPhase={Gtk.PropagationPhase.CAPTURE}
         onKeyPressed={(_, keyval) => {
           if (keyval === Gdk.KEY_Escape) {
-            closeWallpaperMenu()
+            requestClosePanel()
             return true
           }
 
@@ -232,10 +272,7 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
             )
             setSelectedIndexState(nextIndex)
             ensureSelectedWallpaperVisible(nextIndex)
-            GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
-              reorderSelectedOnTop()
-              return GLib.SOURCE_REMOVE
-            })
+            reorderSelectedOnTop()
             return true
           }
 
@@ -256,106 +293,97 @@ export default function WallpaperMenu(gdkmonitor: Gdk.Monitor) {
           <Gtk.GestureClick
             button={0}
             onPressed={() => {
-              closeWallpaperMenu()
+              requestClosePanel()
             }}
           />
         </box>
 
-        <Gtk.Revealer
-          revealChild={isWallpaperMenuVisible}
-          transitionType={Gtk.RevealerTransitionType.SLIDE_UP}
-          transitionDuration={wallpaperDockTransitionDuration}
+        <box
+          class={panelState((state) =>
+            state === "open"
+              ? "wallpaper-menu__panel wallpaper-menu__panel--open"
+              : "wallpaper-menu__panel",
+          )}
+          orientation={Gtk.Orientation.VERTICAL}
+          spacing={0}
           hexpand
           halign={Gtk.Align.FILL}
           valign={Gtk.Align.END}
+          marginStart={16}
+          marginEnd={16}
         >
-          <box
-            class="wallpaper-menu__panel"
-            orientation={Gtk.Orientation.VERTICAL}
-            spacing={0}
-            hexpand
-            marginStart={16}
-            marginEnd={16}
+          <Gtk.ScrolledWindow
+            onMap={(self) => {
+              wallpaperScroller = self
+            }}
+            cssClasses={["wallpaper-menu__scroller"]}
+            minContentHeight={wallpaperMenuScrollerHeight}
+            propagateNaturalHeight={false}
+            vscrollbarPolicy={Gtk.PolicyType.NEVER}
+            hscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
+            heightRequest={wallpaperMenuScrollerHeight}
           >
-            <Gtk.ScrolledWindow
-              onMap={(self) => {
-                wallpaperScroller = self
-              }}
-              cssClasses={["wallpaper-menu__scroller"]}
-              minContentHeight={wallpaperMenuScrollerHeight}
-              propagateNaturalHeight={false}
-              vscrollbarPolicy={Gtk.PolicyType.NEVER}
-              hscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
-              heightRequest={wallpaperMenuScrollerHeight}
+            <box
+              class="wallpaper-menu__grid"
+              orientation={Gtk.Orientation.HORIZONTAL}
+              spacing={8}
+              valign={Gtk.Align.END}
             >
-              <box
-                class="wallpaper-menu__grid"
-                orientation={Gtk.Orientation.HORIZONTAL}
-                spacing={8}
-              >
-                <For each={visibleWallpapersState}>
-                  {(entry, index) => (
-                    <button
-                      canFocus={false}
-                      class={selectedIndexState((selectedIndex) =>
-                        selectedIndex === index.get()
-                          ? "wallpaper-menu__item wallpaper-menu__item--selected"
-                          : "wallpaper-menu__item",
-                      )}
-                      cursor={pointerCursor}
-                      tooltipText={entry.path}
-                      onMap={(self) => {
-                        wallpaperItemButtons[index.get()] = self
-                      }}
-                      onClicked={() => {
-                        setSelectedIndexState(index.get())
-                        ensureSelectedWallpaperVisible(index.get())
-                        GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
-                          reorderSelectedOnTop()
-                          return GLib.SOURCE_REMOVE
-                        })
-                        applyWallpaper(entry).catch(() => {})
-                      }}
+              <For each={visibleWallpapersState}>
+                {(entry, index) => (
+                  <button
+                    canFocus={false}
+                    class={selectedIndexState((selectedIndex) =>
+                      selectedIndex === index.get()
+                        ? "wallpaper-menu__item wallpaper-menu__item--selected"
+                        : "wallpaper-menu__item",
+                    )}
+                    cursor={pointerCursor}
+                    tooltipText={entry.path}
+                    onMap={(self) => {
+                      wallpaperItemButtons[index.get()] = self
+                    }}
+                    onClicked={() => {
+                      setSelectedIndexState(index.get())
+                      ensureSelectedWallpaperVisible(index.get())
+                      reorderSelectedOnTop()
+                      applyWallpaper(entry).catch(() => {})
+                    }}
+                  >
+                    <box
+                      class="wallpaper-menu__item-content"
+                      orientation={Gtk.Orientation.VERTICAL}
+                      spacing={4}
                     >
-                      <box
-                        class="wallpaper-menu__item-content"
-                        orientation={Gtk.Orientation.VERTICAL}
-                        spacing={4}
-                      >
-                        <box class="wallpaper-menu__thumb-frame">
-                          <Gtk.Picture
-                            class={selectedIndexState((selectedIndex) =>
-                              selectedIndex === index.get()
-                                ? "wallpaper-menu__thumb wallpaper-menu__thumb--selected"
-                                : "wallpaper-menu__thumb",
-                            )}
-                            file={Gio.File.new_for_path(entry.path)}
-                            contentFit={Gtk.ContentFit.COVER}
-                            canShrink
-                            widthRequest={wallpaperThumbWidth}
-                            heightRequest={wallpaperThumbHeight}
-                            halign={Gtk.Align.CENTER}
-                            valign={Gtk.Align.CENTER}
-                          />
-                        </box>
-                        <label
-                          class="wallpaper-menu__item-name"
-                          label={entry.name}
-                          xalign={0}
-                          justify={Gtk.Justification.LEFT}
-                          ellipsize={Pango.EllipsizeMode.END}
-                          singleLineMode
-                          maxWidthChars={16}
-                          hexpand
+                      <box class="wallpaper-menu__thumb-frame">
+                        <Gtk.Picture
+                          class="wallpaper-menu__thumb"
+                          file={Gio.File.new_for_path(entry.path)}
+                          contentFit={Gtk.ContentFit.COVER}
+                          canShrink
+                          widthRequest={wallpaperThumbWidth}
+                          heightRequest={wallpaperThumbHeight}
+                          halign={Gtk.Align.CENTER}
+                          valign={Gtk.Align.CENTER}
                         />
                       </box>
-                    </button>
-                  )}
-                </For>
-              </box>
-            </Gtk.ScrolledWindow>
-          </box>
-        </Gtk.Revealer>
+                      <label
+                        class="wallpaper-menu__item-name"
+                        label={entry.name}
+                        xalign={0}
+                        justify={Gtk.Justification.LEFT}
+                        ellipsize={Pango.EllipsizeMode.END}
+                        singleLineMode
+                        maxWidthChars={16}
+                        hexpand
+                      />
+                    </box>
+                  </button>
+                )}
+              </For>
+            </box>
+          </Gtk.ScrolledWindow>
+        </box>
       </overlay>
     </window>
   )

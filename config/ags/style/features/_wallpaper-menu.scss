@@ -20,7 +20,7 @@ window.WallpaperMenu {
 
 .wallpaper-menu__panel {
   margin-top: 0;
-  padding: 28px 10px 14px;
+  padding: 30px 10px 16px;
   border-radius: 24px 24px 0 0;
   border: 1px solid transparent;
   border-bottom: 0;
@@ -28,18 +28,24 @@ window.WallpaperMenu {
   box-shadow:
     0 -1px 0 rgba(255, 255, 255, 0.02),
     0 10px 24px rgba(0, 0, 0, 0.14);
+  transform: translateY(100%);
   transition:
+    transform 240ms ease-out,
     background 180ms ease-out,
     border-color 180ms ease-out,
     box-shadow 220ms ease-out;
 }
 
+.wallpaper-menu__panel--open {
+  transform: translateY(0);
+}
+
 .wallpaper-menu__grid {
-  padding: 10px 6px 12px;
+  padding: 6px 6px 14px;
 }
 
 .wallpaper-menu__scroller {
-  min-height: 280px;
+  min-height: 400px;
 }
 
 .wallpaper-menu__item {
@@ -49,6 +55,7 @@ window.WallpaperMenu {
   padding: 6px 10px 4px;
   background: transparent;
   min-width: 280px;
+  transform-origin: center bottom;
   transition:
     background 180ms ease-out,
     border-color 180ms ease-out,
@@ -64,11 +71,11 @@ window.WallpaperMenu {
 
 .wallpaper-menu__item--selected {
   position: relative;
-  z-index: 10;
-  border-color: color-mix(in srgb, #{$color-brand} 44%, transparent 56%);
-  background: color-mix(in srgb, #{$bg-surface} 18%, transparent 82%);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+  z-index: 999;
+  border-color: color-mix(in srgb, #{$color-brand} 62%, transparent 38%);
+  background: color-mix(in srgb, #{$bg-surface} 26%, transparent 74%);
+  transform: translateY(-10px) scale(1.22);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
 }
 
 .wallpaper-menu__item-content {
@@ -100,9 +107,8 @@ window.WallpaperMenu {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
 }
 
-.wallpaper-menu__thumb--selected {
-  transform: scale(1.25);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+.wallpaper-menu__item--selected .wallpaper-menu__thumb {
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
 }
 .wallpaper-menu__item-name {
   color: $color-on-surface;
