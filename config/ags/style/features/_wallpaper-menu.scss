@@ -48,6 +48,10 @@ window.WallpaperMenu {
   min-height: 400px;
 }
 
+.wallpaper-menu__scroller viewport {
+  overflow: visible;
+}
+
 .wallpaper-menu__item {
   @include control-reset;
   border-radius: 16px;
