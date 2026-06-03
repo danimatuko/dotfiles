@@ -71,7 +71,7 @@ window.WallpaperMenu {
 
 .wallpaper-menu__item--selected {
   position: relative;
-  z-index: 999;
+  z-index: 9999;
   border-color: color-mix(in srgb, #{$color-brand} 62%, transparent 38%);
   background: color-mix(in srgb, #{$bg-surface} 26%, transparent 74%);
   transform: translateY(-10px) scale(1.22);
