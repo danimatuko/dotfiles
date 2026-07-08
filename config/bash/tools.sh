@@ -5,9 +5,8 @@ if command -v zoxide >/dev/null 2>&1; then
   alias cd='z'
 fi
 
-if command -v zellij &>/dev/null; then
-  eval "$(zellij setup --generate-auto-start bash)"
-fi
+# if command -v zellij &>/dev/null; then
+#   eval "$(zellij setup --generate-auto-start bash)"
+# fi
 
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
-
