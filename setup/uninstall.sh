@@ -115,12 +115,10 @@ do_remove_symlink "$HOME/.bashrc" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.zshrc" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.gitconfig" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.tmux.conf" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/ags" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/ghostty" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/hypr" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/kitty" "$DOTFILES_DIR/config"
 do_remove_symlink "$HOME/.config/nvim" "$DOTFILES_DIR/config"
-do_remove_symlink "$HOME/.config/wlogout" "$DOTFILES_DIR/config"
 
 if $RESTORE_BACKUP; then
 	echo "\n== Restore from Backup =="

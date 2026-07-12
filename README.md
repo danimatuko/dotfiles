@@ -54,19 +54,16 @@ bash ~/dotfiles/setup/uninstall.sh --apply
 bash ~/dotfiles/setup/uninstall.sh --apply --restore-latest-backup
 ```
 
-## AGS
+## Desktop Shell
 
-The desktop shell is based on AGS and runs on Hyprland.
+The desktop shell is based on QuickShell/Noctalia and runs on Hyprland.
 
-- AGS: https://github.com/Aylur/ags
 - Hyprland: https://github.com/hyprwm/Hyprland
-- Local AGS docs: `config/ags/README.md`
 
 ## Notes
 
 - Target platform is Arch Linux with Wayland/Hyprland.
 - Root repository behavior is script-driven; there is no root package.json task runner.
-- The only Node/TypeScript project in this repo is config/ags/.
 
 ## Branch Naming
 
@@ -86,7 +83,7 @@ Reserved prefixes:
 
 Examples:
 
-- `feat/ags-quick-settings-grouping`
+- `feat/hypr-shell-controls`
 - `fix/hyprlock-theme-paths`
 - `chore/setup-prune-legacy-links`
 

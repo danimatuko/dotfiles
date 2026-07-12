@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# power-control — Unified power/session control for Hyprland + wlogout
+# power-control - Unified power/session control for Hyprland
 # Usage: power-control <lock|logout|reboot|shutdown>
 
 # Source centralized sounds

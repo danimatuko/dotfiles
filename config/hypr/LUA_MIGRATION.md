@@ -27,7 +27,7 @@ After changes, restart Hyprland and verify:
 1. Terminal and close-window binds (`SUPER+RETURN`, `SUPER+Q`).
 2. Workspace change/move binds (`SUPER+1..0`, `SUPER+SHIFT+1..0`).
 3. Monitor layout and scale are correct.
-4. AGS toggles and launcher/sidebar/power menu bindings work.
+4. Noctalia/QuickShell controls, launcher, session menu, and wallpaper menu work.
 5. Lock/logout flow works.
 6. App-to-workspace rules apply (Ghostty -> 1, Brave -> 2).
 

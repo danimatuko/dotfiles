@@ -17,18 +17,6 @@ hl.window_rule({
 
 -- Layer rules: bars/launchers/panels
 
--- Logout dialog
-hl.layer_rule({
-	name = "logout-dialog-blur",
-	match = { namespace = "logout_dialog" },
-	blur = true,
-})
-hl.layer_rule({
-	name = "logout-dialog-alpha",
-	match = { namespace = "logout_dialog" },
-	ignore_alpha = 0.5,
-})
-
 -- Generic GTK layer shell clients
 hl.layer_rule({
 	name = "gtk4-layer-shell-blur",
@@ -39,42 +27,6 @@ hl.layer_rule({
 	name = "gtk4-layer-shell-alpha",
 	match = { namespace = "gtk4-layer-shell" },
 	ignore_alpha = 0.5,
-})
-
--- AGS sidebar and backdrop
-hl.layer_rule({
-	name = "ags-sidebar-blur",
-	match = { namespace = "ags-sidebar" },
-	blur = true,
-})
-hl.layer_rule({
-	name = "ags-sidebar-alpha",
-	match = { namespace = "ags-sidebar" },
-	ignore_alpha = 0.5,
-})
-hl.layer_rule({
-	name = "ags-sidebar-animation",
-	match = { namespace = "ags-sidebar" },
-	animation = "slide right",
-})
-hl.layer_rule({
-	name = "ags-sidebar-backdrop-animation",
-	match = { namespace = "ags-sidebar-backdrop" },
-	animation = "fade",
-})
-
--- AGS launcher: let GTK handle panel animation
-hl.layer_rule({
-	name = "ags-launcher-animation",
-	match = { namespace = "ags-app-launcher" },
-	animation = "none",
-})
-
--- AGS theme switcher: let GTK handle panel animation
-hl.layer_rule({
-	name = "ags-theme-switcher-animation",
-	match = { namespace = "ags-theme-switcher" },
-	animation = "none",
 })
 
 -- Smart single-window behavior (tiled + visible only)

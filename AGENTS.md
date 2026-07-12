@@ -5,7 +5,6 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 ## Scope
 
 - Root rules apply repo-wide unless a deeper `AGENTS.md` overrides them.
-- `config/ags/AGENTS.md` is authoritative for everything under `config/ags/`.
 
 ## Verified Source Of Truth
 
@@ -14,8 +13,6 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
 ## Project Boundaries
 
 - Root repo is shell-script driven; there is no root `package.json`/task runner/CI workflow.
-- The only Node/TypeScript project is `config/ags/` (`package.json`, `tsconfig.json`).
-- Do not mix AGS-specific rules into root edits; defer to `config/ags/AGENTS.md` when working there.
 
 ## High-Signal Layout
 
@@ -34,9 +31,6 @@ Guidance for agents working in `/home/danimatuko/dotfiles`.
   - preview: `bash setup/uninstall.sh`
   - apply: `bash setup/uninstall.sh --apply`
   - apply + restore latest backup: `bash setup/uninstall.sh --apply --restore-latest-backup`
-- AGS package checks (run inside `config/ags/`):
-  - typecheck: `npx --yes typescript tsc --noEmit -p tsconfig.json`
-  - format check: `npx --yes prettier --check "**/*.{ts,tsx,scss,json,md}"`
 - Hyprland Lua sanity checks:
   - parse main file: `luac -p config/hypr/hyprland.lua`
   - parse all modules: `for f in config/hypr/lua/*.lua; do luac -p "$f"; done`
@@ -68,7 +62,7 @@ Use branch names in one of these formats:
 
 ### Area and Description
 
-- `area` is optional but recommended (for example: `ags`, `hypr`, `setup`, `bin`, `nvim`)
+- `area` is optional but recommended (for example: `hypr`, `setup`, `bin`, `nvim`)
 - `short-description` is required, action-focused, and lowercase kebab-case
 
 ### Reserved Prefixes
@@ -78,7 +72,7 @@ Use branch names in one of these formats:
 
 ### Examples
 
-- `feat/ags-quick-settings-grouping`
+- `feat/hypr-shell-controls`
 - `fix/hyprlock-theme-paths`
 - `chore/setup-prune-legacy-links`
 - `docs/branch-naming-convention`
