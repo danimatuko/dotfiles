@@ -13,7 +13,6 @@ Current top-level directories:
 - bin: active user command entrypoints linked to ~/.local/bin
 - themes: shared theme assets
 - scripts: helper scripts and unit files
-- assets: shared static assets
 
 ## Installation
 
