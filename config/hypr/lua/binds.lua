@@ -3,9 +3,9 @@
 ---------------------
 
 -- Set programs that you use
-local terminal = "ghostty"
-local browser = "brave"
-local fileManager = "nautilus"
+local terminal = "warp-terminal"
+local browser = "vivaldi"
+local fileManager = "spf"
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -17,31 +17,38 @@ local function dispatch(cmd)
 	return hl.dsp.exec_cmd("hyprctl dispatch " .. cmd)
 end
 
+local function noctalia(target, method)
+	return hl.dsp.exec_cmd("qs -c noctalia-shell ipc call " .. target .. " " .. method)
+end
+
 -- Actions
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal)) -- Open Terminal
 hl.bind(mainMod .. " + Q", hl.dsp.window.close()) -- Close current window
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exit()) -- Exit Hyprland
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager)) -- Open file manager
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" })) -- Toggle between tiling and floating window
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("ags request toggle-theme-menu"))
+hl.bind(mainMod .. " + SHIFT + T", noctalia("settings", "toggleTab color-scheme"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- Open the window in fullscreen
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- Maximize window
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("ags request toggle-launcher"))
--- hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("ags request toggle-launcher"))
+hl.bind(mainMod .. " + A", noctalia("launcher", "toggle"))
+-- hl.bind(mainMod .. " + TAB", noctalia("launcher", "toggle"))
 -- hl.bind(mainMod .. " + TAB", hl.plugin.hymission.toggle)
 hl.bind(mainMod .. " + O", function()
 	hl.plugin.hymission.dispatch("open", "onlycurrentworkspace")
 end)
 hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- Swap with master
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("ags request toggle-power-menu"))
+hl.bind(mainMod .. " + ESCAPE", noctalia("sessionMenu", "toggle"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("blazinlock -s"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("ags request toggle-sidebar"))
+hl.bind(mainMod .. " + N", noctalia("controlCenter", "toggle"))
 hl.bind(mainMod .. " + D", hl.dsp.layout("orientationnext")) -- Cycle orientation
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Open browser
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ags request toggle-clipboard-menu"))
-hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/.local/bin/ags-reload")) -- Reload AGS
+hl.bind(mainMod .. " + V", noctalia("launcher", "clipboard"))
+hl.bind(
+	mainMod .. " + SHIFT + A",
+	hl.dsp.exec_cmd("sh -c 'qs kill -c noctalia-shell; qs -c noctalia-shell >/tmp/noctalia-shell.log 2>&1 &'")
+) -- Restart Noctalia shell
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.local/bin/reload-hyprland")) -- Reload Hyprland config
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("ags request toggle-wallpaper-menu"))
+hl.bind(mainMod .. " + SHIFT + W", noctalia("wallpaper", "toggle"))
 -- hl.bind("ALT + TAB", dispatch("cyclenext")) -- Change focus to another window
 -- Move active windows with keyboard only
 -- These four bindings use vim-style navigation keys (h/j/k/l).
@@ -61,45 +68,29 @@ hl.bind(mainMod .. " + PERIOD", hl.dsp.layout("cyclenext"))
 hl.bind(mainMod .. " + SHIFT + PERIOD", hl.dsp.layout("cycleprev"))
 
 -- Screenshot binds
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("ags request toggle-screenshot-menu"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.local/bin/screenshot region"))
 
 -- Audio controls
-hl.bind(
-	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"),
-	{ locked = true, repeating = true }
-) -- Increase volume by 5%
-hl.bind(
-	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-	{ locked = true, repeating = true }
-) -- Decrease volume by 5%
+hl.bind("XF86AudioRaiseVolume", noctalia("volume", "increase"), { locked = true, repeating = true }) -- Increase volume by 5%
+hl.bind("XF86AudioLowerVolume", noctalia("volume", "decrease"), { locked = true, repeating = true }) -- Decrease volume by 5%
 
-hl.bind(
-	"XF86AudioMute",
-	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-	{ locked = true, repeating = true }
-) -- Toggle audio mute
-hl.bind(
-	"XF86AudioMicMute",
-	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-	{ locked = true, repeating = true }
-) -- Toggle microphone mute
+hl.bind("XF86AudioMute", noctalia("volume", "muteOutput"), { locked = true, repeating = true }) -- Toggle audio mute
+hl.bind("XF86AudioMicMute", noctalia("volume", "muteInput"), { locked = true, repeating = true }) -- Toggle microphone mute
 
 -- Brightness controls
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +5%"), { locked = true, repeating = true }) -- Increase screen brightness by 5%
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true }) -- Decrease screen brightness by 5%
+hl.bind("XF86MonBrightnessUp", noctalia("brightness", "increase"), { locked = true, repeating = true }) -- Increase screen brightness
+hl.bind("XF86MonBrightnessDown", noctalia("brightness", "decrease"), { locked = true, repeating = true }) -- Decrease screen brightness
 
 -- Network toggle
-hl.bind("XF86WLAN", hl.dsp.exec_cmd("nmcli radio wifi toggle"), { locked = true }) -- Toggle WiFi on/off
+hl.bind("XF86WLAN", noctalia("wifi", "toggle"), { locked = true }) -- Toggle WiFi on/off
 
 -- Refresh key (for browsers and some apps)
 hl.bind("XF86Refresh", hl.dsp.exec_cmd("xdotool key F5"), { locked = true }) -- Simulate F5 key press for refresh
 
 -- Media playback controls
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true }) -- Play/pause media
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true }) -- Play previous track
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true }) -- Play next track
+hl.bind("XF86AudioPlay", noctalia("media", "playPause"), { locked = true }) -- Play/pause media
+hl.bind("XF86AudioPrev", noctalia("media", "previous"), { locked = true }) -- Play previous track
+hl.bind("XF86AudioNext", noctalia("media", "next"), { locked = true }) -- Play next track
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" })) -- Move focus left
