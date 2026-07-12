@@ -33,5 +33,5 @@ After changes, restart Hyprland and verify:
 
 ## Notes
 
-- Keep legacy `.conf` files as reference until Lua behavior is fully stable.
+- Legacy Hyprland `.conf` files are archived under `legacy/` for reference.
 - If a bind/rule fails, check Hyprland runtime errors first, then patch the corresponding module.
