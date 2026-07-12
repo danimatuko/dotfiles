@@ -53,13 +53,13 @@ hl.workspace_rule({ workspace = "5", persistent = true })
 
 -- App-to-workspace rules
 hl.window_rule({
-	name = "ghostty-workspace-1",
-	match = { class = "^(ghostty|com\\.mitchellh\\.ghostty)$" },
+	name = "terminal-workspace-1",
+	match = { class = "^dev\\.warp\\.Warp$" },
 	workspace = "1",
 })
 hl.window_rule({
-	name = "brave-workspace-2",
-	match = { class = "^(brave|brave-browser|Brave-browser)$" },
+	name = "browser-workspace-2",
+	match = { class = "^vivaldi-stable$" },
 	workspace = "2",
 })
 
