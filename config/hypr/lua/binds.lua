@@ -38,7 +38,7 @@ hl.bind(mainMod .. " + O", function()
 end)
 hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- Swap with master
 hl.bind(mainMod .. " + ESCAPE", noctalia("sessionMenu", "toggle"))
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("blazinlock -s"))
+-- Hyprlock disabled: keep SUPER+L unbound.
 hl.bind(mainMod .. " + N", noctalia("controlCenter", "toggle"))
 hl.bind(mainMod .. " + D", hl.dsp.layout("orientationnext")) -- Cycle orientation
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Open browser

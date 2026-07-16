@@ -13,9 +13,7 @@ TITLE="Power Control"  # Unified notification title
 
 case "$ACTION" in
     lock)
-        $notify_cmd "$TITLE" "Screen locked" low system-lock-screen "$SOUND_UPDATE"
-        sleep 1
-        hyprctl dispatch exec hyprlock
+        $notify_cmd "$TITLE" "Hyprlock is disabled" low system-lock-screen "$SOUND_UPDATE"
         ;;
 
     logout)
