@@ -53,14 +53,19 @@ hl.workspace_rule({ workspace = "5", persistent = true })
 
 -- App-to-workspace rules
 hl.window_rule({
-	name = "terminal-workspace-1",
-	match = { class = "^dev\\.warp\\.Warp$" },
+	name = "obsidian-workspace-1",
+	match = { class = "^obsidian$" },
 	workspace = "1",
 })
 hl.window_rule({
-	name = "browser-workspace-2",
-	match = { class = "^vivaldi-stable$" },
+	name = "terminal-workspace-2",
+	match = { class = "^dev\\.warp\\.Warp$" },
 	workspace = "2",
+})
+hl.window_rule({
+	name = "browser-workspace-3",
+	match = { class = "^vivaldi-stable$" },
+	workspace = "3",
 })
 
 -- Keep helper runner window floating
