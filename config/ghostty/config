@@ -1,0 +1,2 @@
+# The active theme is managed by bin/system-theme-set.
+config-file = /home/danimatuko/.config/ghostty/themes/current
