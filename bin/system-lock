@@ -1,4 +1,2 @@
 #!/usr/bin/env bash
-~/.local/bin/notify "Locked" "Screen locked" "low" "system-lock-screen" "none" default
-sleep 1
-hyprctl dispatch exec hyprlock
+~/.local/bin/notify "Lock disabled" "Hyprlock is disabled" "low" "system-lock-screen" "none" default

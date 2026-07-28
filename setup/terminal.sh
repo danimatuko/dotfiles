@@ -30,7 +30,6 @@ yay -S --noconfirm --needed \
 	wl-clipboard \
 	kitty \
 	ghostty \
-	wlogout \
 	pavucontrol \
 	pipewire \
 	wireplumber \

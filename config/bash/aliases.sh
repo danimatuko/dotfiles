@@ -3,6 +3,7 @@
 alias c='clear'
 alias rm='rm -i'
 alias vim='nvim'
+alias nv='nvim'
 alias oc='opencode'
 alias dots='cd ~/dotfiles && nvim'
 alias hypr='cd ~/.config/hypr && nvim'

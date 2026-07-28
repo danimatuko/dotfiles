@@ -27,11 +27,11 @@ After changes, restart Hyprland and verify:
 1. Terminal and close-window binds (`SUPER+RETURN`, `SUPER+Q`).
 2. Workspace change/move binds (`SUPER+1..0`, `SUPER+SHIFT+1..0`).
 3. Monitor layout and scale are correct.
-4. AGS toggles and launcher/sidebar/power menu bindings work.
+4. Noctalia/QuickShell controls, launcher, session menu, and wallpaper menu work.
 5. Lock/logout flow works.
 6. App-to-workspace rules apply (Ghostty -> 1, Brave -> 2).
 
 ## Notes
 
-- Keep legacy `.conf` files as reference until Lua behavior is fully stable.
+- Legacy Hyprland `.conf` files have been removed; use the Lua modules as the source of truth.
 - If a bind/rule fails, check Hyprland runtime errors first, then patch the corresponding module.

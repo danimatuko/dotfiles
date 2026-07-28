@@ -31,13 +31,10 @@ backup_and_link "$CONFIG_DIR/.gitconfig" "$HOME/.gitconfig"
 backup_and_link "$CONFIG_DIR/.tmux.conf" "$HOME/.tmux.conf"
 
 # Config folders
-backup_and_link "$CONFIG_DIR/ags" "$HOME/.config/ags"
-backup_and_link "$CONFIG_DIR/fish" "$HOME/.config/fish"
 backup_and_link "$CONFIG_DIR/ghostty" "$HOME/.config/ghostty"
 backup_and_link "$CONFIG_DIR/hypr" "$HOME/.config/hypr"
 backup_and_link "$CONFIG_DIR/kitty" "$HOME/.config/kitty"
 backup_and_link "$CONFIG_DIR/nvim" "$HOME/.config/nvim"
-backup_and_link "$CONFIG_DIR/wlogout" "$HOME/.config/wlogout"
 backup_and_link "$CONFIG_DIR/zellij" "$HOME/.config/zellij"
 
 echo ""

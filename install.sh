@@ -3,7 +3,7 @@
 set -e
 
 STAGE_INDEX=0
-STAGE_TOTAL=10
+STAGE_TOTAL=11
 
 confirm_prompt() {
 	local message="$1"
@@ -94,9 +94,6 @@ source ~/dotfiles/setup/icons.sh
 
 stage "Desktop" "Install the Hyprland compositor and portal stack"
 source ~/dotfiles/setup/desktop.sh
-
-stage "Shell UI" "Install AGS runtime dependencies and app packages"
-source ~/dotfiles/setup/ags.sh
 
 stage "User Shell" "Configure the default interactive shell"
 source ~/dotfiles/setup/shell.sh
