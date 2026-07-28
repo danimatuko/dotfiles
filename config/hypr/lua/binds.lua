@@ -3,7 +3,7 @@
 ---------------------
 
 -- Set programs that you use
-local terminal = "warp-terminal"
+local terminal = "ghostty"
 local browser = "vivaldi"
 local fileManager = "spf"
 
@@ -22,6 +22,7 @@ local function noctalia(target, method)
 end
 
 -- Actions
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("obsidian")) -- Open Obsidian
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal)) -- Open Terminal
 hl.bind(mainMod .. " + Q", hl.dsp.window.close()) -- Close current window
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exit()) -- Exit Hyprland
@@ -31,11 +32,9 @@ hl.bind(mainMod .. " + SHIFT + T", noctalia("settings", "toggleTab color-scheme"
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- Open the window in fullscreen
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- Maximize window
 hl.bind(mainMod .. " + A", noctalia("launcher", "toggle"))
--- hl.bind(mainMod .. " + TAB", noctalia("launcher", "toggle"))
--- hl.bind(mainMod .. " + TAB", hl.plugin.hymission.toggle)
-hl.bind(mainMod .. " + O", function()
-	hl.plugin.hymission.dispatch("open", "onlycurrentworkspace")
-end)
+hl.bind(mainMod .. " + TAB", hl.plugin.gloview.toggle)
+hl.bind(mainMod .. " + SHIFT + TAB", hl.plugin.gloview.desktop)
+hl.bind(mainMod .. " + CTRL + TAB", hl.plugin.gloview.allworkspaces)
 hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- Swap with master
 hl.bind(mainMod .. " + ESCAPE", noctalia("sessionMenu", "toggle"))
 -- Hyprlock disabled: keep SUPER+L unbound.
