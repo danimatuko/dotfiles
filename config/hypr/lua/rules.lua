@@ -59,7 +59,7 @@ hl.window_rule({
 })
 hl.window_rule({
 	name = "terminal-workspace-2",
-	match = { class = "^dev\\.warp\\.Warp$" },
+	match = { class = "^com\\.mitchellh\\.ghostty$" },
 	workspace = "2",
 })
 hl.window_rule({
