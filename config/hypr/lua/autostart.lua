@@ -8,6 +8,8 @@
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
+	-- hyprpm loads enabled plugins into each new Hyprland process.
+	hl.exec_cmd("sh -c 'hyprpm reload >/tmp/hyprpm-reload.log 2>&1'")
 	hl.exec_cmd("qs -c noctalia-shell")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("hyprsunset")

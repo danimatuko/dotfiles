@@ -32,9 +32,12 @@ hl.bind(mainMod .. " + SHIFT + T", noctalia("settings", "toggleTab color-scheme"
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" })) -- Open the window in fullscreen
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })) -- Maximize window
 hl.bind(mainMod .. " + A", noctalia("launcher", "toggle"))
-hl.bind(mainMod .. " + TAB", hl.plugin.gloview.toggle)
-hl.bind(mainMod .. " + SHIFT + TAB", hl.plugin.gloview.desktop)
-hl.bind(mainMod .. " + CTRL + TAB", hl.plugin.gloview.allworkspaces)
+if hl.plugin and hl.plugin.gloview then
+	local gloview = hl.plugin.gloview
+	hl.bind(mainMod .. " + TAB", gloview.toggle)
+	hl.bind(mainMod .. " + SHIFT + TAB", gloview.desktop)
+	hl.bind(mainMod .. " + CTRL + TAB", gloview.allworkspaces)
+end
 hl.bind(mainMod .. " + P", hl.dsp.layout("swapwithmaster auto")) -- Swap with master
 hl.bind(mainMod .. " + ESCAPE", noctalia("sessionMenu", "toggle"))
 -- Hyprlock disabled: keep SUPER+L unbound.
