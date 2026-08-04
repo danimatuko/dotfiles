@@ -32,7 +32,7 @@ What install.sh does:
 - It links commands from bin/ into ~/.local/bin
 - It asks before linking config files from config/
 
-
+See [`REINSTALL_CHECKLIST.md`](REINSTALL_CHECKLIST.md) for the system reproducibility checklist.
 
 ## Operations
 

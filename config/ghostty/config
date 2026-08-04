@@ -1,3 +1,4 @@
 # The active theme is managed by bin/system-theme-set.
 config-file = /home/danimatuko/.config/ghostty/themes/current
 font-family = GeistMono Nerd Font Mono
+theme = noctalia
