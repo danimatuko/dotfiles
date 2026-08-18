@@ -30,6 +30,7 @@ yay -S --noconfirm --needed \
 	wl-clipboard \
 	kitty \
 	ghostty \
+	warp-terminal \
 	pavucontrol \
 	pipewire \
 	wireplumber \

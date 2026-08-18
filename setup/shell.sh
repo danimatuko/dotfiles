@@ -2,11 +2,11 @@
 
 set -e
 
-echo "[INFO] Ensuring bash shell is installed..."
+echo "[INFO] Ensuring fish shell is installed..."
 
-yay -S --noconfirm --needed bash
+yay -S --noconfirm --needed fish
 
-echo "[INFO] Setting default shell to bash..."
-sudo usermod --shell "$(command -v bash)" "$USER"
+echo "[INFO] Setting default shell to fish..."
+sudo usermod --shell "$(command -v fish)" "$USER"
 
-echo "[OK] Bash shell installed and set as default."
+echo "[OK] Fish shell installed and set as default."

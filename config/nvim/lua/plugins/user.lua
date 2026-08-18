@@ -3,6 +3,8 @@
 -- Here are some examples:
 
 ---@type LazySpec
+if true then return {} end -- Remove this line to enable this file
+
 return {
 
   -- == Examples of Adding Plugins ==

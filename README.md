@@ -62,7 +62,7 @@ The desktop shell is based on QuickShell/Noctalia and runs on Hyprland.
 ## Managed Configurations
 
 - Bash aliases include shortcuts for Neovim and common dotfiles workflows.
-- Zellij can start automatically from Bash. Set `ZELLIJ_AUTO_ATTACH=true` to attach to an existing session, or leave it unset to start the welcome layout. Set `ZELLIJ_AUTO_EXIT=true` to exit the shell after Zellij closes.
+- Zellij is available as an installed terminal multiplexer and starts only when invoked explicitly.
 - Ghostty themes are managed under `config/ghostty/themes/`.
 - Neovim uses AstroNvim v6 with its plugin lockfile in `config/nvim/lazy-lock.json`.
 - Hyprland uses Lua modules under `config/hypr/lua/`; `SUPER+TAB` opens Gloview, while `SUPER+SHIFT+TAB` and `SUPER+CTRL+TAB` show desktop and all-workspace views.

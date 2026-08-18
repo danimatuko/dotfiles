@@ -57,7 +57,7 @@ hl.window_rule({
 	match = { class = "^obsidian$" },
 	workspace = "1",
 })
-hl.window_rule({
+	hl.window_rule({
 	name = "terminal-workspace-2",
 	match = { class = "^com\\.mitchellh\\.ghostty$" },
 	workspace = "2",

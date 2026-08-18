@@ -6,7 +6,6 @@
 alias c='clear'
 alias rm='rm -i'
 alias nv='nvim'
-alias cd='z'
 alias oc='opencode'
 
 # Directories
@@ -14,7 +13,7 @@ alias dots='cd ~/dotfiles && nvim'
 alias hypr='cd ~/.config/hypr && nvim'
 
 # eza
-alias ls='eza --group-directories-first --icons'
+alias ls='eza --group-directories-first --icons=auto'
 alias ll='eza -l'
 alias la='eza -a'
 alias lla='eza -la'

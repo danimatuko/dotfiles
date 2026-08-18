@@ -9,13 +9,13 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
-    colorscheme = "dracula",
+    colorscheme = "kanagawa",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       init = { -- this table overrides highlights in all themes
         -- Normal = { bg = "#000000" },
       },
-      dracula = { -- a table of overrides/changes when applying the Dracula theme
+      kanagawa = { -- a table of overrides/changes when applying the Kanagawa theme
         -- Normal = { bg = "#000000" },
       },
     },
