@@ -1,5 +1,5 @@
 # The active theme is managed by bin/system-theme-set.
 config-file = /home/danimatuko/.config/ghostty/themes/current
-font-family = JetBrainsMono Nerd Font Mono
+font-family = BlexMono Nerd Font Mono
 theme = noctalia
 command = /usr/bin/fish

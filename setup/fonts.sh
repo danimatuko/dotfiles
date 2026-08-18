@@ -58,6 +58,20 @@ else
 	echo "[OK] JetBrainsMono Nerd Font already installed."
 fi
 
+# IBM Plex Mono Nerd Font
+if ! fc-list | grep -qi "BlexMono Nerd Font"; then
+	echo "[INFO] Installing IBM Plex Mono Nerd Font..."
+	cd /tmp
+	wget -O IBMPlexMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.0/IBMPlexMono.zip
+	unzip -o IBMPlexMono.zip -d IBMPlexMonoFont
+	cp IBMPlexMonoFont/*.ttf ~/.local/share/fonts/
+	rm -rf IBMPlexMono.zip IBMPlexMonoFont
+	fc-cache
+	cd -
+else
+	echo "[OK] IBM Plex Mono Nerd Font already installed."
+fi
+
 # GeistMono Nerd Font
 if ! fc-list | grep -qi "GeistMono Nerd Font"; then
 	echo "[INFO] Installing GeistMono Nerd Font..."
