@@ -15,7 +15,6 @@ hl.monitor({
 	mode = "2880x1800@120.0",
 	position = "4480x0",
 	scale = "1.5",
-	mirror = "DP-1",
 })
 
 hl.monitor({

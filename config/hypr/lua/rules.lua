@@ -45,11 +45,9 @@ hl.window_rule({
 })
 
 -- Keep a minimum set of workspaces always available
-hl.workspace_rule({ workspace = "1", persistent = true })
-hl.workspace_rule({ workspace = "2", persistent = true })
-hl.workspace_rule({ workspace = "3", persistent = true })
-hl.workspace_rule({ workspace = "4", persistent = true })
-hl.workspace_rule({ workspace = "5", persistent = true })
+for i = 1, 5 do
+	hl.workspace_rule({ workspace = tostring(i), monitor = "DP-1", persistent = true })
+end
 
 -- App-to-workspace rules
 hl.window_rule({
